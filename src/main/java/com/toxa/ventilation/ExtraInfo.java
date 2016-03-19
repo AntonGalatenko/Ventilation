@@ -5,23 +5,24 @@ import com.toxa.ventilation.gui.TaskPanel;
 import java.util.Arrays;
 import java.util.List;
 
-public class CageInfo {
+public class ExtraInfo {
 
-    private static CageInfo instance;/* = new CageInfo();*/
+    private static ExtraInfo instance;
 
+    private Count count;
     private TaskPanel taskPanel;
-    //    private String cageName = "ТБК";
-    private double airSummer;
-    private double airWinter;
+
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
 
-    private CageInfo() {
+
+
+    private ExtraInfo() {
 
     }
 
-    public static CageInfo getInstance(){
+    public static ExtraInfo getInstance(){
         if(instance == null)
-            instance = new CageInfo();
+            instance = new ExtraInfo();
         return instance;
     }
 
@@ -29,22 +30,8 @@ public class CageInfo {
         this.taskPanel = taskPanel;
     }
 
-//    public String getCageName() {
-//        return cageName;
-//    }
-//
-//    public void setCageName(String cageName) {
-//        this.cageName = cageName;
-//
-//        setInfo();
-//    }
-
-    public double getAirSummer() {
-        return airSummer;
-    }
-
-    public double getAirWinter() {
-        return airWinter;
+    public void setCount(Count count){
+        this.count = count;
     }
 
     public List<Integer> getCageTiers() {
@@ -75,16 +62,15 @@ public class CageInfo {
 
         taskPanel.updateCageTiersComboBox();
         taskPanel.updateAirSpinner();
-
     }
 
     private void setTBKInfo(){
         if(taskPanel.getVentilationType().equals("Тунель")){
-            airSummer = 12;
-            airWinter = 0;
+            taskPanel.setAirSummer(12);
+            taskPanel.setAirWinter(0);
         } else {
-            airSummer = 9;
-            airWinter = 3;
+            taskPanel.setAirSummer(9);
+            taskPanel.setAirWinter(3);
         }
         cageTiers = Arrays.asList(3, 4, 5, 6);
 
@@ -93,11 +79,11 @@ public class CageInfo {
 
     private void setTBCInfo(){
         if(taskPanel.getVentilationType().equals("Тунель")){
-            airSummer = 9;
-            airWinter = 0;
+            taskPanel.setAirSummer(9);
+            taskPanel.setAirWinter(0);
         } else {
-            airSummer = 6;
-            airWinter = 3;
+            taskPanel.setAirSummer(6);
+            taskPanel.setAirWinter(3);
         }
         cageTiers = Arrays.asList(3, 4, 5);
 
@@ -106,11 +92,11 @@ public class CageInfo {
 
     private void setTBBInfo() {
         if (taskPanel.getVentilationType().equals("Тунель")) {
-            airSummer = 12;
-            airWinter = 0;
+            taskPanel.setAirSummer(14);
+            taskPanel.setAirWinter(0);
         } else {
-            airSummer = 9;
-            airWinter = 3;
+            taskPanel.setAirSummer(11);
+            taskPanel.setAirWinter(3);
         }
         cageTiers = Arrays.asList(3, 4, 5);
 
@@ -119,11 +105,11 @@ public class CageInfo {
 
     private void setTBRInfo() {
         if (taskPanel.getVentilationType().equals("Тунель")) {
-            airSummer = 12;
-            airWinter = 0;
+            taskPanel.setAirSummer(12);
+            taskPanel.setAirWinter(0);
         } else {
-            airSummer = 9;
-            airWinter = 3;
+            taskPanel.setAirSummer(9);
+            taskPanel.setAirWinter(3);
         }
         cageTiers = Arrays.asList(3, 4);
 
@@ -131,8 +117,8 @@ public class CageInfo {
     }
 
     private void setNapolnikInfo() {
-        airSummer = 12;
-        airWinter = 0;
+        taskPanel.setAirSummer(12);
+        taskPanel.setAirWinter(0);
 
         taskPanel.setDisablesCageTiredAndCageNumberComboBox();
 

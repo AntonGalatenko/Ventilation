@@ -1,6 +1,7 @@
 package com.toxa.ventilation.gui;
 
-import com.toxa.ventilation.CageInfo;
+import com.toxa.ventilation.Count;
+import com.toxa.ventilation.ExtraInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,8 @@ import java.awt.event.ItemListener;
 
 public class TaskPanel extends JPanel{
 
-    private CageInfo cageInfo = CageInfo.getInstance();
+    private ExtraInfo extraInfo = ExtraInfo.getInstance();
+    private Count count;
 
     private JPanel mainPanel;
     private JTextField lengthTextField;
@@ -55,17 +57,16 @@ public class TaskPanel extends JPanel{
     private JButton countButton;
 
     public TaskPanel(){
-        add(mainPanel);
-        cageInfo.setTaskPanel(this);
 
+        add(mainPanel);
+
+        extraInfo.setTaskPanel(this);
 
         cageNameComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == 1)
-                    cageInfo.setInfo();
-
-
+                    extraInfo.setInfo();
 
             }
         });
@@ -75,12 +76,10 @@ public class TaskPanel extends JPanel{
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == 1)
-                    cageInfo.setInfo();
-
+                    extraInfo.setInfo();
 
             }
         });
-
 
         countButton.addActionListener(new ActionListener() {
             @Override
@@ -93,13 +92,15 @@ public class TaskPanel extends JPanel{
                 System.out.println(getBuildingHeightMin());
                 System.out.println(getBuildingHeightMax());
                 System.out.println(getCageName());
-                System.out.println(getCageTiersComboBox1());
-                System.out.println(getCageNumberComboBox1());
-                System.out.println(getCageTiersComboBox2());
-                System.out.println(getCageNumberComboBox2());
+                System.out.println(getCageTiers1());
+                System.out.println(getCageNumber1());
+                System.out.println(getCageTiers2());
+                System.out.println(getCageNumber2());
                 System.out.println(getVentilationType());
-                System.out.println(getAirSummerSpinner());
-                System.out.println(getAirWinterSpinner());
+                System.out.println(getAirSummer());
+                System.out.println(getAirWinter());
+
+                count = new Count();
             }
         });
 
@@ -107,6 +108,7 @@ public class TaskPanel extends JPanel{
     }
 
     public void setDefaultValues() {
+        count.setTaskPanel(this);
         airSummerSpinner.setModel(new SpinnerNumberModel(new Double(12), new Double(0), null, new Double(0.5)));
         airWinterSpinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(0.5)));
         cageNumberComboBox1.setSelectedIndex(1);
@@ -147,20 +149,19 @@ public class TaskPanel extends JPanel{
         return cageNameComboBox.getSelectedItem().toString();
     }
 
-    public int getCageTiersComboBox1() {
+    public int getCageTiers1() {
         return Integer.parseInt(cageTiersComboBox1.getSelectedItem().toString());
     }
 
-    public int getCageNumberComboBox1() {
+    public int getCageNumber1() {
         return Integer.parseInt(cageNumberComboBox1.getSelectedItem().toString());
     }
 
-    public int getCageTiersComboBox2() {
+    public int getCageTiers2() {
         return Integer.parseInt(cageTiersComboBox2.getSelectedItem().toString());
     }
 
-    public int getCageNumberComboBox2() {
-//        return Integer.parseInt(cageNumberComboBox2.getSelectedItem().toString());
+    public int getCageNumber2() {
         return Integer.parseInt(cageNumberComboBox2.getSelectedItem().toString());
     }
 
@@ -168,17 +169,25 @@ public class TaskPanel extends JPanel{
         return ventilationTypeComboBox.getSelectedItem().toString();
     }
 
-    public double getAirWinterSpinner() {
+    public double getAirWinter() {
         return (double) airWinterSpinner.getValue();
     }
 
-    public double getAirSummerSpinner() {
+    public double getAirSummer() {
         return (double) airSummerSpinner.getValue();
+    }
+
+    public void setAirSummer(double value) {
+        airSummerSpinner.setValue(value);
+    }
+
+    public void setAirWinter(double value) {
+        airWinterSpinner.setValue(value);
     }
 
     private DefaultComboBoxModel getCageTiersForComboBoxModel(){
         DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
-        for(Integer i : cageInfo.getCageTiers())
+        for(Integer i : extraInfo.getCageTiers())
             defaultComboBoxModel.addElement(i);
 
         return defaultComboBoxModel;
@@ -190,8 +199,8 @@ public class TaskPanel extends JPanel{
     }
 
     public void updateAirSpinner() {
-        airSummerSpinner.setValue(cageInfo.getAirSummer());
-        airWinterSpinner.setValue(cageInfo.getAirWinter());
+        airSummerSpinner.setValue(getAirSummer());
+        airWinterSpinner.setValue(getAirWinter());
     }
 
     public void setEnableCageTiredAndCageNumberComboBox() {
