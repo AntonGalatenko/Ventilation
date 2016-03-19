@@ -14,87 +14,127 @@ public class TaskPanel extends JPanel{
     private JTextField lengthTextField;
     private JLabel lengthLabel;
     private JPanel BuildingParametersPanel;
-    private JTextField CompanyNameTextField;
-    private JLabel CompanyNameLabel;
-    private JLabel CountryLabel;
-    private JTextField CountryTextField;
+    private JTextField companyNameTextField;
+    private JLabel companyNameLabel;
+    private JLabel countryLabel;
+    private JTextField countryTextField;
     private JPanel GeneralInfoPanel;
-    private JLabel WidthLabel;
-    private JTextField WidthTextField;
-    private JTextField HeightMinTextField;
-    private JLabel HeightMinLabel;
-    private JTextField HeightMaxTextField;
-    private JLabel HeightMaxLabel;
-    private JLabel HeadsNumberLabel;
-    private JTextField HeadsNumberTextField;
+    private JLabel widthLabel;
+    private JTextField widthTextField;
+    private JTextField heightMinTextField;
+    private JLabel heightMinLabel;
+    private JTextField heightMaxTextField;
+    private JLabel heightMaxLabel;
+    private JLabel headsNumberLabel;
+    private JTextField headsNumberTextField;
     private JPanel CageInfoPanel;
-    private JLabel CageNameLabel;
-    private JComboBox CageNameComboBox;
-    private JComboBox CageTiersComboBox1;
-    private JComboBox CageNumberComboBox1;
-    private JLabel CageTiersLabel1;
-    private JLabel CageNumberLabel1;
-    private JLabel CageTiersLabel2;
-    private JComboBox CageTiersComboBox2;
-    private JLabel CageNumberLabel2;
-    private JComboBox CageNumberComboBox2;
-    private JLabel VentilationTypeLabel;
-    private JComboBox VentilationTypeComboBox;
+    private JLabel cageNameLabel;
+    private JComboBox cageNameComboBox;
+    private JComboBox cageTiersComboBox1;
+    private JComboBox cageNumberComboBox1;
+    private JLabel cageTiersLabel1;
+    private JLabel cageNumberLabel1;
+    private JLabel cageTiersLabel2;
+    private JComboBox cageTiersComboBox2;
+    private JLabel cageNumberLabel2;
+    private JComboBox cageNumberComboBox2;
+    private JLabel ventilationTypeLabel;
+    private JComboBox ventilationTypeComboBox;
     private JPanel ClimatInfoPanel;
-    private JLabel AirQuantityLabel;
-    private JLabel AirSummerLabel;
-    private JSpinner AirSummerSpinner;
-    private JLabel AirWinterLabel;
-    private JSpinner AirWinterSpinner;
+    private JLabel airQuantityLabel;
+    private JLabel airSummerLabel;
+    private JSpinner airSummerSpinner;
+    private JLabel airWinterLabel;
+    private JSpinner airWinterSpinner;
 
     public TaskPanel(){
         add(mainPanel);
+        cageInfo.setTaskPanel(this);
 
-        CageNumberComboBox1.setSelectedIndex(1);
 
-        CageNameComboBox.setSelectedIndex(0);
-        CageNameComboBox.addItemListener(new ItemListener() {
+        cageNameComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == 1)
-                    cageInfo.setCageName(e.getItem().toString());
+                    cageInfo.setInfo();
+
+
+
             }
         });
 
-        VentilationTypeComboBox.setSelectedIndex(0);
-        VentilationTypeComboBox.addItemListener(new ItemListener() {
+        ventilationTypeComboBox.setSelectedIndex(0);
+        ventilationTypeComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                System.out.println("click");
-                updateCageTiers();
+                if (e.getStateChange() == 1)
+                    cageInfo.setInfo();
+
+
             }
         });
 
-        updateCageTiers();
+        setDefaultValues();
 
+    }
+
+    public void setDefaultValues() {
+        cageNumberComboBox1.setSelectedIndex(1);
+//        cageNameComboBox.setSelectedIndex(0);
+        airSummerSpinner.setValue(12);
+        airWinterSpinner.setValue(0);
+
+        updateCageTiersComboBox();
     }
 
     public String getCageName(){
-        return CageNameComboBox.getSelectedItem().toString();
+        return cageNameComboBox.getSelectedItem().toString();
     }
 
     public String getVentilationType(){
-        return VentilationTypeComboBox.getSelectedItem().toString();
+        return ventilationTypeComboBox.getSelectedItem().toString();
     }
 
     private DefaultComboBoxModel getCageTiersForComboBoxModel(){
         DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
-        System.out.println(cageInfo.getCageTiers());
         for(Integer i : cageInfo.getCageTiers())
             defaultComboBoxModel.addElement(i);
 
         return defaultComboBoxModel;
     }
 
-    public void updateCageTiers(){
-        CageTiersComboBox1.setModel(getCageTiersForComboBoxModel());
-        CageTiersComboBox2.setModel(getCageTiersForComboBoxModel());
+    public void updateCageTiersComboBox() {
+        cageTiersComboBox1.setModel(getCageTiersForComboBoxModel());
+        cageTiersComboBox2.setModel(getCageTiersForComboBoxModel());
     }
 
+    public void updateAirSpinner() {
+        airSummerSpinner.setValue(cageInfo.getAirSummer());
+        airWinterSpinner.setValue(cageInfo.getAirWinter());
+    }
+
+    public void setEnableCageTiredAndCageNumberComboBox() {
+        cageTiersLabel1.setEnabled(true);
+        cageTiersLabel2.setEnabled(true);
+        cageNumberLabel1.setEnabled(true);
+        cageNumberLabel2.setEnabled(true);
+
+        cageTiersComboBox1.setEnabled(true);
+        cageTiersComboBox2.setEnabled(true);
+        cageNumberComboBox1.setEnabled(true);
+        cageNumberComboBox2.setEnabled(true);
+    }
+
+    public void setDisablesCageTiredAndCageNumberComboBox() {
+        cageTiersLabel1.setEnabled(false);
+        cageTiersLabel2.setEnabled(false);
+        cageNumberLabel1.setEnabled(false);
+        cageNumberLabel2.setEnabled(false);
+
+        cageTiersComboBox1.setEnabled(false);
+        cageTiersComboBox2.setEnabled(false);
+        cageNumberComboBox1.setEnabled(false);
+        cageNumberComboBox2.setEnabled(false);
+    }
 
 }

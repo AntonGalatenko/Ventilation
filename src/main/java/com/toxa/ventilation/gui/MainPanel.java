@@ -4,16 +4,17 @@ import javax.swing.*;
 
 public class MainPanel extends JFrame{
 
-    TaskPanel vp;
+    private TaskPanel taskPanel;
 
     public MainPanel(){
 
-        vp = new TaskPanel();
+        taskPanel = new TaskPanel();
 
-        setContentPane(vp);
+        setContentPane(taskPanel);
 
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
+
 }
