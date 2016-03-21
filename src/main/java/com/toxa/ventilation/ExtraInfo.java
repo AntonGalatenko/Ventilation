@@ -7,31 +7,13 @@ import java.util.List;
 
 public class ExtraInfo {
 
-    private static ExtraInfo instance;
-
-    private Count count;
-    private TaskPanel taskPanel;
+    private TaskPanel taskPanel;/* = TaskPanel.getInstance();*/
 
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
+    public static final int FAN_50_CAPACITY = 40000;
 
-
-
-    private ExtraInfo() {
-
-    }
-
-    public static ExtraInfo getInstance(){
-        if(instance == null)
-            instance = new ExtraInfo();
-        return instance;
-    }
-
-    public void setTaskPanel(TaskPanel taskPanel) {
+    public ExtraInfo(TaskPanel taskPanel) {
         this.taskPanel = taskPanel;
-    }
-
-    public void setCount(Count count){
-        this.count = count;
     }
 
     public List<Integer> getCageTiers() {

@@ -12,7 +12,8 @@ import java.awt.event.ItemListener;
 
 public class TaskPanel extends JPanel{
 
-    private ExtraInfo extraInfo = ExtraInfo.getInstance();
+//    private static TaskPanel instance;
+    private ExtraInfo extraInfo;
     private Count count;
 
     private JPanel mainPanel;
@@ -60,7 +61,7 @@ public class TaskPanel extends JPanel{
 
         add(mainPanel);
 
-        extraInfo.setTaskPanel(this);
+        extraInfo = new ExtraInfo(this);
 
         cageNameComboBox.addItemListener(new ItemListener() {
             @Override
@@ -100,15 +101,20 @@ public class TaskPanel extends JPanel{
                 System.out.println(getAirSummer());
                 System.out.println(getAirWinter());
 
-                count = new Count();
+                createCountClass();
             }
         });
 
         setDefaultValues();
     }
 
+//    public static TaskPanel getInstance(){
+//        if(instance == null)
+//            instance = new TaskPanel();
+//        return instance;
+//    }
+
     public void setDefaultValues() {
-        count.setTaskPanel(this);
         airSummerSpinner.setModel(new SpinnerNumberModel(new Double(12), new Double(0), null, new Double(0.5)));
         airWinterSpinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(0.5)));
         cageNumberComboBox1.setSelectedIndex(1);
@@ -117,31 +123,62 @@ public class TaskPanel extends JPanel{
         updateCageTiersComboBox();
     }
 
+    public void createCountClass(){
+        count = new Count(this, extraInfo);
+
+//        count.setTaskPanel(this);
+//        count.setExtraInfo(extraInfo);
+
+    }
+
+    public void setCountInResultsPanel(ResultsPanel resultsPanel){
+        resultsPanel.setCount(count);
+        count.setResultsPanel(resultsPanel);
+    }
+
+    public Count getCount() {
+        return count;
+    }
+
     public String getCompanyName() {
+        if(companyNameTextField.getText().length() == 0)
+            companyNameTextField.setText("Название фабрики");
         return companyNameTextField.getText();
     }
 
     public String getCountry(){
+        if(countryTextField.getText().length() == 0)
+            countryTextField.setText("Страна");
         return countryTextField.getText();
     }
 
     public int getHeadsNumber() {
+        if(headsNumberTextField.getText().length() == 0)
+            headsNumberTextField.setText("96360");
         return Integer.parseInt(headsNumberTextField.getText());
     }
 
     public int getBuildingLength() {
+        if(lengthTextField.getText().length() == 0)
+            lengthTextField.setText("96");
         return Integer.parseInt(lengthTextField.getText());
     }
 
     public int getBuildingWidth() {
+        if(widthTextField.getText().length() == 0)
+            widthTextField.setText("18");
         return Integer.parseInt(widthTextField.getText());
     }
 
     public int getBuildingHeightMin() {
+        if(heightMinTextField.getText().length() == 0)
+            heightMinTextField.setText("4");
         return Integer.parseInt(heightMinTextField.getText());
     }
 
     public int getBuildingHeightMax() {
+        if(heightMaxTextField.getText().length() == 0)
+            heightMaxTextField.setText("5");
         return Integer.parseInt(heightMaxTextField.getText());
     }
 
