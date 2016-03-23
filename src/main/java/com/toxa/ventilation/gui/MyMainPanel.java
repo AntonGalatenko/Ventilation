@@ -1,3 +1,4 @@
+/*
 package com.toxa.ventilation.gui;
 
 import javax.swing.*;
@@ -6,10 +7,13 @@ public class MyMainPanel extends JFrame{
 
     private JPanel mainPanel;
     private TaskPanel taskPanel;
+    private CardLayoutPanel cardLayoutPanel1;
+//    private CardLayoutPanel resultCardLayoutPane;
     private ResultsPanel resultPanel;
 
     public MyMainPanel(){
 
+        cardLayoutPanel1 = new CardLayoutPanel();
         taskPanel = new TaskPanel();
         resultPanel = new ResultsPanel();
 
@@ -17,7 +21,6 @@ public class MyMainPanel extends JFrame{
         resultPanel.setMyMainPanel(this);
 
 //        setCountInResultsPanel();
-
         add(mainPanel);
 
         pack();
@@ -30,7 +33,7 @@ public class MyMainPanel extends JFrame{
 //        taskPanel.setCountInResultsPanel(resultPanel);
 //    }
 
-    public void update(){
+    public void update(ResultsPanel resultsPanel){
 //        resultPanel.revalidate();
 //        resultPanel.repaint();
 //        repaint();
@@ -59,6 +62,14 @@ public class MyMainPanel extends JFrame{
 
 //        mainPanel.revalidate();
 //        mainPanel.repaint();
+
+//        cardLayoutPanel1.addPanel(resultsPanel);
+        cardLayoutPanel1.addTest();
+//        revalidate();
+        cardLayoutPanel1.revalidate();
+        cardLayoutPanel1.repaint();
+        mainPanel.revalidate();
+        mainPanel.repaint();
         revalidate();
         repaint();
 
@@ -68,3 +79,4 @@ public class MyMainPanel extends JFrame{
 
 
 }
+*/

@@ -8,7 +8,7 @@ import javax.swing.event.ChangeListener;
 
 public class ResultsPanel extends JPanel{
     private Count count;
-    private MyMainPanel myMainPanel;
+    private MyMainPanel2 myMainPanel;
 
     private JPanel mainPanel;
     private JPanel bigFanPanel;
@@ -33,7 +33,7 @@ public class ResultsPanel extends JPanel{
         });
     }
 
-    public void setMyMainPanel(MyMainPanel myMainPanel) {
+    public void setMyMainPanel(MyMainPanel2 myMainPanel) {
         this.myMainPanel = myMainPanel;
     }
 
@@ -49,12 +49,12 @@ public class ResultsPanel extends JPanel{
 //        mainPanel.revalidate();
 //        mainPanel.repaint();
 
-        remove(mainPanel);
+//        remove(mainPanel);
 //        add(mainPanel);
-        revalidate();
-        repaint();
+//        revalidate();
+//        repaint();
 
-//        myMainPanel.update();
+        myMainPanel.update(this);
     }
 
     public int getFan50spinner() {

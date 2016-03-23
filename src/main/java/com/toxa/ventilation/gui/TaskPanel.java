@@ -110,7 +110,6 @@ public class TaskPanel extends JPanel{
                 System.out.println(getAirWinter());
 
 
-                airWinterSpinner.setValue(22);
 //                count = new Count(baseInfo);
                 count.startCount();
 //                createCountClass();
@@ -134,8 +133,9 @@ public class TaskPanel extends JPanel{
     }
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
-        System.out.println("123 " + resultsPanel);
         this.resultsPanel = resultsPanel;
+        System.out.println("123 " + resultsPanel + " @@@@ " + this.resultsPanel);
+
     }
 
     public void setDefaultValues() {
