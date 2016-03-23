@@ -1,7 +1,7 @@
 package com.toxa.ventilation.gui;
 
+import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
-import com.toxa.ventilation.ExtraInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +13,10 @@ import java.awt.event.ItemListener;
 public class TaskPanel extends JPanel{
 
 //    private static TaskPanel instance;
-    private ExtraInfo extraInfo;
+    private BaseInfo baseInfo;
     private Count count;
+
+    private ResultsPanel resultsPanel;
 
     private JPanel mainPanel;
     private JTextField lengthTextField;
@@ -61,13 +63,19 @@ public class TaskPanel extends JPanel{
 
         add(mainPanel);
 
-        extraInfo = new ExtraInfo(this);
+        baseInfo = new BaseInfo(this);
+        count = Count.getInstance();
+        count.setBaseInfo(baseInfo);
+
 
         cageNameComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if(e.getStateChange() == 1)
-                    extraInfo.setInfo();
+                if(e.getStateChange() == 1){
+                    baseInfo.setInfo();
+
+                    setSet();
+                }
 
             }
         });
@@ -77,7 +85,7 @@ public class TaskPanel extends JPanel{
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == 1)
-                    extraInfo.setInfo();
+                    baseInfo.setInfo();
 
             }
         });
@@ -101,7 +109,11 @@ public class TaskPanel extends JPanel{
                 System.out.println(getAirSummer());
                 System.out.println(getAirWinter());
 
-                createCountClass();
+
+                airWinterSpinner.setValue(22);
+//                count = new Count(baseInfo);
+                count.startCount();
+//                createCountClass();
             }
         });
 
@@ -114,6 +126,18 @@ public class TaskPanel extends JPanel{
 //        return instance;
 //    }
 
+    public void setSet(){
+        System.out.println("resultsPanel.fan50Spinner " + resultsPanel);
+
+        resultsPanel.fan50Spinner.setValue(33);
+
+    }
+
+    public void setResultsPanel(ResultsPanel resultsPanel) {
+        System.out.println("123 " + resultsPanel);
+        this.resultsPanel = resultsPanel;
+    }
+
     public void setDefaultValues() {
         airSummerSpinner.setModel(new SpinnerNumberModel(new Double(12), new Double(0), null, new Double(0.5)));
         airWinterSpinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(0.5)));
@@ -123,22 +147,20 @@ public class TaskPanel extends JPanel{
         updateCageTiersComboBox();
     }
 
-    public void createCountClass(){
-        count = new Count(this, extraInfo);
-
+//    public void createCountClass(){
+//        count = new Count(this, baseInfo);
 //        count.setTaskPanel(this);
-//        count.setExtraInfo(extraInfo);
+//        count.setExtraInfo(baseInfo);
+//    }
 
-    }
+//    public void setCountInResultsPanel(ResultsPanel resultsPanel){
+//        resultsPanel.setCount(count);
+//        count.setResultsPanel(resultsPanel);
+//    }
 
-    public void setCountInResultsPanel(ResultsPanel resultsPanel){
-        resultsPanel.setCount(count);
-        count.setResultsPanel(resultsPanel);
-    }
-
-    public Count getCount() {
-        return count;
-    }
+//    public Count getCount() {
+//        return count;
+//    }
 
     public String getCompanyName() {
         if(companyNameTextField.getText().length() == 0)
@@ -224,7 +246,7 @@ public class TaskPanel extends JPanel{
 
     private DefaultComboBoxModel getCageTiersForComboBoxModel(){
         DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
-        for(Integer i : extraInfo.getCageTiers())
+        for(Integer i : baseInfo.getCageTiers())
             defaultComboBoxModel.addElement(i);
 
         return defaultComboBoxModel;
