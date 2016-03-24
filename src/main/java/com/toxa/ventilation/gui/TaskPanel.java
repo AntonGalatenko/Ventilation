@@ -12,7 +12,6 @@ import java.awt.event.ItemListener;
 
 public class TaskPanel extends JPanel{
 
-//    private static TaskPanel instance;
     private BaseInfo baseInfo;
     private Count count;
 
@@ -73,8 +72,6 @@ public class TaskPanel extends JPanel{
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == 1){
                     baseInfo.setInfo();
-
-                    setSet();
                 }
 
             }
@@ -86,7 +83,6 @@ public class TaskPanel extends JPanel{
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == 1)
                     baseInfo.setInfo();
-
             }
         });
 
@@ -110,57 +106,24 @@ public class TaskPanel extends JPanel{
                 System.out.println(getAirWinter());
 
 
-//                count = new Count(baseInfo);
                 count.startCount();
-//                createCountClass();
             }
         });
 
         setDefaultValues();
     }
 
-//    public static TaskPanel getInstance(){
-//        if(instance == null)
-//            instance = new TaskPanel();
-//        return instance;
-//    }
-
-    public void setSet(){
-        System.out.println("resultsPanel.fan50Spinner " + resultsPanel);
-
-        resultsPanel.fan50Spinner.setValue(33);
-
-    }
-
     public void setResultsPanel(ResultsPanel resultsPanel) {
         this.resultsPanel = resultsPanel;
-        System.out.println("123 " + resultsPanel + " @@@@ " + this.resultsPanel);
-
     }
 
     public void setDefaultValues() {
         airSummerSpinner.setModel(new SpinnerNumberModel(new Double(12), new Double(0), null, new Double(0.5)));
         airWinterSpinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(0.5)));
         cageNumberComboBox1.setSelectedIndex(1);
-//        cageNameComboBox.setSelectedIndex(0);
 
         updateCageTiersComboBox();
     }
-
-//    public void createCountClass(){
-//        count = new Count(this, baseInfo);
-//        count.setTaskPanel(this);
-//        count.setExtraInfo(baseInfo);
-//    }
-
-//    public void setCountInResultsPanel(ResultsPanel resultsPanel){
-//        resultsPanel.setCount(count);
-//        count.setResultsPanel(resultsPanel);
-//    }
-
-//    public Count getCount() {
-//        return count;
-//    }
 
     public String getCompanyName() {
         if(companyNameTextField.getText().length() == 0)

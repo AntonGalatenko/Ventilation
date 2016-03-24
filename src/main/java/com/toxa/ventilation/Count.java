@@ -5,21 +5,14 @@ import com.toxa.ventilation.gui.ResultsPanel;
 public class Count {
 
     private static Count instance;
-
-//    private TaskPanel taskPanel;
     private BaseInfo baseInfo;
     private ResultsPanel resultsPanel;
 
-    private int fan50Count;
-
-    private Count(/*TaskPanel taskPanel,*/ /*BaseInfo baseInfo*/){
-//        this.taskPanel = taskPanel;
-//        this.baseInfo = baseInfo;
-
-//        resultsPanel = new ResultsPanel(this);
-//        resultsPanel.setCount(this);
+    private int fan50;
+    private int fan36;
 
 
+    private Count(){
     }
 
     public static Count getInstance() {
@@ -28,12 +21,13 @@ public class Count {
         return instance;
     }
 
-//        public void setTaskPanel(TaskPanel taskPanel) {
-//        this.taskPanel = taskPanel;
-//    }
+    public void countFinish(){
+        resultsPanel.updateResults();
+
+    }
 
     public void startCount(){
-        countFan50Count();
+        countFan50();
     }
 
     public void setBaseInfo(BaseInfo baseInfo) {
@@ -44,21 +38,14 @@ public class Count {
         this.resultsPanel = resultsPanel;
     }
 
-    public int countFan50Count(){
-        fan50Count = (int) (Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirSummer() / baseInfo.FAN_50_CAPACITY));
-
-        resultsPanel.updateResults();
-
-        System.out.println(fan50Count);
-
-        return fan50Count;
+    public int countFan50(){
+        fan50 = (int) (Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirSummer() / baseInfo.FAN_50_CAPACITY));
+        return fan50;
     }
-    /*
-    public void finishCount(){
-        ResultsPanel resultsPanel = new
-    }*/
+
+
 
     public int getFan50Count() {
-        return fan50Count;
+        return fan50;
     }
 }

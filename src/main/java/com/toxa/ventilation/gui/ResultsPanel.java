@@ -11,15 +11,61 @@ public class ResultsPanel extends JPanel{
     private MyMainPanel2 myMainPanel;
 
     private JPanel mainPanel;
-    private JPanel bigFanPanel;
+    private JPanel fan50Panel;
     private JRadioButton fan50RadioButton;
     public JSpinner fan50Spinner;
     private JRadioButton fan36RadioButton;
     private JSpinner fan36spinner;
+    private JPanel fan36Panel;
+    private JPanel fan26Panel;
+    private JRadioButton fan26RadioButton;
+    private JSpinner fan26Spinner;
+    private JPanel fanRoofPanel;
+    private JComboBox fan50ComboBox;
+    private JComboBox fan36ComboBox;
+    private JComboBox fan26ComboBox;
+    private JRadioButton fanFoorRadioButton;
+    private JSpinner fanRoofSpinner;
+    private JComboBox fanRoofComboBox;
+    private JRadioButton airInletSmallRadioButton;
+    private JPanel airInletSmallPanell;
+    private JSpinner airInletSmallSpinner;
+    private JComboBox airInletSmallComboBox;
+    private JPanel airInletBigPanel;
+    private JRadioButton airInletBigRadioButton;
+    private JSpinner airInletBigSpinner;
+    private JComboBox airInletBigComboBox;
+    private JPanel shutterPanel;
+    private JRadioButton shutterRadioButton;
+    private JSpinner shutterSpinner;
+    private JComboBox shutterComboBox;
+    private JPanel humidityPanel;
+    private JRadioButton humidityRadioButton;
+    private JSpinner humidityLengthSpiner1;
+    private JCheckBox fan50CheckBox;
+    private JPanel heaterPanel;
+    private JRadioButton heaterRadioButton;
+    private JSpinner heaterSpinner;
+    private JComboBox heaterComboBox;
+    private JPanel fanCirculationPanel;
+    private JRadioButton fanCirculationRadioButton;
+    private JSpinner fanCirculationSpiner;
+    private JComboBox fanCirculationComboBox;
+    private JPanel automaticPanel;
+    private JRadioButton automaticRadioButton;
+    private JSpinner automaticSpinner;
+    private JComboBox automaticComboBox;
+    private JSpinner humidityCountSpiner2;
+    private JSpinner humidityCountSpiner1;
+    private JSpinner humidityHeightSpiner;
+    private JCheckBox humidityCheckBox;
+    private JSpinner humidityLengthSpiner2;
+    private JComboBox servomotorComboBox;
+    private JSpinner servomotorSpinner;
+    private JSpinner emergencySpinner;
+    private JComboBox emergencyComboBox;
 
-    public ResultsPanel(/*Count count*/){
-//        this.count = count;
-//        this.myMainPanel = myMainPanel;
+    public ResultsPanel(){
         count = Count.getInstance();
         count.setResultsPanel(this);
 
@@ -28,7 +74,6 @@ public class ResultsPanel extends JPanel{
         fan50Spinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                System.out.println("fan50Spinner " + fan50Spinner.getValue());
             }
         });
     }
@@ -37,23 +82,8 @@ public class ResultsPanel extends JPanel{
         this.myMainPanel = myMainPanel;
     }
 
-    //    public void setCount(Count count) {
-//        this.count = count;
-//        System.out.println(count + " " + this.count);
-//        this.count.setResultsPanel(this);
-//    }
-
     public void updateResults(){
-        fan50Spinner.setValue(/*new Integer(count.getFan50Count())*/12);
-        System.out.println("!! " + fan50Spinner.getValue());
-//        mainPanel.revalidate();
-//        mainPanel.repaint();
-
-//        remove(mainPanel);
-//        add(mainPanel);
-//        revalidate();
-//        repaint();
-
+        fan50Spinner.setValue(new Integer(count.getFan50Count()));
         myMainPanel.update(this);
     }
 
