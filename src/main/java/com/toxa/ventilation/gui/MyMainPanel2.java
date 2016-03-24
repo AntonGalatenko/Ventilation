@@ -1,24 +1,28 @@
 package com.toxa.ventilation.gui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MyMainPanel2 extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private JPanel mainPanel;
+    private MyToolBar toolBar;
 
     public MyMainPanel2(){
 
+        toolBar = new MyToolBar();
         taskPanel = new TaskPanel();
         resultPanel = new ResultsPanel();
 
         taskPanel.setResultsPanel(resultPanel);
         resultPanel.setMyMainPanel(this);
 
-        mainPanel = new JPanel();
+        mainPanel = new JPanel(new BorderLayout());
 
-        mainPanel.add(taskPanel);
-        mainPanel.add(resultPanel);
+        mainPanel.add(toolBar, BorderLayout.NORTH);
+        mainPanel.add(taskPanel, BorderLayout.WEST);
+        mainPanel.add(resultPanel, BorderLayout.EAST);
 
         add(mainPanel);
 

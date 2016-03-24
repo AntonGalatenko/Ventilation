@@ -11,6 +11,11 @@ public class BaseInfo {
 
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
     public static final int FAN_50_CAPACITY = 40000;
+    public static final int FAN_36_CAPACITY = 20000;
+    public static final int FAN_26_CAPACITY = 10000;
+    public static final int FAN_Roof820_CAPACITY = 21000;
+    public static final int FAN_Roof630_CAPACITY = 10500;
+
 
     public BaseInfo(TaskPanel taskPanel) {
         this.taskPanel = taskPanel;

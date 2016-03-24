@@ -83,7 +83,7 @@ public class ResultsPanel extends JPanel{
     }
 
     public void updateResults(){
-        fan50Spinner.setValue(new Integer(count.getFan50Count()));
+//        fan50Spinner.setValue(new Integer(count.getFan50Count()));
         myMainPanel.update(this);
     }
 
