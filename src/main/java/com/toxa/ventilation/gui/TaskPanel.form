@@ -26,11 +26,6 @@
               <text value="Название фабрики"/>
             </properties>
           </component>
-          <hspacer id="c84d">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </hspacer>
           <component id="e6c65" class="javax.swing.JTextField" binding="companyNameTextField">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -66,10 +61,29 @@
           <component id="ada13" class="javax.swing.JTextField" binding="headsNumberTextField">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
+                <preferred-size width="250" height="-1"/>
               </grid>
             </constraints>
             <properties/>
+          </component>
+          <component id="ac9f3" class="javax.swing.JLabel" binding="poultryHouseNamberLabel">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Номер птичника"/>
+            </properties>
+          </component>
+          <component id="5778a" class="javax.swing.JTextField" binding="poultryHouseNamberTextField">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="100" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <focusable value="false"/>
+              <requestFocusEnabled value="false"/>
+            </properties>
           </component>
         </children>
       </grid>

@@ -8,7 +8,7 @@
     <properties>
       <enabled value="true"/>
       <inheritsPopupMenu value="false"/>
-      <opaque value="true"/>
+      <opaque value="false"/>
       <requestFocusEnabled value="true"/>
     </properties>
     <border type="empty"/>

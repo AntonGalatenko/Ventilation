@@ -5,6 +5,8 @@ import com.toxa.ventilation.Count;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ResultsPanel extends JPanel{
     private Count count;
@@ -15,7 +17,7 @@ public class ResultsPanel extends JPanel{
     private JRadioButton fan50RadioButton;
     private JSpinner fan50Spinner;
     private JComboBox fan50ComboBox;
-    private JCheckBox fan50CheckBox;
+    private JCheckBox fan50TwoSideCheckBox;
     private JRadioButton fan36RadioButton;
     private JSpinner fan36Spinner;
     private JPanel fan36Panel;
@@ -28,14 +30,14 @@ public class ResultsPanel extends JPanel{
     private JRadioButton fanRoofRadioButton;
     private JSpinner fanRoofSpinner;
     private JComboBox fanRoofComboBox;
-    private JRadioButton airInletSmallRadioButton;
-    private JPanel airInletSmallPanel;
-    private JSpinner airInletSmallSpinner;
-    private JComboBox airInletSmallComboBox;
-    private JPanel airInletBigPanel;
-    private JRadioButton airInletBigRadioButton;
-    private JSpinner airInletBigSpinner;
-    private JComboBox airInletBigComboBox;
+    private JRadioButton airInletOnWallRadioButton;
+    private JPanel airInletOnWallPanel;
+    private JSpinner airInletOnWallSpinner;
+    private JComboBox airInletOnWallComboBox;
+    private JPanel airInletForHumidityPanel;
+    private JRadioButton airInletForHumidityRadioButton;
+    private JSpinner airInletForHumiditySpinner;
+    private JComboBox airInletForHumidityComboBox;
     private JPanel shutterPanel;
     private JRadioButton shutterRadioButton;
     private JSpinner shutterSpinner;
@@ -64,6 +66,19 @@ public class ResultsPanel extends JPanel{
     private JSpinner servomotorSpinner;
     private JSpinner emergencySpinner;
     private JComboBox emergencyComboBox;
+    private JCheckBox fan50LightTrapCheckBox;
+    private JCheckBox fan36LightTrapCheckBox;
+    private JCheckBox fan26LightTrapCheckBox;
+    private JCheckBox airInletOnWallLightTrapCheckBox;
+    private JCheckBox shutterLightTrapCheckBox;
+    private JRadioButton airInletRoofRadioButton;
+    private JSpinner airInletRoofSpinner;
+    private JComboBox airInletRoofComboBox;
+    private JButton automaticExtraPanelButton;
+    private JPanel automaticExtraPanel;
+    private JPanel airInletRoofPanel;
+    private JLabel automaticSensorTemperatureLabel;
+    private JSpinner automaticSensorTemperatureSpinner;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -74,6 +89,17 @@ public class ResultsPanel extends JPanel{
         fan50Spinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+            }
+        });
+
+
+        automaticExtraPanelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(automaticExtraPanel.isVisible())
+                    automaticExtraPanel.setVisible(false);
+                else
+                    automaticExtraPanel.setVisible(true);
             }
         });
     }
@@ -100,15 +126,15 @@ public class ResultsPanel extends JPanel{
     }
 
     public boolean isFan50TwoSide() {
-        return fan50CheckBox.isSelected();
+        return fan50TwoSideCheckBox.isSelected();
     }
 
     public int getAirInletBig() {
-        return (int)airInletBigSpinner.getValue();
+        return (int) airInletForHumiditySpinner.getValue();
     }
 
     public void setAirInletBigCount(int airInletBigCount) {
-        airInletBigSpinner.setValue(airInletBigCount);
+        airInletForHumiditySpinner.setValue(airInletBigCount);
     }
 
     public int getFan36Count() {
@@ -148,19 +174,19 @@ public class ResultsPanel extends JPanel{
     }
 
     public int getAirInletSmallCount() {
-        return (int)airInletSmallSpinner.getValue();
+        return (int) airInletOnWallSpinner.getValue();
     }
 
     public void setAirInletSmallCount(int airInletSmallCount) {
-        airInletSmallSpinner.setValue(airInletSmallCount);
+        airInletOnWallSpinner.setValue(airInletSmallCount);
     }
 
     public String getAirInletSmallName() {
-        return airInletSmallComboBox.getSelectedItem().toString();
+        return airInletOnWallComboBox.getSelectedItem().toString();
     }
 
     public String getAirInletBigName() {
-        return airInletBigComboBox.getSelectedItem().toString();
+        return airInletForHumidityComboBox.getSelectedItem().toString();
     }
 
     public int getShutterCount() {

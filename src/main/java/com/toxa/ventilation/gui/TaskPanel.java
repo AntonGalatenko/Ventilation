@@ -57,6 +57,8 @@ public class TaskPanel extends JPanel{
     private JPanel cageNameInfoPanel;
     private JPanel performerPanel;
     private JButton countButton;
+    private JLabel poultryHouseNamberLabel;
+    private JTextField poultryHouseNamberTextField;
 
     public TaskPanel(){
 
