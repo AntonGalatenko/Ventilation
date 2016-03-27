@@ -5,8 +5,8 @@ import com.toxa.ventilation.Count;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class ResultsPanel extends JPanel{
     private Count count;
@@ -77,8 +77,17 @@ public class ResultsPanel extends JPanel{
     private JButton automaticExtraPanelButton;
     private JPanel automaticExtraPanel;
     private JPanel airInletRoofPanel;
+    private JTextField automaticOSHUMTextField;
     private JLabel automaticSensorTemperatureLabel;
     private JSpinner automaticSensorTemperatureSpinner;
+    private JPanel automaticSensorPanel;
+    private JLabel automaticSensorPressureLabel;
+    private JSpinner automaticSensorPressureSpinner;
+    private JLabel automaticSensorHumidityLabel;
+    private JSpinner automaticSensorHumiditySpinner;
+    private JLabel automaticSensorCO2Label;
+    private JSpinner automaticSensorCO2Spinner;
+    private JTextField automaticSSHUMTextField;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -93,15 +102,23 @@ public class ResultsPanel extends JPanel{
         });
 
 
-        automaticExtraPanelButton.addActionListener(new ActionListener() {
+        automaticComboBox.addItemListener(new ItemListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if(automaticExtraPanel.isVisible())
-                    automaticExtraPanel.setVisible(false);
-                else
-                    automaticExtraPanel.setVisible(true);
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == 1)
+                    changeVisibleOSHUMandSSHUMTextField();
             }
         });
+
+        setDefaultValues();
+    }
+
+    public void setDefaultValues(){
+        automaticSpinner.setValue(1);
+
+        automaticSensorTemperatureSpinner.setValue(4);
+        automaticSensorHumiditySpinner.setValue(1);
+        automaticSensorPressureSpinner.setValue(1);
     }
 
     public void setMyMainPanel(MyMainPanel2 myMainPanel) {
@@ -112,6 +129,25 @@ public class ResultsPanel extends JPanel{
 //        fan50Spinner.setValue(new Integer(count.getFan50Count()));
         myMainPanel.update(this);
     }
+
+    public void changeVisibleOSHUMandSSHUMTextField(){
+        if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ")){
+            automaticOSHUMTextField.setEnabled(true);
+            automaticSSHUMTextField.setEnabled(false);
+        }
+        else if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ + СЩУМ")){
+            automaticOSHUMTextField.setEnabled(true);
+            automaticSSHUMTextField.setEnabled(true);
+        }
+        else {
+            automaticOSHUMTextField.setEnabled(false);
+            automaticSSHUMTextField.setEnabled(false);
+
+        }
+
+    }
+
+
 
     public int getFan50Count() {
         return (int) fan50Spinner.getValue();
