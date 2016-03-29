@@ -341,4 +341,44 @@ public class ResultsPanel extends JPanel{
         return emergencyComboBox.getSelectedItem().toString();
     }
 
+    public int getAutomaticSensorTemperatureCount() {
+        return (int)automaticSensorTemperatureSpinner.getValue();
+    }
+
+    public void setAutomaticSensorTemperatureCount(int automaticSensorTemperatureCount) {
+        automaticSensorTemperatureSpinner.setValue(automaticSensorTemperatureCount);
+    }
+
+    public int getAutomaticSensorPressureCount() {
+        return (int)automaticSensorPressureSpinner.getValue();
+    }
+
+    public void setAutomaticSensorPressureCount(int automaticSensorPressureCount) {
+        automaticSensorPressureSpinner.setValue(automaticSensorPressureCount);
+    }
+
+    public int getAutomaticSensorHumidityCount() {
+        return (int)automaticSensorHumiditySpinner.getValue();
+    }
+
+    public void setAutomaticSensorHumiditySpinner(int automaticSensorHumiditySpinner1) {
+        automaticSensorHumiditySpinner.setValue(automaticSensorHumiditySpinner1);
+    }
+
+    public int getAutomaticSensorCO2Count() {
+        return (int)automaticSensorCO2Spinner.getValue();
+    }
+
+    public void setAutomaticSensorCO2Spinner(int automaticSensorCO2Spinner1) {
+        automaticSensorCO2Spinner.setValue(automaticSensorCO2Spinner1);
+    }
+
+    public String getAutomaticOSHUMName() {
+        return automaticOSHUMTextField.getText();
+    }
+
+    public String getAutomaticSSHUMName() {
+        return automaticSSHUMTextField.getText();
+    }
+
 }

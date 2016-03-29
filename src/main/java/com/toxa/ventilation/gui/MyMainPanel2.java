@@ -8,12 +8,14 @@ public class MyMainPanel2 extends JFrame{
     private ResultsPanel resultPanel;
     private JPanel mainPanel;
     private MyToolBar toolBar;
+//    private SettingsPanel settingsPanel;
 
     public MyMainPanel2(){
 
-        toolBar = new MyToolBar();
+        toolBar = new MyToolBar(this);
         taskPanel = new TaskPanel();
         resultPanel = new ResultsPanel();
+//        settingsPanel = new SettingsPanel();
 
         taskPanel.setResultsPanel(resultPanel);
         resultPanel.setMyMainPanel(this);
@@ -36,4 +38,14 @@ public class MyMainPanel2 extends JFrame{
         mainPanel.add(resultsPanel);
         repaint();
     }
+
+//    public void setVisibleAndInvisibleSettingsPanel(){
+//        if(settingsPanel.isVisible())
+//            settingsPanel.setVisible(false);
+//        else
+//            settingsPanel.setVisible(true);
+//        System.out.println("123");
+//        repaint();
+//        revalidate();
+//    }
 }
