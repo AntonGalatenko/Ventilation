@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MyToolBar extends JToolBar{
-    private SettingsPanel settingsPanel;
     private MyMainPanel2 myMainPanel2;
 
     private JPanel mainPanel;
@@ -22,7 +21,6 @@ public class MyToolBar extends JToolBar{
         settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                myMainPanel2.setVisibleAndInvisibleSettingsPanel();
                 new SettingsPanel();
             }
         });

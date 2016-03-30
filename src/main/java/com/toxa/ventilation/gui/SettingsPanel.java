@@ -1,52 +1,64 @@
 package com.toxa.ventilation.gui;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SettingsPanel extends JFrame{
+    private JTabbedPane tabbedPane;
     private JPanel mainPanel;
-    private JPanel selectionPanel;
-    private JPanel cardLayoutPanel;
-    private JPanel generalSettingsPanel;
-    private JPanel equipmentSettingsPanel;
-    private JButton generalSettingsButton;
-    private JButton equipmentSettingsButton;
+    private JPanel generalPanel;
     private JLabel themeGeneralSettingsLabel;
     private JComboBox pathGeneralSettingsComboBox;
+    private JPanel exhaustAirPanel;
+    private JLabel fan50Label;
+    private JLabel fan36Label;
+    private JLabel fan26Label;
+    private JScrollPane fanRoofScrollPane;
+    private JLabel fanRoofLabel;
+    private JScrollPane fan26ScrollPane;
+    private JScrollPane fan36ScrollPane;
+    private JScrollPane fan50ScrollPane;
     private JLabel pathGeneralSettingsLabel;
-    private JComboBox themeGeneralSettingsComboBox;
-    private JLabel fan50EquipmentSettingsLabel;
-    private JTextPane fan50EquipmentSettingsTextPane;
-    private JLabel fan36EquipmentSettingsLabel;
-    private JTextPane fan36EquipmentSettingsTextPane;
+    private JTextArea fan26TextArea;
+    private JTextArea FanRoofTextArea;
+    private JTextArea fan36TextArea;
+    private JTextArea fan50TextArea;
+    private JPanel intelAirPanel;
+    private JTextArea airInletOnWallTextArea;
+    private JScrollPane airInletOnWallScrollPane;
+    private JLabel airInletOnWallLabel;
+    private JLabel airInletOnRoofLabel;
+    private JTextArea airInletOnRoofTextArea;
+    private JScrollPane airInletOnRoofScrollPane;
+    private JLabel airInletForPadCoolLabel;
+    private JTextArea airInletForPadCoolTextArea;
+    private JScrollPane airInletForPadCoolScrollPane;
+    private JLabel shutterLabel;
+    private JTextArea shutterTextArea;
+    private JScrollPane shutterScrollPane;
+    private JPanel heaterPanel;
+    private JLabel heaterLabel;
+    private JScrollPane heaterScrollPane;
+    private JTextArea heaterTextArea;
+    private JLabel fanCirculationLabel;
+    private JScrollPane fanCirculationScrollPane;
+    private JTextArea fanCirculationTextArea;
+    private JPanel automaticPanel;
+    private JLabel automaticLabel;
+    private JScrollPane automaticScrollPane;
+    private JTextArea automaticTextArea;
+    private JLabel servomotorLabel;
+    private JScrollPane servomotorScrollPane;
+    private JTextArea servomotorTextArea;
+    private JLabel emergencyLabel;
+    private JScrollPane emergencyScrollPane;
+    private JTextArea emergencyTextArea;
 
     public SettingsPanel(){
         add(mainPanel);
 
-        final CardLayout cardLayout = new CardLayout();
-        cardLayoutPanel.setLayout(cardLayout);
-
-        cardLayoutPanel.add(generalSettingsPanel, "card1");
-        cardLayoutPanel.add(equipmentSettingsPanel, "card2");
-
         setVisible(true);
         pack();
 
-        generalSettingsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardLayoutPanel, "card1");
-            }
-        });
 
-
-        equipmentSettingsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardLayoutPanel, "card2");
-            }
-        });
     }
 }

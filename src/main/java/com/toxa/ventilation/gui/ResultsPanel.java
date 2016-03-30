@@ -34,10 +34,10 @@ public class ResultsPanel extends JPanel{
     private JPanel airInletOnWallPanel;
     private JSpinner airInletOnWallSpinner;
     private JComboBox airInletOnWallComboBox;
-    private JPanel airInletForHumidityPanel;
-    private JRadioButton airInletForHumidityRadioButton;
-    private JSpinner airInletForHumiditySpinner;
-    private JComboBox airInletForHumidityComboBox;
+    private JPanel airInletForPadCoolPanel;
+    private JRadioButton airInletForPadCoolRadioButton;
+    private JSpinner airInletForPadCoolSpinner;
+    private JComboBox airInletForPadCoolComboBox;
     private JPanel shutterPanel;
     private JRadioButton shutterRadioButton;
     private JSpinner shutterSpinner;
@@ -106,7 +106,7 @@ public class ResultsPanel extends JPanel{
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == 1)
-                    changeVisibleOSHUMandSSHUMTextField();
+                    changeVisibleOSHUMAndSSHUMTextField();
             }
         });
 
@@ -130,7 +130,7 @@ public class ResultsPanel extends JPanel{
         myMainPanel.update(this);
     }
 
-    public void changeVisibleOSHUMandSSHUMTextField(){
+    public void changeVisibleOSHUMAndSSHUMTextField(){
         if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ")){
             automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(false);
@@ -166,11 +166,11 @@ public class ResultsPanel extends JPanel{
     }
 
     public int getAirInletBig() {
-        return (int) airInletForHumiditySpinner.getValue();
+        return (int) airInletForPadCoolSpinner.getValue();
     }
 
     public void setAirInletBigCount(int airInletBigCount) {
-        airInletForHumiditySpinner.setValue(airInletBigCount);
+        airInletForPadCoolSpinner.setValue(airInletBigCount);
     }
 
     public int getFan36Count() {
@@ -222,7 +222,7 @@ public class ResultsPanel extends JPanel{
     }
 
     public String getAirInletBigName() {
-        return airInletForHumidityComboBox.getSelectedItem().toString();
+        return airInletForPadCoolComboBox.getSelectedItem().toString();
     }
 
     public int getShutterCount() {
