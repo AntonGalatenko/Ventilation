@@ -1,10 +1,15 @@
 package com.toxa.ventilation.gui;
 
+import com.toxa.ventilation.ActualValues;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SettingsPanel extends JFrame{
+
+    private ActualValues actualValues;
+
     private JTabbedPane tabbedPane;
     private JPanel mainPanel;
     private JPanel generalPanel;
@@ -54,36 +59,56 @@ public class SettingsPanel extends JFrame{
     private JLabel emergencyLabel;
     private JScrollPane emergencyScrollPane;
     private JTextArea emergencyTextArea;
-    private JButton button1;
+    private JButton saveButton;
+    private JButton cancelButton;
 
     public SettingsPanel(){
         add(mainPanel);
+
+        actualValues = new ActualValues();
+        actualValues.loadActualValue();
+
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("1\n");
+//        stringBuilder.append("2\n");
+//        stringBuilder.append("3\n");
+
+//        setFan50Names(stringBuilder);
+
 
         setVisible(true);
         pack();
 
 
-        button1.addActionListener(new ActionListener() {
+
+        saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                System.out.println(getFan50TextArea());
+
             }
         });
+
+        setDefaultValue();
+    }
+
+    public void setDefaultValue(){
+        System.out.println("setDefaultValue");
+        setFan50Names(actualValues.getFan50());
     }
 
     public StringBuilder getFan50Names() {
         return new StringBuilder().append(fan50TextArea.getText());
     }
 
-    public void setFan50TextArea(JTextArea fan50TextArea) {
-        this.fan50TextArea = fan50TextArea;
+    public void setFan50Names(StringBuilder text) {
+        fan50TextArea.setText(text.toString());
     }
 
     public StringBuilder getFan36Names() {
         return new StringBuilder().append(fan36TextArea.getText());
     }
 
-    public void setFan36TextArea(JTextArea fan36TextArea) {
+    public void setFan36Names(StringBuilder text) {
         this.fan36TextArea = fan36TextArea;
     }
 
@@ -91,7 +116,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(fan26TextArea.getText());
     }
 
-    public void setFan26TextArea(JTextArea fan26TextArea) {
+    public void setFan26Names(StringBuilder text) {
         this.fan26TextArea = fan26TextArea;
     }
 
@@ -99,7 +124,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(airInletOnWallTextArea.getText());
     }
 
-    public void setAirInletOnWallTextArea(JTextArea airInletOnWallTextArea) {
+    public void setAirInletOnWallNames(StringBuilder text) {
         this.airInletOnWallTextArea = airInletOnWallTextArea;
     }
 
@@ -107,7 +132,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(airInletOnRoofTextArea.getText());
     }
 
-    public void setAirInletOnRoofTextArea(JTextArea airInletOnRoofTextArea) {
+    public void setAirInletOnRoofNames(StringBuilder text) {
         this.airInletOnRoofTextArea = airInletOnRoofTextArea;
     }
 
@@ -115,7 +140,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(airInletForPadCoolTextArea.getText());
     }
 
-    public void setAirInletForPadCoolTextArea(JTextArea airInletForPadCoolTextArea) {
+    public void setAirInletForPadCoolNames(StringBuilder text) {
         this.airInletForPadCoolTextArea = airInletForPadCoolTextArea;
     }
 
@@ -123,7 +148,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(shutterTextArea.getText());
     }
 
-    public void setShutterTextArea(JTextArea shutterTextArea) {
+    public void setShutterNames(StringBuilder text) {
         this.shutterTextArea = shutterTextArea;
     }
 
@@ -131,7 +156,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(heaterTextArea.getText());
     }
 
-    public void setHeaterTextArea(JTextArea heaterTextArea) {
+    public void setHeaterNames(StringBuilder text) {
         this.heaterTextArea = heaterTextArea;
     }
 
@@ -139,7 +164,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(fanCirculationTextArea.getText());
     }
 
-    public void setFanCirculationTextArea(JTextArea fanCirculationTextArea) {
+    public void setFanCirculationNames(StringBuilder text) {
         this.fanCirculationTextArea = fanCirculationTextArea;
     }
 
@@ -147,7 +172,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(automaticTextArea.getText());
     }
 
-    public void setAutomaticTextArea(JTextArea automaticTextArea) {
+    public void setAutomaticNames(StringBuilder text) {
         this.automaticTextArea = automaticTextArea;
     }
 
@@ -155,7 +180,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(servomotorTextArea.getText());
     }
 
-    public void setServomotorTextArea(JTextArea servomotorTextArea) {
+    public void setServomotorNames(StringBuilder text) {
         this.servomotorTextArea = servomotorTextArea;
     }
 
@@ -163,7 +188,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(emergencyTextArea.getText());
     }
 
-    public void setEmergencyTextArea(JTextArea emergencyTextArea) {
+    public void setEmergencyNames(StringBuilder text) {
         this.emergencyTextArea = emergencyTextArea;
     }
 
@@ -171,7 +196,7 @@ public class SettingsPanel extends JFrame{
         return new StringBuilder().append(fanRoofTextArea.getText());
     }
 
-    public void setFanRoofTextArea(JTextArea fanRoofTextArea) {
+    public void setFanRoofNames(StringBuilder text) {
         this.fanRoofTextArea = fanRoofTextArea;
     }
 }
