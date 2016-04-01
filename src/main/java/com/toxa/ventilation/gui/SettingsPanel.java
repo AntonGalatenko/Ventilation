@@ -1,14 +1,23 @@
 package com.toxa.ventilation.gui;
 
-import com.toxa.ventilation.ActualValues;
+import com.toxa.ventilation.Data.ActualValues;
+import com.toxa.ventilation.Data.DataOfEquipment;
+import com.toxa.ventilation.Data.Storage;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 public class SettingsPanel extends JFrame{
 
-    private ActualValues actualValues;
+    private DataOfEquipment dataOfEquipment;
 
     private JTabbedPane tabbedPane;
     private JPanel mainPanel;
@@ -65,35 +74,75 @@ public class SettingsPanel extends JFrame{
     public SettingsPanel(){
         add(mainPanel);
 
-        actualValues = new ActualValues();
-        actualValues.loadActualValue();
-
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append("1\n");
-//        stringBuilder.append("2\n");
-//        stringBuilder.append("3\n");
-
-//        setFan50Names(stringBuilder);
-
+        dataOfEquipment = new ActualValues().loadActualValue();
 
         setVisible(true);
         pack();
 
-
-
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                saveActualValue();
             }
         });
 
         setDefaultValue();
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        fan50TextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                System.out.println("1");
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
+
+
     }
 
     public void setDefaultValue(){
-        System.out.println("setDefaultValue");
-        setFan50Names(actualValues.getFan50());
+        setFan50Names(parseEquipmentValue(dataOfEquipment.getFan50()));
+    }
+
+    public void saveActualValue(){
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+        try {
+            fos = new FileOutputStream("save_ventilation");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(dataOfEquipment);
+            oos.flush();
+            oos.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public StringBuilder parseEquipmentValue(HashMap<String, Storage> map){
+        StringBuilder result = new StringBuilder();
+
+        for(String key : map.keySet())
+            result.append(key + " : " + map.get(key).getCapacity() + " : " + map.get(key).getDescription() + "\n");
+
+        return result;
     }
 
     public StringBuilder getFan50Names() {

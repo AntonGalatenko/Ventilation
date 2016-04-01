@@ -2,14 +2,13 @@ package com.toxa.ventilation;
 
 import com.toxa.ventilation.gui.TaskPanel;
 
-import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
 public class BaseInfo {
 
     private TaskPanel taskPanel;
-    private ActualValues actualValues;
+//    private ActualValues actualValues;
 
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
     public static final int FAN_50_CAPACITY = 40000;
@@ -22,7 +21,7 @@ public class BaseInfo {
     public BaseInfo(TaskPanel taskPanel) {
         this.taskPanel = taskPanel;
 
-        actualValues = loadActualValue();
+//        actualValues = loadActualValue();
     }
 
     public List<Integer> getCageTiers() {
@@ -55,41 +54,40 @@ public class BaseInfo {
         taskPanel.updateAirSpinner();
     }
 
-    public void saveActualValue(){
-        FileOutputStream fos;
-        ObjectOutputStream oos;
-        try {
-            fos = new FileOutputStream("save_ventilation");
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(actualValues);
-            oos.flush();
-            oos.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public ActualValues loadActualValue(){
-        FileInputStream fis;
-        ObjectInputStream ois;
-        try {
-            fis = new FileInputStream("save_ventilation");
-            ois = new ObjectInputStream(fis);
-            ActualValues actualValues = (ActualValues)ois.readObject();
-            System.out.println(actualValues.getVersion());
-        } catch (FileNotFoundException e) {
+//    public void saveActualValue(){
+//        FileOutputStream fos;
+//        ObjectOutputStream oos;
+//        try {
+//            fos = new FileOutputStream("save_ventilation");
+//            oos = new ObjectOutputStream(fos);
+//            oos.writeObject(actualValues);
+//            oos.flush();
+//            oos.close();
+//
+//        } catch (FileNotFoundException e) {
 //            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return actualValues;
-    }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
+//    public ActualValues loadActualValue(){
+//        FileInputStream fis;
+//        ObjectInputStream ois;
+//        try {
+//            fis = new FileInputStream("save_ventilation");
+//            ois = new ObjectInputStream(fis);
+//            ActualValues actualValues = (ActualValues)ois.readObject();
+//        } catch (FileNotFoundException e) {
+////            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return actualValues;
+//    }
 
     private void setTBKInfo(){
         if(taskPanel.getVentilationType().equals("Тунель")){
