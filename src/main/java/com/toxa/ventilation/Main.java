@@ -1,7 +1,7 @@
 package com.toxa.ventilation;
 
 
-import com.toxa.ventilation.gui.MyMainPanel2;
+import com.toxa.ventilation.gui.MyMainPanel;
 
 import javax.swing.*;
 
@@ -13,7 +13,7 @@ public class Main {
 
 //        new MyMainPanel();
 //        new CardLayoutPanel();
-        new MyMainPanel2();
+        new MyMainPanel();
     }
 
     public static void setNimbusLookAndFeel(){

@@ -18,6 +18,7 @@ import java.util.HashMap;
 public class SettingsPanel extends JFrame{
 
     private DataOfEquipment dataOfEquipment;
+    private boolean fan50;
 
     private JTabbedPane tabbedPane;
     private JPanel mainPanel;
@@ -83,6 +84,7 @@ public class SettingsPanel extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveActualValue();
+                dispose();
             }
         });
 
@@ -97,17 +99,17 @@ public class SettingsPanel extends JFrame{
         fan50TextArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
+                fan50 = true;
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                System.out.println("1");
-
+                fan50 = true;
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-
+                fan50 = true;
             }
         });
 
@@ -119,6 +121,8 @@ public class SettingsPanel extends JFrame{
     }
 
     public void saveActualValue(){
+        updateValues();
+
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
@@ -133,6 +137,11 @@ public class SettingsPanel extends JFrame{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateValues(){
+        if(fan50)
+            dataOfEquipment.updateFan50(getFan50Names());
 
     }
 

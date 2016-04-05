@@ -5,15 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MyToolBar extends JToolBar{
-    private MyMainPanel2 myMainPanel2;
+    private MyMainPanel myMainPanel;
 
     private JPanel mainPanel;
     private JButton fileButton;
     private JButton settingsButton;
     private JButton aboutProgramButton;
 
-    public MyToolBar(final MyMainPanel2 myMainPanel2){
-        this.myMainPanel2 = myMainPanel2;
+    public MyToolBar(final MyMainPanel myMainPanel){
+        this.myMainPanel = myMainPanel;
 
         add(mainPanel);
 

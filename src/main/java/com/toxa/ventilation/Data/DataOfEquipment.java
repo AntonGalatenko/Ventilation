@@ -2,6 +2,7 @@ package com.toxa.ventilation.Data;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class DataOfEquipment implements Serializable {
 
@@ -19,30 +20,30 @@ public class DataOfEquipment implements Serializable {
     private HashMap<String, Storage> automatic = new HashMap<>();
 
     public DataOfEquipment (){
-        setFan50();
-        setFan36();
-        setFan26();
-        setFanRoof();
+        setFan50DefaultValue();
+        setFan36DefaultValue();
+        setFan26DefaultValue();
+        setFanRoofDefaultValue();
 
     }
 
-    public void setFan50(){
+    public void setFan50DefaultValue(){
         fan50.put("TBO12,7-2-1", new Storage(40000, "Вентилятор осевой с жалюзи 40000м3/ч при 20Па ~3 1,1кВт"));
         fan50.put("DB1380", new Storage(40000, "Вентилятор осевой с конусом и клапаном 43000м3/ч при 20Па ~3 1,1кВт"));
         fan50.put("EOS53/1,5", new Storage(40000, "Вентилятор осевой с жалюзи 40000м3/ч при 20Па ~3 1,1кВт"));
         fan50.put("EOC53/1,5", new Storage(43000, "Вентилятор осевой с конусом и жалюзи 43000м3/ч при 20Па ~3 1,1кВт"));
     }
 
-    public void setFan36(){
+    public void setFan36DefaultValue(){
         fan36.put("EOS42/1,1", new Storage(20000, "Вентилятор осевой с жалюзи 20000м³/ч при 20Па ~3 0,76кВт"));
         fan36.put("DM1000/1,1", new Storage(20000, "Вентилятор осевой с жалюзи 20000м³/ч при 20Па ~3 0,4кВт"));
     }
 
-    public void setFan26(){
+    public void setFan26DefaultValue(){
         fan26.put("TBO6,6-2-1", new Storage(10000, "Вентилятор осевой с жалюзи 10000м³/ч при 20Па ~3 0,37кВт"));
     }
 
-    public void setFanRoof(){
+    public void setFanRoofDefaultValue(){
         fanRoof.put("P6D82", new Storage(21000, "Вентилятор осевой канальный 21000 м³/ч при 30Па ~3 0,87кВт"));
         fanRoof.put("P6D63", new Storage(10500, "Вентилятор осевой канальный 10500 м³/ч при 30Па ~3"));
     }
@@ -101,6 +102,22 @@ public class DataOfEquipment implements Serializable {
 
     public String getFan50Description(String key){
         return fan50.get(key).getDescription();
+    }
+
+    public void updateFan50(StringBuilder value){
+        String[] line;
+        fan50.clear();
+        Scanner scan = new Scanner(value.toString());
+        while(scan.hasNextLine()){
+            line = parseStringLine(scan.nextLine());
+            fan50.put(line[0], new Storage(Integer.parseInt(line[1]), line[2]));
+        }
+    }
+
+    public String[] parseStringLine(String line){
+        String[] result = line.split(" : ");
+        System.out.println(result[0] + ":" + result[1] + ":" + result[2]);
+        return  result;
     }
 
     public void setFan50Capacity(String key, int capacity) {

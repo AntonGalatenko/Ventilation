@@ -1,82 +1,51 @@
-/*
 package com.toxa.ventilation.gui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MyMainPanel extends JFrame{
-
-    private JPanel mainPanel;
     private TaskPanel taskPanel;
-    private CardLayoutPanel cardLayoutPanel1;
-//    private CardLayoutPanel resultCardLayoutPane;
     private ResultsPanel resultPanel;
+    private JPanel mainPanel;
+    private MyToolBar toolBar;
+//    private SettingsPanel settingsPanel;
 
     public MyMainPanel(){
 
-        cardLayoutPanel1 = new CardLayoutPanel();
+        toolBar = new MyToolBar(this);
         taskPanel = new TaskPanel();
         resultPanel = new ResultsPanel();
+//        settingsPanel = new SettingsPanel();
 
         taskPanel.setResultsPanel(resultPanel);
         resultPanel.setMyMainPanel(this);
 
-//        setCountInResultsPanel();
+        mainPanel = new JPanel(new BorderLayout());
+
+        mainPanel.add(toolBar, BorderLayout.NORTH);
+        mainPanel.add(taskPanel, BorderLayout.WEST);
+        mainPanel.add(resultPanel, BorderLayout.EAST);
+
         add(mainPanel);
 
+        setVisible(true);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-
     }
-
-//    public void setCountInResultsPanel(){
-//        taskPanel.setCountInResultsPanel(resultPanel);
-//    }
 
     public void update(ResultsPanel resultsPanel){
-//        resultPanel.revalidate();
-//        resultPanel.repaint();
-//        repaint();
-//        revalidate();
-//        mainPanel.revalidate();
-//        remove(resultsPanel);
-//        add(resultsPanel);
-
-//        getContentPane().remove(resultPanel);
-//        mainPanel.removeAll();
-//        mainPanel.add(new TaskPanel());
-//        mainPanel.add(new ResultsPanel());
-//        getContentPane().removeAll();
-//        getContentPane().add(mainPanel);
-
-
-//        System.out.println("mainPanel.getComponent(0);" + mainPanel.getComponent(0));
-//        System.out.println("mainPanel.getComponent(1);" + mainPanel.getComponent(1));
-
-
-//        System.out.println("mainPanel.getComponent(2);" + mainPanel.getComponent(2));
-//        System.out.println("mainPanel.getComponent(3);" + mainPanel.getComponent(3));
-//        getContentPane().add(resultPanel);
-//        remove(mainPanel);
-//        add(mainPanel);
-
-//        mainPanel.revalidate();
-//        mainPanel.repaint();
-
-//        cardLayoutPanel1.addPanel(resultsPanel);
-        cardLayoutPanel1.addTest();
-//        revalidate();
-        cardLayoutPanel1.revalidate();
-        cardLayoutPanel1.repaint();
-        mainPanel.revalidate();
-        mainPanel.repaint();
-        revalidate();
+        mainPanel.remove(resultPanel);
+        mainPanel.add(resultsPanel);
         repaint();
-
-        System.out.println("DDDDD " + resultPanel.getFan50spinner());
     }
 
-
-
+//    public void setVisibleAndInvisibleSettingsPanel(){
+//        if(settingsPanel.isVisible())
+//            settingsPanel.setVisible(false);
+//        else
+//            settingsPanel.setVisible(true);
+//        System.out.println("123");
+//        repaint();
+//        revalidate();
+//    }
 }
-*/

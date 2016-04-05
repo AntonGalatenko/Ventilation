@@ -1,16 +1,21 @@
 package com.toxa.ventilation.gui;
 
 import com.toxa.ventilation.Count;
+import com.toxa.ventilation.Data.ActualValues;
+import com.toxa.ventilation.Data.DataOfEquipment;
+import com.toxa.ventilation.Data.Storage;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
 
 public class ResultsPanel extends JPanel{
     private Count count;
-    private MyMainPanel2 myMainPanel;
+    private MyMainPanel myMainPanel;
+    private DataOfEquipment dataOfEquipment;
 
     private JPanel mainPanel;
     private JPanel fan50Panel;
@@ -121,7 +126,18 @@ public class ResultsPanel extends JPanel{
         automaticSensorPressureSpinner.setValue(1);
     }
 
-    public void setMyMainPanel(MyMainPanel2 myMainPanel) {
+    public void setModelsToComboBox(){
+        dataOfEquipment = new ActualValues().loadActualValue();
+        fan26ComboBox.setModel(new DefaultComboBoxModel(dataOfEquipment.getf));
+    }
+
+    public String[] parseHashMapForComboBox(HashMap<String, Storage> map){
+        String[] result;
+        for(String key : map.keySet())
+            result
+    }
+
+    public void setMyMainPanel(MyMainPanel myMainPanel) {
         this.myMainPanel = myMainPanel;
     }
 
