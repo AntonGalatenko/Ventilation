@@ -11,6 +11,7 @@ public class MyMainPanel extends JFrame{
 //    private SettingsPanel settingsPanel;
 
     public MyMainPanel(){
+        setTitle("Вентиляция");
 
         toolBar = new MyToolBar(this);
         taskPanel = new TaskPanel();
@@ -37,6 +38,10 @@ public class MyMainPanel extends JFrame{
         mainPanel.remove(resultPanel);
         mainPanel.add(resultsPanel);
         repaint();
+    }
+
+    public ResultsPanel getResultPanel (){
+        return resultPanel;
     }
 
 //    public void setVisibleAndInvisibleSettingsPanel(){

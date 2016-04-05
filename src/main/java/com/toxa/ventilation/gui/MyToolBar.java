@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 public class MyToolBar extends JToolBar{
     private MyMainPanel myMainPanel;
+    private SettingsPanel settingsPanel;
 
     private JPanel mainPanel;
     private JButton fileButton;
@@ -21,8 +22,10 @@ public class MyToolBar extends JToolBar{
         settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SettingsPanel();
+                settingsPanel = new SettingsPanel(myMainPanel);
+//                settingsPanel.setMyMainPanel(myMainPanel);
             }
         });
     }
+
 }

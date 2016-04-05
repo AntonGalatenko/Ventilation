@@ -8,6 +8,7 @@ import com.toxa.ventilation.Data.Storage;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashMap;
@@ -76,12 +77,12 @@ public class ResultsPanel extends JPanel{
     private JCheckBox fan26LightTrapCheckBox;
     private JCheckBox airInletOnWallLightTrapCheckBox;
     private JCheckBox shutterLightTrapCheckBox;
-    private JRadioButton airInletRoofRadioButton;
-    private JSpinner airInletRoofSpinner;
-    private JComboBox airInletRoofComboBox;
+    private JRadioButton airInletOfRoofRadioButton;
+    private JSpinner airInletOfRoofSpinner;
+    private JComboBox airInletOfRoofComboBox;
     private JButton automaticExtraPanelButton;
     private JPanel automaticExtraPanel;
-    private JPanel airInletRoofPanel;
+    private JPanel airInletOfRoofPanel;
     private JTextField automaticOSHUMTextField;
     private JLabel automaticSensorTemperatureLabel;
     private JSpinner automaticSensorTemperatureSpinner;
@@ -100,6 +101,8 @@ public class ResultsPanel extends JPanel{
 
         add(mainPanel);
 
+        dataOfEquipment = new ActualValues().loadActualValue();
+
         fan50Spinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -116,25 +119,64 @@ public class ResultsPanel extends JPanel{
         });
 
         setDefaultValues();
+        setModelsToComboBox();
     }
 
     public void setDefaultValues(){
+        setAllSpinnerMoreZeroValue();
+
         automaticSpinner.setValue(1);
 
-        automaticSensorTemperatureSpinner.setValue(4);
-        automaticSensorHumiditySpinner.setValue(1);
-        automaticSensorPressureSpinner.setValue(1);
+        humidityHeightSpinner.setModel(new SpinnerNumberModel(new Double(2), new Double(1), new Double(2), new Double(0.5)));
+        humidityLengthSpinner1.setModel(new SpinnerNumberModel(new Double(6),new Double(6), new Double(24), new Double(0.6)));
+        humidityLengthSpinner2.setModel(new SpinnerNumberModel(new Double(6),new Double(6), new Double(24), new Double(0.6)));
+
+        automaticSensorTemperatureSpinner.setModel(new SpinnerNumberModel(new Double(4), new Double(0), null, new Double(1)));
+        automaticSensorHumiditySpinner.setModel(new SpinnerNumberModel(new Double(1), new Double(0), null, new Double(1)));
+        automaticSensorPressureSpinner.setModel(new SpinnerNumberModel(new Double(1), new Double(0), null, new Double(1)));
+        automaticSensorCO2Spinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
+    }
+
+    public void setAllSpinnerMoreZeroValue(){
+        for(Component componentMainPanel : mainPanel.getComponents()){
+            JPanel panel = (JPanel)componentMainPanel;
+            for(Component component : panel.getComponents())
+                if(component.getClass().equals(JSpinner.class)){
+                    JSpinner spinner = (JSpinner)component;
+                    spinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
+                }
+        }
+
     }
 
     public void setModelsToComboBox(){
-        dataOfEquipment = new ActualValues().loadActualValue();
-        fan26ComboBox.setModel(new DefaultComboBoxModel(dataOfEquipment.getf));
+        fan50ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan50())));
+        fan36ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan36())));
+        fan26ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan26())));
+        fanRoofComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFanRoof())));
+        airInletOnWallComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfWall())));
+        airInletOfRoofComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfRoof())));
+        airInletForPadCoolComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfPadCool())));
+        shutterComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getShutter())));
+        heaterComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getHeater())));
+        fanCirculationComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFanCirculation())));
+        automaticComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAutomatic())));
     }
 
     public String[] parseHashMapForComboBox(HashMap<String, Storage> map){
-        String[] result;
-        for(String key : map.keySet())
-            result
+        String[] result = new String[map.size()];
+        int i = 0;
+        for(String key : map.keySet()){
+            result[i] = key;
+            i++;
+        }
+        return result;
+    }
+
+    public void hideElementsInPanel(JPanel panel){
+        for(Component component : panel.getComponents())
+            if(component.equals(JButton.class))
+                System.out.println(component.getName());
     }
 
     public void setMyMainPanel(MyMainPanel myMainPanel) {

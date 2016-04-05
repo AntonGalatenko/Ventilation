@@ -117,7 +117,9 @@ public class TaskPanel extends JPanel{
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
         this.resultsPanel = resultsPanel;
+        baseInfo.setResultsPanel(resultsPanel);
     }
+
 
     public void setDefaultValues() {
         airSummerSpinner.setModel(new SpinnerNumberModel(new Double(12), new Double(0), null, new Double(0.5)));
@@ -228,14 +230,12 @@ public class TaskPanel extends JPanel{
     }
 
     public void setEnableCageTiredAndCageNumberComboBox() {
-        Component[] components = cageTiredAndCageNumberInfoPanel.getComponents();
-        for(Component c : components)
+        for(Component c : cageTiredAndCageNumberInfoPanel.getComponents())
             c.setEnabled(true);
     }
 
     public void setDisablesCageTiredAndCageNumberComboBox() {
-        Component[] components = cageTiredAndCageNumberInfoPanel.getComponents();
-        for(Component c : components)
+        for(Component c : cageTiredAndCageNumberInfoPanel.getComponents())
             c.setEnabled(false);
     }
 

@@ -7,6 +7,7 @@ import com.toxa.ventilation.Data.Storage;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -15,10 +16,13 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class SettingsPanel extends JFrame{
+public class SettingsPanel extends JDialog{
 
+//    private MyToolBar myToolBar;
+    private MyMainPanel myMainPanel;
     private DataOfEquipment dataOfEquipment;
-    private boolean fan50;
+    private boolean fan50Change, fan36Change, fan26Change, fanRoofChange, airInletOfWallChange, airInletOfRoofChange,
+            airInletOfPadCoolChange, shutterChange, humidityChange, heaterChange, fanCirculationChange, automaticChange;
 
     private JTabbedPane tabbedPane;
     private JPanel mainPanel;
@@ -72,23 +76,29 @@ public class SettingsPanel extends JFrame{
     private JButton saveButton;
     private JButton cancelButton;
 
-    public SettingsPanel(){
+    public SettingsPanel(final MyMainPanel myMainPanel){
+        this.myMainPanel = myMainPanel;
+        setLocationForThisFrame();
+
+        setTitle("Настройки");
         add(mainPanel);
 
-        dataOfEquipment = new ActualValues().loadActualValue();
+
 
         setVisible(true);
         pack();
+
+        setDefaultValue();
 
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveActualValue();
                 dispose();
+                myMainPanel.getResultPanel().setModelsToComboBox();
             }
         });
 
-        setDefaultValue();
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,25 +109,207 @@ public class SettingsPanel extends JFrame{
         fan50TextArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                fan50 = true;
+                fan50Change = true;
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                fan50 = true;
+                fan50Change = true;
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                fan50 = true;
+                fan50Change = true;
             }
         });
 
+        fan36TextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                fan36Change = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                fan36Change = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                fan36Change = true;
+            }
+        });
+
+        fan26TextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                fan26Change = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                fan26Change = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                fan26Change = true;
+            }
+        });
+
+        fanRoofTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                fanRoofChange = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                fanRoofChange = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                fanRoofChange = true;
+            }
+        });
+
+        airInletOnWallTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                airInletOfWallChange = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                airInletOfWallChange = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                airInletOfWallChange = true;
+            }
+        });
+
+        airInletOnRoofTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                airInletOfRoofChange = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                airInletOfRoofChange = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                airInletOfRoofChange = true;
+            }
+        });
+
+        airInletForPadCoolTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                airInletOfPadCoolChange = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                airInletOfPadCoolChange = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                airInletOfPadCoolChange = true;
+            }
+        });
+
+        shutterTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                shutterChange = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                shutterChange = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                shutterChange = true;
+            }
+        });
+
+        heaterTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                heaterChange = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                heaterChange = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                heaterChange = true;
+            }
+        });
+
+        fanCirculationTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                fanCirculationChange = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                fanCirculationChange = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                fanCirculationChange = true;
+            }
+        });
+
+        automaticTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                automaticChange = true;
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                automaticChange = true;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                automaticChange = true;
+            }
+        });
 
     }
 
     public void setDefaultValue(){
+        dataOfEquipment = new ActualValues().loadActualValue();
+
         setFan50Names(parseEquipmentValue(dataOfEquipment.getFan50()));
+        setFan36Names(parseEquipmentValue(dataOfEquipment.getFan36()));
+        setFan26Names(parseEquipmentValue(dataOfEquipment.getFan26()));
+        setFanRoofNames(parseEquipmentValue(dataOfEquipment.getFanRoof()));
+        setAirInletOnWallNames(parseEquipmentValue(dataOfEquipment.getAirInletOfWall()));
+        setAirInletOnRoofNames(parseEquipmentValue(dataOfEquipment.getAirInletOfRoof()));
+        setAirInletOfPadCoolNames(parseEquipmentValue(dataOfEquipment.getAirInletOfPadCool()));
+        setShutterNames(parseEquipmentValue(dataOfEquipment.getShutter()));
+        setHeaterNames(parseEquipmentValue(dataOfEquipment.getHeater()));
+        setFanCirculationNames(parseEquipmentValue(dataOfEquipment.getFanCirculation()));
+        setAutomaticNames(parseEquipmentValue(dataOfEquipment.getAutomatic()));
+
     }
 
     public void saveActualValue(){
@@ -140,8 +332,28 @@ public class SettingsPanel extends JFrame{
     }
 
     public void updateValues(){
-        if(fan50)
+        if(fan50Change)
             dataOfEquipment.updateFan50(getFan50Names());
+        if(fan36Change)
+            dataOfEquipment.updateFan36(getFan36Names());
+        if(fan26Change)
+            dataOfEquipment.updateFan26(getFan26Names());
+        if(fanRoofChange)
+            dataOfEquipment.updateFanRoof(getFanRoofNames());
+        if(airInletOfWallChange)
+            dataOfEquipment.updateAirInletOfWall(getAirInletOnWallNames());
+        if(airInletOfRoofChange)
+            dataOfEquipment.updateAirInletOfRoof(getAirInletOnRoofNames());
+        if(airInletOfPadCoolChange)
+            dataOfEquipment.updateAirInletOfPadCool(getAirInletForPadCoolNames());
+        if(shutterChange)
+            dataOfEquipment.updateShutter(getShutterNames());
+        if(heaterChange)
+            dataOfEquipment.updateHeater(getHeaterNames());
+        if(fanCirculationChange)
+            dataOfEquipment.updateFanCirculation(getFanCirculationNames());
+        if(automaticChange)
+            dataOfEquipment.updateAutomatic(getAutomaticNames());
 
     }
 
@@ -152,6 +364,11 @@ public class SettingsPanel extends JFrame{
             result.append(key + " : " + map.get(key).getCapacity() + " : " + map.get(key).getDescription() + "\n");
 
         return result;
+    }
+
+    public void setLocationForThisFrame(){
+        Point point = myMainPanel.getLocation();
+        setLocation((int)point.getX() + 10, (int)point.getY() + 30);
     }
 
     public StringBuilder getFan50Names() {
@@ -167,7 +384,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setFan36Names(StringBuilder text) {
-        this.fan36TextArea = fan36TextArea;
+        fan36TextArea.setText(text.toString());
     }
 
     public StringBuilder getFan26Names() {
@@ -175,7 +392,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setFan26Names(StringBuilder text) {
-        this.fan26TextArea = fan26TextArea;
+        fan26TextArea.setText(text.toString());
     }
 
     public StringBuilder getAirInletOnWallNames() {
@@ -183,7 +400,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setAirInletOnWallNames(StringBuilder text) {
-        this.airInletOnWallTextArea = airInletOnWallTextArea;
+        airInletOnWallTextArea.setText(text.toString());
     }
 
     public StringBuilder getAirInletOnRoofNames() {
@@ -191,15 +408,15 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setAirInletOnRoofNames(StringBuilder text) {
-        this.airInletOnRoofTextArea = airInletOnRoofTextArea;
+        airInletOnRoofTextArea.setText(text.toString());
     }
 
     public StringBuilder getAirInletForPadCoolNames() {
         return new StringBuilder().append(airInletForPadCoolTextArea.getText());
     }
 
-    public void setAirInletForPadCoolNames(StringBuilder text) {
-        this.airInletForPadCoolTextArea = airInletForPadCoolTextArea;
+    public void setAirInletOfPadCoolNames(StringBuilder text) {
+        airInletForPadCoolTextArea.setText(text.toString());
     }
 
     public StringBuilder getShutterNames() {
@@ -207,7 +424,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setShutterNames(StringBuilder text) {
-        this.shutterTextArea = shutterTextArea;
+        shutterTextArea.setText(text.toString());
     }
 
     public StringBuilder getHeaterNames() {
@@ -215,7 +432,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setHeaterNames(StringBuilder text) {
-        this.heaterTextArea = heaterTextArea;
+        heaterTextArea.setText(text.toString());
     }
 
     public StringBuilder getFanCirculationNames() {
@@ -223,7 +440,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setFanCirculationNames(StringBuilder text) {
-        this.fanCirculationTextArea = fanCirculationTextArea;
+        fanCirculationTextArea.setText(text.toString());
     }
 
     public StringBuilder getAutomaticNames() {
@@ -231,7 +448,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setAutomaticNames(StringBuilder text) {
-        this.automaticTextArea = automaticTextArea;
+        automaticTextArea.setText(text.toString());
     }
 
     public StringBuilder getServomotorNames() {
@@ -239,7 +456,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setServomotorNames(StringBuilder text) {
-        this.servomotorTextArea = servomotorTextArea;
+        servomotorTextArea.setText(text.toString());
     }
 
     public StringBuilder getEmergencyNames() {
@@ -247,7 +464,7 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setEmergencyNames(StringBuilder text) {
-        this.emergencyTextArea = emergencyTextArea;
+        emergencyTextArea.setText(text.toString());
     }
 
     public StringBuilder getFanRoofNames() {
@@ -255,6 +472,6 @@ public class SettingsPanel extends JFrame{
     }
 
     public void setFanRoofNames(StringBuilder text) {
-        this.fanRoofTextArea = fanRoofTextArea;
+        fanRoofTextArea.setText(text.toString());
     }
 }

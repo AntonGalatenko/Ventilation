@@ -1,5 +1,6 @@
 package com.toxa.ventilation;
 
+import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.List;
 public class BaseInfo {
 
     private TaskPanel taskPanel;
+    private ResultsPanel resultsPanel;
 //    private ActualValues actualValues;
 
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
@@ -22,6 +24,10 @@ public class BaseInfo {
         this.taskPanel = taskPanel;
 
 //        actualValues = loadActualValue();
+    }
+
+    public void setResultsPanel(ResultsPanel resultsPanel) {
+        this.resultsPanel = resultsPanel;
     }
 
     public List<Integer> getCageTiers() {
@@ -100,6 +106,7 @@ public class BaseInfo {
         cageTiers = Arrays.asList(3, 4, 5, 6);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
+//        resultsPanel.hideElementsInPanel(resultsPanel.fa);
     }
 
     private void setTBCInfo(){
