@@ -99,6 +99,8 @@ public class BaseInfo {
         if(taskPanel.getVentilationType().equals("Тунель")){
             taskPanel.setAirSummer(12);
             taskPanel.setAirWinter(0);
+
+//            resultsPanel.getfan5
         } else {
             taskPanel.setAirSummer(9);
             taskPanel.setAirWinter(3);

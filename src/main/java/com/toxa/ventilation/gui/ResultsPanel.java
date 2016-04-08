@@ -11,6 +11,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ResultsPanel extends JPanel{
@@ -101,7 +102,6 @@ public class ResultsPanel extends JPanel{
 
         add(mainPanel);
 
-        dataOfEquipment = new ActualValues().loadActualValue();
 
         fan50Spinner.addChangeListener(new ChangeListener() {
             @Override
@@ -118,8 +118,44 @@ public class ResultsPanel extends JPanel{
             }
         });
 
+
+
         setDefaultValues();
         setModelsToComboBox();
+
+        ArrayList<JSpinner> list = getNeededComponent(new JSpinner());
+        for(JSpinner r : list)
+            System.out.println(r.getName());
+
+        fan50RadioButton.addItemListener(new MyItemListener(fan50Panel));
+        fan36RadioButton.addItemListener(new MyItemListener(fan36Panel));
+        fan26RadioButton.addItemListener(new MyItemListener(fan26Panel));
+//        fan50RadioButton.addItemListener(new ItemListener() {
+//            @Override
+//            public void itemStateChanged(ItemEvent e) {
+//                if(e.getStateChange() == ItemEvent.SELECTED)
+//                    disableElementsInPanel(fan50Panel);
+//                else
+//                    enableElementsInPanel(fan50Panel);
+//            }
+//        });
+    }
+
+    public class MyItemListener implements ItemListener{
+
+        private JPanel panel;
+
+        public MyItemListener(JPanel panel){
+            this.panel = panel;
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if(e.getStateChange() == ItemEvent.SELECTED)
+                disableElementsInPanel(panel);
+            else
+                enableElementsInPanel(panel);
+        }
     }
 
     public void setDefaultValues(){
@@ -138,18 +174,25 @@ public class ResultsPanel extends JPanel{
     }
 
     public void setAllSpinnerMoreZeroValue(){
-        for(Component componentMainPanel : mainPanel.getComponents()){
-            JPanel panel = (JPanel)componentMainPanel;
-            for(Component component : panel.getComponents())
-                if(component.getClass().equals(JSpinner.class)){
-                    JSpinner spinner = (JSpinner)component;
-                    spinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
-                }
-        }
+        ArrayList<JSpinner> list = getNeededComponent(new JSpinner());
+        for(JSpinner spinner : list)
+            spinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
+    }
 
+    public ArrayList getNeededComponent(Component neededComponent){
+        ArrayList result = new ArrayList();
+        for(Component c : mainPanel.getComponents()){
+            JPanel panel = (JPanel)c;
+            for(Component component : panel.getComponents())
+                if(component.getClass().equals(neededComponent.getClass()))
+                    result.add(component);
+        }
+        return result;
     }
 
     public void setModelsToComboBox(){
+        dataOfEquipment = new ActualValues().loadActualValue();
+
         fan50ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan50())));
         fan36ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan36())));
         fan26ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan26())));
@@ -173,10 +216,18 @@ public class ResultsPanel extends JPanel{
         return result;
     }
 
-    public void hideElementsInPanel(JPanel panel){
+
+
+    public void disableElementsInPanel(JPanel panel){
         for(Component component : panel.getComponents())
-            if(component.equals(JButton.class))
-                System.out.println(component.getName());
+            if(!component.getClass().equals(JRadioButton.class))
+                component.setEnabled(false);
+    }
+
+    public void enableElementsInPanel(JPanel panel){
+        for(Component component : panel.getComponents())
+            if(!component.getClass().equals(JRadioButton.class))
+                component.setEnabled(true);
     }
 
     public void setMyMainPanel(MyMainPanel myMainPanel) {

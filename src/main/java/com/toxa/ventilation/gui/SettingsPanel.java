@@ -5,8 +5,6 @@ import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.Data.Storage;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -105,194 +103,6 @@ public class SettingsPanel extends JDialog{
                 dispose();
             }
         });
-
-        fan50TextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                fan50Change = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                fan50Change = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                fan50Change = true;
-            }
-        });
-
-        fan36TextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                fan36Change = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                fan36Change = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                fan36Change = true;
-            }
-        });
-
-        fan26TextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                fan26Change = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                fan26Change = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                fan26Change = true;
-            }
-        });
-
-        fanRoofTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                fanRoofChange = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                fanRoofChange = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                fanRoofChange = true;
-            }
-        });
-
-        airInletOnWallTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                airInletOfWallChange = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                airInletOfWallChange = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                airInletOfWallChange = true;
-            }
-        });
-
-        airInletOnRoofTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                airInletOfRoofChange = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                airInletOfRoofChange = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                airInletOfRoofChange = true;
-            }
-        });
-
-        airInletForPadCoolTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                airInletOfPadCoolChange = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                airInletOfPadCoolChange = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                airInletOfPadCoolChange = true;
-            }
-        });
-
-        shutterTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                shutterChange = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                shutterChange = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                shutterChange = true;
-            }
-        });
-
-        heaterTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                heaterChange = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                heaterChange = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                heaterChange = true;
-            }
-        });
-
-        fanCirculationTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                fanCirculationChange = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                fanCirculationChange = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                fanCirculationChange = true;
-            }
-        });
-
-        automaticTextArea.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                automaticChange = true;
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                automaticChange = true;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                automaticChange = true;
-            }
-        });
-
     }
 
     public void setDefaultValue(){
@@ -332,29 +142,17 @@ public class SettingsPanel extends JDialog{
     }
 
     public void updateValues(){
-        if(fan50Change)
             dataOfEquipment.updateFan50(getFan50Names());
-        if(fan36Change)
             dataOfEquipment.updateFan36(getFan36Names());
-        if(fan26Change)
             dataOfEquipment.updateFan26(getFan26Names());
-        if(fanRoofChange)
             dataOfEquipment.updateFanRoof(getFanRoofNames());
-        if(airInletOfWallChange)
             dataOfEquipment.updateAirInletOfWall(getAirInletOnWallNames());
-        if(airInletOfRoofChange)
             dataOfEquipment.updateAirInletOfRoof(getAirInletOnRoofNames());
-        if(airInletOfPadCoolChange)
             dataOfEquipment.updateAirInletOfPadCool(getAirInletForPadCoolNames());
-        if(shutterChange)
             dataOfEquipment.updateShutter(getShutterNames());
-        if(heaterChange)
             dataOfEquipment.updateHeater(getHeaterNames());
-        if(fanCirculationChange)
             dataOfEquipment.updateFanCirculation(getFanCirculationNames());
-        if(automaticChange)
             dataOfEquipment.updateAutomatic(getAutomaticNames());
-
     }
 
     public StringBuilder parseEquipmentValue(HashMap<String, Storage> map){
