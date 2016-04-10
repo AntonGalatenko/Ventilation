@@ -19,8 +19,6 @@ public class SettingsPanel extends JDialog{
 //    private MyToolBar myToolBar;
     private MyMainPanel myMainPanel;
     private DataOfEquipment dataOfEquipment;
-    private boolean fan50Change, fan36Change, fan26Change, fanRoofChange, airInletOfWallChange, airInletOfRoofChange,
-            airInletOfPadCoolChange, shutterChange, humidityChange, heaterChange, fanCirculationChange, automaticChange;
 
     private JTabbedPane tabbedPane;
     private JPanel mainPanel;
@@ -73,6 +71,9 @@ public class SettingsPanel extends JDialog{
     private JTextArea emergencyTextArea;
     private JButton saveButton;
     private JButton cancelButton;
+    private JLabel shaftLabel;
+    private JScrollPane shaftScrollPane;
+    private JTextArea shaftTextArea;
 
     public SettingsPanel(final MyMainPanel myMainPanel){
         this.myMainPanel = myMainPanel;
@@ -80,8 +81,6 @@ public class SettingsPanel extends JDialog{
 
         setTitle("Настройки");
         add(mainPanel);
-
-
 
         setVisible(true);
         pack();
@@ -112,6 +111,7 @@ public class SettingsPanel extends JDialog{
         setFan36Names(parseEquipmentValue(dataOfEquipment.getFan36()));
         setFan26Names(parseEquipmentValue(dataOfEquipment.getFan26()));
         setFanRoofNames(parseEquipmentValue(dataOfEquipment.getFanRoof()));
+        setShaftNames(parseEquipmentValue(dataOfEquipment.getShaft()));
         setAirInletOnWallNames(parseEquipmentValue(dataOfEquipment.getAirInletOfWall()));
         setAirInletOnRoofNames(parseEquipmentValue(dataOfEquipment.getAirInletOfRoof()));
         setAirInletOfPadCoolNames(parseEquipmentValue(dataOfEquipment.getAirInletOfPadCool()));
@@ -119,7 +119,6 @@ public class SettingsPanel extends JDialog{
         setHeaterNames(parseEquipmentValue(dataOfEquipment.getHeater()));
         setFanCirculationNames(parseEquipmentValue(dataOfEquipment.getFanCirculation()));
         setAutomaticNames(parseEquipmentValue(dataOfEquipment.getAutomatic()));
-
     }
 
     public void saveActualValue(){
@@ -142,25 +141,24 @@ public class SettingsPanel extends JDialog{
     }
 
     public void updateValues(){
-            dataOfEquipment.updateFan50(getFan50Names());
-            dataOfEquipment.updateFan36(getFan36Names());
-            dataOfEquipment.updateFan26(getFan26Names());
-            dataOfEquipment.updateFanRoof(getFanRoofNames());
-            dataOfEquipment.updateAirInletOfWall(getAirInletOnWallNames());
-            dataOfEquipment.updateAirInletOfRoof(getAirInletOnRoofNames());
-            dataOfEquipment.updateAirInletOfPadCool(getAirInletForPadCoolNames());
-            dataOfEquipment.updateShutter(getShutterNames());
-            dataOfEquipment.updateHeater(getHeaterNames());
-            dataOfEquipment.updateFanCirculation(getFanCirculationNames());
-            dataOfEquipment.updateAutomatic(getAutomaticNames());
+        dataOfEquipment.updateFan50(getFan50Names());
+        dataOfEquipment.updateFan36(getFan36Names());
+        dataOfEquipment.updateFan26(getFan26Names());
+        dataOfEquipment.updateFanRoof(getFanRoofNames());
+        dataOfEquipment.updateShaft(getShaftNames());
+        dataOfEquipment.updateAirInletOfWall(getAirInletOnWallNames());
+        dataOfEquipment.updateAirInletOfRoof(getAirInletOnRoofNames());
+        dataOfEquipment.updateAirInletOfPadCool(getAirInletForPadCoolNames());
+        dataOfEquipment.updateShutter(getShutterNames());
+        dataOfEquipment.updateHeater(getHeaterNames());
+        dataOfEquipment.updateFanCirculation(getFanCirculationNames());
+        dataOfEquipment.updateAutomatic(getAutomaticNames());
     }
 
     public StringBuilder parseEquipmentValue(HashMap<String, Storage> map){
         StringBuilder result = new StringBuilder();
-
         for(String key : map.keySet())
             result.append(key + " : " + map.get(key).getCapacity() + " : " + map.get(key).getDescription() + "\n");
-
         return result;
     }
 
@@ -192,6 +190,15 @@ public class SettingsPanel extends JDialog{
     public void setFan26Names(StringBuilder text) {
         fan26TextArea.setText(text.toString());
     }
+
+    public StringBuilder getShaftNames() {
+        return new StringBuilder().append(shaftTextArea.getText());
+    }
+
+    public void setShaftNames(StringBuilder text) {
+        shaftTextArea.setText(text.toString());
+    }
+
 
     public StringBuilder getAirInletOnWallNames() {
         return new StringBuilder().append(airInletOnWallTextArea.getText());

@@ -95,6 +95,10 @@ public class ResultsPanel extends JPanel{
     private JLabel automaticSensorCO2Label;
     private JSpinner automaticSensorCO2Spinner;
     private JTextField automaticSSHUMTextField;
+    private JRadioButton shaftRadioButton;
+    private JPanel shaftPanel;
+    private JSpinner shaftSpinner;
+    private JComboBox shaftComboBox;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -123,13 +127,18 @@ public class ResultsPanel extends JPanel{
         setDefaultValues();
         setModelsToComboBox();
 
-        ArrayList<JSpinner> list = getNeededComponent(new JSpinner());
-        for(JSpinner r : list)
-            System.out.println(r.getName());
+//        ArrayList<JSpinner> list = getNeededComponent(new JSpinner());
+//        for(JSpinner r : list)
+//            System.out.println(r.getName());
 
         fan50RadioButton.addItemListener(new MyItemListener(fan50Panel));
         fan36RadioButton.addItemListener(new MyItemListener(fan36Panel));
         fan26RadioButton.addItemListener(new MyItemListener(fan26Panel));
+        shaftRadioButton.addItemListener(new MyItemListener(shaftPanel));
+        airInletOnWallRadioButton.addItemListener(new MyItemListener(airInletOnWallPanel));
+        airInletOfRoofRadioButton.addItemListener(new MyItemListener(airInletOfRoofPanel));
+        airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
+        airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
 //        fan50RadioButton.addItemListener(new ItemListener() {
 //            @Override
 //            public void itemStateChanged(ItemEvent e) {
@@ -197,6 +206,7 @@ public class ResultsPanel extends JPanel{
         fan36ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan36())));
         fan26ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan26())));
         fanRoofComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFanRoof())));
+        shaftComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getShaft())));
         airInletOnWallComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfWall())));
         airInletOfRoofComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfRoof())));
         airInletForPadCoolComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfPadCool())));
@@ -216,7 +226,15 @@ public class ResultsPanel extends JPanel{
         return result;
     }
 
+    public void disableElementsInPanel(JRadioButton radioButton){
+        if(!radioButton.isSelected())
+            radioButton.doClick();
+    }
 
+    public void enableElementsInPanel(JRadioButton radioButton){
+        if(radioButton.isSelected())
+            radioButton.doClick();
+    }
 
     public void disableElementsInPanel(JPanel panel){
         for(Component component : panel.getComponents())
@@ -272,6 +290,18 @@ public class ResultsPanel extends JPanel{
 
     public boolean isFan50TwoSide() {
         return fan50TwoSideCheckBox.isSelected();
+    }
+
+    public int getShuftCount() {
+        return (int) shaftSpinner.getValue();
+    }
+
+    public void setShaftSpinner(int shuftCount) {
+        shaftSpinner.setValue(shuftCount);
+    }
+
+    public String getShaftName() {
+        return shaftComboBox.getSelectedItem().toString();
     }
 
     public int getAirInletBig() {
@@ -490,4 +520,51 @@ public class ResultsPanel extends JPanel{
         return automaticSSHUMTextField.getText();
     }
 
+    public JRadioButton getFan50RadioButton() {
+        return fan50RadioButton;
+    }
+
+    public JRadioButton getFan36RadioButton() {
+        return fan36RadioButton;
+    }
+
+    public JRadioButton getFan26RadioButton() {
+        return fan26RadioButton;
+    }
+
+    public JRadioButton getFanRoofRadioButton() {
+        return fanRoofRadioButton;
+    }
+
+    public JRadioButton getAirInletOnWallRadioButton() {
+        return airInletOnWallRadioButton;
+    }
+
+    public JRadioButton getAirInletForPadCoolRadioButton() {
+        return airInletForPadCoolRadioButton;
+    }
+
+    public JRadioButton getShutterRadioButton() {
+        return shutterRadioButton;
+    }
+
+    public JRadioButton getHumidityRadioButton() {
+        return humidityRadioButton;
+    }
+
+    public JRadioButton getHeaterRadioButton() {
+        return heaterRadioButton;
+    }
+
+    public JRadioButton getFanCirculationRadioButton() {
+        return fanCirculationRadioButton;
+    }
+
+    public JRadioButton getAutomaticRadioButton() {
+        return automaticRadioButton;
+    }
+
+    public JRadioButton getAirInletOfRoofRadioButton() {
+        return airInletOfRoofRadioButton;
+    }
 }

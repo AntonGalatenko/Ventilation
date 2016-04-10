@@ -178,7 +178,7 @@
               </scrollpane>
             </children>
           </grid>
-          <grid id="132e2" binding="intelAirPanel" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="132e2" binding="intelAirPanel" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Приток"/>
@@ -188,7 +188,7 @@
             <children>
               <component id="caecc" class="javax.swing.JLabel" binding="airInletOnWallLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="130" height="-1"/>
                   </grid>
                 </constraints>
@@ -198,7 +198,7 @@
               </component>
               <scrollpane id="d1f0f" binding="airInletOnWallScrollPane">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <minimum-size width="-1" height="70"/>
                   </grid>
                 </constraints>
@@ -217,7 +217,7 @@
               </scrollpane>
               <component id="2473d" class="javax.swing.JLabel" binding="airInletOnRoofLabel">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Клапан потолочный"/>
@@ -225,7 +225,7 @@
               </component>
               <scrollpane id="64e1e" binding="airInletOnRoofScrollPane">
                 <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <minimum-size width="-1" height="70"/>
                   </grid>
                 </constraints>
@@ -244,7 +244,7 @@
               </scrollpane>
               <component id="6ff13" class="javax.swing.JLabel" binding="airInletForPadCoolLabel">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Клапан для PadCool"/>
@@ -252,7 +252,7 @@
               </component>
               <scrollpane id="8ea3a" binding="airInletForPadCoolScrollPane">
                 <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <minimum-size width="-1" height="70"/>
                   </grid>
                 </constraints>
@@ -271,7 +271,7 @@
               </scrollpane>
               <component id="c99cc" class="javax.swing.JLabel" binding="shutterLabel">
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Жалюзи"/>
@@ -279,7 +279,7 @@
               </component>
               <scrollpane id="e359e" binding="shutterScrollPane">
                 <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <minimum-size width="-1" height="70"/>
                   </grid>
                 </constraints>
@@ -291,6 +291,35 @@
                 <border type="none"/>
                 <children>
                   <component id="a351c" class="javax.swing.JTextArea" binding="shutterTextArea">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
+              <component id="ae298" class="javax.swing.JLabel" binding="shaftLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="130" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Шахта приточнрая"/>
+                </properties>
+              </component>
+              <scrollpane id="d011c" binding="shaftScrollPane">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="70"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <autoscrolls value="true"/>
+                  <horizontalScrollBarPolicy value="30"/>
+                  <verticalScrollBarPolicy value="22"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="b1370" class="javax.swing.JTextArea" binding="shaftTextArea">
                     <constraints/>
                     <properties/>
                   </component>

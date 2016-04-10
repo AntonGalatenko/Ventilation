@@ -10,6 +10,7 @@ public class DataOfEquipment implements Serializable {
     private HashMap<String, Storage> fan36 = new HashMap<>();
     private HashMap<String, Storage> fan26 = new HashMap<>();
     private HashMap<String, Storage> fanRoof = new HashMap<>();
+    private HashMap<String, Storage> shaft = new HashMap<>();
     private HashMap<String, Storage> airInletOfWall = new HashMap<>();
     private HashMap<String, Storage> airInletOfRoof = new HashMap<>();
     private HashMap<String, Storage> airInletOfPadCool = new HashMap<>();
@@ -25,6 +26,7 @@ public class DataOfEquipment implements Serializable {
         setFan26DefaultValue();
         setFanRoofDefaultValue();
 
+        setShaftDefaultValue();
         setAirInletOfWallDefaultValue();
         setAirInletOfRoofDefaultValue();
         setAirInletOfPadCoolDefaultValue();
@@ -78,6 +80,10 @@ public class DataOfEquipment implements Serializable {
         shutter.put("VJ130", new Storage(33000, "Туннельные жалюзи 1380х1380мм"));
     }
 
+    public void setShaftDefaultValue(){
+        shaft.put("ВПК2В-04.000", new Storage(15000, "Шахта приточная 1000х1000мм"));
+    }
+
     public void setHeaterDefaultValue(){
         heater.put("GA/N 70C", new Storage(70, "Теплогенератор газовый"));
         heater.put("GA/N 95C", new Storage(95, "Теплогенератор газовый"));
@@ -117,6 +123,10 @@ public class DataOfEquipment implements Serializable {
 
     public HashMap<String, Storage> getFanRoof() {
         return fanRoof;
+    }
+
+    public HashMap<String, Storage> getShaft() {
+        return shaft;
     }
 
     public HashMap<String, Storage> getAirInletOfWall() {
@@ -185,6 +195,10 @@ public class DataOfEquipment implements Serializable {
 
     public void updateAirInletOfPadCool(StringBuilder value){
         updateHashMap(airInletOfPadCool, value);
+    }
+
+    public void updateShaft(StringBuilder value){
+        updateHashMap(shaft, value);
     }
 
     public void updateShutter(StringBuilder value){

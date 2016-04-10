@@ -100,7 +100,6 @@ public class BaseInfo {
             taskPanel.setAirSummer(12);
             taskPanel.setAirWinter(0);
 
-//            resultsPanel.getfan5
         } else {
             taskPanel.setAirSummer(9);
             taskPanel.setAirWinter(3);
@@ -108,7 +107,6 @@ public class BaseInfo {
         cageTiers = Arrays.asList(3, 4, 5, 6);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
-//        resultsPanel.hideElementsInPanel(resultsPanel.fa);
     }
 
     private void setTBCInfo(){
@@ -157,7 +155,38 @@ public class BaseInfo {
         taskPanel.setDisablesCageTiredAndCageNumberComboBox();
     }
 
-    public String getCompanyName() {
+    public void setElementsOnPanelForTunnelVentilationType(){
+        resultsPanel.enableElementsInPanel(resultsPanel.getFan50RadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getAirInletOnWallRadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getAirInletForPadCoolRadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getHumidityRadioButton());
+
+        resultsPanel.disableElementsInPanel(resultsPanel.getFan36RadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getFan26RadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getFanRoofRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOfRoofRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getShutterRadioButton());
+    }
+
+    public void setElementsOnPanelForEuroVentilationType(){
+        resultsPanel.enableElementsInPanel(resultsPanel.getFan50RadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getFan26RadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getFanRoofRadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getAirInletForPadCoolRadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getHumidityRadioButton());
+
+        resultsPanel.disableElementsInPanel(resultsPanel.getFan36RadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOfRoofRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getShutterRadioButton());
+    }
+
+    public void setElementsOnPanelForTexhaVentilationType(){
+        resultsPanel.enableElementsInPanel(resultsPanel.getFan50RadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getFan26RadioButton());
+
+    }
+
+        public String getCompanyName() {
         return taskPanel.getCompanyName();
     }
 
