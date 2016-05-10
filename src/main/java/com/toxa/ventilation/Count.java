@@ -45,7 +45,6 @@ public class Count {
     public int countFan50(){
         int result = (int) (Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirSummer() / baseInfo.getFan50Capacity()));
         resultsPanel.setFan50Count(result);
-        System.out.println("!!!! " + baseInfo.getFan50Capacity());
         return result;
     }
 
@@ -97,7 +96,42 @@ public class Count {
         return result;
     }
 
+    public void countPadCool(){
 
+    }
+
+    public double countPadCoolLength(){
+        double result1 = 0;
+        double result2 = 0;
+        int resultCount1 = 0;
+        int resultCount2 = 0;
+
+        if(baseInfo.getBuildingWidth() <= 21 && ! baseInfo.isFan50TwoSideCheckBox()){
+            result1 = currentPanel(baseInfo.getBuildingWidth());
+            resultCount1 = 1;
+        } else if(! baseInfo.isFan50TwoSideCheckBox()){
+            result1 = currentPanel((baseInfo.getBuildingWidth() - 1)/ 2);
+            resultCount2 = 2;
+        }
+
+        double airSpeed = 1.49;
+    }
+
+    public int countPadCoolCount(){
+
+    }
+
+    public double currentPanel(double value) {
+        double x = value % 0.6;
+        double result = 0;
+
+        if(x > 0)
+            result = value - x;
+        result = Math.round(result * 10) / 10.0;
+        if(result > 21)
+            result = 21;
+        return result;
+    }
 
 
 //    public int getFan50Count() {

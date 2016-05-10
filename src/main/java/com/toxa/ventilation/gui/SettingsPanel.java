@@ -103,6 +103,7 @@ public class SettingsPanel extends JDialog{
                 saveActualValue();
                 dispose();
                 myToolBar.getMyMainPanel().getResultPanel().setModelsToComboBox();
+                new ActualValues().loadActualValue();
             }
         });
 

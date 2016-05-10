@@ -34,9 +34,5 @@ public class ActualValues extends DataOfEquipment{
         return actualValues;
     }
 
-    public DataOfEquipment getActualValues() {
-        return actualValues;
-    }
-
 
 }

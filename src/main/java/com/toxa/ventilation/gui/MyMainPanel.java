@@ -8,7 +8,6 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
-//    private SettingsPanel settingsPanel;
 
     public MyMainPanel(){
         setTitle("Вентиляция");
@@ -16,7 +15,6 @@ public class MyMainPanel extends JFrame{
         toolBar = new MyToolBar(this);
         taskPanel = new TaskPanel();
         resultPanel = new ResultsPanel();
-//        settingsPanel = new SettingsPanel();
 
         taskPanel.setResultsPanel(resultPanel);
         resultPanel.setMyMainPanel(this);

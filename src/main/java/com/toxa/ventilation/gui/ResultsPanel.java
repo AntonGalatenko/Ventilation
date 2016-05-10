@@ -123,8 +123,6 @@ public class ResultsPanel extends JPanel{
             }
         });
 
-
-
         setDefaultValues();
         setModelsToComboBox();
 
@@ -146,6 +144,9 @@ public class ResultsPanel extends JPanel{
         heaterRadioButton.addItemListener(new MyItemListener(heaterPanel));
         fanCirculationRadioButton.addItemListener(new MyItemListener(fanCirculationPanel));
         automaticRadioButton.addItemListener(new MyItemListener(automaticPanel));
+
+        setElementsOnPanelForTunnelVentilationType();
+
     }
 
     public class MyItemListener implements ItemListener{
@@ -167,6 +168,7 @@ public class ResultsPanel extends JPanel{
 
     public void setDefaultValues(){
         setAllSpinnerMoreZeroValue();
+
 
         automaticSpinner.setValue(1);
 
@@ -589,4 +591,57 @@ public class ResultsPanel extends JPanel{
     public JRadioButton getAirInletOfRoofRadioButton() {
         return airInletOfRoofRadioButton;
     }
+
+    public void setElementsOnPanelForTunnelVentilationType(){
+        enableElementsInPanel(getFan50RadioButton());
+        enableElementsInPanel(getAirInletOnWallRadioButton());
+        enableElementsInPanel(getAirInletForPadCoolRadioButton());
+        enableElementsInPanel(getHumidityRadioButton());
+
+        disableElementsInPanel(getFan36RadioButton());
+        disableElementsInPanel(getFan26RadioButton());
+        disableElementsInPanel(getFanRoofRadioButton());
+        disableElementsInPanel(getAirInletOfRoofRadioButton());
+        disableElementsInPanel(getShaftRadioButton());
+        disableElementsInPanel(getShutterRadioButton());
+    }
+
+    public void setElementsOnPanelForEuroVentilationType(){
+        enableElementsInPanel(getFan50RadioButton());
+        enableElementsInPanel(getFan26RadioButton());
+        enableElementsInPanel(getFanRoofRadioButton());
+        enableElementsInPanel(getAirInletForPadCoolRadioButton());
+        enableElementsInPanel(getHumidityRadioButton());
+        enableElementsInPanel(getAirInletOnWallRadioButton());
+
+        disableElementsInPanel(getShaftRadioButton());
+        disableElementsInPanel(getFan36RadioButton());
+        disableElementsInPanel(getAirInletOfRoofRadioButton());
+        disableElementsInPanel(getShutterRadioButton());
+    }
+
+    public void setElementsOnPanelForTexhaVentilationType(){
+        enableElementsInPanel(getFan50RadioButton());
+        enableElementsInPanel(getFan26RadioButton());
+        enableElementsInPanel(getShaftRadioButton());
+        enableElementsInPanel(getShutterRadioButton());
+
+        disableElementsInPanel(getFan36RadioButton());
+        disableElementsInPanel(getFanRoofRadioButton());
+        disableElementsInPanel(getAirInletOnWallRadioButton());
+        disableElementsInPanel(getAirInletOfRoofRadioButton());
+        disableElementsInPanel(getAirInletForPadCoolRadioButton());
+        disableElementsInPanel(getHumidityRadioButton());
+    }
+
+    public void setElementOnPanelDisableForHeating(){
+        disableElementsInPanel(getHeaterRadioButton());
+        disableElementsInPanel(getFanCirculationRadioButton());
+    }
+
+    public void setElementOnPanelEnableForHeating(){
+        enableElementsInPanel(getHeaterRadioButton());
+        enableElementsInPanel(getFanCirculationRadioButton());
+    }
+
 }

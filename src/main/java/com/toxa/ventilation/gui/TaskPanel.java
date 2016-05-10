@@ -107,7 +107,6 @@ public class TaskPanel extends JPanel{
                 System.out.println(getAirSummer());
                 System.out.println(getAirWinter());
 
-
                 count.startCount();
             }
         });

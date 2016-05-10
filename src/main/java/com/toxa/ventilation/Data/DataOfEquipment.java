@@ -241,7 +241,6 @@ public class DataOfEquipment implements Serializable {
         Scanner scan = new Scanner(value.toString());
         while(scan.hasNextLine()){
             line = parseStringLine(scan.nextLine());
-            System.err.println(line[1]);
             map.put(line[0], new Storage(Double.parseDouble(line[1]), line[2]));
         }
     }
