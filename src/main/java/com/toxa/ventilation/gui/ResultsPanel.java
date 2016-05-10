@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ResultsPanel extends JPanel{
     private Count count;
@@ -54,7 +54,7 @@ public class ResultsPanel extends JPanel{
     private JSpinner humidityLengthSpinner1;
     private JSpinner humidityCountSpinner2;
     private JSpinner humidityCountSpinner1;
-    private JSpinner humidityHeightSpinner;
+    private JSpinner humidityHeightSpinner1;
     private JCheckBox humidityCheckBox;
     private JSpinner humidityLengthSpinner2;
     private JPanel heaterPanel;
@@ -99,6 +99,7 @@ public class ResultsPanel extends JPanel{
     private JPanel shaftPanel;
     private JSpinner shaftSpinner;
     private JComboBox shaftComboBox;
+    private JSpinner humidityHeightSpinner2;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -134,20 +135,17 @@ public class ResultsPanel extends JPanel{
         fan50RadioButton.addItemListener(new MyItemListener(fan50Panel));
         fan36RadioButton.addItemListener(new MyItemListener(fan36Panel));
         fan26RadioButton.addItemListener(new MyItemListener(fan26Panel));
+        fanRoofRadioButton.addItemListener(new MyItemListener(fanRoofPanel));
         shaftRadioButton.addItemListener(new MyItemListener(shaftPanel));
         airInletOnWallRadioButton.addItemListener(new MyItemListener(airInletOnWallPanel));
         airInletOfRoofRadioButton.addItemListener(new MyItemListener(airInletOfRoofPanel));
         airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
         airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
-//        fan50RadioButton.addItemListener(new ItemListener() {
-//            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                if(e.getStateChange() == ItemEvent.SELECTED)
-//                    disableElementsInPanel(fan50Panel);
-//                else
-//                    enableElementsInPanel(fan50Panel);
-//            }
-//        });
+        shutterRadioButton.addItemListener(new MyItemListener(shutterPanel));
+        humidityRadioButton.addItemListener(new MyItemListener(humidityPanel));
+        heaterRadioButton.addItemListener(new MyItemListener(heaterPanel));
+        fanCirculationRadioButton.addItemListener(new MyItemListener(fanCirculationPanel));
+        automaticRadioButton.addItemListener(new MyItemListener(automaticPanel));
     }
 
     public class MyItemListener implements ItemListener{
@@ -172,7 +170,8 @@ public class ResultsPanel extends JPanel{
 
         automaticSpinner.setValue(1);
 
-        humidityHeightSpinner.setModel(new SpinnerNumberModel(new Double(2), new Double(1), new Double(2), new Double(0.5)));
+        humidityHeightSpinner1.setModel(new SpinnerNumberModel(new Double(2), new Double(1), new Double(2), new Double(0.5)));
+        humidityHeightSpinner2.setModel(new SpinnerNumberModel(new Double(2), new Double(1), new Double(2), new Double(0.5)));
         humidityLengthSpinner1.setModel(new SpinnerNumberModel(new Double(6),new Double(6), new Double(24), new Double(0.6)));
         humidityLengthSpinner2.setModel(new SpinnerNumberModel(new Double(6),new Double(6), new Double(24), new Double(0.6)));
 
@@ -209,14 +208,14 @@ public class ResultsPanel extends JPanel{
         shaftComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getShaft())));
         airInletOnWallComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfWall())));
         airInletOfRoofComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfRoof())));
-        airInletForPadCoolComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfPadCool())));
+        airInletForPadCoolComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletForPadCool())));
         shutterComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getShutter())));
         heaterComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getHeater())));
         fanCirculationComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFanCirculation())));
         automaticComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAutomatic())));
     }
 
-    public String[] parseHashMapForComboBox(HashMap<String, Storage> map){
+    public String[] parseHashMapForComboBox(LinkedHashMap<String, Storage> map){
         String[] result = new String[map.size()];
         int i = 0;
         for(String key : map.keySet()){
@@ -237,15 +236,22 @@ public class ResultsPanel extends JPanel{
     }
 
     public void disableElementsInPanel(JPanel panel){
-        for(Component component : panel.getComponents())
+        for(Component component : panel.getComponents()){
+            if(component.getClass().equals(JPanel.class))
+                disableElementsInPanel((JPanel)component);
             if(!component.getClass().equals(JRadioButton.class))
                 component.setEnabled(false);
+        }
     }
 
     public void enableElementsInPanel(JPanel panel){
-        for(Component component : panel.getComponents())
+        for(Component component : panel.getComponents()){
+            if(component.getClass().equals(JPanel.class))
+                enableElementsInPanel((JPanel)component);
             if(!component.getClass().equals(JRadioButton.class))
                 component.setEnabled(true);
+        }
+
     }
 
     public void setMyMainPanel(MyMainPanel myMainPanel) {
@@ -292,23 +298,23 @@ public class ResultsPanel extends JPanel{
         return fan50TwoSideCheckBox.isSelected();
     }
 
-    public int getShuftCount() {
+    public int getShaftCount() {
         return (int) shaftSpinner.getValue();
     }
 
-    public void setShaftSpinner(int shuftCount) {
-        shaftSpinner.setValue(shuftCount);
+    public void setShaftCount(int shaftCount) {
+        shaftSpinner.setValue(shaftCount);
     }
 
     public String getShaftName() {
         return shaftComboBox.getSelectedItem().toString();
     }
 
-    public int getAirInletBig() {
+    public int getAirInletForPadCoolCount() {
         return (int) airInletForPadCoolSpinner.getValue();
     }
 
-    public void setAirInletBigCount(int airInletBigCount) {
+    public void setAirInletForPadCoolCount(int airInletBigCount) {
         airInletForPadCoolSpinner.setValue(airInletBigCount);
     }
 
@@ -348,19 +354,31 @@ public class ResultsPanel extends JPanel{
         return fanRoofComboBox.getSelectedItem().toString();
     }
 
-    public int getAirInletSmallCount() {
+    public int getAirInletOnWallCount() {
         return (int) airInletOnWallSpinner.getValue();
     }
 
-    public void setAirInletSmallCount(int airInletSmallCount) {
+    public void setAirInletOnWallCount(int airInletSmallCount) {
         airInletOnWallSpinner.setValue(airInletSmallCount);
     }
 
-    public String getAirInletSmallName() {
+    public String getAirInletOnWallName() {
         return airInletOnWallComboBox.getSelectedItem().toString();
     }
 
-    public String getAirInletBigName() {
+    public String getAirInletOfRoofName() {
+        return airInletOfRoofComboBox.getSelectedItem().toString();
+    }
+
+    public int getAirInletOfRoofCount() {
+        return (int) airInletOfRoofSpinner.getValue();
+    }
+
+    public void setAirInletOfRoofCount(int airInletOfRoofCount) {
+        airInletOfRoofSpinner.setValue(airInletOfRoofCount);
+    }
+
+    public String getAirInletForPadCoolName() {
         return airInletForPadCoolComboBox.getSelectedItem().toString();
     }
 
@@ -401,11 +419,11 @@ public class ResultsPanel extends JPanel{
     }
 
     public double getHumidityHeight() {
-        return (double)humidityHeightSpinner.getValue();
+        return (double) humidityHeightSpinner1.getValue();
     }
 
     public void setHumidityHeight(double humidityHeight) {
-        humidityHeightSpinner.setValue(humidityHeight);
+        humidityHeightSpinner1.setValue(humidityHeight);
     }
 
     public boolean isHumidityCheckBox() {                                                           //изменить название
@@ -534,6 +552,10 @@ public class ResultsPanel extends JPanel{
 
     public JRadioButton getFanRoofRadioButton() {
         return fanRoofRadioButton;
+    }
+
+    public JRadioButton getShaftRadioButton() {
+        return shaftRadioButton;
     }
 
     public JRadioButton getAirInletOnWallRadioButton() {

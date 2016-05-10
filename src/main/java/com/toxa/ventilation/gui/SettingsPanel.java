@@ -74,6 +74,16 @@ public class SettingsPanel extends JDialog{
     private JLabel shaftLabel;
     private JScrollPane shaftScrollPane;
     private JTextArea shaftTextArea;
+    private JPanel humidityPanel;
+    private JLabel humidity2mLabel;
+    private JScrollPane humidity2mScrollPane;
+    private JTextArea humidity2mTextArea;
+    private JScrollPane humidity15mScrollPane;
+    private JLabel humidity15mLabel;
+    private JTextArea humidity15mTextArea;
+    private JLabel humidity1mLabel;
+    private JScrollPane humidity1mScrollPane;
+    private JTextArea humidity1mTextArea;
 
     public SettingsPanel(final MyMainPanel myMainPanel){
         this.myMainPanel = myMainPanel;
@@ -85,7 +95,7 @@ public class SettingsPanel extends JDialog{
         setVisible(true);
         pack();
 
-        setDefaultValue();
+        setDefaultNamesDescriptionsCapacity();
 
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -104,25 +114,26 @@ public class SettingsPanel extends JDialog{
         });
     }
 
-    public void setDefaultValue(){
+    public void setDefaultNamesDescriptionsCapacity(){
         dataOfEquipment = new ActualValues().loadActualValue();
 
-        setFan50Names(parseEquipmentValue(dataOfEquipment.getFan50()));
-        setFan36Names(parseEquipmentValue(dataOfEquipment.getFan36()));
-        setFan26Names(parseEquipmentValue(dataOfEquipment.getFan26()));
-        setFanRoofNames(parseEquipmentValue(dataOfEquipment.getFanRoof()));
-        setShaftNames(parseEquipmentValue(dataOfEquipment.getShaft()));
-        setAirInletOnWallNames(parseEquipmentValue(dataOfEquipment.getAirInletOfWall()));
-        setAirInletOnRoofNames(parseEquipmentValue(dataOfEquipment.getAirInletOfRoof()));
-        setAirInletOfPadCoolNames(parseEquipmentValue(dataOfEquipment.getAirInletOfPadCool()));
-        setShutterNames(parseEquipmentValue(dataOfEquipment.getShutter()));
-        setHeaterNames(parseEquipmentValue(dataOfEquipment.getHeater()));
-        setFanCirculationNames(parseEquipmentValue(dataOfEquipment.getFanCirculation()));
-        setAutomaticNames(parseEquipmentValue(dataOfEquipment.getAutomatic()));
+        setFan50NamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getFan50()));
+        setFan36NamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getFan36()));
+        setFan26NamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getFan26()));
+        setFanRoofNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getFanRoof()));
+        setShaftNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getShaft()));
+        setAirInletOnWallNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAirInletOfWall()));
+        setAirInletOnRoofNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAirInletOfRoof()));
+        setAirInletOfPadCoolNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAirInletForPadCool()));
+        setShutterNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getShutter()));
+        setHumidity2NamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getHumidity()));
+        setHeaterNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getHeater()));
+        setFanCirculationNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getFanCirculation()));
+        setAutomaticNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAutomatic()));
     }
 
     public void saveActualValue(){
-        updateValues();
+        updateNamesOfEquipmentOnResultPanel();
 
         FileOutputStream fos;
         ObjectOutputStream oos;
@@ -132,7 +143,6 @@ public class SettingsPanel extends JDialog{
             oos.writeObject(dataOfEquipment);
             oos.flush();
             oos.close();
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -140,19 +150,20 @@ public class SettingsPanel extends JDialog{
         }
     }
 
-    public void updateValues(){
-        dataOfEquipment.updateFan50(getFan50Names());
-        dataOfEquipment.updateFan36(getFan36Names());
-        dataOfEquipment.updateFan26(getFan26Names());
-        dataOfEquipment.updateFanRoof(getFanRoofNames());
-        dataOfEquipment.updateShaft(getShaftNames());
-        dataOfEquipment.updateAirInletOfWall(getAirInletOnWallNames());
-        dataOfEquipment.updateAirInletOfRoof(getAirInletOnRoofNames());
-        dataOfEquipment.updateAirInletOfPadCool(getAirInletForPadCoolNames());
-        dataOfEquipment.updateShutter(getShutterNames());
-        dataOfEquipment.updateHeater(getHeaterNames());
-        dataOfEquipment.updateFanCirculation(getFanCirculationNames());
-        dataOfEquipment.updateAutomatic(getAutomaticNames());
+    public void updateNamesOfEquipmentOnResultPanel(){
+        dataOfEquipment.updateFan50(getFan50NamesDescriptionsCapacity());
+        dataOfEquipment.updateFan36(getFan36NamesDescriptionsCapacity());
+        dataOfEquipment.updateFan26(getFan26NamesDescriptionsCapacity());
+        dataOfEquipment.updateFanRoof(getFanRoofNamesDescriptionsCapacity());
+        dataOfEquipment.updateShaft(getShaftNamesDescriptionsCapacity());
+        dataOfEquipment.updateAirInletOfWall(getAirInletOnWallNamesDescriptionsCapacity());
+        dataOfEquipment.updateAirInletOfRoof(getAirInletOnRoofNamesDescriptionsCapacity());
+        dataOfEquipment.updateAirInletOfPadCool(getAirInletForPadCoolNamesDescriptionsCapacity());
+        dataOfEquipment.updateShutter(getShutterNamesDescriptionsCapacity());
+        dataOfEquipment.updateHumidity(getHumidity2mNamesDescriptionsCapacity());
+        dataOfEquipment.updateHeater(getHeaterNamesDescriptionsCapacity());
+        dataOfEquipment.updateFanCirculation(getFanCirculationNamesDescriptionsCapacity());
+        dataOfEquipment.updateAutomatic(getAutomaticNamesDescriptionsCapacity());
     }
 
     public StringBuilder parseEquipmentValue(HashMap<String, Storage> map){
@@ -167,116 +178,140 @@ public class SettingsPanel extends JDialog{
         setLocation((int)point.getX() + 10, (int)point.getY() + 30);
     }
 
-    public StringBuilder getFan50Names() {
+    public StringBuilder getFan50NamesDescriptionsCapacity() {
         return new StringBuilder().append(fan50TextArea.getText());
     }
 
-    public void setFan50Names(StringBuilder text) {
+    public void setFan50NamesDescriptionsCapacity(StringBuilder text) {
         fan50TextArea.setText(text.toString());
     }
 
-    public StringBuilder getFan36Names() {
+    public StringBuilder getFan36NamesDescriptionsCapacity() {
         return new StringBuilder().append(fan36TextArea.getText());
     }
 
-    public void setFan36Names(StringBuilder text) {
+    public void setFan36NamesDescriptionsCapacity(StringBuilder text) {
         fan36TextArea.setText(text.toString());
     }
 
-    public StringBuilder getFan26Names() {
+    public StringBuilder getFan26NamesDescriptionsCapacity() {
         return new StringBuilder().append(fan26TextArea.getText());
     }
 
-    public void setFan26Names(StringBuilder text) {
+    public void setFan26NamesDescriptionsCapacity(StringBuilder text) {
         fan26TextArea.setText(text.toString());
     }
 
-    public StringBuilder getShaftNames() {
+    public StringBuilder getShaftNamesDescriptionsCapacity() {
         return new StringBuilder().append(shaftTextArea.getText());
     }
 
-    public void setShaftNames(StringBuilder text) {
+    public void setShaftNamesDescriptionsCapacity(StringBuilder text) {
         shaftTextArea.setText(text.toString());
     }
 
 
-    public StringBuilder getAirInletOnWallNames() {
+    public StringBuilder getAirInletOnWallNamesDescriptionsCapacity() {
         return new StringBuilder().append(airInletOnWallTextArea.getText());
     }
 
-    public void setAirInletOnWallNames(StringBuilder text) {
+    public void setAirInletOnWallNamesDescriptionsCapacity(StringBuilder text) {
         airInletOnWallTextArea.setText(text.toString());
     }
 
-    public StringBuilder getAirInletOnRoofNames() {
+    public StringBuilder getAirInletOnRoofNamesDescriptionsCapacity() {
         return new StringBuilder().append(airInletOnRoofTextArea.getText());
     }
 
-    public void setAirInletOnRoofNames(StringBuilder text) {
+    public void setAirInletOnRoofNamesDescriptionsCapacity(StringBuilder text) {
         airInletOnRoofTextArea.setText(text.toString());
     }
 
-    public StringBuilder getAirInletForPadCoolNames() {
+    public StringBuilder getAirInletForPadCoolNamesDescriptionsCapacity() {
         return new StringBuilder().append(airInletForPadCoolTextArea.getText());
     }
 
-    public void setAirInletOfPadCoolNames(StringBuilder text) {
+    public void setAirInletOfPadCoolNamesDescriptionsCapacity(StringBuilder text) {
         airInletForPadCoolTextArea.setText(text.toString());
     }
 
-    public StringBuilder getShutterNames() {
+    public StringBuilder getShutterNamesDescriptionsCapacity() {
         return new StringBuilder().append(shutterTextArea.getText());
     }
 
-    public void setShutterNames(StringBuilder text) {
+    public void setShutterNamesDescriptionsCapacity(StringBuilder text) {
         shutterTextArea.setText(text.toString());
     }
 
-    public StringBuilder getHeaterNames() {
+    public StringBuilder getHumidity2mNamesDescriptionsCapacity() {
+        return new StringBuilder().append(humidity2mTextArea.getText());
+    }
+
+    public StringBuilder getHumidity15mNamesDescriptionsCapacity() {
+        return new StringBuilder().append(humidity15mTextArea.getText());
+    }
+
+    public StringBuilder getHumidity1mNamesDescriptionsCapacity() {
+        return new StringBuilder().append(humidity1mTextArea.getText());
+    }
+
+    public void setHumidity2NamesDescriptionsCapacity(StringBuilder text) {
+        humidity2mTextArea.setText(text.toString());
+    }
+
+    public void setHumidity15NamesDescriptionsCapacity(StringBuilder text) {
+        humidity15mTextArea.setText(text.toString());
+    }
+
+    public void setHumidity1NamesDescriptionsCapacity(StringBuilder text) {
+        humidity1mTextArea.setText(text.toString());
+    }
+
+    public StringBuilder getHeaterNamesDescriptionsCapacity() {
         return new StringBuilder().append(heaterTextArea.getText());
     }
 
-    public void setHeaterNames(StringBuilder text) {
+    public void setHeaterNamesDescriptionsCapacity(StringBuilder text) {
         heaterTextArea.setText(text.toString());
     }
 
-    public StringBuilder getFanCirculationNames() {
+    public StringBuilder getFanCirculationNamesDescriptionsCapacity() {
         return new StringBuilder().append(fanCirculationTextArea.getText());
     }
 
-    public void setFanCirculationNames(StringBuilder text) {
+    public void setFanCirculationNamesDescriptionsCapacity(StringBuilder text) {
         fanCirculationTextArea.setText(text.toString());
     }
 
-    public StringBuilder getAutomaticNames() {
+    public StringBuilder getAutomaticNamesDescriptionsCapacity() {
         return new StringBuilder().append(automaticTextArea.getText());
     }
 
-    public void setAutomaticNames(StringBuilder text) {
+    public void setAutomaticNamesDescriptionsCapacity(StringBuilder text) {
         automaticTextArea.setText(text.toString());
     }
 
-    public StringBuilder getServomotorNames() {
+    public StringBuilder getServomotorNamesDescriptionsCapacity() {
         return new StringBuilder().append(servomotorTextArea.getText());
     }
 
-    public void setServomotorNames(StringBuilder text) {
+    public void setServomotorNamesDescriptionsCapacity(StringBuilder text) {
         servomotorTextArea.setText(text.toString());
     }
 
-    public StringBuilder getEmergencyNames() {
+    public StringBuilder getEmergencyNamesDescriptionsCapacity() {
         return new StringBuilder().append(emergencyTextArea.getText());
     }
 
-    public void setEmergencyNames(StringBuilder text) {
+    public void setEmergencyNamesDescriptionsCapacity(StringBuilder text) {
         emergencyTextArea.setText(text.toString());
     }
 
-    public StringBuilder getFanRoofNames() {
+    public StringBuilder getFanRoofNamesDescriptionsCapacity() {
         return new StringBuilder().append(fanRoofTextArea.getText());
     }
 
-    public void setFanRoofNames(StringBuilder text) {
+    public void setFanRoofNamesDescriptionsCapacity(StringBuilder text) {
         fanRoofTextArea.setText(text.toString());
     }
 }

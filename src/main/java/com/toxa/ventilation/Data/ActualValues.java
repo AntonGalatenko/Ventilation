@@ -1,6 +1,9 @@
 package com.toxa.ventilation.Data;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class ActualValues extends DataOfEquipment{
 
@@ -34,18 +37,6 @@ public class ActualValues extends DataOfEquipment{
     public DataOfEquipment getActualValues() {
         return actualValues;
     }
-
-    //    public ActualValues cloneDefaultValue(){
-//        DefaultValue defaultValue = new DefaultValue();
-//        ActualValues actualValues = new ActualValues();
-//
-//        actualValues.setFan50Capacity(defaultValue.getFan50Capacity());
-//        actualValues.setFan36Capacity(defaultValue.getFan36Capacity());
-//        actualValues.setFan26Capacity(defaultValue.getFan26Capacity());
-//        actualValues.setFanRoofCapacity(defaultValue.getFanRoofCapacity());
-//        actualValues.setFan50Description(defaultValue.getFan50Description());
-//        return actualValues;
-//    }
 
 
 }

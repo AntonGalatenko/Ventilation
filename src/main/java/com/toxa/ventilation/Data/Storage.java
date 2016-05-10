@@ -3,19 +3,19 @@ package com.toxa.ventilation.Data;
 import java.io.Serializable;
 
 public class Storage implements Serializable{
-    private int capacity;
+    private double capacity;
     private String description;
 
-    public Storage(int capacity, String description) {
+    public Storage(double capacity, String description) {
         this.capacity = capacity;
         this.description = description;
     }
 
     public int getCapacity() {
-        return capacity;
+        return (int)capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
 

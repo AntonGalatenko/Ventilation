@@ -8,11 +8,6 @@ public class Count {
     private BaseInfo baseInfo;
     private ResultsPanel resultsPanel;
 
-//    private int fan50;
-//    private int fan36;
-//    private int fan26;
-
-
     private Count(){
     }
 
@@ -29,10 +24,13 @@ public class Count {
 
     public void startCount(){
         countFan50();
+        countFan36();
         countFan26();
         countFanRoof();
+        countShaft();
+        countAirInletOnWall();
 
-        countFinish();
+//        countFinish();
     }
 
     public void setBaseInfo(BaseInfo baseInfo) {
@@ -44,26 +42,46 @@ public class Count {
     }
 
     public int countFan50(){
-        int result = (int) (Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirSummer() / baseInfo.FAN_50_CAPACITY));
+        int result = (int) (Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirSummer() / baseInfo.getFan50Capacity()));
         resultsPanel.setFan50Count(result);
         return result;
     }
 
+    public int countFan36(){
+        int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / baseInfo.getFan36Capacity());
+        resultsPanel.setFan36Count(result);
+        return result;
+    }
+
     public int countFan26(){
-        int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / baseInfo.FAN_26_CAPACITY);
+        int result = 1;
+        if(baseInfo.getVentilationType().equals("Техна"))
+            result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / baseInfo.getFan26Capacity());
         resultsPanel.setFan26Count(result);
         return result;
     }
 
     public int countFanRoof(){
-        int fanCapacity;
-        if(resultsPanel.getFanRoofName().equals("P6D82"))
-            fanCapacity = baseInfo.FAN_Roof820_CAPACITY;
-        else
-            fanCapacity = baseInfo.FAN_Roof630_CAPACITY;
-
-        int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / fanCapacity);
+        int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter() / baseInfo.getFanRoofCapacity()));
         resultsPanel.setFanRoofCount(result);
+        return result;
+    }
+
+    public int countShaft(){
+        int result = (int)(Math.ceil(resultsPanel.getFan26Count() * baseInfo.getFan26Capacity() / baseInfo.getShaftCapacity()));
+        resultsPanel.setShaftCount(result);
+        return result;
+    }
+
+    public int countAirInletOnWall(){
+        int result = (int)(Math.ceil(resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity() / baseInfo.getAirInletOnWallCapacity()));
+        if(result == 0)
+            result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirForAirInletForTunnelTypeOfVentilation() / baseInfo.getAirInletOnWallCapacity()));
+
+        if(result % 2 != 0)
+            result += 1;
+
+        resultsPanel.setAirInletOnWallCount(result);
         return result;
     }
 

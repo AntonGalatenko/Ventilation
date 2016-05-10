@@ -1,24 +1,24 @@
 package com.toxa.ventilation.Data;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 public class DataOfEquipment implements Serializable {
 
-    private HashMap<String, Storage> fan50 = new HashMap<>();
-    private HashMap<String, Storage> fan36 = new HashMap<>();
-    private HashMap<String, Storage> fan26 = new HashMap<>();
-    private HashMap<String, Storage> fanRoof = new HashMap<>();
-    private HashMap<String, Storage> shaft = new HashMap<>();
-    private HashMap<String, Storage> airInletOfWall = new HashMap<>();
-    private HashMap<String, Storage> airInletOfRoof = new HashMap<>();
-    private HashMap<String, Storage> airInletOfPadCool = new HashMap<>();
-    private HashMap<String, Storage> shutter = new HashMap<>();
-    private HashMap<String, String> humidity = new HashMap<>();
-    private HashMap<String, Storage> heater = new HashMap<>();
-    private HashMap<String, Storage> fanCirculation = new HashMap<>();
-    private HashMap<String, Storage> automatic = new HashMap<>();
+    private LinkedHashMap<String, Storage> fan50 = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> fan36 = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> fan26 = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> fanRoof = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> shaft = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> airInletOfWall = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> airInletOfRoof = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> airInletOfPadCool = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> shutter = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> humidity = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> heater = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> fanCirculation = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> automatic = new LinkedHashMap<>();
 
     public DataOfEquipment (){
         setFan50DefaultValue();
@@ -31,6 +31,8 @@ public class DataOfEquipment implements Serializable {
         setAirInletOfRoofDefaultValue();
         setAirInletOfPadCoolDefaultValue();
         setShutterDefaultValue();
+
+        setHumidityDefaultValue();
 
         setHeaterDefaultValue();
         setFanCirculationDefaultValue();
@@ -106,58 +108,70 @@ public class DataOfEquipment implements Serializable {
     }
 
     public void setHumidityDefaultValue(){
-//        humidity.put("")
+        humidity.put("ПУН", new Storage(6.0, "6.0x2")); humidity.put("ПУН-01", new Storage(6.6, "6.6x2")); humidity.put("ПУН-02", new Storage(7.2, "7.2x2"));
+        humidity.put("ПУН-17", new Storage(7.8, "7.8x2"));
+        humidity.put("ПУН-03", new Storage(8.4, "8.4x2")); humidity.put("ПУН-04", new Storage(9.0, "9.0x2")); humidity.put("ПУН-05", new Storage(9.6, "9.6x2"));
+        humidity.put("ПУН-06", new Storage(10.0, "10.2x2"));
+        humidity.put("ПУН-18", new Storage(10.8, "10.8x2")); humidity.put("ПУН-07", new Storage(11.4, "11.4x2")); humidity.put("ПУН-08", new Storage(12.0, "12.0x2"));
+        humidity.put("ПУН-09", new Storage(12.6, "12.6x2"));
+        humidity.put("ПУН-10", new Storage(13.2, "13.2x2")); humidity.put("ПУН-22", new Storage(13.8, "13.8x2")); humidity.put("ПУН-11", new Storage(14.4, "14.4x2"));
+        humidity.put("ПУН-12", new Storage(15.0, "15.0x2"));
+        humidity.put("ПУН-13", new Storage(15.6, "15.6x2")); humidity.put("ПУН-14", new Storage(16.2, "16.2x2")); humidity.put("ПУН-20", new Storage(16.8, "16.8x2"));
+        humidity.put("ПУН-15", new Storage(17.4, "17.4x2"));
+        humidity.put("ПУН-16", new Storage(18.0, "18.0x2")); humidity.put("ПУН-23", new Storage(19.2, "19.2x2")); humidity.put("ПУН-25", new Storage(19.8, "19.8x2"));
+        humidity.put("ПУН-24", new Storage(21.0, "21.0x2"));
+
     }
 
-    public HashMap<String, Storage> getFan50() {
+    public LinkedHashMap<String, Storage> getFan50() {
         return fan50;
     }
 
-    public HashMap<String, Storage> getFan36() {
+    public LinkedHashMap<String, Storage> getFan36() {
         return fan36;
     }
 
-    public HashMap<String, Storage> getFan26() {
+    public LinkedHashMap<String, Storage> getFan26() {
         return fan26;
     }
 
-    public HashMap<String, Storage> getFanRoof() {
+    public LinkedHashMap<String, Storage> getFanRoof() {
         return fanRoof;
     }
 
-    public HashMap<String, Storage> getShaft() {
+    public LinkedHashMap<String, Storage> getShaft() {
         return shaft;
     }
 
-    public HashMap<String, Storage> getAirInletOfWall() {
+    public LinkedHashMap<String, Storage> getAirInletOfWall() {
         return airInletOfWall;
     }
 
-    public HashMap<String, Storage> getAirInletOfRoof() {
+    public LinkedHashMap<String, Storage> getAirInletOfRoof() {
         return airInletOfRoof;
     }
 
-    public HashMap<String, Storage> getAirInletOfPadCool() {
+    public LinkedHashMap<String, Storage> getAirInletForPadCool() {
         return airInletOfPadCool;
     }
 
-    public HashMap<String, Storage> getShutter() {
+    public LinkedHashMap<String, Storage> getShutter() {
         return shutter;
     }
 
-    public HashMap<String, String> getHumidity() {
+    public LinkedHashMap<String, Storage> getHumidity() {
         return humidity;
     }
 
-    public HashMap<String, Storage> getHeater() {
+    public LinkedHashMap<String, Storage> getHeater() {
         return heater;
     }
 
-    public HashMap<String, Storage> getFanCirculation() {
+    public LinkedHashMap<String, Storage> getFanCirculation() {
         return fanCirculation;
     }
 
-    public HashMap<String, Storage> getAutomatic() {
+    public LinkedHashMap<String, Storage> getAutomatic() {
         return automatic;
     }
 //
@@ -205,6 +219,10 @@ public class DataOfEquipment implements Serializable {
         updateHashMap(shutter, value);
     }
 
+    public void updateHumidity(StringBuilder value){
+        updateHashMap(humidity, value);
+    }
+
     public void updateHeater(StringBuilder value){
         updateHashMap(heater, value);
     }
@@ -217,13 +235,13 @@ public class DataOfEquipment implements Serializable {
         updateHashMap(automatic, value);
     }
 
-    public void updateHashMap(HashMap<String, Storage> map, StringBuilder value){
+    public void updateHashMap(LinkedHashMap<String, Storage> map, StringBuilder value){
         String[] line;
         map.clear();
         Scanner scan = new Scanner(value.toString());
         while(scan.hasNextLine()){
             line = parseStringLine(scan.nextLine());
-            map.put(line[0], new Storage(Integer.parseInt(line[1]), line[2]));
+            map.put(line[0], new Storage(Double.parseDouble(line[1]), line[2]));
         }
     }
 

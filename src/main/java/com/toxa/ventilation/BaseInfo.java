@@ -1,5 +1,6 @@
 package com.toxa.ventilation;
 
+import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 
@@ -10,20 +11,15 @@ public class BaseInfo {
 
     private TaskPanel taskPanel;
     private ResultsPanel resultsPanel;
-//    private ActualValues actualValues;
+    private DataOfEquipment dataOfEquipment = new DataOfEquipment();
 
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
-    public static final int FAN_50_CAPACITY = 40000;
-    public static final int FAN_36_CAPACITY = 20000;
-    public static final int FAN_26_CAPACITY = 10000;
-    public static final int FAN_Roof820_CAPACITY = 21000;
-    public static final int FAN_Roof630_CAPACITY = 10500;
 
+    private int airForAirInletForTunnelTypeOfVentilation = 3;
 
     public BaseInfo(TaskPanel taskPanel) {
         this.taskPanel = taskPanel;
 
-//        actualValues = loadActualValue();
     }
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
@@ -60,79 +56,64 @@ public class BaseInfo {
         taskPanel.updateAirSpinner();
     }
 
-//    public void saveActualValue(){
-//        FileOutputStream fos;
-//        ObjectOutputStream oos;
-//        try {
-//            fos = new FileOutputStream("save_ventilation");
-//            oos = new ObjectOutputStream(fos);
-//            oos.writeObject(actualValues);
-//            oos.flush();
-//            oos.close();
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
-//    public ActualValues loadActualValue(){
-//        FileInputStream fis;
-//        ObjectInputStream ois;
-//        try {
-//            fis = new FileInputStream("save_ventilation");
-//            ois = new ObjectInputStream(fis);
-//            ActualValues actualValues = (ActualValues)ois.readObject();
-//        } catch (FileNotFoundException e) {
-////            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return actualValues;
-//    }
-
     private void setTBKInfo(){
         if(taskPanel.getVentilationType().equals("Тунель")){
             taskPanel.setAirSummer(12);
             taskPanel.setAirWinter(0);
-
-        } else {
+            setElementsOnPanelForTunnelVentilationType();
+        } else if(taskPanel.getVentilationType().equals("Евро")){
             taskPanel.setAirSummer(9);
             taskPanel.setAirWinter(3);
+            setElementsOnPanelForEuroVentilationType();
+        } else{
+            taskPanel.setAirSummer(9);
+            taskPanel.setAirWinter(3);
+            setElementsOnPanelForTexhaVentilationType();
         }
         cageTiers = Arrays.asList(3, 4, 5, 6);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
+        setElementOnPanelDisableForHeating();
     }
 
     private void setTBCInfo(){
         if(taskPanel.getVentilationType().equals("Тунель")){
             taskPanel.setAirSummer(9);
             taskPanel.setAirWinter(0);
-        } else {
+            setElementsOnPanelForTunnelVentilationType();
+        } else if(taskPanel.getVentilationType().equals("Евро")){
             taskPanel.setAirSummer(6);
             taskPanel.setAirWinter(3);
+            setElementsOnPanelForEuroVentilationType();
+        } else{
+            taskPanel.setAirSummer(6);
+            taskPanel.setAirWinter(3);
+            setElementsOnPanelForTexhaVentilationType();
         }
         cageTiers = Arrays.asList(3, 4, 5);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
+        setElementOnPanelEnableForHeating();
     }
 
     private void setTBBInfo() {
-        if (taskPanel.getVentilationType().equals("Тунель")) {
+        if(taskPanel.getVentilationType().equals("Тунель")){
             taskPanel.setAirSummer(14);
             taskPanel.setAirWinter(0);
-        } else {
+            setElementsOnPanelForTunnelVentilationType();
+        } else if(taskPanel.getVentilationType().equals("Евро")){
             taskPanel.setAirSummer(11);
             taskPanel.setAirWinter(3);
+            setElementsOnPanelForEuroVentilationType();
+        } else{
+            taskPanel.setAirSummer(11);
+            taskPanel.setAirWinter(3);
+            setElementsOnPanelForTexhaVentilationType();
         }
         cageTiers = Arrays.asList(3, 4, 5);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
+        setElementOnPanelEnableForHeating();
     }
 
     private void setTBRInfo() {
@@ -165,6 +146,7 @@ public class BaseInfo {
         resultsPanel.disableElementsInPanel(resultsPanel.getFan26RadioButton());
         resultsPanel.disableElementsInPanel(resultsPanel.getFanRoofRadioButton());
         resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOfRoofRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getShaftRadioButton());
         resultsPanel.disableElementsInPanel(resultsPanel.getShutterRadioButton());
     }
 
@@ -174,7 +156,9 @@ public class BaseInfo {
         resultsPanel.enableElementsInPanel(resultsPanel.getFanRoofRadioButton());
         resultsPanel.enableElementsInPanel(resultsPanel.getAirInletForPadCoolRadioButton());
         resultsPanel.enableElementsInPanel(resultsPanel.getHumidityRadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getAirInletOnWallRadioButton());
 
+        resultsPanel.disableElementsInPanel(resultsPanel.getShaftRadioButton());
         resultsPanel.disableElementsInPanel(resultsPanel.getFan36RadioButton());
         resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOfRoofRadioButton());
         resultsPanel.disableElementsInPanel(resultsPanel.getShutterRadioButton());
@@ -183,10 +167,28 @@ public class BaseInfo {
     public void setElementsOnPanelForTexhaVentilationType(){
         resultsPanel.enableElementsInPanel(resultsPanel.getFan50RadioButton());
         resultsPanel.enableElementsInPanel(resultsPanel.getFan26RadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getShaftRadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getShutterRadioButton());
 
+        resultsPanel.disableElementsInPanel(resultsPanel.getFan36RadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getFanRoofRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOnWallRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOfRoofRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletForPadCoolRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getHumidityRadioButton());
     }
 
-        public String getCompanyName() {
+    public void setElementOnPanelDisableForHeating(){
+        resultsPanel.disableElementsInPanel(resultsPanel.getHeaterRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getFanCirculationRadioButton());
+    }
+
+    public void setElementOnPanelEnableForHeating(){
+        resultsPanel.enableElementsInPanel(resultsPanel.getHeaterRadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getFanCirculationRadioButton());
+    }
+
+    public String getCompanyName() {
         return taskPanel.getCompanyName();
     }
 
@@ -246,4 +248,57 @@ public class BaseInfo {
         return taskPanel.getAirSummer();
     }
 
+    public int getAirForAirInletForTunnelTypeOfVentilation() {
+        return airForAirInletForTunnelTypeOfVentilation;
+    }
+
+    public double getFan50Capacity(){
+        return dataOfEquipment.getFan50().get(resultsPanel.getFan50Name()).getCapacity();
+    }
+
+    public double getFan36Capacity(){
+        return dataOfEquipment.getFan36().get(resultsPanel.getFan36Name()).getCapacity();
+    }
+
+    public double getFan26Capacity(){
+        return dataOfEquipment.getFan26().get(resultsPanel.getFan26Name()).getCapacity();
+    }
+
+    public double getFanRoofCapacity(){
+        return dataOfEquipment.getFanRoof().get(resultsPanel.getFanRoofName()).getCapacity();
+    }
+
+    public double getShaftCapacity(){
+        return dataOfEquipment.getShaft().get(resultsPanel.getShaftName()).getCapacity();
+    }
+
+    public double getAirInletOnWallCapacity(){
+        return dataOfEquipment.getAirInletOfWall().get(resultsPanel.getAirInletOnWallName()).getCapacity();
+    }
+
+    public double getAirInletOfRoofCapacity(){
+        if(resultsPanel.getAirInletOfRoofRadioButton().isSelected())
+            return 0;
+        return dataOfEquipment.getAirInletOfRoof().get(resultsPanel.getAirInletOfRoofName()).getCapacity();
+    }
+
+    public double getAirInletForPadCoolCapacity(){
+        if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected())
+            return 0;
+        return dataOfEquipment.getAirInletForPadCool().get(resultsPanel.getAirInletForPadCoolName()).getCapacity();
+    }
+
+    public double getShutterCapacity(){
+        if(resultsPanel.getShutterRadioButton().isSelected())
+            return 0;
+        return dataOfEquipment.getShutter().get(resultsPanel.getShutterName()).getCapacity();
+    }
+
+    public double getHeaterCapacity(){
+        return dataOfEquipment.getHeater().get(resultsPanel.getHeaterName()).getCapacity();
+    }
+
+    public double getFanCirculationCapacity(){
+        return dataOfEquipment.getFanCirculation().get(resultsPanel.getFanCirculationName()).getCapacity();
+    }
 }
