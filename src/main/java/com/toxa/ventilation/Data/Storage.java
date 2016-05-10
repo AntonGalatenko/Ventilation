@@ -7,6 +7,7 @@ public class Storage implements Serializable{
     private String description;
 
     public Storage(double capacity, String description) {
+        System.err.println("V= " + capacity);
         this.capacity = capacity;
         this.description = description;
     }

@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MyMainPanel extends JFrame{
+    private JPanel mainPanel;
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
-    private JPanel mainPanel;
     private MyToolBar toolBar;
 //    private SettingsPanel settingsPanel;
 

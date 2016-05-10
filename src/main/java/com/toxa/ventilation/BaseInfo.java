@@ -277,20 +277,20 @@ public class BaseInfo {
     }
 
     public double getAirInletOfRoofCapacity(){
-        if(resultsPanel.getAirInletOfRoofRadioButton().isSelected())
-            return 0;
+//        if(resultsPanel.getAirInletOfRoofRadioButton().isSelected())
+//            return 0;
         return dataOfEquipment.getAirInletOfRoof().get(resultsPanel.getAirInletOfRoofName()).getCapacity();
     }
 
     public double getAirInletForPadCoolCapacity(){
-        if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected())
-            return 0;
+//        if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected())
+//            return 0;
         return dataOfEquipment.getAirInletForPadCool().get(resultsPanel.getAirInletForPadCoolName()).getCapacity();
     }
 
     public double getShutterCapacity(){
-        if(resultsPanel.getShutterRadioButton().isSelected())
-            return 0;
+//        if(resultsPanel.getShutterRadioButton().isSelected())
+//            return 0;
         return dataOfEquipment.getShutter().get(resultsPanel.getShutterName()).getCapacity();
     }
 

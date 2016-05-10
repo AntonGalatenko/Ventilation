@@ -17,18 +17,19 @@ public class Count {
         return instance;
     }
 
-    public void countFinish(){
-        resultsPanel.updateResults();
-
-    }
+//    public void countFinish(){
+//        resultsPanel.updateResults();
+//    }
 
     public void startCount(){
         countFan50();
         countFan36();
         countFan26();
         countFanRoof();
+
         countShaft();
         countAirInletOnWall();
+        countShutter();
 
 //        countFinish();
     }
@@ -44,6 +45,7 @@ public class Count {
     public int countFan50(){
         int result = (int) (Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirSummer() / baseInfo.getFan50Capacity()));
         resultsPanel.setFan50Count(result);
+        System.out.println("!!!! " + baseInfo.getFan50Capacity());
         return result;
     }
 
@@ -68,7 +70,11 @@ public class Count {
     }
 
     public int countShaft(){
-        int result = (int)(Math.ceil(resultsPanel.getFan26Count() * baseInfo.getFan26Capacity() / baseInfo.getShaftCapacity()));
+        int result = 0;
+        if(resultsPanel.getFan26Count() > 1)
+            result = (int)(Math.ceil(resultsPanel.getFan26Count() * baseInfo.getFan26Capacity() / baseInfo.getShaftCapacity()));
+        else if(resultsPanel.getFan36Count() > 1)
+            result = (int)(Math.ceil(resultsPanel.getFan36Count() * baseInfo.getFan36Capacity() / baseInfo.getShaftCapacity()));
         resultsPanel.setShaftCount(result);
         return result;
     }
@@ -82,6 +88,12 @@ public class Count {
             result += 1;
 
         resultsPanel.setAirInletOnWallCount(result);
+        return result;
+    }
+
+    public int countShutter(){
+        int result = (int)(Math.ceil(resultsPanel.getFan50Count() * baseInfo.getFan50Capacity() / baseInfo.getShutterCapacity()));
+        resultsPanel.setShutterCount(result);
         return result;
     }
 

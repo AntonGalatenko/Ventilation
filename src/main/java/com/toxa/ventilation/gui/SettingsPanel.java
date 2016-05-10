@@ -16,8 +16,8 @@ import java.util.HashMap;
 
 public class SettingsPanel extends JDialog{
 
-//    private MyToolBar myToolBar;
-    private MyMainPanel myMainPanel;
+    private MyToolBar myToolBar;
+//    private MyMainPanel myMainPanel;
     private DataOfEquipment dataOfEquipment;
 
     private JTabbedPane tabbedPane;
@@ -85,8 +85,8 @@ public class SettingsPanel extends JDialog{
     private JScrollPane humidity1mScrollPane;
     private JTextArea humidity1mTextArea;
 
-    public SettingsPanel(final MyMainPanel myMainPanel){
-        this.myMainPanel = myMainPanel;
+    public SettingsPanel(final MyToolBar myToolBar){
+        this.myToolBar = myToolBar;
         setLocationForThisFrame();
 
         setTitle("Настройки");
@@ -102,7 +102,7 @@ public class SettingsPanel extends JDialog{
             public void actionPerformed(ActionEvent e) {
                 saveActualValue();
                 dispose();
-                myMainPanel.getResultPanel().setModelsToComboBox();
+                myToolBar.getMyMainPanel().getResultPanel().setModelsToComboBox();
             }
         });
 
@@ -133,7 +133,7 @@ public class SettingsPanel extends JDialog{
     }
 
     public void saveActualValue(){
-        updateNamesOfEquipmentOnResultPanel();
+        updateNamesOfEquipmentInDataOfEquipmentClass();
 
         FileOutputStream fos;
         ObjectOutputStream oos;
@@ -150,7 +150,7 @@ public class SettingsPanel extends JDialog{
         }
     }
 
-    public void updateNamesOfEquipmentOnResultPanel(){
+    public void updateNamesOfEquipmentInDataOfEquipmentClass(){
         dataOfEquipment.updateFan50(getFan50NamesDescriptionsCapacity());
         dataOfEquipment.updateFan36(getFan36NamesDescriptionsCapacity());
         dataOfEquipment.updateFan26(getFan26NamesDescriptionsCapacity());
@@ -174,7 +174,7 @@ public class SettingsPanel extends JDialog{
     }
 
     public void setLocationForThisFrame(){
-        Point point = myMainPanel.getLocation();
+        Point point = myToolBar.getMyMainPanel().getLocation();
         setLocation((int)point.getX() + 10, (int)point.getY() + 30);
     }
 
