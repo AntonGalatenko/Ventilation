@@ -32,6 +32,7 @@ public class Count {
         countShutter();
 
         countPadCool();
+        countAirInletPadCool();
 
 //        countFinish();
     }
@@ -118,7 +119,7 @@ public class Count {
         while (oneSideLength / count > 21)
             count++;
 
-        oneSideLength = padCoolCurrentLength(oneSideLength / count);
+        oneSideLength = padCoolCurrentLength(oneSideLength / count, false);
         count *= 2;
 
         return new double[]{oneSideLength, count};
@@ -129,32 +130,32 @@ public class Count {
         int count = 0;
 
         if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSideCheckBox()){
-            result = padCoolCurrentLength(baseInfo.getBuildingWidth());
+            result = padCoolCurrentLength(baseInfo.getBuildingWidth(), true);
             count = 1;
         } else if(! baseInfo.isFan50TwoSideCheckBox()){
-            result = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2);
+            result = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2 ,true);
             count = 2;
         }
 
         return new double[]{result, count};
     }
 
-    public double padCoolCurrentLength(double value) {
+    public double padCoolCurrentLength(double value, boolean isFaceSide) {
         double x = value % 0.6;
         double result = value;
 
-        if(x > 0.01)
+        if(x > 0.01 && isFaceSide)
+            result = value - x;
+        else if(x > 0.01)
             result = value - x + 0.6;
 
         result = Math.round(result * 10) / 10.0;
-        if(result > 21)
-            result = 21;
         return result;
     }
 
     public double padCoolTotalSquare(){
         int fansCapacity = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
-        if(baseInfo.isHumidityPlus())
+        if(baseInfo.isHumidityPlus() && baseInfo.isFanRoofSelected())
             fansCapacity += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
         double result = fansCapacity / 3600 / baseInfo.getAirSpeedForPadCool();
         return result;
@@ -164,9 +165,17 @@ public class Count {
         double padCoolSquareCurrent = padCoolFaceSideLength()[0] * padCoolFaceSideLength()[1] * baseInfo.getHumidityHeight1() +
                 padCoolOneSideLength()[0] * padCoolOneSideLength()[1] * baseInfo.getHumidityHeight2();
         int fansCapacity = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
-        if(baseInfo.isHumidityPlus())
+        if(baseInfo.isHumidityPlus() && baseInfo.isFanRoofSelected())
             fansCapacity += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
         double result = fansCapacity / 3600 / padCoolSquareCurrent;
+        return result;
+    }
+
+    public int countAirInletPadCool(){
+        int resultOneSide = (int) (padCoolOneSideLength()[0] / 3) * (int) padCoolOneSideLength()[1];
+        int resultFaceSide = (int) (padCoolFaceSideLength()[0] / 3) * (int) padCoolFaceSideLength()[1];
+        int result = resultOneSide + resultFaceSide;
+        resultsPanel.setAirInletForPadCoolCount(result);
         return result;
     }
 

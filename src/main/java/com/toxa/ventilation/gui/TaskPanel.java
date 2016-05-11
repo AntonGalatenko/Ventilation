@@ -146,28 +146,28 @@ public class TaskPanel extends JPanel{
         return Integer.parseInt(headsNumberTextField.getText());
     }
 
-    public int getBuildingLength() {
+    public double getBuildingLength() {
         if(lengthTextField.getText().length() == 0)
             lengthTextField.setText("96");
-        return Integer.parseInt(lengthTextField.getText());
+        return Double.parseDouble(lengthTextField.getText());
     }
 
-    public int getBuildingWidth() {
+    public double getBuildingWidth() {
         if(widthTextField.getText().length() == 0)
             widthTextField.setText("18");
-        return Integer.parseInt(widthTextField.getText());
+        return Double.parseDouble(widthTextField.getText());
     }
 
-    public int getBuildingHeightMin() {
+    public double getBuildingHeightMin() {
         if(heightMinTextField.getText().length() == 0)
             heightMinTextField.setText("4");
-        return Integer.parseInt(heightMinTextField.getText());
+        return Double.parseDouble(heightMinTextField.getText());
     }
 
-    public int getBuildingHeightMax() {
+    public double getBuildingHeightMax() {
         if(heightMaxTextField.getText().length() == 0)
             heightMaxTextField.setText("5");
-        return Integer.parseInt(heightMaxTextField.getText());
+        return Double.parseDouble(heightMaxTextField.getText());
     }
 
     public String getCageName(){

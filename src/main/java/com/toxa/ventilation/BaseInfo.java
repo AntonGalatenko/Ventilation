@@ -200,19 +200,19 @@ public class BaseInfo {
         return taskPanel.getHeadsNumber();
     }
 
-    public int getBuildingLength() {
+    public double getBuildingLength() {
         return taskPanel.getBuildingLength();
     }
 
-    public int getBuildingWidth() {
+    public double getBuildingWidth() {
         return taskPanel.getBuildingWidth();
     }
 
-    public int getBuildingHeightMin() {
+    public double getBuildingHeightMin() {
         return taskPanel.getBuildingHeightMin();
     }
 
-    public int getBuildingHeightMax() {
+    public double getBuildingHeightMax() {
         return taskPanel.getBuildingHeightMax();
     }
 
@@ -261,15 +261,24 @@ public class BaseInfo {
     }
 
     public int getFan50Capacity(){
-        return new ActualValues().loadActualValue().getFan50().get(resultsPanel.getFan50Name()).getCapacity();
+        int result = new ActualValues().loadActualValue().getFan50().get(resultsPanel.getFan50Name()).getCapacity();
+        if(resultsPanel.isFan50LightTrap())
+            result *= 0.8;
+        return result;
     }
 
     public int getFan36Capacity(){
-        return new ActualValues().loadActualValue().getFan36().get(resultsPanel.getFan36Name()).getCapacity();
+        int result = new ActualValues().loadActualValue().getFan36().get(resultsPanel.getFan36Name()).getCapacity();
+        if(resultsPanel.isFan36LightTrap())
+            result *= 0.8;
+        return result;
     }
 
     public int getFan26Capacity(){
-        return new ActualValues().loadActualValue().getFan26().get(resultsPanel.getFan26Name()).getCapacity();
+        int result = new ActualValues().loadActualValue().getFan26().get(resultsPanel.getFan26Name()).getCapacity();
+        if(resultsPanel.isFan26LightTrap())
+            result *= 0.8;
+        return result;
     }
 
     public int getFanRoofCapacity(){
@@ -328,5 +337,9 @@ public class BaseInfo {
 
     public int getHumidityCount2(){
         return resultsPanel.getHumidityCount2();
+    }
+
+    public boolean isFanRoofSelected(){
+        return resultsPanel.getFanRoofRadioButton().isSelected();
     }
 }

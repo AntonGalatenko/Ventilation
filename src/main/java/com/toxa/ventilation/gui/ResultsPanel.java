@@ -112,6 +112,8 @@ public class ResultsPanel extends JPanel{
         fan50Spinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                count.countShutter();
+                count.countPadCool();
             }
         });
 
@@ -147,6 +149,7 @@ public class ResultsPanel extends JPanel{
         automaticRadioButton.addItemListener(new MyItemListener(automaticPanel));
 
         setElementsOnPanelForTunnelVentilationType();
+        setElementOnPanelDisableForHeating();
 
     }
 
@@ -161,9 +164,9 @@ public class ResultsPanel extends JPanel{
         @Override
         public void itemStateChanged(ItemEvent e) {
             if(e.getStateChange() == ItemEvent.SELECTED)
-                disableElementsInPanel(panel);
-            else
                 enableElementsInPanel(panel);
+            else
+                disableElementsInPanel(panel);
         }
     }
 
@@ -187,7 +190,7 @@ public class ResultsPanel extends JPanel{
     public void setAllSpinnerMoreZeroValue(){
         ArrayList<JSpinner> list = getNeededComponent(new JSpinner());
         for(JSpinner spinner : list)
-            spinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
+            spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
     }
 
     public ArrayList getNeededComponent(Component neededComponent){
@@ -229,12 +232,12 @@ public class ResultsPanel extends JPanel{
     }
 
     public void disableElementsInPanel(JRadioButton radioButton){
-        if(!radioButton.isSelected())
+        if(radioButton.isSelected())
             radioButton.doClick();
     }
 
     public void enableElementsInPanel(JRadioButton radioButton){
-        if(radioButton.isSelected())
+        if(!radioButton.isSelected())
             radioButton.doClick();
     }
 
@@ -599,6 +602,26 @@ public class ResultsPanel extends JPanel{
 
     public void setHumidityAirSpeed(double humidityAirSpeed) {
         humidityAirSpeedLabel.setText(String.format("%.2f", humidityAirSpeed) + "м/c");
+    }
+
+    public boolean isFan50LightTrap() {
+        return fan50LightTrapCheckBox.isSelected();
+    }
+
+    public boolean isFan36LightTrap() {
+        return fan36LightTrapCheckBox.isSelected();
+    }
+
+    public boolean isFan26LightTrap() {
+        return fan26LightTrapCheckBox.isSelected();
+    }
+
+    public boolean isAirInletOnWallLightTrap() {
+        return airInletOnWallLightTrapCheckBox.isSelected();
+    }
+
+    public boolean isShutterLightTrap() {
+        return shutterLightTrapCheckBox.isSelected();
     }
 
     public void setElementsOnPanelForTunnelVentilationType(){

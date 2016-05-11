@@ -23,6 +23,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Вентилятор 50&quot;"/>
             </properties>
           </component>
@@ -79,6 +80,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Вентилятор 36&quot;"/>
             </properties>
           </component>
@@ -126,6 +128,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Вентилятор 26&quot;"/>
             </properties>
           </component>
@@ -173,6 +176,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Вен-р крышний"/>
             </properties>
           </component>
@@ -211,6 +215,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Клапан стеновой"/>
             </properties>
           </component>
@@ -258,6 +263,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Клапан для PadCool"/>
             </properties>
           </component>
@@ -296,6 +302,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Жалюзи"/>
             </properties>
           </component>
@@ -346,6 +353,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Увлажнение"/>
             </properties>
           </component>
@@ -445,7 +453,7 @@
             </constraints>
             <properties>
               <enabled value="true"/>
-              <selected value="false"/>
+              <selected value="true"/>
               <text value="Теплогенератор"/>
             </properties>
           </component>
@@ -484,7 +492,7 @@
               </grid>
             </constraints>
             <properties>
-              <selected value="false"/>
+              <selected value="true"/>
               <text value="Вен-р разгонный"/>
             </properties>
           </component>
@@ -523,7 +531,7 @@
               </grid>
             </constraints>
             <properties>
-              <selected value="false"/>
+              <selected value="true"/>
               <text value="Компьютер"/>
             </properties>
           </component>
@@ -724,6 +732,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Клапан потолочный"/>
             </properties>
           </component>
@@ -762,6 +771,7 @@
               </grid>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Шахта приточная"/>
             </properties>
           </component>
