@@ -15,6 +15,7 @@ public class BaseInfo {
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
 
     private int airForAirInletForTunnelTypeOfVentilation = 3;
+    private double airSpeedForPadCool = 1.5;
 
     public BaseInfo(TaskPanel taskPanel) {
         this.taskPanel = taskPanel;
@@ -243,6 +244,10 @@ public class BaseInfo {
         return resultsPanel.isFan50TwoSide();
     }
 
+    public boolean isHumidityPlus(){
+        return resultsPanel.isHumidityPlus();
+    }
+
     public double getAirWinter() {
         return taskPanel.getAirWinter();
     }
@@ -255,31 +260,31 @@ public class BaseInfo {
         return airForAirInletForTunnelTypeOfVentilation;
     }
 
-    public double getFan50Capacity(){
+    public int getFan50Capacity(){
         return new ActualValues().loadActualValue().getFan50().get(resultsPanel.getFan50Name()).getCapacity();
     }
 
-    public double getFan36Capacity(){
+    public int getFan36Capacity(){
         return new ActualValues().loadActualValue().getFan36().get(resultsPanel.getFan36Name()).getCapacity();
     }
 
-    public double getFan26Capacity(){
+    public int getFan26Capacity(){
         return new ActualValues().loadActualValue().getFan26().get(resultsPanel.getFan26Name()).getCapacity();
     }
 
-    public double getFanRoofCapacity(){
+    public int getFanRoofCapacity(){
         return new ActualValues().loadActualValue().getFanRoof().get(resultsPanel.getFanRoofName()).getCapacity();
     }
 
-    public double getShaftCapacity(){
+    public int getShaftCapacity(){
         return new ActualValues().loadActualValue().getShaft().get(resultsPanel.getShaftName()).getCapacity();
     }
 
-    public double getAirInletOnWallCapacity(){
+    public int getAirInletOnWallCapacity(){
         return new ActualValues().loadActualValue().getAirInletOfWall().get(resultsPanel.getAirInletOnWallName()).getCapacity();
     }
 
-    public double getAirInletOfRoofCapacity(){
+    public int getAirInletOfRoofCapacity(){
 //        if(resultsPanel.getAirInletOfRoofRadioButton().isSelected())
 //            return 0;
         return new ActualValues().loadActualValue().getAirInletOfRoof().get(resultsPanel.getAirInletOfRoofName()).getCapacity();
@@ -303,5 +308,25 @@ public class BaseInfo {
 
     public double getFanCirculationCapacity(){
         return new ActualValues().loadActualValue().getFanCirculation().get(resultsPanel.getFanCirculationName()).getCapacity();
+    }
+
+    public double getHumidityHeight1(){
+        return resultsPanel.getHumidityHeight1();
+    }
+
+    public double getHumidityHeight2(){
+        return resultsPanel.getHumidityHeight2();
+    }
+
+    public double getAirSpeedForPadCool() {
+        return airSpeedForPadCool;
+    }
+
+    public int getHumidityCount1(){
+        return resultsPanel.getHumidityCount1();
+    }
+
+    public int getHumidityCount2(){
+        return resultsPanel.getHumidityCount2();
     }
 }

@@ -31,6 +31,8 @@ public class Count {
         countAirInletOnWall();
         countShutter();
 
+        countPadCool();
+
 //        countFinish();
     }
 
@@ -97,39 +99,74 @@ public class Count {
     }
 
     public void countPadCool(){
+        resultsPanel.setHumidityLength1(padCoolFaceSideLength()[0]);
+        resultsPanel.setHumidityCount1((int) padCoolFaceSideLength()[1]);
 
+        resultsPanel.setHumidityLength2(padCoolOneSideLength()[0]);
+        resultsPanel.setHumidityCount2((int) padCoolOneSideLength()[1]);
+
+        resultsPanel.setHumidityAirSpeed(padCoolAirSpeedCurrent());
     }
 
-    public double countPadCoolLength(){
-        double result1 = 0;
-        double result2 = 0;
-        int resultCount1 = 0;
-        int resultCount2 = 0;
+    public double[] padCoolOneSideLength(){
+        double faceSideSquare = padCoolFaceSideLength()[0] * baseInfo.getHumidityHeight1() * baseInfo.getHumidityCount1();
+        double oneSideSquare = (padCoolTotalSquare() - faceSideSquare) / 2;
+        double oneSideLength = oneSideSquare / baseInfo.getHumidityHeight2();
 
-        if(baseInfo.getBuildingWidth() <= 21 && ! baseInfo.isFan50TwoSideCheckBox()){
-            result1 = currentPanel(baseInfo.getBuildingWidth());
-            resultCount1 = 1;
+        int count = 1;
+
+        while (oneSideLength / count > 21)
+            count++;
+
+        oneSideLength = padCoolCurrentLength(oneSideLength / count);
+        count *= 2;
+
+        return new double[]{oneSideLength, count};
+    }
+
+    public double[] padCoolFaceSideLength(){
+        double result = 0;
+        int count = 0;
+
+        if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSideCheckBox()){
+            result = padCoolCurrentLength(baseInfo.getBuildingWidth());
+            count = 1;
         } else if(! baseInfo.isFan50TwoSideCheckBox()){
-            result1 = currentPanel((baseInfo.getBuildingWidth() - 1)/ 2);
-            resultCount2 = 2;
+            result = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2);
+            count = 2;
         }
 
-        double airSpeed = 1.49;
+        return new double[]{result, count};
     }
 
-    public int countPadCoolCount(){
-
-    }
-
-    public double currentPanel(double value) {
+    public double padCoolCurrentLength(double value) {
         double x = value % 0.6;
-        double result = 0;
+        double result = value;
 
-        if(x > 0)
-            result = value - x;
+        if(x > 0.01)
+            result = value - x + 0.6;
+
         result = Math.round(result * 10) / 10.0;
         if(result > 21)
             result = 21;
+        return result;
+    }
+
+    public double padCoolTotalSquare(){
+        int fansCapacity = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
+        if(baseInfo.isHumidityPlus())
+            fansCapacity += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
+        double result = fansCapacity / 3600 / baseInfo.getAirSpeedForPadCool();
+        return result;
+    }
+
+    public double padCoolAirSpeedCurrent(){
+        double padCoolSquareCurrent = padCoolFaceSideLength()[0] * padCoolFaceSideLength()[1] * baseInfo.getHumidityHeight1() +
+                padCoolOneSideLength()[0] * padCoolOneSideLength()[1] * baseInfo.getHumidityHeight2();
+        int fansCapacity = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
+        if(baseInfo.isHumidityPlus())
+            fansCapacity += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
+        double result = fansCapacity / 3600 / padCoolSquareCurrent;
         return result;
     }
 

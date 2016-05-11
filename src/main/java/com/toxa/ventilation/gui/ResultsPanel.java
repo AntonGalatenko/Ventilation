@@ -55,7 +55,7 @@ public class ResultsPanel extends JPanel{
     private JSpinner humidityCountSpinner2;
     private JSpinner humidityCountSpinner1;
     private JSpinner humidityHeightSpinner1;
-    private JCheckBox humidityCheckBox;
+    private JCheckBox humidityPlusCheckBox;
     private JSpinner humidityLengthSpinner2;
     private JPanel heaterPanel;
     private JRadioButton heaterRadioButton;
@@ -100,6 +100,7 @@ public class ResultsPanel extends JPanel{
     private JSpinner shaftSpinner;
     private JComboBox shaftComboBox;
     private JSpinner humidityHeightSpinner2;
+    private JLabel humidityAirSpeedLabel;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -420,16 +421,20 @@ public class ResultsPanel extends JPanel{
         humidityCountSpinner1.setValue(humidityCount1);
     }
 
-    public double getHumidityHeight() {
+    public double getHumidityHeight1() {
         return (double) humidityHeightSpinner1.getValue();
+    }
+
+    public double getHumidityHeight2() {
+        return (double) humidityHeightSpinner2.getValue();
     }
 
     public void setHumidityHeight(double humidityHeight) {
         humidityHeightSpinner1.setValue(humidityHeight);
     }
 
-    public boolean isHumidityCheckBox() {                                                           //изменить название
-        return humidityCheckBox.isSelected();
+    public boolean isHumidityPlus() {                                                           //изменить название
+        return humidityPlusCheckBox.isSelected();
     }
 
     public double getHumidityLength2() {
@@ -590,6 +595,10 @@ public class ResultsPanel extends JPanel{
 
     public JRadioButton getAirInletOfRoofRadioButton() {
         return airInletOfRoofRadioButton;
+    }
+
+    public void setHumidityAirSpeed(double humidityAirSpeed) {
+        humidityAirSpeedLabel.setText(String.format("%.2f", humidityAirSpeed) + "м/c");
     }
 
     public void setElementsOnPanelForTunnelVentilationType(){
