@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.LinkedHashMap;
 
 public class ResultsPanel extends JPanel{
     private Count count;
-    private MyMainPanel myMainPanel;
+//    private MyMainPanel myMainPanel;
     private DataOfEquipment dataOfEquipment;
 
     private JPanel mainPanel;
@@ -101,6 +103,7 @@ public class ResultsPanel extends JPanel{
     private JComboBox shaftComboBox;
     private JSpinner humidityHeightSpinner2;
     private JLabel humidityAirSpeedLabel;
+    private JLabel heaterLabel;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -108,15 +111,138 @@ public class ResultsPanel extends JPanel{
 
         add(mainPanel);
 
+        setDefaultValues();
+        setModelsToComboBox();
 
         fan50Spinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 count.countShutter();
-                count.countPadCool();
+                count.countPadCoolAndAirInlet();
+                count.countAirSummerCurrent();
             }
         });
 
+        fan36Spinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countShaft();
+                count.countAirWinterCurrent();
+            }
+        });
+
+        fan26Spinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countShaft();
+                count.countAirWinterCurrent();
+            }
+        });
+
+        fanRoofSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countAirInletOnWall();
+                count.countAirWinterCurrent();
+            }
+        });
+
+        shaftSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        airInletOnWallSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        airInletOfRoofSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        airInletForPadCoolSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        shutterSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        humidityCountSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countAirInletPadCool();
+                count.padCoolAirSpeedCurrent();
+            }
+        });
+
+        humidityCountSpinner2.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countAirInletPadCool();
+                count.padCoolAirSpeedCurrent();
+            }
+        });
+
+        heaterSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        fanCirculationSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        humidityLengthSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countAirInletPadCool();
+                count.padCoolAirSpeedCurrent();
+            }
+        });
+
+        humidityLengthSpinner2.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countAirInletPadCool();
+                count.padCoolAirSpeedCurrent();
+            }
+        });
+
+        humidityHeightSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countAirInletPadCool();
+                count.padCoolAirSpeedCurrent();
+            }
+        });
+
+        humidityHeightSpinner2.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countAirInletPadCool();
+                count.padCoolAirSpeedCurrent();
+            }
+        });
 
         automaticComboBox.addItemListener(new ItemListener() {
             @Override
@@ -126,27 +252,178 @@ public class ResultsPanel extends JPanel{
             }
         });
 
-        setDefaultValues();
-        setModelsToComboBox();
 
-//        ArrayList<JSpinner> list = getNeededComponent(new JSpinner());
-//        for(JSpinner r : list)
-//            System.out.println(r.getName());
 
-        fan50RadioButton.addItemListener(new MyItemListener(fan50Panel));
-        fan36RadioButton.addItemListener(new MyItemListener(fan36Panel));
-        fan26RadioButton.addItemListener(new MyItemListener(fan26Panel));
-        fanRoofRadioButton.addItemListener(new MyItemListener(fanRoofPanel));
-        shaftRadioButton.addItemListener(new MyItemListener(shaftPanel));
-        airInletOnWallRadioButton.addItemListener(new MyItemListener(airInletOnWallPanel));
-        airInletOfRoofRadioButton.addItemListener(new MyItemListener(airInletOfRoofPanel));
-        airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
-        airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
-        shutterRadioButton.addItemListener(new MyItemListener(shutterPanel));
-        humidityRadioButton.addItemListener(new MyItemListener(humidityPanel));
-        heaterRadioButton.addItemListener(new MyItemListener(heaterPanel));
-        fanCirculationRadioButton.addItemListener(new MyItemListener(fanCirculationPanel));
-        automaticRadioButton.addItemListener(new MyItemListener(automaticPanel));
+        fan50RadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(fan50Panel);
+                else
+                    disableElementsInPanel(fan50Panel);
+            }
+        });
+
+        fan36RadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(fan36Panel);
+                else
+                    disableElementsInPanel(fan36Panel);
+
+                if(getFan36Count() != 0)
+                    count.countAirWinterCurrent();
+            }
+        });
+
+        fan26RadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(fan26Panel);
+                else
+                    disableElementsInPanel(fan26Panel);
+
+                if(getFan26Count() != 0)
+                    count.countAirWinterCurrent();
+            }
+        });
+
+        fanRoofRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(fanRoofPanel);
+                else
+                    disableElementsInPanel(fanRoofPanel);
+
+                if(getFanRoofCount() != 0)
+                    count.countAirWinterCurrent();
+            }
+        });
+
+        shaftRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(shaftPanel);
+                else
+                    disableElementsInPanel(shaftPanel);
+            }
+        });
+
+        airInletOnWallRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(airInletOnWallPanel);
+                else
+                    disableElementsInPanel(airInletOnWallPanel);
+            }
+        });
+
+        airInletOfRoofRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(airInletOfRoofPanel);
+                else
+                    disableElementsInPanel(airInletOfRoofPanel);
+            }
+        });
+
+        airInletForPadCoolRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(airInletForPadCoolPanel);
+                else
+                    disableElementsInPanel(airInletForPadCoolPanel);
+            }
+        });
+
+        shutterRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(shutterPanel);
+                else
+                    disableElementsInPanel(shutterPanel);
+            }
+        });
+
+        humidityRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED){
+                    enableElementsInPanel(humidityPanel);
+                    if(! getAirInletForPadCoolRadioButton().isSelected())
+                        airInletForPadCoolRadioButton.doClick();
+                    if(getShutterRadioButton().isSelected())
+                        shutterRadioButton.doClick();
+                }
+                else{
+                    disableElementsInPanel(humidityPanel);
+                    if(getAirInletForPadCoolRadioButton().isSelected())
+                        airInletForPadCoolRadioButton.doClick();
+                    if(! getShutterRadioButton().isSelected())
+                        shutterRadioButton.doClick();
+                }
+            }
+        });
+
+        heaterRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(heaterPanel);
+                else
+                    disableElementsInPanel(heaterPanel);
+            }
+        });
+
+        fanCirculationRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(fanCirculationPanel);
+                else
+                    disableElementsInPanel(fanCirculationPanel);
+            }
+        });
+
+        automaticRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    enableElementsInPanel(automaticPanel);
+                else
+                    disableElementsInPanel(automaticPanel);
+            }
+        });
+
+
+//        fan50RadioButton.addItemListener(new MyItemListener(fan50Panel));
+//        fan36RadioButton.addItemListener(new MyItemListener(fan36Panel));
+//        fan26RadioButton.addItemListener(new MyItemListener(fan26Panel));
+//        fanRoofRadioButton.addItemListener(new MyItemListener(fanRoofPanel));
+//        shaftRadioButton.addItemListener(new MyItemListener(shaftPanel));
+//        airInletOnWallRadioButton.addItemListener(new MyItemListener(airInletOnWallPanel));
+//        airInletOfRoofRadioButton.addItemListener(new MyItemListener(airInletOfRoofPanel));
+//        airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
+//        shutterRadioButton.addItemListener(new MyItemListener(shutterPanel));
+//        humidityRadioButton.addItemListener(new MyItemListener(humidityPanel));
+//        heaterRadioButton.addItemListener(new MyItemListener(heaterPanel));
+//        fanCirculationRadioButton.addItemListener(new MyItemListener(fanCirculationPanel));
+//        automaticRadioButton.addItemListener(new MyItemListener(automaticPanel));
+
+        fan50TwoSideCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countFan50();
+            }
+        });
 
         setElementsOnPanelForTunnelVentilationType();
         setElementOnPanelDisableForHeating();
@@ -154,13 +431,11 @@ public class ResultsPanel extends JPanel{
     }
 
     public class MyItemListener implements ItemListener{
-
         private JPanel panel;
 
         public MyItemListener(JPanel panel){
             this.panel = panel;
         }
-
         @Override
         public void itemStateChanged(ItemEvent e) {
             if(e.getStateChange() == ItemEvent.SELECTED)
@@ -172,7 +447,6 @@ public class ResultsPanel extends JPanel{
 
     public void setDefaultValues(){
         setAllSpinnerMoreZeroValue();
-
 
         automaticSpinner.setValue(1);
 
@@ -260,14 +534,109 @@ public class ResultsPanel extends JPanel{
 
     }
 
-    public void setMyMainPanel(MyMainPanel myMainPanel) {
-        this.myMainPanel = myMainPanel;
-    }
+//    public void setEnableOrDisableFan50(boolean value){
+//        for(Component component : fan50Panel.getComponents()){
+//             if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableFan36(boolean value){
+//        for(Component component : fan36Panel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableFan26(boolean value){
+//        for(Component component : fan26Panel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableFanRoof(boolean value){
+//        for(Component component : fanRoofPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableShaft(boolean value){
+//        for(Component component : shaftPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableAirInletWall(boolean value){
+//        for(Component component : airInletOnWallPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableAirInletRoof(boolean value){
+//        for(Component component : airInletOfRoofPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableAirInletPadCool(boolean value){
+//        for(Component component : airInletForPadCoolPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableShutter(boolean value){
+//        for(Component component : shutterPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableHumidity(boolean value){
+//        for(Component component : humidityPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableHeater(boolean value){
+//        for(Component component : heaterPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableFanCirculation(boolean value){
+//        for(Component component : fanCirculationPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
+//
+//    public void setEnableOrDisableAutomatic(boolean value){
+//        for(Component component : automaticPanel.getComponents()){
+//            if(!component.getClass().equals(JRadioButton.class))
+//                component.setEnabled(value);
+//        }
+//    }
 
-    public void updateResults(){
+
+
+
+
+//    public void setMyMainPanel(MyMainPanel myMainPanel) {
+//        this.myMainPanel = myMainPanel;
+//    }
+
+//    public void updateResults(){
 //        fan50Spinner.setValue(new Integer(count.getFan50Count()));
-        myMainPanel.update(this);
-    }
+//        myMainPanel.update(this);
+//    }
 
     public void changeVisibleOSHUMAndSSHUMTextField(){
         if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ")){
@@ -600,8 +969,8 @@ public class ResultsPanel extends JPanel{
         return airInletOfRoofRadioButton;
     }
 
-    public void setHumidityAirSpeed(double humidityAirSpeed) {
-        humidityAirSpeedLabel.setText(String.format("%.2f", humidityAirSpeed) + "м/c");
+    public void setHumidityAirSpeed(double value) {
+        humidityAirSpeedLabel.setText(String.format("%.2f", value) + "м/c");
     }
 
     public boolean isFan50LightTrap() {
@@ -622,6 +991,10 @@ public class ResultsPanel extends JPanel{
 
     public boolean isShutterLightTrap() {
         return shutterLightTrapCheckBox.isSelected();
+    }
+
+    public void setHeaterNeedPower(double value) {
+        heaterLabel.setText(String.format("%d", (int)value) + "кВт");
     }
 
     public void setElementsOnPanelForTunnelVentilationType(){

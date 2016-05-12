@@ -31,9 +31,13 @@ public class Count {
         countAirInletOnWall();
         countShutter();
 
-        countPadCool();
-        countAirInletPadCool();
+        countPadCoolAndAirInlet();
+//        countAirInletPadCool();
 
+        countHeaterAndFanCirculation();
+
+        countAirSummerCurrent();
+        countAirWinterCurrent();
 //        countFinish();
     }
 
@@ -47,6 +51,8 @@ public class Count {
 
     public int countFan50(){
         int result = (int) (Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirSummer() / baseInfo.getFan50Capacity()));
+        if(baseInfo.isFan50TwoSide() && result %2 != 0)
+            result++;
         resultsPanel.setFan50Count(result);
         return result;
     }
@@ -73,10 +79,10 @@ public class Count {
 
     public int countShaft(){
         int result = 0;
-        if(resultsPanel.getFan26Count() > 1)
+        if(resultsPanel.getFan26RadioButton().isSelected())
             result = (int)(Math.ceil(resultsPanel.getFan26Count() * baseInfo.getFan26Capacity() / baseInfo.getShaftCapacity()));
-        else if(resultsPanel.getFan36Count() > 1)
-            result = (int)(Math.ceil(resultsPanel.getFan36Count() * baseInfo.getFan36Capacity() / baseInfo.getShaftCapacity()));
+        if(resultsPanel.getFan36RadioButton().isSelected() || (resultsPanel.getFan26Count() == 1))
+            result += (int)(Math.ceil(resultsPanel.getFan36Count() * baseInfo.getFan36Capacity() / baseInfo.getShaftCapacity()));
         resultsPanel.setShaftCount(result);
         return result;
     }
@@ -87,7 +93,7 @@ public class Count {
             result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirForAirInletForTunnelTypeOfVentilation() / baseInfo.getAirInletOnWallCapacity()));
 
         if(result % 2 != 0)
-            result += 1;
+            result++;
 
         resultsPanel.setAirInletOnWallCount(result);
         return result;
@@ -99,14 +105,17 @@ public class Count {
         return result;
     }
 
-    public void countPadCool(){
+    public void countPadCoolAndAirInlet(){
         resultsPanel.setHumidityLength1(padCoolFaceSideLength()[0]);
         resultsPanel.setHumidityCount1((int) padCoolFaceSideLength()[1]);
 
         resultsPanel.setHumidityLength2(padCoolOneSideLength()[0]);
         resultsPanel.setHumidityCount2((int) padCoolOneSideLength()[1]);
 
-        resultsPanel.setHumidityAirSpeed(padCoolAirSpeedCurrent());
+
+
+        countAirInletPadCool();
+
     }
 
     public double[] padCoolOneSideLength(){
@@ -129,10 +138,10 @@ public class Count {
         double result = 0;
         int count = 0;
 
-        if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSideCheckBox()){
+        if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSide()){
             result = padCoolCurrentLength(baseInfo.getBuildingWidth(), true);
             count = 1;
-        } else if(! baseInfo.isFan50TwoSideCheckBox()){
+        } else if(! baseInfo.isFan50TwoSide()){
             result = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2 ,true);
             count = 2;
         }
@@ -162,25 +171,57 @@ public class Count {
     }
 
     public double padCoolAirSpeedCurrent(){
-        double padCoolSquareCurrent = padCoolFaceSideLength()[0] * padCoolFaceSideLength()[1] * baseInfo.getHumidityHeight1() +
-                padCoolOneSideLength()[0] * padCoolOneSideLength()[1] * baseInfo.getHumidityHeight2();
+        double padCoolSquareCurrent = baseInfo.getHumidityLength1() * baseInfo.getHumidityHeight1() * baseInfo.getHumidityCount1()  +
+                baseInfo.getHumidityLength2() * baseInfo.getHumidityHeight2() * baseInfo.getHumidityCount2();
         int fansCapacity = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
         if(baseInfo.isHumidityPlus() && baseInfo.isFanRoofSelected())
             fansCapacity += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
         double result = fansCapacity / 3600 / padCoolSquareCurrent;
+
+        resultsPanel.setHumidityAirSpeed(result);
         return result;
     }
 
     public int countAirInletPadCool(){
-        int resultOneSide = (int) (padCoolOneSideLength()[0] / 3) * (int) padCoolOneSideLength()[1];
-        int resultFaceSide = (int) (padCoolFaceSideLength()[0] / 3) * (int) padCoolFaceSideLength()[1];
-        int result = resultOneSide + resultFaceSide;
+        int resultFaceSide = (int) (baseInfo.getHumidityLength1() / 3) * baseInfo.getHumidityCount1();
+        int resultOneSide = (int)(baseInfo.getHumidityLength2() / 3) * baseInfo.getHumidityCount2();
+        int result = resultFaceSide + resultOneSide;
+
         resultsPanel.setAirInletForPadCoolCount(result);
         return result;
     }
 
+    public int countHeaterAndFanCirculation(){
+        double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() / 4;
+        int result = (int) Math.ceil(needPower / baseInfo.getHeaterCapacity());
+        if(result % 2 != 0)
+            result += 1;
+        resultsPanel.setHeaterCount(result);
+        resultsPanel.setFanCirculationCount(result);
+        resultsPanel.setHeaterNeedPower(needPower);
+        return  result;
+    }
 
-//    public int getFan50Count() {
-//        return fan50;
-//    }
+    public void countAirSummerCurrent(){
+        double airSummerCount = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
+        double airSummer = airSummerCount / baseInfo.getHeadsNumber();
+
+        baseInfo.setAirSummerCurrent(airSummer);
+    }
+
+    public void countAirWinterCurrent(){
+        double airWinterCount = 0;
+
+        if(resultsPanel.getFan36RadioButton().isSelected())
+            airWinterCount += resultsPanel.getFan36Count() * baseInfo.getFan36Capacity();
+        if(resultsPanel.getFan26RadioButton().isSelected() && resultsPanel.getFan26Count() != 1)
+            airWinterCount += resultsPanel.getFan26Count() * baseInfo.getFan26Capacity();
+        if(resultsPanel.getFanRoofRadioButton().isSelected())
+            airWinterCount += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
+
+        double airWinter = airWinterCount / baseInfo.getHeadsNumber();
+
+        baseInfo.setAirWinterCurrent(airWinter);
+    }
+
 }

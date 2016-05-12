@@ -240,7 +240,7 @@ public class BaseInfo {
         return taskPanel.getVentilationType();
     }
 
-    public boolean isFan50TwoSideCheckBox() {
+    public boolean isFan50TwoSide() {
         return resultsPanel.isFan50TwoSide();
     }
 
@@ -327,6 +327,14 @@ public class BaseInfo {
         return resultsPanel.getHumidityHeight2();
     }
 
+    public double getHumidityLength1(){
+        return resultsPanel.getHumidityLength1();
+    }
+
+    public double getHumidityLength2(){
+        return resultsPanel.getHumidityLength2();
+    }
+
     public double getAirSpeedForPadCool() {
         return airSpeedForPadCool;
     }
@@ -341,5 +349,13 @@ public class BaseInfo {
 
     public boolean isFanRoofSelected(){
         return resultsPanel.getFanRoofRadioButton().isSelected();
+    }
+
+    public void setAirSummerCurrent(double value){
+        taskPanel.setAirSummerCurrent(value);
+    }
+
+    public void setAirWinterCurrent(double value){
+        taskPanel.setAirWinterCurrent(value);
     }
 }

@@ -17,7 +17,7 @@ public class MyMainPanel extends JFrame{
         resultPanel = new ResultsPanel();
 
         taskPanel.setResultsPanel(resultPanel);
-        resultPanel.setMyMainPanel(this);
+//        resultPanel.setMyMainPanel(this);
 
         mainPanel = new JPanel(new BorderLayout());
 
