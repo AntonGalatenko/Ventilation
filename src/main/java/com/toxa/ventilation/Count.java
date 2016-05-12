@@ -36,6 +36,7 @@ public class Count {
 
         countHeaterAndFanCirculation();
 
+        countFan50AirSpeed();
         countAirSummerCurrent();
         countAirWinterCurrent();
 //        countFinish();
@@ -111,8 +112,6 @@ public class Count {
 
         resultsPanel.setHumidityLength2(padCoolOneSideLength()[0]);
         resultsPanel.setHumidityCount2((int) padCoolOneSideLength()[1]);
-
-
 
         countAirInletPadCool();
 
@@ -222,6 +221,23 @@ public class Count {
         double airWinter = airWinterCount / baseInfo.getHeadsNumber();
 
         baseInfo.setAirWinterCurrent(airWinter);
+    }
+    public double countFan50AirSpeed(){
+        double buildSquare = baseInfo.getBuildingWidth() * ((baseInfo.getBuildingHeightMin() + baseInfo.getBuildingHeightMax()) / 2);
+        double cageSquare = (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers1())) * baseInfo.getCageNumber1();
+        if(baseInfo.getCageNumber2() != 0)
+            cageSquare += (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers2())) * baseInfo.getCageNumber1();
+
+        double totalSquare = buildSquare;
+        if(! baseInfo.getCageName().equals("Напольник"))
+            totalSquare -= cageSquare;
+
+        double result = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity() / totalSquare / 3600;
+
+        if(baseInfo.isFan50TwoSide())
+            result /= 2;
+        resultsPanel.setFan50AirSpeed(result);
+        return result;
     }
 
 }

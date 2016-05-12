@@ -104,6 +104,7 @@ public class ResultsPanel extends JPanel{
     private JSpinner humidityHeightSpinner2;
     private JLabel humidityAirSpeedLabel;
     private JLabel heaterLabel;
+    private JLabel fan50AirSpeedLabel;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -120,6 +121,7 @@ public class ResultsPanel extends JPanel{
                 count.countShutter();
                 count.countPadCoolAndAirInlet();
                 count.countAirSummerCurrent();
+                count.countFan50AirSpeed();
             }
         });
 
@@ -422,6 +424,13 @@ public class ResultsPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 count.countFan50();
+            }
+        });
+
+        humidityPlusCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countPadCoolAndAirInlet();
             }
         });
 
@@ -995,6 +1004,10 @@ public class ResultsPanel extends JPanel{
 
     public void setHeaterNeedPower(double value) {
         heaterLabel.setText(String.format("%d", (int)value) + "кВт");
+    }
+
+    public void setFan50AirSpeed(double value) {
+        fan50AirSpeedLabel.setText(String.format("%.2f", value) + "м/с");
     }
 
     public void setElementsOnPanelForTunnelVentilationType(){

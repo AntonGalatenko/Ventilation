@@ -11,8 +11,8 @@ public class Storage implements Serializable{
         this.description = description;
     }
 
-    public int getCapacity() {
-        return (int)capacity;
+    public double getCapacity() {
+        return capacity;
     }
 
     public void setCapacity(double capacity) {

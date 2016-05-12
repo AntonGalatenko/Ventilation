@@ -136,58 +136,6 @@ public class BaseInfo {
         taskPanel.setDisablesCageTiredAndCageNumberComboBox();
     }
 
-//    public void setElementsOnPanelForTunnelVentilationType(){
-//        resultsPanel.enableElementsInPanel(resultsPanel.getFan50RadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getAirInletOnWallRadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getAirInletForPadCoolRadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getHumidityRadioButton());
-//
-//        resultsPanel.disableElementsInPanel(resultsPanel.getFan36RadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getFan26RadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getFanRoofRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOfRoofRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getShaftRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getShutterRadioButton());
-//    }
-//
-//    public void setElementsOnPanelForEuroVentilationType(){
-//        resultsPanel.enableElementsInPanel(resultsPanel.getFan50RadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getFan26RadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getFanRoofRadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getAirInletForPadCoolRadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getHumidityRadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getAirInletOnWallRadioButton());
-//
-//        resultsPanel.disableElementsInPanel(resultsPanel.getShaftRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getFan36RadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOfRoofRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getShutterRadioButton());
-//    }
-//
-//    public void setElementsOnPanelForTexhaVentilationType(){
-//        resultsPanel.enableElementsInPanel(resultsPanel.getFan50RadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getFan26RadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getShaftRadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getShutterRadioButton());
-//
-//        resultsPanel.disableElementsInPanel(resultsPanel.getFan36RadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getFanRoofRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOnWallRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletOfRoofRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getAirInletForPadCoolRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getHumidityRadioButton());
-//    }
-//
-//    public void setElementOnPanelDisableForHeating(){
-//        resultsPanel.disableElementsInPanel(resultsPanel.getHeaterRadioButton());
-//        resultsPanel.disableElementsInPanel(resultsPanel.getFanCirculationRadioButton());
-//    }
-//
-//    public void setElementOnPanelEnableForHeating(){
-//        resultsPanel.enableElementsInPanel(resultsPanel.getHeaterRadioButton());
-//        resultsPanel.enableElementsInPanel(resultsPanel.getFanCirculationRadioButton());
-//    }
-
     public String getCompanyName() {
         return taskPanel.getCompanyName();
     }
@@ -261,42 +209,42 @@ public class BaseInfo {
     }
 
     public int getFan50Capacity(){
-        int result = new ActualValues().loadActualValue().getFan50().get(resultsPanel.getFan50Name()).getCapacity();
+        int result = (int) new ActualValues().loadActualValue().getFan50().get(resultsPanel.getFan50Name()).getCapacity();
         if(resultsPanel.isFan50LightTrap())
             result *= 0.8;
         return result;
     }
 
     public int getFan36Capacity(){
-        int result = new ActualValues().loadActualValue().getFan36().get(resultsPanel.getFan36Name()).getCapacity();
+        int result = (int) new ActualValues().loadActualValue().getFan36().get(resultsPanel.getFan36Name()).getCapacity();
         if(resultsPanel.isFan36LightTrap())
             result *= 0.8;
         return result;
     }
 
     public int getFan26Capacity(){
-        int result = new ActualValues().loadActualValue().getFan26().get(resultsPanel.getFan26Name()).getCapacity();
+        int result = (int) new ActualValues().loadActualValue().getFan26().get(resultsPanel.getFan26Name()).getCapacity();
         if(resultsPanel.isFan26LightTrap())
             result *= 0.8;
         return result;
     }
 
     public int getFanRoofCapacity(){
-        return new ActualValues().loadActualValue().getFanRoof().get(resultsPanel.getFanRoofName()).getCapacity();
+        return (int) new ActualValues().loadActualValue().getFanRoof().get(resultsPanel.getFanRoofName()).getCapacity();
     }
 
     public int getShaftCapacity(){
-        return new ActualValues().loadActualValue().getShaft().get(resultsPanel.getShaftName()).getCapacity();
+        return (int) new ActualValues().loadActualValue().getShaft().get(resultsPanel.getShaftName()).getCapacity();
     }
 
     public int getAirInletOnWallCapacity(){
-        return new ActualValues().loadActualValue().getAirInletOfWall().get(resultsPanel.getAirInletOnWallName()).getCapacity();
+        return (int) new ActualValues().loadActualValue().getAirInletOfWall().get(resultsPanel.getAirInletOnWallName()).getCapacity();
     }
 
     public int getAirInletOfRoofCapacity(){
 //        if(resultsPanel.getAirInletOfRoofRadioButton().isSelected())
 //            return 0;
-        return new ActualValues().loadActualValue().getAirInletOfRoof().get(resultsPanel.getAirInletOfRoofName()).getCapacity();
+        return (int) new ActualValues().loadActualValue().getAirInletOfRoof().get(resultsPanel.getAirInletOfRoofName()).getCapacity();
     }
 
     public double getAirInletForPadCoolCapacity(){
@@ -333,6 +281,10 @@ public class BaseInfo {
 
     public double getHumidityLength2(){
         return resultsPanel.getHumidityLength2();
+    }
+
+    public double getCageArea(String value){
+        return new ActualValues().loadActualValue().getCageArea().get(value).getCapacity();
     }
 
     public double getAirSpeedForPadCool() {

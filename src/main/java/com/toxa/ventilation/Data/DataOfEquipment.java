@@ -19,6 +19,7 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> heater = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> fanCirculation = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> automatic = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> cageArea = new LinkedHashMap<>();
 
     public DataOfEquipment (){
         setFan50DefaultValue();
@@ -38,6 +39,8 @@ public class DataOfEquipment implements Serializable {
         setFanCirculationDefaultValue();
 
         setAutomaticDefaultValue();
+
+        setCageAreaDefaultValue();
 
     }
 
@@ -123,6 +126,17 @@ public class DataOfEquipment implements Serializable {
 
     }
 
+    public void setCageAreaDefaultValue(){
+        cageArea.put("ТБК3", new Storage(2.1, "")); cageArea.put("ТБК4", new Storage(2.6, "")); cageArea.put("ТБК5", new Storage(3.1, ""));
+        cageArea.put("ТБК6", new Storage(3.7, "")); cageArea.put("ТБК12", new Storage(5.2, ""));
+        cageArea.put("ТБЦ3", new Storage(2.4, "")); cageArea.put("ТБЦ4", new Storage(3.1, "")); cageArea.put("ТБЦ5", new Storage(3.7, ""));
+        cageArea.put("ТБЦ6", new Storage(4.2, ""));
+        cageArea.put("ТБЦ(бр)3", new Storage(2.4, "")); cageArea.put("ТБЦ(бр)4", new Storage(3.1, "")); cageArea.put("ТБЦ(бр)5", new Storage(3.7, ""));
+        cageArea.put("ТБЦ(бр)6", new Storage(4.2, ""));
+        cageArea.put("ТББ3", new Storage(3.2, "")); cageArea.put("ТББ4", new Storage(4.1, "")); cageArea.put("ТББ5", new Storage(5.0, ""));
+        cageArea.put("ТБР2", new Storage(1.9, "")); cageArea.put("ТБР3", new Storage(2.6, ""));
+    }
+
     public LinkedHashMap<String, Storage> getFan50() {
         return fan50;
     }
@@ -174,14 +188,10 @@ public class DataOfEquipment implements Serializable {
     public LinkedHashMap<String, Storage> getAutomatic() {
         return automatic;
     }
-//
-//    public int getFan50Capacity(String key) {
-//        return fan50.get(key).getCapacity();
-//    }
-//
-//    public String getFan50Description(String key){
-//        return fan50.get(key).getDescription();
-//    }
+
+    public LinkedHashMap<String, Storage> getCageArea() {
+        return cageArea;
+    }
 
     public void updateFan50(StringBuilder value){
         updateHashMap(fan50, value);
@@ -235,6 +245,10 @@ public class DataOfEquipment implements Serializable {
         updateHashMap(automatic, value);
     }
 
+    public void updateCageArea(StringBuilder value){
+        updateHashMap(cageArea, value);
+    }
+
     public void updateHashMap(LinkedHashMap<String, Storage> map, StringBuilder value){
         String[] line;
         map.clear();
@@ -250,163 +264,4 @@ public class DataOfEquipment implements Serializable {
         return  result;
     }
 
-//    public void setFan50Capacity(String key, int capacity) {
-//        fan50.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setFan50Description(String key, String description){
-//        fan50.get(key).setDescription(description);
-//    }
-//
-//    public int getFan36Capacity(String key) {
-//        return fan36.get(key).getCapacity();
-//    }
-//
-//    public String getFan36Description(String key){
-//        return fan36.get(key).getDescription();
-//    }
-//
-//    public void setFan36Capacity(String key, int capacity) {
-//        fan36.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setFan36Description(String key, String description){
-//        fan36.get(key).setDescription(description);
-//    }
-//
-//    public int getFan26Capacity(String key) {
-//        return fan26.get(key).getCapacity();
-//    }
-//
-//    public String getFan26Description(String key){
-//        return fan26.get(key).getDescription();
-//    }
-//
-//    public void setFan26Capacity(String key, int capacity) {
-//        fan26.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setFan26Description(String key, String description){
-//        fan26.get(key).setDescription(description);
-//    }
-//
-//    public int getFanRoofCapacity(String key) {
-//        return fanRoof.get(key).getCapacity();
-//    }
-//
-//    public String getFanRoofDescription(String key){
-//        return fanRoof.get(key).getDescription();
-//    }
-//
-//    public void setFanRoofCapacity(String key, int capacity) {
-//        fanRoof.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setFanRoofDescription(String key, String description){
-//        fanRoof.get(key).setDescription(description);
-//    }
-//
-//    public int getAirInletOfWallCapacity(String key) {
-//        return airInletOfWall.get(key).getCapacity();
-//    }
-//
-//    public String getAirInletOfWallDescription(String key){
-//        return airInletOfWall.get(key).getDescription();
-//    }
-//
-//    public void setAirInletOfWallCapacity(String key, int capacity) {
-//        airInletOfWall.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setAirInletOfWallDescription(String key, String description){
-//        airInletOfWall.get(key).setDescription(description);
-//    }
-//
-//    public int getAirInletOfRoofCapacity(String key) {
-//        return airInletOfRoof.get(key).getCapacity();
-//    }
-//
-//    public String getAirInletOfRoofDescription(String key){
-//        return airInletOfRoof.get(key).getDescription();
-//    }
-//
-//    public void setAirInletOfRoofCapacity(String key, int capacity) {
-//        airInletOfRoof.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setAirInletOfRoofDescription(String key, String description){
-//        airInletOfRoof.get(key).setDescription(description);
-//    }
-//
-//    public int getAirInletOfPadCoolCapacity(String key) {
-//        return airInletOfPadCool.get(key).getCapacity();
-//    }
-//
-//    public String getAirInletOfPadCoolDescription(String key){
-//        return airInletOfPadCool.get(key).getDescription();
-//    }
-//
-//    public void setAirInletOfPadCoolCapacity(String key, int capacity) {
-//        airInletOfPadCool.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setAirInletOfPadCoolDescription(String key, String description){
-//        airInletOfPadCool.get(key).setDescription(description);
-//    }
-//
-//    public int getHeaterCapacity(String key) {
-//        return heater.get(key).getCapacity();
-//    }
-//
-//    public String getHeaterDescription(String key){
-//        return heater.get(key).getDescription();
-//    }
-//
-//    public void setHeaterCapacity(String key, int capacity) {
-//        heater.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setHeaterDescription(String key, String description){
-//        heater.get(key).setDescription(description);
-//    }
-//
-//    public int getFanCirculationCapacity(String key) {
-//        return fanCirculation.get(key).getCapacity();
-//    }
-//
-//    public String getFanCirculationDescription(String key){
-//        return fanCirculation.get(key).getDescription();
-//    }
-//
-//    public void setFanCirculationCapacity(String key, int capacity) {
-//        fanCirculation.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setFanCirculationDescription(String key, String description){
-//        fanCirculation.get(key).setDescription(description);
-//    }
-//
-//    public int getAutomaticCapacity(String key) {
-//        return automatic.get(key).getCapacity();
-//    }
-//
-//    public String getAutomaticDescription(String key){
-//        return automatic.get(key).getDescription();
-//    }
-//
-//    public void setAutomaticCapacity(String key, int capacity) {
-//        automatic.get(key).setCapacity(capacity);
-//    }
-//
-//    public void setAutomaticDescription(String key, String description){
-//        automatic.get(key).setDescription(description);
-//    }
-//
-//    public String getHumidityName(String key) {
-//        return humidity.get(key);
-//    }
-//
-//    public void setHumidityName(String key, String value) {
-//        humidity.put(key, value);
-//    }
 }
