@@ -62,6 +62,7 @@ public class TaskPanel extends JPanel{
     private JLabel airSummerCurrentLabel;
     private JLabel airWinterCurrentLabel;
     private JLabel airTotalCurrentLabel;
+    private JButton excelButton;
 
     public TaskPanel(){
 
@@ -111,6 +112,13 @@ public class TaskPanel extends JPanel{
                 System.out.println(getAirWinter());
 
                 count.startCount();
+            }
+        });
+
+        excelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               baseInfo.getAllSelectedComponents();
             }
         });
 

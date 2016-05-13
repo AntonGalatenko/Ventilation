@@ -4,6 +4,8 @@ import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class BaseInfo {
     public BaseInfo(TaskPanel taskPanel) {
         this.taskPanel = taskPanel;
 
+    }
+
+    public BaseInfo() {
     }
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
@@ -327,5 +332,21 @@ public class BaseInfo {
 
     public void setAirTotalCurrent(double value){
         taskPanel.setAirTotalCurrent(value);
+    }
+
+    public void getAllSelectedComponents(){
+        ArrayList<JRadioButton> allComponents = resultsPanel.getNeededComponent(new JRadioButton());
+System.out.println(allComponents);
+
+        ArrayList<JRadioButton> allSelectedComponents = new ArrayList();
+        for(JRadioButton radioButton : allComponents){
+            if(radioButton.isSelected())
+                allSelectedComponents.add(radioButton);
+
+        }
+
+        for(JRadioButton radioButton : allSelectedComponents)
+            System.out.println(radioButton.getName());
+
     }
 }

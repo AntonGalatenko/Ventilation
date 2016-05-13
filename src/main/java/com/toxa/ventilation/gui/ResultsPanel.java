@@ -417,21 +417,6 @@ public class ResultsPanel extends JPanel{
             }
         });
 
-
-//        fan50RadioButton.addItemListener(new MyItemListener(fan50Panel));
-//        fan36RadioButton.addItemListener(new MyItemListener(fan36Panel));
-//        fan26RadioButton.addItemListener(new MyItemListener(fan26Panel));
-//        fanRoofRadioButton.addItemListener(new MyItemListener(fanRoofPanel));
-//        shaftRadioButton.addItemListener(new MyItemListener(shaftPanel));
-//        airInletWallRadioButton.addItemListener(new MyItemListener(airInletWallAirPanel));
-//        airInletOfRoofRadioButton.addItemListener(new MyItemListener(airInletOfRoofPanel));
-//        airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
-//        shutterRadioButton.addItemListener(new MyItemListener(shutterPanel));
-//        humidityRadioButton.addItemListener(new MyItemListener(humidityPanel));
-//        heaterRadioButton.addItemListener(new MyItemListener(heaterPanel));
-//        fanCirculationRadioButton.addItemListener(new MyItemListener(fanCirculationPanel));
-//        automaticRadioButton.addItemListener(new MyItemListener(automaticPanel));
-
         fan50TwoSideCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -449,21 +434,6 @@ public class ResultsPanel extends JPanel{
         setElementsOnPanelForTunnelVentilationType();
         setElementOnPanelDisableForHeating();
 
-    }
-
-    public class MyItemListener implements ItemListener{
-        private JPanel panel;
-
-        public MyItemListener(JPanel panel){
-            this.panel = panel;
-        }
-        @Override
-        public void itemStateChanged(ItemEvent e) {
-            if(e.getStateChange() == ItemEvent.SELECTED)
-                enableElementsInPanel(panel);
-            else
-                disableElementsInPanel(panel);
-        }
     }
 
     public void setDefaultValues(){
