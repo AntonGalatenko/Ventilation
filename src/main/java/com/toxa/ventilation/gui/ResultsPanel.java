@@ -39,10 +39,10 @@ public class ResultsPanel extends JPanel{
     private JRadioButton fanRoofRadioButton;
     private JSpinner fanRoofSpinner;
     private JComboBox fanRoofComboBox;
-    private JRadioButton airInletOnWallRadioButton;
-    private JPanel airInletOnWallPanel;
-    private JSpinner airInletOnWallSpinner;
-    private JComboBox airInletOnWallComboBox;
+    private JRadioButton airInletWallRadioButton;
+    private JPanel airInletWallAirPanel;
+    private JSpinner airInletWallSpinner;
+    private JComboBox airInletWallComboBox;
     private JPanel airInletForPadCoolPanel;
     private JRadioButton airInletForPadCoolRadioButton;
     private JSpinner airInletForPadCoolSpinner;
@@ -78,7 +78,7 @@ public class ResultsPanel extends JPanel{
     private JCheckBox fan50LightTrapCheckBox;
     private JCheckBox fan36LightTrapCheckBox;
     private JCheckBox fan26LightTrapCheckBox;
-    private JCheckBox airInletOnWallLightTrapCheckBox;
+    private JCheckBox airInletWallLightTrapCheckBox;
     private JCheckBox shutterLightTrapCheckBox;
     private JRadioButton airInletOfRoofRadioButton;
     private JSpinner airInletOfRoofSpinner;
@@ -105,6 +105,7 @@ public class ResultsPanel extends JPanel{
     private JLabel humidityAirSpeedLabel;
     private JLabel heaterLabel;
     private JLabel fan50AirSpeedLabel;
+    private JLabel airInletWallAirOneHeadLabel;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -120,7 +121,7 @@ public class ResultsPanel extends JPanel{
             public void stateChanged(ChangeEvent e) {
                 count.countShutter();
                 count.countPadCoolAndAirInlet();
-                count.countAirSummerCurrent();
+                count.countAirTotalCurrent();
                 count.countFan50AirSpeed();
             }
         });
@@ -129,7 +130,7 @@ public class ResultsPanel extends JPanel{
             @Override
             public void stateChanged(ChangeEvent e) {
                 count.countShaft();
-                count.countAirWinterCurrent();
+                count.countAirTotalCurrent();
             }
         });
 
@@ -137,15 +138,15 @@ public class ResultsPanel extends JPanel{
             @Override
             public void stateChanged(ChangeEvent e) {
                 count.countShaft();
-                count.countAirWinterCurrent();
+                count.countAirTotalCurrent();
             }
         });
 
         fanRoofSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                count.countAirInletOnWall();
-                count.countAirWinterCurrent();
+                count.countAirInletWallAndAirOneHead();
+                count.countAirTotalCurrent();
             }
         });
 
@@ -156,10 +157,10 @@ public class ResultsPanel extends JPanel{
             }
         });
 
-        airInletOnWallSpinner.addChangeListener(new ChangeListener() {
+        airInletWallSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-
+                count.countAirInletWallAirOneHead();
             }
         });
 
@@ -233,7 +234,7 @@ public class ResultsPanel extends JPanel{
         humidityHeightSpinner1.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                count.countAirInletPadCool();
+                count.countPadCoolAndAirInlet();
                 count.padCoolAirSpeedCurrent();
             }
         });
@@ -241,8 +242,15 @@ public class ResultsPanel extends JPanel{
         humidityHeightSpinner2.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                count.countAirInletPadCool();
+                count.countPadCoolAndAirInlet();
                 count.padCoolAirSpeedCurrent();
+            }
+        });
+
+        servomotorSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countEmergency();
             }
         });
 
@@ -253,8 +261,6 @@ public class ResultsPanel extends JPanel{
                     changeVisibleOSHUMAndSSHUMTextField();
             }
         });
-
-
 
         fan50RadioButton.addItemListener(new ItemListener() {
             @Override
@@ -275,7 +281,7 @@ public class ResultsPanel extends JPanel{
                     disableElementsInPanel(fan36Panel);
 
                 if(getFan36Count() != 0)
-                    count.countAirWinterCurrent();
+                    count.countAirTotalCurrent();
             }
         });
 
@@ -288,7 +294,7 @@ public class ResultsPanel extends JPanel{
                     disableElementsInPanel(fan26Panel);
 
                 if(getFan26Count() != 0)
-                    count.countAirWinterCurrent();
+                    count.countAirTotalCurrent();
             }
         });
 
@@ -301,7 +307,7 @@ public class ResultsPanel extends JPanel{
                     disableElementsInPanel(fanRoofPanel);
 
                 if(getFanRoofCount() != 0)
-                    count.countAirWinterCurrent();
+                    count.countAirTotalCurrent();
             }
         });
 
@@ -312,16 +318,20 @@ public class ResultsPanel extends JPanel{
                     enableElementsInPanel(shaftPanel);
                 else
                     disableElementsInPanel(shaftPanel);
+
+                count.countServomotor();
             }
         });
 
-        airInletOnWallRadioButton.addItemListener(new ItemListener() {
+        airInletWallRadioButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == ItemEvent.SELECTED)
-                    enableElementsInPanel(airInletOnWallPanel);
+                    enableElementsInPanel(airInletWallAirPanel);
                 else
-                    disableElementsInPanel(airInletOnWallPanel);
+                    disableElementsInPanel(airInletWallAirPanel);
+
+                count.countServomotor();
             }
         });
 
@@ -342,6 +352,8 @@ public class ResultsPanel extends JPanel{
                     enableElementsInPanel(airInletForPadCoolPanel);
                 else
                     disableElementsInPanel(airInletForPadCoolPanel);
+
+                count.countServomotor();
             }
         });
 
@@ -411,7 +423,7 @@ public class ResultsPanel extends JPanel{
 //        fan26RadioButton.addItemListener(new MyItemListener(fan26Panel));
 //        fanRoofRadioButton.addItemListener(new MyItemListener(fanRoofPanel));
 //        shaftRadioButton.addItemListener(new MyItemListener(shaftPanel));
-//        airInletOnWallRadioButton.addItemListener(new MyItemListener(airInletOnWallPanel));
+//        airInletWallRadioButton.addItemListener(new MyItemListener(airInletWallAirPanel));
 //        airInletOfRoofRadioButton.addItemListener(new MyItemListener(airInletOfRoofPanel));
 //        airInletForPadCoolRadioButton.addItemListener(new MyItemListener(airInletForPadCoolPanel));
 //        shutterRadioButton.addItemListener(new MyItemListener(shutterPanel));
@@ -459,10 +471,13 @@ public class ResultsPanel extends JPanel{
 
         automaticSpinner.setValue(1);
 
+        airInletWallSpinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(2)));
+
         humidityHeightSpinner1.setModel(new SpinnerNumberModel(new Double(2), new Double(1), new Double(2), new Double(0.5)));
         humidityHeightSpinner2.setModel(new SpinnerNumberModel(new Double(2), new Double(1), new Double(2), new Double(0.5)));
         humidityLengthSpinner1.setModel(new SpinnerNumberModel(new Double(6),new Double(6), new Double(24), new Double(0.6)));
         humidityLengthSpinner2.setModel(new SpinnerNumberModel(new Double(6),new Double(6), new Double(24), new Double(0.6)));
+        humidityCountSpinner2.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(2)));
 
         automaticSensorTemperatureSpinner.setModel(new SpinnerNumberModel(new Double(4), new Double(0), null, new Double(1)));
         automaticSensorHumiditySpinner.setModel(new SpinnerNumberModel(new Double(1), new Double(0), null, new Double(1)));
@@ -495,7 +510,7 @@ public class ResultsPanel extends JPanel{
         fan26ComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFan26())));
         fanRoofComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFanRoof())));
         shaftComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getShaft())));
-        airInletOnWallComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfWall())));
+        airInletWallComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfWall())));
         airInletOfRoofComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletOfRoof())));
         airInletForPadCoolComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAirInletForPadCool())));
         shutterComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getShutter())));
@@ -579,7 +594,7 @@ public class ResultsPanel extends JPanel{
 //    }
 //
 //    public void setEnableOrDisableAirInletWall(boolean value){
-//        for(Component component : airInletOnWallPanel.getComponents()){
+//        for(Component component : airInletWallAirPanel.getComponents()){
 //            if(!component.getClass().equals(JRadioButton.class))
 //                component.setEnabled(value);
 //        }
@@ -659,12 +674,8 @@ public class ResultsPanel extends JPanel{
         else {
             automaticOSHUMTextField.setEnabled(false);
             automaticSSHUMTextField.setEnabled(false);
-
         }
-
     }
-
-
 
     public int getFan50Count() {
         return (int) fan50Spinner.getValue();
@@ -739,15 +750,15 @@ public class ResultsPanel extends JPanel{
     }
 
     public int getAirInletOnWallCount() {
-        return (int) airInletOnWallSpinner.getValue();
+        return (int) airInletWallSpinner.getValue();
     }
 
     public void setAirInletOnWallCount(int airInletSmallCount) {
-        airInletOnWallSpinner.setValue(airInletSmallCount);
+        airInletWallSpinner.setValue(airInletSmallCount);
     }
 
     public String getAirInletOnWallName() {
-        return airInletOnWallComboBox.getSelectedItem().toString();
+        return airInletWallComboBox.getSelectedItem().toString();
     }
 
     public String getAirInletOfRoofName() {
@@ -946,8 +957,8 @@ public class ResultsPanel extends JPanel{
         return shaftRadioButton;
     }
 
-    public JRadioButton getAirInletOnWallRadioButton() {
-        return airInletOnWallRadioButton;
+    public JRadioButton getAirInletWallRadioButton() {
+        return airInletWallRadioButton;
     }
 
     public JRadioButton getAirInletForPadCoolRadioButton() {
@@ -995,7 +1006,7 @@ public class ResultsPanel extends JPanel{
     }
 
     public boolean isAirInletOnWallLightTrap() {
-        return airInletOnWallLightTrapCheckBox.isSelected();
+        return airInletWallLightTrapCheckBox.isSelected();
     }
 
     public boolean isShutterLightTrap() {
@@ -1010,9 +1021,13 @@ public class ResultsPanel extends JPanel{
         fan50AirSpeedLabel.setText(String.format("%.2f", value) + "м/с");
     }
 
+    public void setAirInletWallAirOneHead(double value) {
+        airInletWallAirOneHeadLabel.setText(String.format("%.2f", value) + "м3/г");
+    }
+
     public void setElementsOnPanelForTunnelVentilationType(){
         enableElementsInPanel(getFan50RadioButton());
-        enableElementsInPanel(getAirInletOnWallRadioButton());
+        enableElementsInPanel(getAirInletWallRadioButton());
         enableElementsInPanel(getAirInletForPadCoolRadioButton());
         enableElementsInPanel(getHumidityRadioButton());
 
@@ -1030,7 +1045,7 @@ public class ResultsPanel extends JPanel{
         enableElementsInPanel(getFanRoofRadioButton());
         enableElementsInPanel(getAirInletForPadCoolRadioButton());
         enableElementsInPanel(getHumidityRadioButton());
-        enableElementsInPanel(getAirInletOnWallRadioButton());
+        enableElementsInPanel(getAirInletWallRadioButton());
 
         disableElementsInPanel(getShaftRadioButton());
         disableElementsInPanel(getFan36RadioButton());
@@ -1046,7 +1061,7 @@ public class ResultsPanel extends JPanel{
 
         disableElementsInPanel(getFan36RadioButton());
         disableElementsInPanel(getFanRoofRadioButton());
-        disableElementsInPanel(getAirInletOnWallRadioButton());
+        disableElementsInPanel(getAirInletWallRadioButton());
         disableElementsInPanel(getAirInletOfRoofRadioButton());
         disableElementsInPanel(getAirInletForPadCoolRadioButton());
         disableElementsInPanel(getHumidityRadioButton());

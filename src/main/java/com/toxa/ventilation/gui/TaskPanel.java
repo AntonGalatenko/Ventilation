@@ -61,6 +61,7 @@ public class TaskPanel extends JPanel{
     private JTextField poultryHouseNamberTextField;
     private JLabel airSummerCurrentLabel;
     private JLabel airWinterCurrentLabel;
+    private JLabel airTotalCurrentLabel;
 
     public TaskPanel(){
 
@@ -253,4 +254,12 @@ public class TaskPanel extends JPanel{
         else
             airSummerCurrentLabel.setText(String.format("%.2f", value) + "м3/час");
     }
+
+    public void setAirTotalCurrent(double value) {
+        if(value == 0)
+            airTotalCurrentLabel.setText("");
+        else
+            airTotalCurrentLabel.setText(String.format("%.2f", value) + "м3/час");
+    }
+
 }

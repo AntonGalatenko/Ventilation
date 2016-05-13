@@ -118,11 +118,17 @@ public class BaseInfo {
 
     private void setTBRInfo() {
         if (taskPanel.getVentilationType().equals("Тунель")) {
-            taskPanel.setAirSummer(12);
+            taskPanel.setAirSummer(16);
             taskPanel.setAirWinter(0);
-        } else {
-            taskPanel.setAirSummer(9);
+            resultsPanel.setElementsOnPanelForTunnelVentilationType();
+        } else if(taskPanel.getVentilationType().equals("Евро")){
+            taskPanel.setAirSummer(13);
             taskPanel.setAirWinter(3);
+            resultsPanel.setElementsOnPanelForEuroVentilationType();
+        } else{
+            taskPanel.setAirSummer(13);
+            taskPanel.setAirWinter(3);
+            resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
         cageTiers = Arrays.asList(3, 4);
 
@@ -130,9 +136,17 @@ public class BaseInfo {
     }
 
     private void setNapolnikInfo() {
-        taskPanel.setAirSummer(12);
-        taskPanel.setAirWinter(0);
-
+        if (taskPanel.getVentilationType().equals("Тунель")) {
+            taskPanel.setAirSummer(12);
+            taskPanel.setAirWinter(0);
+            resultsPanel.setElementsOnPanelForTunnelVentilationType();
+        } else {
+            taskPanel.setAirSummer(9);
+            taskPanel.setAirWinter(3);
+            resultsPanel.setElementsOnPanelForEuroVentilationType();
+        }
+        resultsPanel.enableElementsInPanel(resultsPanel.getHeaterRadioButton());
+        resultsPanel.disableElementsInPanel(resultsPanel.getFanCirculationRadioButton());
         taskPanel.setDisablesCageTiredAndCageNumberComboBox();
     }
 
@@ -309,5 +323,9 @@ public class BaseInfo {
 
     public void setAirWinterCurrent(double value){
         taskPanel.setAirWinterCurrent(value);
+    }
+
+    public void setAirTotalCurrent(double value){
+        taskPanel.setAirTotalCurrent(value);
     }
 }

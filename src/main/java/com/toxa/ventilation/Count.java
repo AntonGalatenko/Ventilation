@@ -28,7 +28,7 @@ public class Count {
         countFanRoof();
 
         countShaft();
-        countAirInletOnWall();
+        countAirInletWallAndAirOneHead();
         countShutter();
 
         countPadCoolAndAirInlet();
@@ -37,8 +37,7 @@ public class Count {
         countHeaterAndFanCirculation();
 
         countFan50AirSpeed();
-        countAirSummerCurrent();
-        countAirWinterCurrent();
+        countAirTotalCurrent();
 //        countFinish();
     }
 
@@ -52,44 +51,60 @@ public class Count {
 
     public int countFan50(){
         int result = (int) (Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirSummer() / baseInfo.getFan50Capacity()));
+
         if(baseInfo.isFan50TwoSide() && result %2 != 0)
             result++;
+
         resultsPanel.setFan50Count(result);
+
         return result;
     }
 
     public int countFan36(){
         int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / baseInfo.getFan36Capacity());
+
         resultsPanel.setFan36Count(result);
+
         return result;
     }
 
     public int countFan26(){
         int result = 1;
+
         if(baseInfo.getVentilationType().equals("Техна"))
             result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / baseInfo.getFan26Capacity());
+
         resultsPanel.setFan26Count(result);
+
         return result;
     }
 
     public int countFanRoof(){
         int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter() / baseInfo.getFanRoofCapacity()));
+
         resultsPanel.setFanRoofCount(result);
+
         return result;
     }
 
     public int countShaft(){
         int result = 0;
+
         if(resultsPanel.getFan26RadioButton().isSelected())
             result = (int)(Math.ceil(resultsPanel.getFan26Count() * baseInfo.getFan26Capacity() / baseInfo.getShaftCapacity()));
         if(resultsPanel.getFan36RadioButton().isSelected() || (resultsPanel.getFan26Count() == 1))
             result += (int)(Math.ceil(resultsPanel.getFan36Count() * baseInfo.getFan36Capacity() / baseInfo.getShaftCapacity()));
+
+        countServomotor();
+
         resultsPanel.setShaftCount(result);
+
         return result;
     }
 
-    public int countAirInletOnWall(){
+    public int countAirInletWallAndAirOneHead(){
         int result = (int)(Math.ceil(resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity() / baseInfo.getAirInletOnWallCapacity()));
+
         if(result == 0)
             result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirForAirInletForTunnelTypeOfVentilation() / baseInfo.getAirInletOnWallCapacity()));
 
@@ -97,12 +112,18 @@ public class Count {
             result++;
 
         resultsPanel.setAirInletOnWallCount(result);
+
+        countAirInletWallAirOneHead();
+        countServomotor();
+
         return result;
     }
 
     public int countShutter(){
         int result = (int)(Math.ceil(resultsPanel.getFan50Count() * baseInfo.getFan50Capacity() / baseInfo.getShutterCapacity()));
+
         resultsPanel.setShutterCount(result);
+
         return result;
     }
 
@@ -114,7 +135,6 @@ public class Count {
         resultsPanel.setHumidityCount2((int) padCoolOneSideLength()[1]);
 
         countAirInletPadCool();
-
     }
 
     public double[] padCoolOneSideLength(){
@@ -128,6 +148,7 @@ public class Count {
             count++;
 
         oneSideLength = padCoolCurrentLength(oneSideLength / count, false);
+
         count *= 2;
 
         return new double[]{oneSideLength, count};
@@ -140,7 +161,8 @@ public class Count {
         if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSide()){
             result = padCoolCurrentLength(baseInfo.getBuildingWidth(), true);
             count = 1;
-        } else if(! baseInfo.isFan50TwoSide()){
+        }
+        else if(! baseInfo.isFan50TwoSide()){
             result = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2 ,true);
             count = 2;
         }
@@ -158,26 +180,34 @@ public class Count {
             result = value - x + 0.6;
 
         result = Math.round(result * 10) / 10.0;
+
         return result;
     }
 
     public double padCoolTotalSquare(){
         int fansCapacity = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
+
         if(baseInfo.isHumidityPlus() && baseInfo.isFanRoofSelected())
             fansCapacity += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
+
         double result = fansCapacity / 3600 / baseInfo.getAirSpeedForPadCool();
+
         return result;
     }
 
     public double padCoolAirSpeedCurrent(){
         double padCoolSquareCurrent = baseInfo.getHumidityLength1() * baseInfo.getHumidityHeight1() * baseInfo.getHumidityCount1()  +
                 baseInfo.getHumidityLength2() * baseInfo.getHumidityHeight2() * baseInfo.getHumidityCount2();
+
         int fansCapacity = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
+
         if(baseInfo.isHumidityPlus() && baseInfo.isFanRoofSelected())
             fansCapacity += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
+
         double result = fansCapacity / 3600 / padCoolSquareCurrent;
 
         resultsPanel.setHumidityAirSpeed(result);
+
         return result;
     }
 
@@ -187,28 +217,39 @@ public class Count {
         int result = resultFaceSide + resultOneSide;
 
         resultsPanel.setAirInletForPadCoolCount(result);
+
+        countServomotor();
+
         return result;
     }
 
     public int countHeaterAndFanCirculation(){
         double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() / 4;
+
         int result = (int) Math.ceil(needPower / baseInfo.getHeaterCapacity());
+
         if(result % 2 != 0)
             result += 1;
+
+        if(baseInfo.getCageName().equals("ТБР"))
+            result /= 2;
         resultsPanel.setHeaterCount(result);
         resultsPanel.setFanCirculationCount(result);
         resultsPanel.setHeaterNeedPower(needPower);
+
         return  result;
     }
 
-    public void countAirSummerCurrent(){
+    public double countAirSummerCurrent(){
         double airSummerCount = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
         double airSummer = airSummerCount / baseInfo.getHeadsNumber();
 
         baseInfo.setAirSummerCurrent(airSummer);
+
+        return  airSummer;
     }
 
-    public void countAirWinterCurrent(){
+    public double countAirWinterCurrent(){
         double airWinterCount = 0;
 
         if(resultsPanel.getFan36RadioButton().isSelected())
@@ -221,22 +262,75 @@ public class Count {
         double airWinter = airWinterCount / baseInfo.getHeadsNumber();
 
         baseInfo.setAirWinterCurrent(airWinter);
+
+        return airWinter;
     }
+
+    public void countAirTotalCurrent(){
+        double result = countAirSummerCurrent() + countAirWinterCurrent();
+
+        if(countAirSummerCurrent() == 0 || countAirWinterCurrent() == 0)
+            baseInfo.setAirTotalCurrent(0);
+        else
+            baseInfo.setAirTotalCurrent(result);
+    }
+
     public double countFan50AirSpeed(){
         double buildSquare = baseInfo.getBuildingWidth() * ((baseInfo.getBuildingHeightMin() + baseInfo.getBuildingHeightMax()) / 2);
-        double cageSquare = (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers1())) * baseInfo.getCageNumber1();
-        if(baseInfo.getCageNumber2() != 0)
-            cageSquare += (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers2())) * baseInfo.getCageNumber1();
 
-        double totalSquare = buildSquare;
+        double cageSquare = 0;
         if(! baseInfo.getCageName().equals("Напольник"))
-            totalSquare -= cageSquare;
+            cageSquare = (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers1())) * baseInfo.getCageNumber1();
+        if(baseInfo.getCageNumber2() != 0)
+            cageSquare += (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers2())) * baseInfo.getCageNumber2();
+
+        double totalSquare = buildSquare - cageSquare;
 
         double result = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity() / totalSquare / 3600;
 
         if(baseInfo.isFan50TwoSide())
             result /= 2;
+
         resultsPanel.setFan50AirSpeed(result);
+
+        return result;
+    }
+
+    public double countAirInletWallAirOneHead(){
+        double airCapacity = resultsPanel.getAirInletOnWallCount() * baseInfo.getAirInletOnWallCapacity();
+        double result = airCapacity / baseInfo.getHeadsNumber();
+
+        resultsPanel.setAirInletWallAirOneHead(result);
+
+        return result;
+    }
+
+    public int countServomotor(){
+        int result = 0;
+
+        if(resultsPanel.getAirInletWallRadioButton().isSelected())
+            result += 2;
+        if(resultsPanel.getShaftRadioButton().isSelected())
+            result += 1;
+        if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected())
+            result += 2;
+        if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected() && resultsPanel.getHumidityCount1() > 0)
+            result += 1;
+
+        resultsPanel.setServomotorCount(result);
+
+        countEmergency();
+
+        return result;
+    }
+
+    public int countEmergency(){
+        int result = 0;
+        if(resultsPanel.getServomotorCount() > 0)
+            result = 1;
+
+        resultsPanel.setEmergencyCount(result);
+
         return result;
     }
 
