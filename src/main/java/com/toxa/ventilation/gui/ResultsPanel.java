@@ -106,6 +106,7 @@ public class ResultsPanel extends JPanel{
     private JLabel heaterLabel;
     private JLabel fan50AirSpeedLabel;
     private JLabel airInletWallAirOneHeadLabel;
+    private JLabel airInletWallDistanceLabel;
 
     public ResultsPanel(){
         count = Count.getInstance();
@@ -145,7 +146,7 @@ public class ResultsPanel extends JPanel{
         fanRoofSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                count.countAirInletWallAndAirOneHead();
+                count.countAirInletWallAndAirOneHeadAndDistance();
                 count.countAirTotalCurrent();
             }
         });
@@ -161,6 +162,7 @@ public class ResultsPanel extends JPanel{
             @Override
             public void stateChanged(ChangeEvent e) {
                 count.countAirInletWallAirOneHead();
+                count.countAirInletWallDistance();
             }
         });
 
@@ -434,6 +436,12 @@ public class ResultsPanel extends JPanel{
         setElementsOnPanelForTunnelVentilationType();
         setElementOnPanelDisableForHeating();
 
+        airInletWallComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countAirInletWallAndAirOneHeadAndDistance();
+            }
+        });
     }
 
     public void setDefaultValues(){
@@ -463,6 +471,7 @@ public class ResultsPanel extends JPanel{
 
     public ArrayList getNeededComponent(Component neededComponent){
         ArrayList result = new ArrayList();
+
         for(Component c : mainPanel.getComponents()){
             JPanel panel = (JPanel)c;
             for(Component component : panel.getComponents())
@@ -470,6 +479,38 @@ public class ResultsPanel extends JPanel{
                     result.add(component);
         }
         return result;
+    }
+
+    public Component getNeededComponent(Component neededComponent, JPanel panel){
+        for(Component component : panel.getComponents())
+            if(component.getClass().equals(neededComponent.getClass()))
+                return component;
+
+        return null;
+    }
+
+    public LinkedHashMap<String, Integer> getSelectedComponents(){
+        LinkedHashMap<String, Integer> result = new LinkedHashMap<>();
+
+        ArrayList<JPanel> panelList = new ArrayList<>();
+        for(Component panel : mainPanel.getComponents())
+            panelList.add((JPanel)panel);
+        for(JPanel p : panelList){
+            JRadioButton jrb = (JRadioButton)getNeededComponent(new JRadioButton(), p);
+            if(jrb.isSelected()){
+                JComboBox cb =(JComboBox) getNeededComponent(new JComboBox(), p);
+                if(cb == null)
+                    System.out.println("Увлажнение");
+                else
+                    System.out.println(cb.getSelectedItem());
+
+            }
+
+
+
+        }
+
+        return null;
     }
 
     public void setModelsToComboBox(){
@@ -527,110 +568,6 @@ public class ResultsPanel extends JPanel{
         }
 
     }
-
-//    public void setEnableOrDisableFan50(boolean value){
-//        for(Component component : fan50Panel.getComponents()){
-//             if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableFan36(boolean value){
-//        for(Component component : fan36Panel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableFan26(boolean value){
-//        for(Component component : fan26Panel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableFanRoof(boolean value){
-//        for(Component component : fanRoofPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableShaft(boolean value){
-//        for(Component component : shaftPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableAirInletWall(boolean value){
-//        for(Component component : airInletWallAirPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableAirInletRoof(boolean value){
-//        for(Component component : airInletOfRoofPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableAirInletPadCool(boolean value){
-//        for(Component component : airInletForPadCoolPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableShutter(boolean value){
-//        for(Component component : shutterPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableHumidity(boolean value){
-//        for(Component component : humidityPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableHeater(boolean value){
-//        for(Component component : heaterPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableFanCirculation(boolean value){
-//        for(Component component : fanCirculationPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-//
-//    public void setEnableOrDisableAutomatic(boolean value){
-//        for(Component component : automaticPanel.getComponents()){
-//            if(!component.getClass().equals(JRadioButton.class))
-//                component.setEnabled(value);
-//        }
-//    }
-
-
-
-
-
-//    public void setMyMainPanel(MyMainPanel myMainPanel) {
-//        this.myMainPanel = myMainPanel;
-//    }
-
-//    public void updateResults(){
-//        fan50Spinner.setValue(new Integer(count.getFan50Count()));
-//        myMainPanel.update(this);
-//    }
 
     public void changeVisibleOSHUMAndSSHUMTextField(){
         if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ")){
@@ -993,6 +930,10 @@ public class ResultsPanel extends JPanel{
 
     public void setAirInletWallAirOneHead(double value) {
         airInletWallAirOneHeadLabel.setText(String.format("%.2f", value) + "м3/г");
+    }
+
+    public void setAirInletWallDistance(double value) {
+        airInletWallDistanceLabel.setText(String.format("%.2f", value) + "м");
     }
 
     public void setElementsOnPanelForTunnelVentilationType(){

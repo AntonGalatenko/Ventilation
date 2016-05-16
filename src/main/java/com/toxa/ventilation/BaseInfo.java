@@ -216,11 +216,11 @@ public class BaseInfo {
     }
 
     public double getAirWinter() {
-        return taskPanel.getAirWinter();
+        return taskPanel.getAirWinter() * 0.99;
     }
 
     public double getAirSummer() {
-        return taskPanel.getAirSummer();
+        return taskPanel.getAirSummer() * 0.99;
     }
 
     public int getAirForAirInletForTunnelTypeOfVentilation() {
@@ -307,7 +307,7 @@ public class BaseInfo {
     }
 
     public double getAirSpeedForPadCool() {
-        return airSpeedForPadCool;
+        return airSpeedForPadCool * 1.02;
     }
 
     public int getHumidityCount1(){
@@ -345,8 +345,9 @@ System.out.println(allComponents);
 
         }
 
-        for(JRadioButton radioButton : allSelectedComponents)
-            System.out.println(radioButton.getName());
+        for(JRadioButton radioButton : allSelectedComponents);
+//System.out.println(radioButton.getName());
 
+        resultsPanel.getSelectedComponents();
     }
 }

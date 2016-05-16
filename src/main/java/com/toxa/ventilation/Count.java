@@ -2,6 +2,8 @@ package com.toxa.ventilation;
 
 import com.toxa.ventilation.gui.ResultsPanel;
 
+import java.util.ArrayList;
+
 public class Count {
 
     private static Count instance;
@@ -28,7 +30,7 @@ public class Count {
         countFanRoof();
 
         countShaft();
-        countAirInletWallAndAirOneHead();
+        countAirInletWallAndAirOneHeadAndDistance();
         countShutter();
 
         countPadCoolAndAirInlet();
@@ -74,6 +76,9 @@ public class Count {
         if(baseInfo.getVentilationType().equals("Техна"))
             result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / baseInfo.getFan26Capacity());
 
+        if(result % 2 != 0)
+            result++;
+
         resultsPanel.setFan26Count(result);
 
         return result;
@@ -102,7 +107,7 @@ public class Count {
         return result;
     }
 
-    public int countAirInletWallAndAirOneHead(){
+    public int countAirInletWallAndAirOneHeadAndDistance(){
         int result = (int)(Math.ceil(resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity() / baseInfo.getAirInletOnWallCapacity()));
 
         if(result == 0)
@@ -114,6 +119,7 @@ public class Count {
         resultsPanel.setAirInletOnWallCount(result);
 
         countAirInletWallAirOneHead();
+        countAirInletWallDistance();
         countServomotor();
 
         return result;
@@ -224,12 +230,12 @@ public class Count {
     }
 
     public int countHeaterAndFanCirculation(){
-        double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() / 4;
+        double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() / 3;
 
         int result = (int) Math.ceil(needPower / baseInfo.getHeaterCapacity());
 
         if(result % 2 != 0)
-            result += 1;
+            result ++;
 
         if(baseInfo.getCageName().equals("ТБР"))
             result /= 2;
@@ -276,7 +282,11 @@ public class Count {
     }
 
     public double countFan50AirSpeed(){
-        double buildSquare = baseInfo.getBuildingWidth() * ((baseInfo.getBuildingHeightMin() + baseInfo.getBuildingHeightMax()) / 2);
+        double heightAverage = baseInfo.getBuildingHeightMin();
+        if(baseInfo.getBuildingHeightMax() != 0)
+            heightAverage = (heightAverage + baseInfo.getBuildingHeightMax()) / 2;
+
+        double buildSquare = baseInfo.getBuildingWidth() * heightAverage;
 
         double cageSquare = 0;
         if(! baseInfo.getCageName().equals("Напольник"))
@@ -301,6 +311,19 @@ public class Count {
         double result = airCapacity / baseInfo.getHeadsNumber();
 
         resultsPanel.setAirInletWallAirOneHead(result);
+
+        return result;
+    }
+
+    public double countAirInletWallDistance(){
+        double buildingLength = baseInfo.getBuildingLength();
+        buildingLength -= 12;
+
+        double airInletNumberForOneSide = resultsPanel.getAirInletOnWallCount() / 2;
+
+        double result = buildingLength / airInletNumberForOneSide;
+
+        resultsPanel.setAirInletWallDistance(result);
 
         return result;
     }
@@ -332,6 +355,20 @@ public class Count {
         resultsPanel.setEmergencyCount(result);
 
         return result;
+    }
+
+    public ArrayList<Integer> countFan26Group(){
+        ArrayList<Integer> result = new ArrayList<>();
+
+        final double INDEX = 0.7;
+
+        int fansNumber;
+        fansNumber =(int)Math.ceil(baseInfo.getHeadsNumber() * INDEX);
+        if(fansNumber % 2 != 0)
+            fansNumber ++;
+        result.add(fansNumber);
+
+        return null;
     }
 
 }

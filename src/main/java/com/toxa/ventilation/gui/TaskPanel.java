@@ -177,7 +177,7 @@ public class TaskPanel extends JPanel{
 
     public double getBuildingHeightMax() {
         if(heightMaxTextField.getText().length() == 0)
-            heightMaxTextField.setText("5");
+            return 0;
         return Double.parseDouble(heightMaxTextField.getText());
     }
 
