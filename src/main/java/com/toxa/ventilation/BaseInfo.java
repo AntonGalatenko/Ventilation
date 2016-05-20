@@ -4,9 +4,8 @@ import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class BaseInfo {
@@ -261,20 +260,14 @@ public class BaseInfo {
     }
 
     public int getAirInletOfRoofCapacity(){
-//        if(resultsPanel.getAirInletOfRoofRadioButton().isSelected())
-//            return 0;
         return (int) new ActualValues().loadActualValue().getAirInletOfRoof().get(resultsPanel.getAirInletOfRoofName()).getCapacity();
     }
 
     public double getAirInletForPadCoolCapacity(){
-//        if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected())
-//            return 0;
         return new ActualValues().loadActualValue().getAirInletForPadCool().get(resultsPanel.getAirInletForPadCoolName()).getCapacity();
     }
 
     public double getShutterCapacity(){
-//        if(resultsPanel.getShutterRadioButton().isSelected())
-//            return 0;
         return new ActualValues().loadActualValue().getShutter().get(resultsPanel.getShutterName()).getCapacity();
     }
 
@@ -334,20 +327,49 @@ public class BaseInfo {
         taskPanel.setAirTotalCurrent(value);
     }
 
-    public void getAllSelectedComponents(){
-        ArrayList<JRadioButton> allComponents = resultsPanel.getNeededComponent(new JRadioButton());
-System.out.println(allComponents);
+    public void getSelectedComponents(){
+        LinkedHashMap<String, Integer> c = resultsPanel.getSelectedComponents();
 
-        ArrayList<JRadioButton> allSelectedComponents = new ArrayList();
-        for(JRadioButton radioButton : allComponents){
-            if(radioButton.isSelected())
-                allSelectedComponents.add(radioButton);
+        System.out.println(c);
 
-        }
+        for(String key : c.keySet())
+            System.out.println(getDescriptionEquipment(key));
 
-        for(JRadioButton radioButton : allSelectedComponents);
-//System.out.println(radioButton.getName());
-
-        resultsPanel.getSelectedComponents();
     }
+
+    public String getDescriptionEquipment(String nameEquipment){
+        String value = null;
+
+        if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getAirInletOfRoof().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getAirInletForPadCool().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getHumidity().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getHumidity().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getHeater().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getHeater().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getFanCirculation().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getFanCirculation().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getAutomatic().containsKey(nameEquipment))
+                value = new ActualValues().loadActualValue().getAutomatic().get(nameEquipment).getDescription();
+
+
+        return value;
+    }
+
+
 }

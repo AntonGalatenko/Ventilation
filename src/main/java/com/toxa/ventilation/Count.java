@@ -336,7 +336,7 @@ public class Count {
         if(resultsPanel.getShaftRadioButton().isSelected())
             result += 1;
         if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected())
-            result += 2;
+            result += 1;
         if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected() && resultsPanel.getHumidityCount1() > 0)
             result += 1;
 

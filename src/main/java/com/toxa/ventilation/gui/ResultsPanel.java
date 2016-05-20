@@ -478,6 +478,7 @@ public class ResultsPanel extends JPanel{
                 if(component.getClass().equals(neededComponent.getClass()))
                     result.add(component);
         }
+
         return result;
     }
 
@@ -498,19 +499,15 @@ public class ResultsPanel extends JPanel{
         for(JPanel p : panelList){
             JRadioButton jrb = (JRadioButton)getNeededComponent(new JRadioButton(), p);
             if(jrb.isSelected()){
-                JComboBox cb =(JComboBox) getNeededComponent(new JComboBox(), p);
-                if(cb == null)
-                    System.out.println("Увлажнение");
-                else
-                    System.out.println(cb.getSelectedItem());
+                JComboBox name =(JComboBox) getNeededComponent(new JComboBox(), p);
+                JSpinner number = (JSpinner) getNeededComponent(new JSpinner(), p);
+                if(name != null)
+                    result.put(name.getSelectedItem().toString(), (int)number.getValue());
 
             }
-
-
-
         }
 
-        return null;
+        return result;
     }
 
     public void setModelsToComboBox(){
