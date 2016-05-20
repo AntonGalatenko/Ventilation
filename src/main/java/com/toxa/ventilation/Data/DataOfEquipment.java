@@ -19,6 +19,8 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> heater = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> fanCirculation = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> automatic = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> servomotor = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> emergency = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> cageArea = new LinkedHashMap<>();
 
     public DataOfEquipment (){
@@ -39,6 +41,8 @@ public class DataOfEquipment implements Serializable {
         setFanCirculationDefaultValue();
 
         setAutomaticDefaultValue();
+        setServomotorDefaultValue();
+        setEmergencyDefaultValue();
 
         setCageAreaDefaultValue();
 
@@ -110,19 +114,32 @@ public class DataOfEquipment implements Serializable {
         automatic.put("ОЩУМ", new Storage(0, "Щит микроклимата"));
     }
 
+    public void setServomotorDefaultValue(){
+        servomotor.put("RW45E", new Storage(0, "Привод управления тросовкой"));
+        servomotor.put("EGM-100A", new Storage(0, "Привод управления тросовкой"));
+        servomotor.put("RDL200", new Storage(0, "Привод управления тросовкой"));
+    }
+
+    public void setEmergencyDefaultValue(){
+        emergency.put("САОП1", new Storage(0, "Система аварийного открытия приточной вентиляции"));
+        emergency.put("САОП2", new Storage(0, "Система аварийного открытия приточной вентиляции"));
+        emergency.put("ESE24/2", new Storage(0, "Система аварийного открытия приточной вентиляции"));
+        emergency.put("ESE24/4", new Storage(0, "Система аварийного открытия приточной вентиляции"));
+    }
+
     public void setHumidityDefaultValue(){
-        humidity.put("ПУН", new Storage(6.0, "6.0x2")); humidity.put("ПУН-01", new Storage(6.6, "6.6x2")); humidity.put("ПУН-02", new Storage(7.2, "7.2x2"));
-        humidity.put("ПУН-17", new Storage(7.8, "7.8x2"));
-        humidity.put("ПУН-03", new Storage(8.4, "8.4x2")); humidity.put("ПУН-04", new Storage(9.0, "9.0x2")); humidity.put("ПУН-05", new Storage(9.6, "9.6x2"));
-        humidity.put("ПУН-06", new Storage(10.0, "10.2x2"));
-        humidity.put("ПУН-18", new Storage(10.8, "10.8x2")); humidity.put("ПУН-07", new Storage(11.4, "11.4x2")); humidity.put("ПУН-08", new Storage(12.0, "12.0x2"));
-        humidity.put("ПУН-09", new Storage(12.6, "12.6x2"));
-        humidity.put("ПУН-10", new Storage(13.2, "13.2x2")); humidity.put("ПУН-22", new Storage(13.8, "13.8x2")); humidity.put("ПУН-11", new Storage(14.4, "14.4x2"));
-        humidity.put("ПУН-12", new Storage(15.0, "15.0x2"));
-        humidity.put("ПУН-13", new Storage(15.6, "15.6x2")); humidity.put("ПУН-14", new Storage(16.2, "16.2x2")); humidity.put("ПУН-20", new Storage(16.8, "16.8x2"));
-        humidity.put("ПУН-15", new Storage(17.4, "17.4x2"));
-        humidity.put("ПУН-16", new Storage(18.0, "18.0x2")); humidity.put("ПУН-23", new Storage(19.2, "19.2x2")); humidity.put("ПУН-25", new Storage(19.8, "19.8x2"));
-        humidity.put("ПУН-24", new Storage(21.0, "21.0x2"));
+        humidity.put("6.0x2.0", new Storage(6.0, "ПУН")); humidity.put("6.6x2.0", new Storage(6.6, "ПУН-01")); humidity.put("7.2x2.0", new Storage(7.2, "ПУН-02.0"));
+        humidity.put("7.8x2.0", new Storage(7.8, "ПУН-17"));
+        humidity.put("8.4x2.0", new Storage(8.4, "ПУН-03")); humidity.put("9.0x2.0", new Storage(9.0, "ПУН-04")); humidity.put("9.6x2.0", new Storage(9.6, "ПУН-05"));
+        humidity.put("10.2x2.0", new Storage(10.0, "ПУН-06"));
+        humidity.put("10.8x2.0", new Storage(10.8, "ПУН-18")); humidity.put("11.4x2.0", new Storage(11.4, "ПУН-07")); humidity.put("12.0x2.0", new Storage(12.0, "ПУН-08"));
+        humidity.put("12.6x2.0", new Storage(12.6, "ПУН-09"));
+        humidity.put("13.2x2.0", new Storage(13.2, "ПУН-10")); humidity.put("13.8x2.0", new Storage(13.8, "ПУН-22"));humidity.put("13.8x2.0", new Storage(13.8, "ПУН-22"));
+        humidity.put("14.4x2.0", new Storage(14.4, "ПУН-11")); humidity.put("15.0x2.0", new Storage(15.0, "ПУН-12"));
+        humidity.put("15.6x2.0", new Storage(15.6, "ПУН-13")); humidity.put("16.2x2.0", new Storage(16.2, "ПУН-14")); humidity.put("16.8x2.0", new Storage(16.8, "ПУН-20"));
+        humidity.put("17.4x2.0", new Storage(17.4, "ПУН-15"));
+        humidity.put("18.0x2.0", new Storage(18.0, "ПУН-16")); humidity.put("18.6x2.0", new Storage(18.6, "ПУН-26")); humidity.put("19.2x2.0", new Storage(19.2, "ПУН-23"));
+        humidity.put("19.8x2.0", new Storage(19.8, "ПУН-25")); humidity.put("21.0x2.0", new Storage(21.0, "ПУН-24"));
 
     }
 
@@ -189,6 +206,14 @@ public class DataOfEquipment implements Serializable {
         return automatic;
     }
 
+    public LinkedHashMap<String, Storage> getServomotor() {
+        return servomotor;
+    }
+
+    public LinkedHashMap<String, Storage> getEmergency() {
+        return emergency;
+    }
+
     public LinkedHashMap<String, Storage> getCageArea() {
         return cageArea;
     }
@@ -243,6 +268,14 @@ public class DataOfEquipment implements Serializable {
 
     public void updateAutomatic(StringBuilder value){
         updateHashMap(automatic, value);
+    }
+
+    public void updateServomotor(StringBuilder value){
+        updateHashMap(servomotor, value);
+    }
+
+    public void updateEmergency(StringBuilder value){
+        updateHashMap(emergency, value);
     }
 
     public void updateCageArea(StringBuilder value){

@@ -498,17 +498,42 @@ public class ResultsPanel extends JPanel{
             panelList.add((JPanel)panel);
         for(JPanel p : panelList){
             JRadioButton jrb = (JRadioButton)getNeededComponent(new JRadioButton(), p);
+
             if(jrb.isSelected()){
                 JComboBox name =(JComboBox) getNeededComponent(new JComboBox(), p);
                 JSpinner number = (JSpinner) getNeededComponent(new JSpinner(), p);
+
                 if(name != null)
                     result.put(name.getSelectedItem().toString(), (int)number.getValue());
+                else{
+                    String length1 = String.format("%.1f", getHumidityLength1()).replace(",", ".");
+                    String length2 = String.format("%.1f", getHumidityLength2()).replace(",", ".");
 
+                    String height1 = String.format("%.1f", getHumidityHeight1()).replace(",", ".");
+                    String height2 = String.format("%.1f", getHumidityHeight2()).replace(",", ".");
+
+                    int number1 = getHumidityCount1();
+                    int number2 = getHumidityCount2();
+
+                    if(number1 > 0)
+                        result.put(length1 + "x" + height1, number1);
+
+                    if(number2 > 0)
+                        result.put(length2 + "x" + height2, number2);
+                }
             }
         }
 
+        if(getServomotorCount() > 0)
+            result.put(getServomotorName(), getServomotorCount());
+
+        if(getEmergencyCount() > 0)
+            result.put(getEmergencyName(), getEmergencyCount());
+
         return result;
     }
+
+
 
     public void setModelsToComboBox(){
         dataOfEquipment = new ActualValues().loadActualValue();
@@ -525,6 +550,8 @@ public class ResultsPanel extends JPanel{
         heaterComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getHeater())));
         fanCirculationComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getFanCirculation())));
         automaticComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getAutomatic())));
+        servomotorComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getServomotor())));
+        emergencyComboBox.setModel(new DefaultComboBoxModel(parseHashMapForComboBox(dataOfEquipment.getEmergency())));
     }
 
     public String[] parseHashMapForComboBox(LinkedHashMap<String, Storage> map){

@@ -790,11 +790,7 @@
               </grid>
             </constraints>
             <properties>
-              <model>
-                <item value="RW45E"/>
-                <item value="EGM-100A"/>
-                <item value="RDL200"/>
-              </model>
+              <model/>
             </properties>
           </component>
           <component id="9f699" class="javax.swing.JComboBox" binding="emergencyComboBox">
@@ -804,12 +800,7 @@
               </grid>
             </constraints>
             <properties>
-              <model>
-                <item value="САОП1"/>
-                <item value="САОП2"/>
-                <item value="ESE24/2"/>
-                <item value="ESE24/4"/>
-              </model>
+              <model/>
             </properties>
           </component>
           <component id="f58ee" class="javax.swing.JTextField" binding="automaticOSHUMTextField">

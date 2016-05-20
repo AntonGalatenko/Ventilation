@@ -330,10 +330,8 @@ public class BaseInfo {
     public void getSelectedComponents(){
         LinkedHashMap<String, Integer> c = resultsPanel.getSelectedComponents();
 
-        System.out.println(c);
-
         for(String key : c.keySet())
-            System.out.println(getDescriptionEquipment(key));
+            System.out.println(getDescriptionEquipment(key) + " : " + key + " : " + c.get(key));
 
     }
 
@@ -341,34 +339,41 @@ public class BaseInfo {
         String value = null;
 
         if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getAirInletOfRoof().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getAirInletForPadCool().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getHumidity().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getHumidity().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getHumidity().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getHeater().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getHeater().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getHeater().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getFanCirculation().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getFanCirculation().get(nameEquipment).getDescription();
+            value = new ActualValues().loadActualValue().getFanCirculation().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getAutomatic().containsKey(nameEquipment))
-                value = new ActualValues().loadActualValue().getAutomatic().get(nameEquipment).getDescription();
-
+            value = new ActualValues().loadActualValue().getAutomatic().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getServomotor().containsKey(nameEquipment))
+            value = new ActualValues().loadActualValue().getServomotor().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getEmergency().containsKey(nameEquipment))
+            value = new ActualValues().loadActualValue().getEmergency().get(nameEquipment).getDescription();
 
         return value;
+    }
+
+    public String getHumidityDescription(String value){
+        return "Испарительная панель " +
     }
 
 

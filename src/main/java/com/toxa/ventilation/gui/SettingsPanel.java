@@ -131,6 +131,8 @@ public class SettingsPanel extends JDialog{
         setHeaterNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getHeater()));
         setFanCirculationNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getFanCirculation()));
         setAutomaticNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAutomatic()));
+        setServomotorNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getServomotor()));
+        setEmergencyNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getEmergency()));
     }
 
     public void saveActualValue(){
@@ -165,6 +167,9 @@ public class SettingsPanel extends JDialog{
         dataOfEquipment.updateHeater(getHeaterNamesDescriptionsCapacity());
         dataOfEquipment.updateFanCirculation(getFanCirculationNamesDescriptionsCapacity());
         dataOfEquipment.updateAutomatic(getAutomaticNamesDescriptionsCapacity());
+        dataOfEquipment.updateServomotor(getServomotorNamesDescriptionsCapacity());
+        dataOfEquipment.updateEmergency(getEmergencyNamesDescriptionsCapacity());
+
     }
 
     public StringBuilder parseEquipmentValue(HashMap<String, Storage> map){
