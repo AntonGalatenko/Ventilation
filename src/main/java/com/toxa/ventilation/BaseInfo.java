@@ -372,9 +372,9 @@ public class BaseInfo {
         return value;
     }
 
-    public String getHumidityDescription(String value){
-        return "Испарительная панель " +
-    }
+//    public String getHumidityDescription(String value){
+//        return "Испарительная панель " +
+//    }
 
 
 }
