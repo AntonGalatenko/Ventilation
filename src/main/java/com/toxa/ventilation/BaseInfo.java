@@ -4,6 +4,7 @@ import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -327,12 +328,36 @@ public class BaseInfo {
         taskPanel.setAirTotalCurrent(value);
     }
 
-    public void getSelectedComponents(){
+    public int[] getPadCoolWaterCirculation(){
+        return  Count.getInstance().padCoolWaterCirculation();
+    }
+
+    public StringBuilder getSelectedComponents(){
+        StringBuilder result = new StringBuilder();
+
         LinkedHashMap<String, Integer> c = resultsPanel.getSelectedComponents();
 
-        for(String key : c.keySet())
-            System.out.println(getDescriptionEquipment(key) + " : " + key + " : " + c.get(key));
+        System.out.println(c);
 
+        List<String> list = new ArrayList<>(c.keySet());
+        for(int i = 0; i < list.size(); i++){
+            String key = list.get(i);
+
+            if(new ActualValues().loadActualValue().getHumidity().containsKey(key)){
+                result.append(getHumidityDescription(key) + " : " + new ActualValues().loadActualValue().getHumidity().get(key).getDescription() + " :" + c.get(key) + "\n");
+
+                if(! new ActualValues().loadActualValue().getHumidity().containsKey(list.get(i + 1))){
+                    result.append("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[0] + " : " + getPadCoolWaterCirculation()[1] + "\n");
+                    if(getPadCoolWaterCirculation()[3] != 0)
+                        result.append("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[2] + " : " + getPadCoolWaterCirculation()[3] + "\n");
+                }
+            }
+            else
+                result.append(getDescriptionEquipment(key) + " : " + key + " : " + c.get(key) + "\n");
+        }
+
+        System.out.println(result);
+        return result;
     }
 
     public String getDescriptionEquipment(String nameEquipment){
@@ -356,8 +381,8 @@ public class BaseInfo {
             value = new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
             value = new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getHumidity().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getHumidity().get(nameEquipment).getDescription();
+//        else if(new ActualValues().loadActualValue().getHumidity().containsKey(nameEquipment))
+//            value = new ActualValues().loadActualValue().getHumidity().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getHeater().containsKey(nameEquipment))
             value = new ActualValues().loadActualValue().getHeater().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getFanCirculation().containsKey(nameEquipment))
@@ -372,9 +397,12 @@ public class BaseInfo {
         return value;
     }
 
-//    public String getHumidityDescription(String value){
-//        return "Испарительная панель " +
-//    }
+    public String getHumidityDescription(String value){
+        int length = (int) (Double.parseDouble(value.substring(0, value.indexOf("x"))) * 1000);
+        int height = (int) (Double.parseDouble(value.substring(value.indexOf("x") + 1)) * 1000);
+
+        return "Испарительная панель " + length + "x" + height + "150";
+    }
 
 
 }

@@ -18,7 +18,6 @@ import java.util.LinkedHashMap;
 
 public class ResultsPanel extends JPanel{
     private Count count;
-//    private MyMainPanel myMainPanel;
     private DataOfEquipment dataOfEquipment;
 
     private JPanel mainPanel;
@@ -132,6 +131,7 @@ public class ResultsPanel extends JPanel{
             public void stateChanged(ChangeEvent e) {
                 count.countShaft();
                 count.countAirTotalCurrent();
+                count.countPadCoolAndAirInlet();
             }
         });
 
@@ -140,6 +140,7 @@ public class ResultsPanel extends JPanel{
             public void stateChanged(ChangeEvent e) {
                 count.countShaft();
                 count.countAirTotalCurrent();
+                count.countPadCoolAndAirInlet();
             }
         });
 
@@ -148,6 +149,7 @@ public class ResultsPanel extends JPanel{
             public void stateChanged(ChangeEvent e) {
                 count.countAirInletWallAndAirOneHeadAndDistance();
                 count.countAirTotalCurrent();
+                count.countPadCoolAndAirInlet();
             }
         });
 
@@ -282,8 +284,11 @@ public class ResultsPanel extends JPanel{
                 else
                     disableElementsInPanel(fan36Panel);
 
-                if(getFan36Count() != 0)
+                if(getFan36Count() != 0){
                     count.countAirTotalCurrent();
+                    count.countPadCoolAndAirInlet();
+                }
+
             }
         });
 
@@ -295,8 +300,11 @@ public class ResultsPanel extends JPanel{
                 else
                     disableElementsInPanel(fan26Panel);
 
-                if(getFan26Count() != 0)
+                if(getFan26Count() != 0){
                     count.countAirTotalCurrent();
+                    count.countPadCoolAndAirInlet();
+                }
+
             }
         });
 
@@ -308,8 +316,11 @@ public class ResultsPanel extends JPanel{
                 else
                     disableElementsInPanel(fanRoofPanel);
 
-                if(getFanRoofCount() != 0)
+                if(getFanRoofCount() != 0){
                     count.countAirTotalCurrent();
+                    count.countPadCoolAndAirInlet();
+                }
+
             }
         });
 
@@ -426,6 +437,27 @@ public class ResultsPanel extends JPanel{
             }
         });
 
+        fan50LightTrapCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countFan50();
+            }
+        });
+
+        fan36LightTrapCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countFan36();
+            }
+        });
+
+        fan26LightTrapCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countFan26();
+            }
+        });
+
         humidityPlusCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -435,6 +467,38 @@ public class ResultsPanel extends JPanel{
 
         setElementsOnPanelForTunnelVentilationType();
         setElementOnPanelDisableForHeating();
+
+        fan50ComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countFan50();
+                count.countAirInletWallAndAirOneHeadAndDistance();
+            }
+        });
+
+        fan36ComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countFan36();
+                count.countAirInletWallAndAirOneHeadAndDistance();
+            }
+        });
+
+        fan26ComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countFan26();
+                count.countAirInletWallAndAirOneHeadAndDistance();
+            }
+        });
+
+        fanRoofComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countFanRoof();
+                count.countAirInletWallAndAirOneHeadAndDistance();
+            }
+        });
 
         airInletWallComboBox.addActionListener(new ActionListener() {
             @Override
@@ -514,6 +578,9 @@ public class ResultsPanel extends JPanel{
 
                     int number1 = getHumidityCount1();
                     int number2 = getHumidityCount2();
+
+                    if(length1.equals(length2))
+                        number2 += number1;
 
                     if(number1 > 0)
                         result.put(length1 + "x" + height1, number1);
