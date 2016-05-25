@@ -288,7 +288,6 @@ public class ResultsPanel extends JPanel{
                     count.countAirTotalCurrent();
                     count.countPadCoolAndAirInlet();
                 }
-
             }
         });
 
@@ -557,37 +556,25 @@ public class ResultsPanel extends JPanel{
     public LinkedHashMap<String, Integer> getSelectedComponents(){
         LinkedHashMap<String, Integer> result = new LinkedHashMap<>();
 
-        ArrayList<JPanel> panelList = new ArrayList<>();
+        ArrayList<JPanel> panelsOnMainPanelList = new ArrayList<>();
         for(Component panel : mainPanel.getComponents())
-            panelList.add((JPanel)panel);
-        for(JPanel p : panelList){
-            JRadioButton jrb = (JRadioButton)getNeededComponent(new JRadioButton(), p);
+            panelsOnMainPanelList.add((JPanel)panel);
+        for(JPanel p : panelsOnMainPanelList){
+            JRadioButton radioButton = (JRadioButton)getNeededComponent(new JRadioButton(), p);
 
-            if(jrb.isSelected()){
+            if(radioButton.isSelected()){
                 JComboBox name =(JComboBox) getNeededComponent(new JComboBox(), p);
                 JSpinner number = (JSpinner) getNeededComponent(new JSpinner(), p);
 
-                if(name != null)
+                if(name != null){
                     result.put(name.getSelectedItem().toString(), (int)number.getValue());
-                else{
-                    String length1 = String.format("%.1f", getHumidityLength1()).replace(",", ".");
-                    String length2 = String.format("%.1f", getHumidityLength2()).replace(",", ".");
 
-                    String height1 = String.format("%.1f", getHumidityHeight1()).replace(",", ".");
-                    String height2 = String.format("%.1f", getHumidityHeight2()).replace(",", ".");
-
-                    int number1 = getHumidityCount1();
-                    int number2 = getHumidityCount2();
-
-                    if(length1.equals(length2))
-                        number2 += number1;
-
-                    if(number1 > 0)
-                        result.put(length1 + "x" + height1, number1);
-
-                    if(number2 > 0)
-                        result.put(length2 + "x" + height2, number2);
+                    if(radioButton.getText().equals("Компьютер")){
+                        System.out.println("true");
+                    }
                 }
+                else
+                    selectedComponentsAddHumidity(result);
             }
         }
 
@@ -598,6 +585,26 @@ public class ResultsPanel extends JPanel{
             result.put(getEmergencyName(), getEmergencyCount());
 
         return result;
+    }
+
+    public void selectedComponentsAddHumidity(LinkedHashMap<String, Integer> result){
+        String length1 = String.format("%.1f", getHumidityLength1()).replace(",", ".");
+        String length2 = String.format("%.1f", getHumidityLength2()).replace(",", ".");
+
+        String height1 = String.format("%.1f", getHumidityHeight1()).replace(",", ".");
+        String height2 = String.format("%.1f", getHumidityHeight2()).replace(",", ".");
+
+        int number1 = getHumidityCount1();
+        int number2 = getHumidityCount2();
+
+        if(length1.equals(length2))
+            number2 += number1;
+
+        if(number1 > 0)
+            result.put(length1 + "x" + height1, number1);
+
+        if(number2 > 0)
+            result.put(length2 + "x" + height2, number2);
     }
 
 
@@ -657,7 +664,6 @@ public class ResultsPanel extends JPanel{
             if(!component.getClass().equals(JRadioButton.class))
                 component.setEnabled(true);
         }
-
     }
 
     public void changeVisibleOSHUMAndSSHUMTextField(){
@@ -665,7 +671,7 @@ public class ResultsPanel extends JPanel{
             automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(false);
         }
-        else if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ + СЩУМ")){
+        else if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ+СЩУМ")){
             automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(true);
         }

@@ -333,68 +333,106 @@ public class BaseInfo {
     }
 
     public StringBuilder getSelectedComponents(){
-        StringBuilder result = new StringBuilder();
+        StringBuilder selectedComponents = new StringBuilder();
 
         LinkedHashMap<String, Integer> c = resultsPanel.getSelectedComponents();
 
-        System.out.println(c);
+        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
 
         List<String> list = new ArrayList<>(c.keySet());
         for(int i = 0; i < list.size(); i++){
             String key = list.get(i);
 
-            if(new ActualValues().loadActualValue().getHumidity().containsKey(key)){
-                result.append(getHumidityDescription(key) + " : " + new ActualValues().loadActualValue().getHumidity().get(key).getDescription() + " :" + c.get(key) + "\n");
+            if(isThisComponentIsHumidity(key)){
+                if(selectedComponents.indexOf("Увлажнение") < 0)
+                    selectedComponents.append("Увлажнение \n");
 
-                if(! new ActualValues().loadActualValue().getHumidity().containsKey(list.get(i + 1))){
-                    result.append("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[0] + " : " + getPadCoolWaterCirculation()[1] + "\n");
-                    if(getPadCoolWaterCirculation()[3] != 0)
-                        result.append("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[2] + " : " + getPadCoolWaterCirculation()[3] + "\n");
-                }
+                selectedComponents.append(getHumidityDescription(key)
+                        + " : " + new ActualValues().loadActualValue().getHumidity().get(key).getDescription()
+                        + " :" + c.get(key) + "\n");
+
+                if(isNextComponentIsNotHumidity(list.get(i + 1)))
+                    selectedComponentsAddHumidityWaterCirculation(selectedComponents);
             }
             else
-                result.append(getDescriptionEquipment(key) + " : " + key + " : " + c.get(key) + "\n");
+                selectedComponents.append(selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(selectedComponents, getDescriptionEquipment(key))
+                        + " : " + key
+                        + " : " + c.get(key) + "\n");
         }
 
-        System.out.println(result);
-        return result;
+        System.out.println(selectedComponents);
+
+        return selectedComponents;
+    }
+
+    public boolean isThisComponentIsHumidity(String key){
+        return new ActualValues().loadActualValue().getHumidity().containsKey(key);
+    }
+
+    public boolean isNextComponentIsNotHumidity(String key){
+        return ! new ActualValues().loadActualValue().getHumidity().containsKey(key);
+    }
+
+    public void selectedComponentsAddHumidityWaterCirculation(StringBuilder result){
+        result.append("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[0] + " : " + getPadCoolWaterCirculation()[1] + "\n");
+
+        if(getPadCoolWaterCirculation()[3] != 0)
+            result.append("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[2] + " : " + getPadCoolWaterCirculation()[3] + "\n");
+    }
+
+    public String selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(StringBuilder selectedComponents, String value){
+        String[] split = value.split("=");
+
+        if(selectedComponents.indexOf(split[0]) < 0)
+            selectedComponents.append(split[0] + "\n");
+
+        return split[1];
     }
 
     public String getDescriptionEquipment(String nameEquipment){
         String value = null;
 
-        if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletOfRoof().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletForPadCool().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
-//        else if(new ActualValues().loadActualValue().getHumidity().containsKey(nameEquipment))
-//            value = new ActualValues().loadActualValue().getHumidity().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getHeater().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getHeater().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFanCirculation().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getFanCirculation().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAutomatic().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getAutomatic().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getServomotor().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getServomotor().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getEmergency().containsKey(nameEquipment))
-            value = new ActualValues().loadActualValue().getEmergency().get(nameEquipment).getDescription();
+        value = "Вытяжка=";
 
-        return value;
+        if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
+
+        value = "Приток=";
+
+        if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getAirInletOfRoof().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getAirInletForPadCool().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
+
+        value = "Отопление=";
+
+        if(new ActualValues().loadActualValue().getHeater().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getHeater().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getFanCirculation().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getFanCirculation().get(nameEquipment).getDescription();
+
+        value = "Автоматика=";
+
+        if(new ActualValues().loadActualValue().getAutomatic().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getAutomatic().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getServomotor().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getServomotor().get(nameEquipment).getDescription();
+        else if(new ActualValues().loadActualValue().getEmergency().containsKey(nameEquipment))
+            return value + new ActualValues().loadActualValue().getEmergency().get(nameEquipment).getDescription();
+
+        return null;
     }
 
     public String getHumidityDescription(String value){
