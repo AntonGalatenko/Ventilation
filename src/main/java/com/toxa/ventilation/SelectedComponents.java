@@ -125,6 +125,6 @@ public class SelectedComponents {
         int length = (int) (Double.parseDouble(value.substring(0, value.indexOf("x"))) * 1000);
         int height = (int) (Double.parseDouble(value.substring(value.indexOf("x") + 1)) * 1000);
 
-        return "Испарительная панель " + length + "x" + height + "150";
+        return "Испарительная панель " + length + "x" + height + "x150";
     }
 }
