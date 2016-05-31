@@ -63,6 +63,9 @@ public class SelectedComponents {
     }
 
     private String selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(StringBuilder selectedComponents, String value){
+        if(value.indexOf("=") < 0)
+            return value;
+
         String[] split = value.split("=");
 
         if(selectedComponents.indexOf(split[0]) < 0)
@@ -118,7 +121,7 @@ public class SelectedComponents {
         else if(new ActualValues().loadActualValue().getEmergency().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getEmergency().get(nameEquipment).getDescription();
 
-        return null;
+        return nameEquipment;
     }
 
     private String getHumidityDescription(String value){

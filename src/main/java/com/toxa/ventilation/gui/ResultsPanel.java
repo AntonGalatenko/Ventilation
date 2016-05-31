@@ -520,10 +520,10 @@ public class ResultsPanel extends JPanel{
         humidityLengthSpinner2.setModel(new SpinnerNumberModel(new Double(6),new Double(6), new Double(24), new Double(0.6)));
         humidityCountSpinner2.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(2)));
 
-        automaticSensorTemperatureSpinner.setModel(new SpinnerNumberModel(new Double(4), new Double(0), null, new Double(1)));
-        automaticSensorHumiditySpinner.setModel(new SpinnerNumberModel(new Double(1), new Double(0), null, new Double(1)));
-        automaticSensorPressureSpinner.setModel(new SpinnerNumberModel(new Double(1), new Double(0), null, new Double(1)));
-        automaticSensorCO2Spinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
+        automaticSensorTemperatureSpinner.setModel(new SpinnerNumberModel(new Integer(4), new Integer(0), null, new Integer(1)));
+        automaticSensorHumiditySpinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(0), null, new Integer(1)));
+        automaticSensorPressureSpinner.setModel(new SpinnerNumberModel(new Integer(1), new Integer(0), null, new Integer(1)));
+        automaticSensorCO2Spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
     }
 
     public void setAllSpinnerMoreZeroValue(){
@@ -570,7 +570,14 @@ public class ResultsPanel extends JPanel{
                     result.put(name.getSelectedItem().toString(), (int)number.getValue());
 
                     if(radioButton.getText().equals("Компьютер")){
-                        System.out.println("true");
+                        if(getAutomaticSensorTemperatureCount() > 0)
+                            result.put("- датчик температуры", getAutomaticSensorTemperatureCount());
+                        if(getAutomaticSensorPressureCount() > 0)
+                            result.put("- датчик давления", getAutomaticSensorPressureCount());
+                        if(getAutomaticSensorHumidityCount() > 0)
+                            result.put("- датчик влажности", getAutomaticSensorHumidityCount());
+                        if(getAutomaticSensorCO2Count() > 0)
+                            result.put("- датчик СО2", getAutomaticSensorCO2Count());
                     }
                 }
                 else

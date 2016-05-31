@@ -326,8 +326,10 @@ public class BaseInfo {
         taskPanel.setAirTotalCurrent(value);
     }
 
-    public void getSelectedComponents(){
+    public void getResultText(){
         new SelectedComponents(resultsPanel).getSelectedComponents();
     }
+
+
 
 }

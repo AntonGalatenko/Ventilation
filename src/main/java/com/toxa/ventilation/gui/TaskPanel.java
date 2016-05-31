@@ -118,7 +118,7 @@ public class TaskPanel extends JPanel{
         excelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               baseInfo.getSelectedComponents();
+               baseInfo.getResultText();
             }
         });
 
