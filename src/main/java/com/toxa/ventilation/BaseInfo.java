@@ -3,8 +3,10 @@ package com.toxa.ventilation;
 import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
+import com.toxa.ventilation.json.CreateJson;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class BaseInfo {
@@ -155,6 +157,10 @@ public class BaseInfo {
 
     public String getCompanyName() {
         return taskPanel.getCompanyName();
+    }
+
+    public String getPoultryHouseNumber() {
+        return taskPanel.getPoultryHouseNumber();
     }
 
     public String getCountry(){
@@ -328,6 +334,13 @@ public class BaseInfo {
 
     public void getResultText(){
         new SelectedComponents(resultsPanel).getSelectedComponents();
+    }
+
+    public LinkedHashMap<String, Integer> getSelectedComponents(){
+        return resultsPanel.getSelectedComponents();
+    }
+    public void getJson(){
+        new CreateJson(this);
     }
 
 

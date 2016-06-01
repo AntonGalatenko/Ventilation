@@ -27,7 +27,7 @@ public class SelectedComponents {
 
             if(isThisComponentIsHumidity(key)){
                 if(selectedComponents.indexOf("Увлажнение") < 0)
-                    selectedComponents.append("Увлажнение \n");
+                    selectedComponents.append("Увлажнение\n");
 
                 selectedComponents.append(getHumidityDescription(key)
                         + " : " + new ActualValues().loadActualValue().getHumidity().get(key).getDescription()

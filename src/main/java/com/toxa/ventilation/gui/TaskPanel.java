@@ -58,7 +58,7 @@ public class TaskPanel extends JPanel{
     private JPanel performerPanel;
     private JButton countButton;
     private JLabel poultryHouseNamberLabel;
-    private JTextField poultryHouseNamberTextField;
+    private JTextField poultryHouseNumberTextField;
     private JLabel airSummerCurrentLabel;
     private JLabel airWinterCurrentLabel;
     private JLabel airTotalCurrentLabel;
@@ -118,7 +118,9 @@ public class TaskPanel extends JPanel{
         excelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               baseInfo.getResultText();
+//               baseInfo.getResultText();
+
+                baseInfo.getJson();
             }
         });
 
@@ -179,6 +181,10 @@ public class TaskPanel extends JPanel{
         if(heightMaxTextField.getText().length() == 0)
             return 0;
         return Double.parseDouble(heightMaxTextField.getText());
+    }
+
+    public String getPoultryHouseNumber() {
+        return poultryHouseNumberTextField.getText();
     }
 
     public String getCageName(){
