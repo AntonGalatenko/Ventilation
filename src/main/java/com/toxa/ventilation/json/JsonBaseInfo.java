@@ -57,4 +57,9 @@ public class JsonBaseInfo {
     public void setCageName(String cageName) {
         this.cageName = cageName;
     }
+
+    @Override
+    public String toString(){
+        return name + " " + country;
+    }
 }

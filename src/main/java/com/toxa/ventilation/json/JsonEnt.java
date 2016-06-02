@@ -36,6 +36,16 @@ public class JsonEnt {
             equipments = new ArrayList<>();
 
         equipments.add(equipment);
-        System.out.println("equipments.size() " + equipments.size());
+    }
+
+    @Override
+    public String toString(){
+        String result = name;
+
+        for(JsonEquipment e : equipments){
+            result += " " + e.toString() + " ";
+        }
+
+        return  result;
     }
 }

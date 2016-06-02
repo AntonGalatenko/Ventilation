@@ -48,4 +48,9 @@ public class JsonBuilding {
     public void setHeightMax(String heightMax) {
         this.heightMax = heightMax;
     }
+
+    @Override
+    public String toString(){
+        return length + " " + width;
+    }
 }

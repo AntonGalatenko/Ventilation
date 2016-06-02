@@ -53,12 +53,16 @@ public class JsonObject {
             equ = new ArrayList<>();
 
         equ.add(equipment);
-        System.out.println("addEqu " + equ.size());
     }
 
     @Override
     public String toString(){
-        String result =
+        String result = baseInfo.toString() + " || " + building.toString() + " || ";
 
+        for(JsonEnt ent : equ){
+            result += ent.toString() + " ";
+        }
+
+        return result;
     }
 }

@@ -20,7 +20,6 @@ public class JsonEquipment {
     }
 
     public void setName(String name) {
-        System.out.println("setName " + name);
         this.name = name;
     }
 
@@ -29,7 +28,6 @@ public class JsonEquipment {
     }
 
     public void setDescription(String description) {
-        System.out.println("setDescription " + description);
         this.description = description;
     }
 
@@ -38,7 +36,11 @@ public class JsonEquipment {
     }
 
     public void setNumber(String number) {
-        System.out.println("setNumber " + number);
         this.number = number;
+    }
+
+    @Override
+    public String toString(){
+        return name + " : " + description + " : " + number;
     }
 }
