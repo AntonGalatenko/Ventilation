@@ -1,6 +1,5 @@
 package com.toxa.ventilation;
 
-import com.toxa.ventilation.json.JsonObject;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -13,7 +12,7 @@ import java.io.*;
 
 public class ExcelApachePOI {
 
-    JsonObject json;
+    private BufferedReader br = null;
 
     private HSSFWorkbook wb;
     private HSSFSheet sheet;
@@ -24,7 +23,7 @@ public class ExcelApachePOI {
 
     public ExcelApachePOI(){
 
-        getJson();
+
 
         wb = new HSSFWorkbook();
 
@@ -36,26 +35,28 @@ public class ExcelApachePOI {
 
 //        createHeadText();
 
+        getJson();
 
         saveThis();
 
     }
 
     private void getJson(){
-        BufferedReader br = null;
 
         try {
             br = new BufferedReader(new FileReader("base.json"));
 
-            StringBuilder sb = new StringBuilder();
             String line;
-            while ((line = br.readLine()) != null)
-                sb.append(line);
+            while ((line = br.readLine()) != null){
+//                System.err.println(line);
 
-            while (sb.)
-                if(line.contains("Базовая информация")){
+                if(line.contains("Базовая информация"))
+                    createHeadText();
 
-                }
+                if(line.contains("Параметры здания"))
+                    createBuildingText();
+            }
+
 
 
 
@@ -100,9 +101,39 @@ public class ExcelApachePOI {
         sheet.addMergedRegion(new CellRangeAddress(50, 50, 7, 8));
     }
 
-    private void createHeadText(String[] text){
-        printText(text[0], 1, rowNum++);
-        printText(text[1], 1, rowNum++);
+    private void createHeadText() throws IOException {
+        String line;
+        String[] text;
+
+        while (! (line = br.readLine()).contains("}")){
+            text = parseLine(line);
+            if(! text[1].equals("")){
+                printText(text[0], 1, rowNum);
+                printText(text[1], 3, rowNum++);
+            }
+        }
+    }
+
+    private void createBuildingText() throws IOException {
+        String line;
+        String[] text;
+
+        while (! (line = br.readLine()).contains("}")){
+            text = parseLine(line);
+            if(! text[1].equals("")){
+                printText(text[0], 1, rowNum);
+                printText(text[1], 3, rowNum++);
+            }
+        }
+    }
+
+    private String[] parseLine(String line){
+        String[] result = line.split(" : ");
+        result[0] = result[0].substring(result[0].indexOf("\"") + 1, result[0].lastIndexOf("\""));
+        result[1] = result[1].substring(result[1].indexOf("\"") + 1, result[1].lastIndexOf("\""));
+
+        System.out.println(result[0] + " " + result[1]);
+        return result;
     }
 
 
@@ -110,7 +141,8 @@ public class ExcelApachePOI {
         FileOutputStream fos = null;
 
         try {
-            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
+//            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
+            fos = new FileOutputStream(new File("tmp.xls"));
             wb.write(fos);
             fos.close();
         } catch (FileNotFoundException e) {
