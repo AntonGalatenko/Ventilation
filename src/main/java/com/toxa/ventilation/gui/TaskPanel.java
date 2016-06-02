@@ -2,6 +2,7 @@ package com.toxa.ventilation.gui;
 
 import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
+import com.toxa.ventilation.ExcelApachePOI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -121,6 +122,8 @@ public class TaskPanel extends JPanel{
 //               baseInfo.getResultText();
 
                 baseInfo.getJson();
+
+                new ExcelApachePOI();
             }
         });
 

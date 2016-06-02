@@ -8,12 +8,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.codehaus.jackson.map.ObjectMapper;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class ExcelApachePOI {
 
@@ -23,6 +19,8 @@ public class ExcelApachePOI {
     private HSSFSheet sheet;
     private HSSFRow row;
     private HSSFCell cell;
+
+    int rowNum = 1;
 
     public ExcelApachePOI(){
 
@@ -34,9 +32,9 @@ public class ExcelApachePOI {
         createRows(65);
         mergeCellsDefault();
 
-        int rowNum = 1;
+//        rowNum = 1;
 
-        createHeadText();
+//        createHeadText();
 
 
         saveThis();
@@ -44,10 +42,23 @@ public class ExcelApachePOI {
     }
 
     private void getJson(){
-        ObjectMapper mapper = new ObjectMapper();
+        BufferedReader br = null;
 
         try {
-            json = mapper.readValue(new File("base.json"), JsonObject.class);
+            br = new BufferedReader(new FileReader("base.json"));
+
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null)
+                sb.append(line);
+
+            while (sb.)
+                if(line.contains("Базовая информация")){
+
+                }
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,9 +100,9 @@ public class ExcelApachePOI {
         sheet.addMergedRegion(new CellRangeAddress(50, 50, 7, 8));
     }
 
-    private void createHeadText(){
-        printText("Предприятие", 1, 1);
-        printText("Страна", 1, 2);
+    private void createHeadText(String[] text){
+        printText(text[0], 1, rowNum++);
+        printText(text[1], 1, rowNum++);
     }
 
 

@@ -4,6 +4,7 @@ import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
 import com.toxa.ventilation.Data.ActualValues;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.util.DefaultPrettyPrinter;
 
 import java.io.File;
 import java.io.IOException;
@@ -175,7 +176,7 @@ public class CreateJson {
 
     private void createJson(){
         try {
-            mapper.writeValue(new File("base.json"), jsonObject);
+            mapper.writer(new DefaultPrettyPrinter()).writeValue(new File("base.json"), jsonObject);
 
             System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));//////////////////////////////////////////////////////////////
         } catch (IOException e) {
