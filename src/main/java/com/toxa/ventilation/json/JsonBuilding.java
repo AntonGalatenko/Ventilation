@@ -1,16 +1,25 @@
 package com.toxa.ventilation.json;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class JsonBuilding {
 
-    private String length;
-    private String width;
-    private String heightMin;
-    private String heightMax;
+    @JsonProperty("Длина")
+    private double length;
+
+    @JsonProperty("Ширина")
+    private double width;
+
+    @JsonProperty("Высота мин, м")
+    private double heightMin;
+
+    @JsonProperty("Высота макс, м")
+    private double heightMax;
 
     public JsonBuilding() {
     }
 
-    public JsonBuilding(String length, String width, String heightMin, String heightMax) {
+    public JsonBuilding(double length, double width, double heightMin, double heightMax) {
         this.length = length;
         this.width = width;
         this.heightMin = heightMin;
@@ -18,39 +27,35 @@ public class JsonBuilding {
     }
 
     public String getLength() {
-        return length;
+        return String.valueOf(length);
     }
 
-    public void setLength(String length) {
+    public void setLength(double length) {
         this.length = length;
     }
 
     public String getWidth() {
-        return width;
+        return String.valueOf(width);
     }
 
-    public void setWidth(String width) {
+    public void setWidth(double width) {
         this.width = width;
     }
 
     public String getHeightMin() {
-        return heightMin;
+        return String.valueOf(heightMin);
     }
 
-    public void setHeightMin(String heightMin) {
+    public void setHeightMin(double heightMin) {
         this.heightMin = heightMin;
     }
 
     public String getHeightMax() {
-        return heightMax;
+        return String.valueOf(heightMax);
     }
 
-    public void setHeightMax(String heightMax) {
+    public void setHeightMax(double heightMax) {
         this.heightMax = heightMax;
     }
 
-    @Override
-    public String toString(){
-        return length + " " + width;
-    }
 }

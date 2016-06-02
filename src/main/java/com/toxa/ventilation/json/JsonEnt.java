@@ -1,14 +1,18 @@
 package com.toxa.ventilation.json;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.ArrayList;
 
 public class JsonEnt {
 
+    @JsonProperty("Подвид")
     private String name;
+
+    @JsonProperty("Наименование")
     private ArrayList<JsonEquipment> equipments;
 
     public JsonEnt() {
-
     }
 
     public JsonEnt(String name) {
@@ -38,14 +42,4 @@ public class JsonEnt {
         equipments.add(equipment);
     }
 
-    @Override
-    public String toString(){
-        String result = name;
-
-        for(JsonEquipment e : equipments){
-            result += " " + e.toString() + " ";
-        }
-
-        return  result;
-    }
 }

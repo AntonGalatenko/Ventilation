@@ -1,15 +1,22 @@
 package com.toxa.ventilation.json;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class JsonEquipment {
 
+    @JsonProperty("Тип")
     private String name;
+
+    @JsonProperty("Описание")
     private String description;
-    private String number;
+
+    @JsonProperty("Количество")
+    private int number;
 
     public JsonEquipment() {
     }
 
-    public JsonEquipment(String name, String description, String number) {
+    public JsonEquipment(String name, String description, int number) {
         this.name = name;
         this.description = description;
         this.number = number;
@@ -32,15 +39,11 @@ public class JsonEquipment {
     }
 
     public String getNumber() {
-        return number;
+        return String.valueOf(number);
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
-    @Override
-    public String toString(){
-        return name + " : " + description + " : " + number;
-    }
 }

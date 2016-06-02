@@ -16,7 +16,6 @@ public class JsonObject {
     private ArrayList<JsonEnt> equ;
 
     public JsonObject() {
-
     }
 
     public JsonObject(JsonBaseInfo baseInfo, JsonBuilding building) {
@@ -55,14 +54,4 @@ public class JsonObject {
         equ.add(equipment);
     }
 
-    @Override
-    public String toString(){
-        String result = baseInfo.toString() + " || " + building.toString() + " || ";
-
-        for(JsonEnt ent : equ){
-            result += ent.toString() + " ";
-        }
-
-        return result;
-    }
 }

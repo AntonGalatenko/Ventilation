@@ -27,7 +27,6 @@ public class CreateJson {
         createBuilding();
         createSelectedComponents();
 
-        System.out.println(jsonObject.toString());
         createJson();
 
     }
@@ -39,13 +38,11 @@ public class CreateJson {
     }
 
     private void createBuilding(){
-        JsonBuilding b = new JsonBuilding(String.valueOf(baseInfo.getBuildingLength()), String.valueOf(baseInfo.getBuildingWidth()),
-                String.valueOf(baseInfo.getBuildingHeightMin()), String.valueOf(baseInfo.getBuildingHeightMax()));
+        JsonBuilding b = new JsonBuilding(baseInfo.getBuildingLength(), baseInfo.getBuildingWidth(), baseInfo.getBuildingHeightMin(), baseInfo.getBuildingHeightMax());
         jsonObject.setBuilding(b);
     }
 
     public void createSelectedComponents(){
-//        StringBuilder selectedComponents = new StringBuilder();
 
         JsonEnt ent = new JsonEnt();
         JsonEquipment equipment;
@@ -59,7 +56,7 @@ public class CreateJson {
             String key = list.get(i);
 
             if(ent.getName() == null)
-                ent = new JsonEnt(selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(getDescriptionEquipment(key))[1]);
+                ent = new JsonEnt(parseValue(getDescriptionEquipment(key))[1]);
 
             if(isThisComponentIsHumidity(key)){
                 if(! ent.getName().equals("Увлажнение")){
@@ -67,36 +64,24 @@ public class CreateJson {
                     ent = new JsonEnt("Увлажнение");
                 }
 
-
-                equipment = new JsonEquipment();
-                equipment.setName(getHumidityDescription(key));
-                equipment.setDescription(new ActualValues().loadActualValue().getHumidity().get(key).getDescription());
-                equipment.setNumber(String.valueOf(c.get(key)));
+                equipment = new JsonEquipment(getHumidityDescription(key), new ActualValues().loadActualValue().getHumidity().get(key).getDescription(), c.get(key));
                 ent.addEquipment(equipment);
-
-//                jsonObject.addEqu(ent);
 
                 if(isNextComponentIsNotHumidity(list.get(i + 1)))
                     selectedComponentsAddHumidityWaterCirculation(ent);
 
             }  else{
-                if(selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(getDescriptionEquipment(key)).length > 1)
-                    if(! ent.getName().equals(selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(getDescriptionEquipment(key))[1])){
+                if(parseValue(getDescriptionEquipment(key)).length > 1)
+                    if(! ent.getName().equals(parseValue(getDescriptionEquipment(key))[1])){
                         jsonObject.addEqu(ent);
-                        ent = new JsonEnt(selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(getDescriptionEquipment(key))[1]);
+                        ent = new JsonEnt(parseValue(getDescriptionEquipment(key))[1]);
                     }
 
-
-                equipment = new JsonEquipment();
-                equipment.setName(key);
-                equipment.setDescription(selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(getDescriptionEquipment(key))[0]);
-                equipment.setNumber(String.valueOf(c.get(key)));
+                equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
                 ent.addEquipment(equipment);
-
-
             }
-
         }
+
         jsonObject.addEqu(ent);
     }
 
@@ -111,31 +96,23 @@ public class CreateJson {
     private void selectedComponentsAddHumidityWaterCirculation(JsonEnt ent){
         JsonEquipment equipment = new JsonEquipment();
         equipment.setDescription("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[0]);
-        equipment.setNumber(String.valueOf(getPadCoolWaterCirculation()[1]));
+        equipment.setNumber(getPadCoolWaterCirculation()[1]);
         ent.addEquipment(equipment);
-//        jsonObject.addEqu(ent);
 
         if(getPadCoolWaterCirculation()[3] != 0){
-            JsonEquipment e = new JsonEquipment();
-            e.setDescription("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[2]);
-            e.setNumber(String.valueOf(getPadCoolWaterCirculation()[3]));
-            ent.addEquipment(e);
-//            jsonObject.addEqu(ent);
+            equipment = new JsonEquipment();
+            equipment.setDescription("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[2]);
+            equipment.setNumber(getPadCoolWaterCirculation()[3]);
+            ent.addEquipment(equipment);
         }
-
-//        jsonObject.addEqu(ent);
     }
 
-    private String[] selectedComponentsAddEquipmentTypeAndReturnEquipmentDescription(String value){
-        if(!value.contains("="))
+    private String[] parseValue(String value){
+        if(! value.contains("="))
             return new String[]{value};
 
         String[] split = value.split("=");
 
-//        if(ent.getName() != null)
-//            if(! ent.getName().equals(split[0]))
-//                ent = new JsonEnt(split[0]);
-//        System.out.println("0000 " + split[1]);
         return new String[]{split[1], split[0]};
     }
 
@@ -200,12 +177,10 @@ public class CreateJson {
         try {
             mapper.writeValue(new File("base.json"), jsonObject);
 
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));
+            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));//////////////////////////////////////////////////////////////
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 
 }

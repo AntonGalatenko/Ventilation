@@ -1,10 +1,22 @@
 package com.toxa.ventilation.json;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class JsonBaseInfo {
+
+    @JsonProperty("Название фабрики")
     private String name;
+
+    @JsonProperty("Страна")
     private String country;
+
+    @JsonProperty("Количество птицемест")
     private String numberHeads;
+
+    @JsonProperty("Номер птичника")
     private String numberHouse;
+
+    @JsonProperty("Тип оборудования")
     private String cageName;
 
     public JsonBaseInfo() {
@@ -58,8 +70,4 @@ public class JsonBaseInfo {
         this.cageName = cageName;
     }
 
-    @Override
-    public String toString(){
-        return name + " " + country;
-    }
 }
