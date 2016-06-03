@@ -65,7 +65,7 @@ public class CreateJson {
                     ent = new JsonEnt("Увлажнение");
                 }
 
-                equipment = new JsonEquipment(getHumidityDescription(key), new ActualValues().loadActualValue().getHumidity().get(key).getDescription(), c.get(key));
+                equipment = new JsonEquipment(new ActualValues().loadActualValue().getHumidity().get(key).getDescription(), getHumidityDescription(key), c.get(key));
                 ent.addEquipment(equipment);
 
                 if(isNextComponentIsNotHumidity(list.get(i + 1)))
@@ -78,7 +78,10 @@ public class CreateJson {
                         ent = new JsonEnt(parseValue(getDescriptionEquipment(key))[1]);
                     }
 
-                equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                if(key.equals(parseValue(getDescriptionEquipment(key))[0]))
+                    equipment = new JsonEquipment("", parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                else
+                    equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
                 ent.addEquipment(equipment);
             }
         }
@@ -96,13 +99,15 @@ public class CreateJson {
 
     private void selectedComponentsAddHumidityWaterCirculation(JsonEnt ent){
         JsonEquipment equipment = new JsonEquipment();
-        equipment.setDescription("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[0]);
+        equipment.setName("ТСУ3-01.000-0" + getPadCoolWaterCirculation()[0]);
+        equipment.setDescription("Система циркуляции воды");
         equipment.setNumber(getPadCoolWaterCirculation()[1]);
         ent.addEquipment(equipment);
 
         if(getPadCoolWaterCirculation()[3] != 0){
             equipment = new JsonEquipment();
-            equipment.setDescription("Система циркуляции воды : ТСУ3-01.000-0" + getPadCoolWaterCirculation()[2]);
+            equipment.setName("ТСУ3-01.000-0" + getPadCoolWaterCirculation()[2]);
+            equipment.setDescription("Система циркуляции воды");
             equipment.setNumber(getPadCoolWaterCirculation()[3]);
             ent.addEquipment(equipment);
         }

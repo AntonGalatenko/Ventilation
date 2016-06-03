@@ -4,16 +4,16 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class JsonBuilding {
 
-    @JsonProperty("Длина")
+    @JsonProperty("L, м")
     private double length;
 
-    @JsonProperty("Ширина")
+    @JsonProperty("W, м")
     private double width;
 
-    @JsonProperty("Высота мин, м")
+    @JsonProperty("Hmin, м")
     private double heightMin;
 
-    @JsonProperty("Высота макс, м")
+    @JsonProperty("Hmax, м")
     private double heightMax;
 
     public JsonBuilding() {

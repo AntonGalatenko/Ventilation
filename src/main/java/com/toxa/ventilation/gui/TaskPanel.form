@@ -81,8 +81,8 @@
               </grid>
             </constraints>
             <properties>
-              <focusable value="false"/>
-              <requestFocusEnabled value="false"/>
+              <focusable value="true"/>
+              <requestFocusEnabled value="true"/>
             </properties>
           </component>
         </children>

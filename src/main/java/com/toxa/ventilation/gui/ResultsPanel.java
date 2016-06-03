@@ -568,6 +568,8 @@ public class ResultsPanel extends JPanel{
 
                 if(name != null){
                     result.put(name.getSelectedItem().toString(), (int)number.getValue());
+                    if(radioButton.getText().equals("Вен-р крышний"))
+                        result.put("Воздуховод Камин с клапаном батерфляй, 2000мм", (int)number.getValue());
 
                     if(radioButton.getText().equals("Компьютер")){
                         if(getAutomaticSensorTemperatureCount() > 0)

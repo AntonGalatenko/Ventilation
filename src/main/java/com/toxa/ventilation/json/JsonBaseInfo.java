@@ -4,19 +4,19 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class JsonBaseInfo {
 
-    @JsonProperty("Название фабрики")
+    @JsonProperty("Предприятие")
     private String name;
 
     @JsonProperty("Страна")
     private String country;
 
-    @JsonProperty("Количество птицемест")
+    @JsonProperty("Поголовье")
     private String numberHeads;
 
     @JsonProperty("Номер птичника")
     private String numberHouse;
 
-    @JsonProperty("Тип оборудования")
+    @JsonProperty("Содержание")
     private String cageName;
 
     public JsonBaseInfo() {

@@ -19,7 +19,7 @@ public class ExcelApachePOI {
     private HSSFRow row;
     private HSSFCell cell;
 
-    int rowNum = 1;
+    int rowNum = 0;
 
     public ExcelApachePOI(){
 
@@ -55,6 +55,9 @@ public class ExcelApachePOI {
 
                 if(line.contains("Параметры здания"))
                     createBuildingText();
+
+                if(line.contains("Оборудование"))
+                    createGeneralText();
             }
 
 
@@ -84,7 +87,7 @@ public class ExcelApachePOI {
     }
 
     private void mergeCellsDefault(){
-        for(int i = 11; i < 45; i++){
+        for(int i = 10; i < 45; i++){
             sheet.addMergedRegion(new CellRangeAddress(i, i, 0, 6));
             sheet.addMergedRegion(new CellRangeAddress(i, i, 7, 8));
         }
@@ -92,11 +95,14 @@ public class ExcelApachePOI {
         for(int i = 1; i < 9; i++)
             sheet.addMergedRegion(new CellRangeAddress(i, i, 1, 2));
 
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 3, 6));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 3, 6));
         sheet.addMergedRegion(new CellRangeAddress(2, 2, 3, 6));
         sheet.addMergedRegion(new CellRangeAddress(3, 3, 3, 6));
-        sheet.addMergedRegion(new CellRangeAddress(7, 7, 3, 6));
-        sheet.addMergedRegion(new CellRangeAddress(10, 10, 0, 1));
+        sheet.addMergedRegion(new CellRangeAddress(4, 4, 3, 6));
+//        sheet.addMergedRegion(new CellRangeAddress(5, 5, 3, 6));
+//        sheet.addMergedRegion(new CellRangeAddress(7, 7, 3, 6));
+        sheet.addMergedRegion(new CellRangeAddress(9, 9, 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(46, 46, 7, 8));
         sheet.addMergedRegion(new CellRangeAddress(50, 50, 7, 8));
     }
@@ -109,7 +115,8 @@ public class ExcelApachePOI {
             text = parseLine(line);
             if(! text[1].equals("")){
                 printText(text[0], 1, rowNum);
-                printText(text[1], 3, rowNum++);
+                printText(text[1], 3, rowNum);
+                rowNum++;
             }
         }
     }
@@ -117,22 +124,65 @@ public class ExcelApachePOI {
     private void createBuildingText() throws IOException {
         String line;
         String[] text;
+        int i = 3;
+
+        printText("Здание", 1, 6);
 
         while (! (line = br.readLine()).contains("}")){
             text = parseLine(line);
             if(! text[1].equals("")){
-                printText(text[0], 1, rowNum);
-                printText(text[1], 3, rowNum++);
+                printText(text[0], i, 6);
+                printText(text[1], i++, 7);
             }
         }
     }
 
+    private void createGeneralText() throws IOException {
+        String line;
+        String[] text;
+        rowNum = 10;
+
+        printText("Наименование", 0, 9);
+        printText("Тип", 7, 9);
+        printText("Кол-во", 9, 9);
+
+
+        while ((line = br.readLine()) != null){
+            text = parseLine(line);
+
+            if(text[0].equals("Подвид"))
+                printText(text[1], 0, rowNum);
+            else if(line.contains("Описание")){
+//                String line1 = br.readLine();
+                int[] c = new int[]{0, 7, 9};
+                int i = 0;
+
+                while (line.contains("\"")){
+                    text = parseLine(line);
+
+                    printText(text[1], c[i], rowNum);
+                    i++;
+
+                    line = br.readLine();
+                }
+            }
+
+            rowNum++;
+        }
+    }
+
     private String[] parseLine(String line){
+        if(! line.contains(":"))
+            return new String[]{""};
+
         String[] result = line.split(" : ");
-        result[0] = result[0].substring(result[0].indexOf("\"") + 1, result[0].lastIndexOf("\""));
-        result[1] = result[1].substring(result[1].indexOf("\"") + 1, result[1].lastIndexOf("\""));
+        if(result[0].contains("\""))
+            result[0] = result[0].substring(result[0].indexOf("\"") + 1, result[0].lastIndexOf("\""));
+        if(result[1].contains("\"") && result[1] != null)
+            result[1] = result[1].substring(result[1].indexOf("\"") + 1, result[1].lastIndexOf("\""));
 
         System.out.println(result[0] + " " + result[1]);
+
         return result;
     }
 
@@ -141,8 +191,8 @@ public class ExcelApachePOI {
         FileOutputStream fos = null;
 
         try {
-//            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
-            fos = new FileOutputStream(new File("tmp.xls"));
+            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
+//            fos = new FileOutputStream(new File("tmp.xls"));
             wb.write(fos);
             fos.close();
         } catch (FileNotFoundException e) {

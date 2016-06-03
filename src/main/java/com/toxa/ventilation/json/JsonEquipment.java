@@ -4,11 +4,11 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class JsonEquipment {
 
-    @JsonProperty("Тип")
-    private String name;
-
     @JsonProperty("Описание")
     private String description;
+
+    @JsonProperty("Тип")
+    private String name;
 
     @JsonProperty("Количество")
     private int number;
