@@ -16,22 +16,15 @@ public class ExcelApachePOI {
     private HSSFRow row;
     private HSSFCell cell;
 
-
     int rowNum = 0;
 
     public ExcelApachePOI(){
-
-
 
         wb = new HSSFWorkbook();
 
         setDefaultSheetSettings();
         createRows(65);
         mergeCellsDefault();
-
-//        rowNum = 1;
-
-//        createHeadText();
 
         getJson();
 
@@ -57,10 +50,6 @@ public class ExcelApachePOI {
                 if(line.contains("Оборудование"))
                     createGeneralText();
             }
-
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,14 +71,14 @@ public class ExcelApachePOI {
         return style;
     }
 
-    private HSSFCellStyle getCellStyleTopButton(){
-        HSSFCellStyle style = wb.createCellStyle();
-
-        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
-        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-
-        return style;
-    }
+//    private HSSFCellStyle getCellStyleTopButton(){
+//        HSSFCellStyle style = wb.createCellStyle();
+//
+//        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+//        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+//
+//        return style;
+//    }
 
     private void setDefaultSheetSettings(){
         sheet = wb.createSheet("Вентиляция");
@@ -115,16 +104,12 @@ public class ExcelApachePOI {
             sheet.addMergedRegion(new CellRangeAddress(i, i, 7, 8));
         }
 
-        for(int i = 1; i < 9; i++)
+        for(int i = 0; i < 9; i++)
             sheet.addMergedRegion(new CellRangeAddress(i, i, 1, 2));
 
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 3, 6));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 3, 6));
-        sheet.addMergedRegion(new CellRangeAddress(2, 2, 3, 6));
-        sheet.addMergedRegion(new CellRangeAddress(3, 3, 3, 6));
-        sheet.addMergedRegion(new CellRangeAddress(4, 4, 3, 6));
-//        sheet.addMergedRegion(new CellRangeAddress(5, 5, 3, 6));
-//        sheet.addMergedRegion(new CellRangeAddress(7, 7, 3, 6));
+        for(int i = 0; i < 5; i++)
+            sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 6));
+
         sheet.addMergedRegion(new CellRangeAddress(9, 9, 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(46, 46, 7, 8));
         sheet.addMergedRegion(new CellRangeAddress(50, 50, 7, 8));
@@ -151,27 +136,24 @@ public class ExcelApachePOI {
 
         printText("Здание", 1, 6);
 
-
         while (! (line = br.readLine()).contains("}")){
             text = parseLine(line);
             if(! text[1].equals("")){
-
                 printText(text[0], i, 6);
-                cell.setCellStyle(getCellStyleButton());
-
                 printText(text[1], i++, 7);
+
+                cell.setCellStyle(getCellStyleTop());
             }
         }
     }
 
     private void createGeneralText() throws IOException {
-
         printText("Наименование", 0, 9);
         printText("Тип", 7, 9);
         printText("Кол-во", 9, 9);
 
-        sheet.getRow(rowNum - 2).setRowStyle(getCellStyleButton());
-        sheet.getRow(rowNum).setRowStyle(getCellStyleTop());
+        sheet.getRow(8).setRowStyle(getCellStyleButton());
+        sheet.getRow(10).setRowStyle(getCellStyleTop());
 
         String line;
         String[] text;

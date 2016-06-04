@@ -153,39 +153,11 @@ public class ResultsPanel extends JPanel{
             }
         });
 
-        shaftSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-
-            }
-        });
-
         airInletWallSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 count.countAirInletWallAirOneHead();
                 count.countAirInletWallDistance();
-            }
-        });
-
-        airInletOfRoofSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-
-            }
-        });
-
-        airInletForPadCoolSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-
-            }
-        });
-
-        shutterSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-
             }
         });
 
@@ -202,20 +174,6 @@ public class ResultsPanel extends JPanel{
             public void stateChanged(ChangeEvent e) {
                 count.countAirInletPadCool();
                 count.padCoolAirSpeedCurrent();
-            }
-        });
-
-        heaterSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-
-            }
-        });
-
-        fanCirculationSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-
             }
         });
 
@@ -580,6 +538,8 @@ public class ResultsPanel extends JPanel{
                             result.put("- датчик влажности", getAutomaticSensorHumidityCount());
                         if(getAutomaticSensorCO2Count() > 0)
                             result.put("- датчик СО2", getAutomaticSensorCO2Count());
+
+                        result.put("- система оповещения аварии (лампа и сирена)", 1);
                     }
                 }
                 else
@@ -616,8 +576,6 @@ public class ResultsPanel extends JPanel{
             result.put(length2 + "x" + height2, number2);
     }
 
-
-
     public void setModelsToComboBox(){
         dataOfEquipment = new ActualValues().loadActualValue();
 
@@ -640,10 +598,8 @@ public class ResultsPanel extends JPanel{
     public String[] parseHashMapForComboBox(LinkedHashMap<String, Storage> map){
         String[] result = new String[map.size()];
         int i = 0;
-        for(String key : map.keySet()){
-            result[i] = key;
-            i++;
-        }
+        for(String key : map.keySet())
+            result[i++] = key;
         return result;
     }
 
