@@ -10,14 +10,14 @@ public class JsonBaseInfo {
     @JsonProperty("Страна")
     private String country;
 
-    @JsonProperty("Поголовье")
-    private String numberHeads;
-
     @JsonProperty("Номер птичника")
     private String numberHouse;
 
     @JsonProperty("Содержание")
     private String cageName;
+
+    @JsonProperty("Поголовье")
+    private String numberHeads;
 
     public JsonBaseInfo() {
     }

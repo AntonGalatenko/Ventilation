@@ -1,9 +1,6 @@
 package com.toxa.ventilation;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -18,6 +15,7 @@ public class ExcelApachePOI {
     private HSSFSheet sheet;
     private HSSFRow row;
     private HSSFCell cell;
+
 
     int rowNum = 0;
 
@@ -66,6 +64,31 @@ public class ExcelApachePOI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private HSSFCellStyle getCellStyleTop(){
+        HSSFCellStyle style = wb.createCellStyle();
+
+        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+
+        return style;
+    }
+
+    private HSSFCellStyle getCellStyleButton(){
+        HSSFCellStyle style = wb.createCellStyle();
+
+        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+
+        return style;
+    }
+
+    private HSSFCellStyle getCellStyleTopButton(){
+        HSSFCellStyle style = wb.createCellStyle();
+
+        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+
+        return style;
     }
 
     private void setDefaultSheetSettings(){
@@ -128,46 +151,56 @@ public class ExcelApachePOI {
 
         printText("Здание", 1, 6);
 
+
         while (! (line = br.readLine()).contains("}")){
             text = parseLine(line);
             if(! text[1].equals("")){
+
                 printText(text[0], i, 6);
+                cell.setCellStyle(getCellStyleButton());
+
                 printText(text[1], i++, 7);
             }
         }
     }
 
     private void createGeneralText() throws IOException {
-        String line;
-        String[] text;
-        rowNum = 10;
 
         printText("Наименование", 0, 9);
         printText("Тип", 7, 9);
         printText("Кол-во", 9, 9);
 
+        sheet.getRow(rowNum - 2).setRowStyle(getCellStyleButton());
+        sheet.getRow(rowNum).setRowStyle(getCellStyleTop());
+
+        String line;
+        String[] text;
+        rowNum = 10;
 
         while ((line = br.readLine()) != null){
             text = parseLine(line);
 
-            if(text[0].equals("Подвид"))
-                printText(text[1], 0, rowNum);
-            else if(line.contains("Описание")){
-//                String line1 = br.readLine();
+            if(text[0].equals("Подвид")){
+                rowNum++;
+                printText(text[1], 0, rowNum++);
+
+            } else if(line.contains("Описание")){
                 int[] c = new int[]{0, 7, 9};
                 int i = 0;
 
                 while (line.contains("\"")){
                     text = parseLine(line);
 
-                    printText(text[1], c[i], rowNum);
-                    i++;
+                    printText(text[1], c[i++], rowNum);
 
                     line = br.readLine();
                 }
+
+                rowNum++;
             }
 
-            rowNum++;
+            if(line.contains("} ]"))
+                sheet.getRow(rowNum).setRowStyle(getCellStyleTop());
         }
     }
 
@@ -192,7 +225,6 @@ public class ExcelApachePOI {
 
         try {
             fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
-//            fos = new FileOutputStream(new File("tmp.xls"));
             wb.write(fos);
             fos.close();
         } catch (FileNotFoundException e) {
