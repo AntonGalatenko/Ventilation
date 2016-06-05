@@ -5,6 +5,7 @@ import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -252,6 +253,10 @@ public class BaseInfo {
         return result;
     }
 
+    public ArrayList<Integer> getGroups(){
+        return Count.getInstance().getGroups();
+    }
+
     public int getFanRoofCapacity(){
         return (int) new ActualValues().loadActualValue().getFanRoof().get(resultsPanel.getFanRoofName()).getCapacity();
     }
@@ -339,6 +344,7 @@ public class BaseInfo {
     public LinkedHashMap<String, Integer> getSelectedComponents(){
         return resultsPanel.getSelectedComponents();
     }
+
     public void getJson(){
         new CreateJson(this);
     }

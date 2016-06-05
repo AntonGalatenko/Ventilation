@@ -43,7 +43,11 @@ public class CreateJson {
         jsonObject.setBuilding(b);
     }
 
-    public void createSelectedComponents(){
+    private void createGroups(){
+//        if(baseInfo.is)
+    }
+
+    private void createSelectedComponents(){
 
         JsonEnt ent = new JsonEnt();
         JsonEquipment equipment;

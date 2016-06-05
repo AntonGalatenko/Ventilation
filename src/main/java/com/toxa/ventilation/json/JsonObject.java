@@ -15,6 +15,9 @@ public class JsonObject {
     @JsonProperty("Оборудование")
     private ArrayList<JsonEnt> equ;
 
+    @JsonProperty("Группы")
+    private ArrayList<Integer> groups;
+
     public JsonObject() {
     }
 
@@ -52,6 +55,17 @@ public class JsonObject {
             equ = new ArrayList<>();
 
         equ.add(equipment);
+    }
+
+    public ArrayList<Integer> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Integer> groups) {
+//        if(equ == null)
+//            equ = new ArrayList<>();
+
+        this.groups = groups;
     }
 
 }

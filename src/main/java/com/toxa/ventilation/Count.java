@@ -3,12 +3,16 @@ package com.toxa.ventilation;
 import com.toxa.ventilation.gui.ResultsPanel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Count {
 
     private static Count instance;
     private BaseInfo baseInfo;
     private ResultsPanel resultsPanel;
+
+    final double INDEX = 0.7;
+
 
     private Count(){
     }
@@ -58,6 +62,7 @@ public class Count {
             result++;
 
         resultsPanel.setFan50Count(result);
+        countFan50Group();
 
         return result;
     }
@@ -66,6 +71,7 @@ public class Count {
         int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / baseInfo.getFan36Capacity());
 
         resultsPanel.setFan36Count(result);
+        countFan36Group();
 
         return result;
     }
@@ -81,6 +87,7 @@ public class Count {
         }
 
         resultsPanel.setFan26Count(result);
+        countFan26Group();
 
         return result;
     }
@@ -89,6 +96,7 @@ public class Count {
         int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter() / baseInfo.getFanRoofCapacity()));
 
         resultsPanel.setFanRoofCount(result);
+        countFanRoofGroup();
 
         return result;
     }
@@ -140,6 +148,8 @@ public class Count {
 
         resultsPanel.setHumidityLength2(padCoolOneSideLength()[0]);
         resultsPanel.setHumidityCount2((int) padCoolOneSideLength()[1]);
+
+        countShutterGroup();
 
         countAirInletPadCool();
     }
@@ -405,18 +415,159 @@ public class Count {
         return result;
     }
 
+    public ArrayList<Integer> countShutterGroup() {
+        ArrayList<Integer> result = new ArrayList<>();
+
+        ArrayList<Integer> fan50GroupList = countFan50Group();
+
+        for(int fans : fan50GroupList)
+            result.add((int)Math.ceil(fans * baseInfo.getFan50Capacity() / baseInfo.getShutterCapacity()));
+
+        if(groupCountAllList(result) != resultsPanel.getShutterCount())
+            result.set(result.size() - 1, result.get(result.size() - 1) - (groupCountAllList(result) - resultsPanel.getShutterCount()));
+
+        Collections.sort(result);
+
+        System.out.println("Shutter " + result);
+
+        return result;
+    }
+
+    public ArrayList<Integer> countFanRoofGroup() {
+        ArrayList<Integer> result = new ArrayList<>();
+
+        int fans = (int)(baseInfo.getHeadsNumber() * 0.9 / baseInfo.getFanRoofCapacity());
+
+        if(fans == 0)
+            fans++;
+
+        result.add(fans);
+
+        while (groupCountAllList(result) < resultsPanel.getFanRoofCount()) {
+            fans = (int)Math.ceil(fans * 1.55);
+
+            if(groupCountAllList(result) + fans > resultsPanel.getFanRoofCount())
+                result.add(resultsPanel.getFanRoofCount() - groupCountAllList(result));
+            else
+                result.add(fans);
+        }
+
+        Collections.sort(result);
+
+        System.out.println("FanRoof " + result);
+
+
+        return result;
+    }
+
     public ArrayList<Integer> countFan26Group(){
         ArrayList<Integer> result = new ArrayList<>();
 
-        final double INDEX = 0.7;
+        int fans = (int)(baseInfo.getHeadsNumber() * INDEX / baseInfo.getFan26Capacity());
 
-        int fansNumber;
-        fansNumber =(int)Math.ceil(baseInfo.getHeadsNumber() * INDEX);
-        if(fansNumber % 2 != 0)
-            fansNumber ++;
-        result.add(fansNumber);
+        if(fans % 2 != 0)
+            fans ++;
+        result.add(fans);
+        result.add(fans);
 
-        return null;
+        while (groupCountAllList(result) < resultsPanel.getFan26Count()) {
+            fans = (int)Math.ceil(fans * 1.55);
+
+            if(groupCountAllList(result) + fans > resultsPanel.getFan26Count())
+                result.add(resultsPanel.getFan26Count() - groupCountAllList(result));
+            else{
+                if(fans % 2 != 0)
+                    result.add(++fans);
+            }
+        }
+
+        Collections.sort(result);
+
+        System.out.println("Fan26 " + result);
+
+
+        return result;
+    }
+
+    public ArrayList<Integer> countFan36Group(){
+        ArrayList<Integer> result = new ArrayList<>();
+
+        int fans = (int)Math.ceil(baseInfo.getHeadsNumber() * INDEX / baseInfo.getFan36Capacity());
+
+        result.add(fans);
+
+        while (groupCountAllList(result) < resultsPanel.getFan36Count()) {
+            fans = (int)Math.ceil(fans * 1.55);
+
+            if(groupCountAllList(result) + fans > resultsPanel.getFan36Count())
+                result.add(resultsPanel.getFan36Count() - groupCountAllList(result));
+            else
+                result.add(fans);
+        }
+
+        Collections.sort(result);
+
+        System.out.println("Fan36 " + result);
+
+        return result;
+    }
+
+    public ArrayList<Integer> countFan50Group(){
+        ArrayList<Integer> result = new ArrayList<>();
+
+        int fans = (int)Math.ceil(baseInfo.getHeadsNumber() * INDEX / baseInfo.getFan50Capacity());
+
+        result.add(fans);
+
+        while (groupCountAllList(result) < resultsPanel.getFan50Count()) {
+            fans = (int)Math.ceil(fans * 1.55);
+
+            if(groupCountAllList(result) + fans > resultsPanel.getFan50Count())
+                result.add(resultsPanel.getFan50Count() - groupCountAllList(result));
+            else
+                result.add(fans);
+        }
+
+        Collections.sort(result);
+
+        System.out.println("Fan50 " + result);
+        return result;
+    }
+
+
+     private int groupCountAllList(ArrayList<Integer> list){
+        int result = 0;
+
+        for(int i : list)
+            result += i;
+
+        return result;
+    }
+
+    public ArrayList<Integer> getGroups(){
+        ArrayList<Integer> result = new ArrayList<>();
+
+        if(resultsPanel.getFan26RadioButton().isSelected() && resultsPanel.getFan26Count() > 1){
+            result.addAll(countFan26Group());
+            result.add(null);
+        }
+
+        if(resultsPanel.getFanRoofRadioButton().isSelected()){
+            result.addAll(countFanRoofGroup());
+            result.add(null);
+        }
+
+        if(resultsPanel.getFan36RadioButton().isSelected()){
+            result.addAll(countFan36Group());
+            result.add(null);
+        }
+
+        if(resultsPanel.getFan50RadioButton().isSelected())
+            result.addAll(countFan50Group());
+
+        System.err.println(result);
+
+        return result;
     }
 
 }
