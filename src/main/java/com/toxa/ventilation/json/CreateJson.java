@@ -27,6 +27,7 @@ public class CreateJson {
         createBaseInfo();
         createBuilding();
         createSelectedComponents();
+        createGroups();
 
         createJson();
 
@@ -44,7 +45,7 @@ public class CreateJson {
     }
 
     private void createGroups(){
-//        if(baseInfo.is)
+        jsonObject.setGroups(baseInfo.getGroups());
     }
 
     private void createSelectedComponents(){

@@ -3,6 +3,7 @@ package com.toxa.ventilation.json;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class JsonObject {
 
@@ -16,7 +17,7 @@ public class JsonObject {
     private ArrayList<JsonEnt> equ;
 
     @JsonProperty("Группы")
-    private ArrayList<Integer> groups;
+    private LinkedHashMap<String, Integer[]> groups;
 
     public JsonObject() {
     }
@@ -57,15 +58,13 @@ public class JsonObject {
         equ.add(equipment);
     }
 
-    public ArrayList<Integer> getGroups() {
+    public LinkedHashMap<String, Integer[]> getGroups() {
         return groups;
     }
 
-    public void setGroups(ArrayList<Integer> groups) {
-//        if(equ == null)
-//            equ = new ArrayList<>();
+    public void setGroups(LinkedHashMap<String, Integer[]> groups) {
+//        if(this.groups)
 
         this.groups = groups;
     }
-
 }

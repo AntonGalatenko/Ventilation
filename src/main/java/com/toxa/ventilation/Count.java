@@ -2,8 +2,7 @@ package com.toxa.ventilation;
 
 import com.toxa.ventilation.gui.ResultsPanel;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class Count {
 
@@ -544,28 +543,40 @@ public class Count {
         return result;
     }
 
-    public ArrayList<Integer> getGroups(){
-        ArrayList<Integer> result = new ArrayList<>();
+    public LinkedHashMap<String, Integer[]> getGroups(){
+        LinkedHashMap<String, Integer[]> result = new LinkedHashMap<String, Integer[]>();
 
         if(resultsPanel.getFan26RadioButton().isSelected() && resultsPanel.getFan26Count() > 1){
-            result.addAll(countFan26Group());
-            result.add(null);
+            result.put("0", new Integer[]{0});
+
+            Integer[] x = countFan26Group().toArray(new Integer[0]);
+            result.put(resultsPanel.getFan26Name(), x);
         }
 
         if(resultsPanel.getFanRoofRadioButton().isSelected()){
-            result.addAll(countFanRoofGroup());
-            result.add(null);
+
+
+            Integer[] x = countFanRoofGroup().toArray(new Integer[0]);
+            result.put(resultsPanel.getFanRoofName(), x);
         }
 
         if(resultsPanel.getFan36RadioButton().isSelected()){
-            result.addAll(countFan36Group());
-            result.add(null);
+            Integer[] x = countFan36Group().toArray(new Integer[0]);
+            result.put(resultsPanel.getFan36Name(), x);
         }
 
-        if(resultsPanel.getFan50RadioButton().isSelected())
-            result.addAll(countFan50Group());
+        if(resultsPanel.getFan50RadioButton().isSelected()){
+            Integer[] x = countFan50Group().toArray(new Integer[0]);
+            result.put(resultsPanel.getFan50Name(), x);
+        }
 
-        System.err.println(result);
+//        Iterator<Map.Entry<String, Integer[]>> iterator = result.entrySet().iterator();
+//        while (iterator.hasNext()){
+//            Map.Entry<String, Integer[]>  entry = iterator.next();
+//            System.err.print(entry.getKey() + " ");
+//            for(int i : entry.getValue())
+//                System.err.print(i + " ");
+//        }
 
         return result;
     }
