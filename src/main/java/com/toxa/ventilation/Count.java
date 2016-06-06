@@ -61,7 +61,7 @@ public class Count {
             result++;
 
         resultsPanel.setFan50Count(result);
-        countFan50Group();
+//        countFan50Group();
 
         return result;
     }
@@ -464,6 +464,9 @@ public class Count {
 
         int fans = (int)(baseInfo.getHeadsNumber() * INDEX / baseInfo.getFan26Capacity());
 
+        if(fans == 0)
+            fans++;
+
         if(fans % 2 != 0)
             fans ++;
         result.add(fans);
@@ -493,6 +496,9 @@ public class Count {
 
         int fans = (int)Math.ceil(baseInfo.getHeadsNumber() * INDEX / baseInfo.getFan36Capacity());
 
+        if(fans == 0)
+            fans++;
+
         result.add(fans);
 
         while (groupCountAllList(result) < resultsPanel.getFan36Count()) {
@@ -515,6 +521,9 @@ public class Count {
         ArrayList<Integer> result = new ArrayList<>();
 
         int fans = (int)Math.ceil(baseInfo.getHeadsNumber() * INDEX / baseInfo.getFan50Capacity());
+
+        if(fans == 0)
+            fans++;
 
         result.add(fans);
 
@@ -546,9 +555,9 @@ public class Count {
     public LinkedHashMap<String, Integer[]> getGroups(){
         LinkedHashMap<String, Integer[]> result = new LinkedHashMap<String, Integer[]>();
 
-        if(resultsPanel.getFan26RadioButton().isSelected() && resultsPanel.getFan26Count() > 1){
-            result.put("0", new Integer[]{0});
+        result.put("first_group", new Integer[]{baseInfo.getFirstGroup()});
 
+        if(resultsPanel.getFan26RadioButton().isSelected() && resultsPanel.getFan26Count() > 1){
             Integer[] x = countFan26Group().toArray(new Integer[0]);
             result.put(resultsPanel.getFan26Name(), x);
         }

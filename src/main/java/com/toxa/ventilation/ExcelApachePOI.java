@@ -6,6 +6,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ExcelApachePOI {
 
@@ -25,6 +27,7 @@ public class ExcelApachePOI {
         setDefaultSheetSettings();
         createRows(65);
         mergeCellsDefault();
+        createButtonText();
 
         getJson();
 
@@ -49,6 +52,9 @@ public class ExcelApachePOI {
 
                 if(line.contains("Оборудование"))
                     createGeneralText();
+
+                if(line.contains("Группы"))
+                    createGroupsText();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,6 +119,7 @@ public class ExcelApachePOI {
         sheet.addMergedRegion(new CellRangeAddress(9, 9, 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(46, 46, 7, 8));
         sheet.addMergedRegion(new CellRangeAddress(50, 50, 7, 8));
+        sheet.addMergedRegion(new CellRangeAddress(46, 46, 1, 2));
     }
 
     private void createHeadText() throws IOException {
@@ -127,6 +134,26 @@ public class ExcelApachePOI {
                 rowNum++;
             }
         }
+    }
+
+    private void createButtonText(){
+        printText("Составил", 4, 46);
+        printText("Проверил", 4, 50);
+
+        printText("(Галатенко А.Н.)", 7, 46);
+        printText("(Васильчук С.В.)", 7, 50);
+
+        buttonTextCreateBorder();
+
+        printText(new SimpleDateFormat("dd.MM.yyyy").format(new Date()), 1, 46);
+    }
+
+    private void buttonTextCreateBorder(){
+        sheet.getRow(47).createCell(5).setCellStyle(getCellStyleTop());
+        sheet.getRow(47).createCell(6).setCellStyle(getCellStyleTop());
+
+        sheet.getRow(51).createCell(5).setCellStyle(getCellStyleTop());
+        sheet.getRow(51).createCell(6).setCellStyle(getCellStyleTop());
     }
 
     private void createBuildingText() throws IOException {
@@ -159,7 +186,7 @@ public class ExcelApachePOI {
         String[] text;
         rowNum = 10;
 
-        while ((line = br.readLine()) != null){
+        while (! (line = br.readLine()).contains("} ],")){
             text = parseLine(line);
 
             if(text[0].equals("Подвид")){
@@ -184,6 +211,26 @@ public class ExcelApachePOI {
             if(line.contains("} ]"))
                 sheet.getRow(rowNum).setRowStyle(getCellStyleTop());
         }
+    }
+
+    private void createGroupsText() throws IOException {
+        String line;
+        String[] text;
+        String i = "";
+
+        while (! (line = br.readLine()).contains("}")){
+            text = parseLine(line);
+            System.err.println(i);
+            if(text[0].contains("first_group"))
+                i = text[1];
+            else
+                parseGroup(text[1]);
+
+        }
+    }
+
+    private void parseGroup(String text){
+        System.err.println(text);
     }
 
     private String[] parseLine(String line){

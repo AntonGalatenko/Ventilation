@@ -19,9 +19,9 @@ public class BaseInfo {
     private int airForAirInletForTunnelTypeOfVentilation = 3;
     private double airSpeedForPadCool = 1.5;
 
+    private int firstGroup;
     public BaseInfo(TaskPanel taskPanel) {
         this.taskPanel = taskPanel;
-
     }
 
     public BaseInfo() {
@@ -75,10 +75,14 @@ public class BaseInfo {
             taskPanel.setAirWinter(3);
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
+
+        firstGroup = 0;
+
         cageTiers = Arrays.asList(3, 4, 5, 6);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
         resultsPanel.setElementOnPanelDisableForHeating();
+        resultsPanel.setAutomaticSensorCO2Spinner(0);
     }
 
     private void setTBCInfo(){
@@ -95,10 +99,13 @@ public class BaseInfo {
             taskPanel.setAirWinter(3);
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
+        firstGroup = 1;
+
         cageTiers = Arrays.asList(3, 4, 5);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
         resultsPanel.setElementOnPanelEnableForHeating();
+        resultsPanel.setAutomaticSensorCO2Spinner(0);
     }
 
     private void setTBBInfo() {
@@ -115,10 +122,14 @@ public class BaseInfo {
             taskPanel.setAirWinter(3);
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
+
+        firstGroup = 1;
+
         cageTiers = Arrays.asList(3, 4, 5);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
         resultsPanel.setElementOnPanelEnableForHeating();
+        resultsPanel.setAutomaticSensorCO2Spinner(0);
     }
 
     private void setTBRInfo() {
@@ -135,7 +146,12 @@ public class BaseInfo {
             taskPanel.setAirWinter(3);
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
+
+        firstGroup = 0;
+
         cageTiers = Arrays.asList(3, 4);
+
+        resultsPanel.setAutomaticSensorCO2Spinner(0);
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
     }
@@ -150,8 +166,13 @@ public class BaseInfo {
             taskPanel.setAirWinter(3);
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         }
+
+        firstGroup = 0;
+
         resultsPanel.enableElementsInPanel(resultsPanel.getHeaterRadioButton());
         resultsPanel.disableElementsInPanel(resultsPanel.getFanCirculationRadioButton());
+        resultsPanel.setAutomaticSensorCO2Spinner(1);
+
         taskPanel.setDisablesCageTiredAndCageNumberComboBox();
     }
 
@@ -349,6 +370,7 @@ public class BaseInfo {
         new CreateJson(this);
     }
 
-
-
+    public int getFirstGroup() {
+        return firstGroup;
+    }
 }

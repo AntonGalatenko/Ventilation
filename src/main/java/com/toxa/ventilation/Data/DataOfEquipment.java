@@ -139,7 +139,7 @@ public class DataOfEquipment implements Serializable {
         humidity.put("15.6x2.0", new Storage(15.6, "ПУН-13")); humidity.put("16.2x2.0", new Storage(16.2, "ПУН-14")); humidity.put("16.8x2.0", new Storage(16.8, "ПУН-20"));
         humidity.put("17.4x2.0", new Storage(17.4, "ПУН-15"));
         humidity.put("18.0x2.0", new Storage(18.0, "ПУН-16")); humidity.put("18.6x2.0", new Storage(18.6, "ПУН-26")); humidity.put("19.2x2.0", new Storage(19.2, "ПУН-23"));
-        humidity.put("19.8x2.0", new Storage(19.8, "ПУН-25")); humidity.put("21.0x2.0", new Storage(21.0, "ПУН-24"));
+        humidity.put("19.8x2.0", new Storage(19.8, "ПУН-25")); humidity.put("20.4x2.0", new Storage(20.4, "ПУН-27")); humidity.put("21.0x2.0", new Storage(21.0, "ПУН-24"));
 
     }
 
