@@ -34,7 +34,7 @@ public class CreateJson {
     }
 
     private void createBaseInfo(){
-        JsonBaseInfo b = new JsonBaseInfo(baseInfo.getCompanyName(), baseInfo.getCountry(), String.valueOf(baseInfo.getHeadsNumber()),
+        JsonBaseInfo b = new JsonBaseInfo(baseInfo.getFilePathName(), baseInfo.getCompanyName(), baseInfo.getCountry(), String.valueOf(baseInfo.getHeadsNumber()),
                 baseInfo.getPoultryHouseNumber(), baseInfo.getCageName());
         jsonObject.setBaseInfo(b);
     }

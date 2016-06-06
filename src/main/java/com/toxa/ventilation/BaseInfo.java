@@ -373,4 +373,14 @@ public class BaseInfo {
     public int getFirstGroup() {
         return firstGroup;
     }
+
+    public String getFilePathName(){
+        return getCompanyName() + " " +
+                getBuildingLength() + "x" +
+                getBuildingWidth() + "x" +
+                getBuildingHeightMin() + " " +
+                getCageName() + " " +
+                getHeadsNumber();
+
+    }
 }

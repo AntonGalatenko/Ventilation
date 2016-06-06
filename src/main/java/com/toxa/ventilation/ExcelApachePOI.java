@@ -20,6 +20,8 @@ public class ExcelApachePOI {
 
     int rowNum = 0;
 
+    String pathName;
+
     public ExcelApachePOI(){
 
         wb = new HSSFWorkbook();
@@ -43,6 +45,9 @@ public class ExcelApachePOI {
             String line;
             while ((line = br.readLine()) != null){
 //                System.err.println(line);
+
+//                if(line.contains("Название файла"))
+//                    setPathName();
 
                 if(line.contains("Базовая информация"))
                     createHeadText();
@@ -77,14 +82,16 @@ public class ExcelApachePOI {
         return style;
     }
 
-//    private HSSFCellStyle getCellStyleTopButton(){
-//        HSSFCellStyle style = wb.createCellStyle();
-//
-//        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
-//        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-//
-//        return style;
-//    }
+    private HSSFCellStyle getCellStyleBorder(){
+        HSSFCellStyle style = wb.createCellStyle();
+
+        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+
+        return style;
+    }
 
     private void setDefaultSheetSettings(){
         sheet = wb.createSheet("Вентиляция");
@@ -110,11 +117,19 @@ public class ExcelApachePOI {
             sheet.addMergedRegion(new CellRangeAddress(i, i, 7, 8));
         }
 
-        for(int i = 0; i < 9; i++)
+        for(int i = 0; i < 2; i++)
             sheet.addMergedRegion(new CellRangeAddress(i, i, 1, 2));
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 6; i < 8; i++)
+            sheet.addMergedRegion(new CellRangeAddress(i, i, 1, 2));
+
+
+        for(int i = 0; i < 2; i++)
             sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 6));
+
+        for(int i = 6; i < 8; i++)
+            sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 6));
+
 
         sheet.addMergedRegion(new CellRangeAddress(9, 9, 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(46, 46, 7, 8));
@@ -126,13 +141,26 @@ public class ExcelApachePOI {
         String line;
         String[] text;
 
+        int i = 0;
+
         while (! (line = br.readLine()).contains("}")){
+            i++;
+
+            if(i == 5)
+                rowNum = 6;
+
             text = parseLine(line);
-            if(! text[1].equals("")){
-                printText(text[0], 1, rowNum);
-                printText(text[1], 3, rowNum);
-                rowNum++;
+
+            if(text[0].equals("Название файла"))
+                pathName = text[1];
+            else{
+                if(! text[1].equals("")){
+                    printText(text[0], 1, rowNum);
+                    printText(text[1], 3, rowNum);
+                    rowNum++;
+                }
             }
+
         }
     }
 
@@ -161,13 +189,13 @@ public class ExcelApachePOI {
         String[] text;
         int i = 3;
 
-        printText("Здание", 1, 6);
+        printText("Здание", 1, 3);
 
         while (! (line = br.readLine()).contains("}")){
             text = parseLine(line);
             if(! text[1].equals("")){
-                printText(text[0], i, 6);
-                printText(text[1], i++, 7);
+                printText(text[0], i, 3);
+                printText(text[1], i++, 4);
 
                 cell.setCellStyle(getCellStyleTop());
             }
@@ -216,21 +244,66 @@ public class ExcelApachePOI {
     private void createGroupsText() throws IOException {
         String line;
         String[] text;
-        String i = "";
+        String firstGroup = "";
+        int group = 0;
+
+        int i = 0;
+
+        rowNum = 54;
+
 
         while (! (line = br.readLine()).contains("}")){
             text = parseLine(line);
-            System.err.println(i);
-            if(text[0].contains("first_group"))
-                i = text[1];
-            else
-                parseGroup(text[1]);
+
+            if(text[0].contains("first_group")){
+                firstGroup = text[1];
+                firstGroup = firstGroup.substring(2, 3);
+                group = Integer.parseInt(firstGroup);
+            } else{
+                sheet.addMergedRegion(new CellRangeAddress(52, 52, i, i + 1));
+                printBorderText(text[0], i, 52);
+
+                if(i < 4)
+                    printBorderText("шт.", i + 1, 53);
+                else
+                    printBorderText("шт.", i, 53);
+
+                if(i < 4)
+                    printBorderText("гр.", i, 53);
+
+                for(String s : parseGroup(text[1])){
+                    if(i > 4)
+                        printBorderText(String.valueOf(group), i - 2, rowNum);
+                    else
+                        printBorderText(String.valueOf(group), i, rowNum);
+
+                    if(i < 4)
+                        printBorderText(s, i + 1, rowNum++);
+
+                    else
+                        printBorderText(s, i, rowNum++);
+
+                    group++;
+                }
+
+                if(i < 3){
+                    i = i + 3;
+                    rowNum = 54;
+                }
+                else
+                    i = i + 2;
+
+            }
 
         }
     }
 
-    private void parseGroup(String text){
-        System.err.println(text);
+    private String[] parseGroup(String text){
+        text = text.substring(text.indexOf("[") + 2, text.indexOf("]"));
+
+        String[] result = text.split(", ");
+
+        return result;
     }
 
     private String[] parseLine(String line){
@@ -248,12 +321,24 @@ public class ExcelApachePOI {
         return result;
     }
 
+//    private void setPathName() throws IOException {
+//        String line;
+//        String[] text;
+//
+//        while (! (line = br.readLine()).contains("}")){
+//            text = parseLine(line);
+//            pathName = text[1];
+//        }
+//    }
+
 
     private void saveThis(){
         FileOutputStream fos = null;
 
         try {
-            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
+//            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
+            fos = new FileOutputStream(new File("d:\\12\\" + pathName + ".xls"));
+            System.err.println(pathName);
             wb.write(fos);
             fos.close();
         } catch (FileNotFoundException e) {
@@ -270,5 +355,13 @@ public class ExcelApachePOI {
         cell.setCellValue(text);
 
     }
+
+    private void printBorderText(String text, int x, int y){
+        row = sheet.getRow(y);
+        cell = row.createCell(x);
+        cell.setCellStyle(getCellStyleBorder());
+        cell.setCellValue(text);
+    }
+
 
 }

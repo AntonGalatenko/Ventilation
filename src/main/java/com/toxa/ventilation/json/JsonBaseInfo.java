@@ -4,6 +4,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class JsonBaseInfo {
 
+    @JsonProperty("Название файла")
+    private String filePathName;
+
     @JsonProperty("Предприятие")
     private String name;
 
@@ -22,7 +25,8 @@ public class JsonBaseInfo {
     public JsonBaseInfo() {
     }
 
-    public JsonBaseInfo(String name, String country, String numberHeads, String numberHouse, String cageName) {
+    public JsonBaseInfo(String filePathName, String name, String country, String numberHeads, String numberHouse, String cageName) {
+        this.filePathName = filePathName;
         this.name = name;
         this.country = country;
         this.numberHeads = numberHeads;
@@ -70,4 +74,11 @@ public class JsonBaseInfo {
         this.cageName = cageName;
     }
 
+    public String getFilePathName() {
+        return filePathName;
+    }
+
+    public void setFilePathName(String filePathName) {
+        this.filePathName = filePathName;
+    }
 }
