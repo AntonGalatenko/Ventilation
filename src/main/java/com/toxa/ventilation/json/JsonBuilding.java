@@ -5,21 +5,21 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class JsonBuilding {
 
     @JsonProperty("L, м")
-    private double length;
+    private String length;
 
     @JsonProperty("W, м")
-    private double width;
+    private String width;
 
     @JsonProperty("Hmin, м")
-    private double heightMin;
+    private String heightMin;
 
     @JsonProperty("Hmax, м")
-    private double heightMax;
+    private String heightMax;
 
     public JsonBuilding() {
     }
 
-    public JsonBuilding(double length, double width, double heightMin, double heightMax) {
+    public JsonBuilding(String length, String width, String heightMin, String heightMax) {
         this.length = length;
         this.width = width;
         this.heightMin = heightMin;
@@ -27,34 +27,34 @@ public class JsonBuilding {
     }
 
     public String getLength() {
-        return String.valueOf(length);
+        return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(String length) {
         this.length = length;
     }
 
     public String getWidth() {
-        return String.valueOf(width);
+        return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
     public String getHeightMin() {
-        return String.valueOf(heightMin);
+        return heightMin;
     }
 
-    public void setHeightMin(double heightMin) {
+    public void setHeightMin(String heightMin) {
         this.heightMin = heightMin;
     }
 
     public String getHeightMax() {
-        return String.valueOf(heightMax);
+        return heightMax;
     }
 
-    public void setHeightMax(double heightMax) {
+    public void setHeightMax(String heightMax) {
         this.heightMax = heightMax;
     }
 

@@ -33,6 +33,8 @@ public class ExcelApachePOI {
 
         getJson();
 
+        setAlignmentCenter();
+
         saveThis();
 
     }
@@ -44,11 +46,6 @@ public class ExcelApachePOI {
 
             String line;
             while ((line = br.readLine()) != null){
-//                System.err.println(line);
-
-//                if(line.contains("Название файла"))
-//                    setPathName();
-
                 if(line.contains("Базовая информация"))
                     createHeadText();
 
@@ -128,13 +125,40 @@ public class ExcelApachePOI {
             sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 6));
 
         for(int i = 6; i < 8; i++)
-            sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 6));
+            sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 8));
 
 
         sheet.addMergedRegion(new CellRangeAddress(9, 9, 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(46, 46, 7, 8));
         sheet.addMergedRegion(new CellRangeAddress(50, 50, 7, 8));
         sheet.addMergedRegion(new CellRangeAddress(46, 46, 1, 2));
+    }
+
+    private void setAlignmentCenter(){
+        HSSFCellStyle style = wb.createCellStyle();
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+        for(int i = 12; i < 44; i++)
+            if(sheet.getRow(i).getCell(9) != null)
+                sheet.getRow(i).getCell(9).setCellStyle(style);
+
+        sheet.getRow(3).getCell(3).setCellStyle(style);
+        sheet.getRow(3).getCell(3).setCellStyle(style);
+        sheet.getRow(3).getCell(3).setCellStyle(style);
+
+        style = wb.createCellStyle();
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+
+        sheet.getRow(4).getCell(3).setCellStyle(style);
+        sheet.getRow(4).getCell(4).setCellStyle(style);
+        sheet.getRow(4).getCell(5).setCellStyle(style);
+
+        if(sheet.getRow(4).getCell(6) != null){
+            sheet.getRow(4).getCell(6).setCellStyle(style);
+            sheet.getRow(3).getCell(6).setCellStyle(style);
+        }
+
     }
 
     private void createHeadText() throws IOException {
@@ -160,7 +184,6 @@ public class ExcelApachePOI {
                     rowNum++;
                 }
             }
-
         }
     }
 
@@ -193,11 +216,11 @@ public class ExcelApachePOI {
 
         while (! (line = br.readLine()).contains("}")){
             text = parseLine(line);
-            if(! text[1].equals("")){
+            if(! text[1].equals("0")){
                 printText(text[0], i, 3);
                 printText(text[1], i++, 4);
 
-                cell.setCellStyle(getCellStyleTop());
+
             }
         }
     }
@@ -262,6 +285,7 @@ public class ExcelApachePOI {
             } else{
                 sheet.addMergedRegion(new CellRangeAddress(52, 52, i, i + 1));
                 printBorderText(text[0], i, 52);
+//                sheet.getRow(52).getCell(i).setCellStyle(getCellStyleBorder());
 
                 if(i < 4)
                     printBorderText("шт.", i + 1, 53);
@@ -316,21 +340,10 @@ public class ExcelApachePOI {
         if(result[1].contains("\"") && result[1] != null)
             result[1] = result[1].substring(result[1].indexOf("\"") + 1, result[1].lastIndexOf("\""));
 
-        System.out.println(result[0] + " " + result[1]);
+//        System.out.println(result[0] + " " + result[1]);
 
         return result;
     }
-
-//    private void setPathName() throws IOException {
-//        String line;
-//        String[] text;
-//
-//        while (! (line = br.readLine()).contains("}")){
-//            text = parseLine(line);
-//            pathName = text[1];
-//        }
-//    }
-
 
     private void saveThis(){
         FileOutputStream fos = null;

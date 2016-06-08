@@ -810,9 +810,10 @@
               </grid>
             </constraints>
             <properties>
-              <enabled value="false"/>
+              <enabled value="true"/>
               <horizontalAlignment value="11"/>
               <inheritsPopupMenu value="false"/>
+              <text value="РЩУВ1"/>
               <visible value="true"/>
             </properties>
           </component>

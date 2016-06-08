@@ -196,16 +196,51 @@ public class BaseInfo {
         return taskPanel.getBuildingLength();
     }
 
+    public String getBuildingLengthString() {
+        double length = taskPanel.getBuildingLength();
+
+        if(length % 1 == 0)
+            return String.valueOf((int)length);
+        else
+            return String.valueOf(length);
+    }
+    
     public double getBuildingWidth() {
         return taskPanel.getBuildingWidth();
+    }
+
+    public String getBuildingWidthString() {
+        double width = taskPanel.getBuildingWidth();
+
+        if(width % 1 == 0)
+            return String.valueOf((int)width);
+        else
+            return String.valueOf(width);
     }
 
     public double getBuildingHeightMin() {
         return taskPanel.getBuildingHeightMin();
     }
 
+    public String getBuildingHeightMinString() {
+        double heightMin = taskPanel.getBuildingHeightMin();
+
+        if(heightMin % 1 == 0)
+            return String.valueOf((int)heightMin);
+        else
+            return String.valueOf(heightMin);
+    }
+
     public double getBuildingHeightMax() {
         return taskPanel.getBuildingHeightMax();
+    }
+
+    public String getBuildingHeightMaxString() {
+        double heightMax = taskPanel.getBuildingHeightMax();
+        if(heightMax % 1 == 0)
+            return String.valueOf((int)heightMax);
+        else
+            return String.valueOf(heightMax);
     }
 
     public String getCageName(){
@@ -376,9 +411,9 @@ public class BaseInfo {
 
     public String getFilePathName(){
         return getCompanyName() + " " +
-                getBuildingLength() + "x" +
-                getBuildingWidth() + "x" +
-                getBuildingHeightMin() + " " +
+                getBuildingLengthString() + "x" +
+                getBuildingWidthString() + "x" +
+                getBuildingHeightMinString() + " " +
                 getCageName() + " " +
                 getHeadsNumber();
 

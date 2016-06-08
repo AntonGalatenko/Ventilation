@@ -167,25 +167,25 @@ public class TaskPanel extends JPanel{
     public double getBuildingLength() {
         if(lengthTextField.getText().length() == 0)
             lengthTextField.setText("96");
-        return Double.parseDouble(lengthTextField.getText());
+        return Double.parseDouble(lengthTextField.getText().replace(",", "."));
     }
 
     public double getBuildingWidth() {
         if(widthTextField.getText().length() == 0)
             widthTextField.setText("18");
-        return Double.parseDouble(widthTextField.getText());
+        return Double.parseDouble(widthTextField.getText().replace(",", "."));
     }
 
     public double getBuildingHeightMin() {
         if(heightMinTextField.getText().length() == 0)
             heightMinTextField.setText("4");
-        return Double.parseDouble(heightMinTextField.getText());
+        return Double.parseDouble(heightMinTextField.getText().replace(",", "."));
     }
 
     public double getBuildingHeightMax() {
         if(heightMaxTextField.getText().length() == 0)
             return 0;
-        return Double.parseDouble(heightMaxTextField.getText());
+        return Double.parseDouble(heightMaxTextField.getText().replace(",", "."));
     }
 
     public String getPoultryHouseNumber() {

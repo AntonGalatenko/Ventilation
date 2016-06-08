@@ -40,7 +40,8 @@ public class CreateJson {
     }
 
     private void createBuilding(){
-        JsonBuilding b = new JsonBuilding(baseInfo.getBuildingLength(), baseInfo.getBuildingWidth(), baseInfo.getBuildingHeightMin(), baseInfo.getBuildingHeightMax());
+        JsonBuilding b = new JsonBuilding(baseInfo.getBuildingLengthString(), baseInfo.getBuildingWidthString(), baseInfo.getBuildingHeightMinString(),
+                baseInfo.getBuildingHeightMaxString());
         jsonObject.setBuilding(b);
     }
 
@@ -49,7 +50,6 @@ public class CreateJson {
     }
 
     private void createSelectedComponents(){
-
         JsonEnt ent = new JsonEnt();
         JsonEquipment equipment;
 
@@ -83,10 +83,16 @@ public class CreateJson {
                         ent = new JsonEnt(parseValue(getDescriptionEquipment(key))[1]);
                     }
 
-                if(key.equals(parseValue(getDescriptionEquipment(key))[0]))
-                    equipment = new JsonEquipment("", parseValue(getDescriptionEquipment(key))[0], c.get(key));
-                else
-                    equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                if(key.contains("РЩУВ"))
+                    equipment = new JsonEquipment(key, "Щит вентиляции", c.get(key));
+                else{
+                    if(key.equals(parseValue(getDescriptionEquipment(key))[0]))
+                        equipment = new JsonEquipment("", parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                    else
+                        equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
+
+                }
+
                 ent.addEquipment(equipment);
             }
         }

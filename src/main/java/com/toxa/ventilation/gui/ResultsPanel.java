@@ -540,6 +540,12 @@ public class ResultsPanel extends JPanel{
                             result.put("- датчик СО2", getAutomaticSensorCO2Count());
 
                         result.put("- система оповещения аварии (лампа и сирена)", 1);
+
+                        result.put(getAutomaticOSHUMName(), 1);
+
+                        if(getAutomaticSSHUMName().length() > 0)
+                            result.put(getAutomaticSSHUMName(), 1);
+
                     }
                 }
                 else
@@ -632,16 +638,12 @@ public class ResultsPanel extends JPanel{
     }
 
     public void changeVisibleOSHUMAndSSHUMTextField(){
-        if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ")){
-            automaticOSHUMTextField.setEnabled(true);
-            automaticSSHUMTextField.setEnabled(false);
-        }
-        else if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ+СЩУМ")){
+        if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ+СЩУМ")){
             automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(true);
         }
-        else {
-            automaticOSHUMTextField.setEnabled(false);
+        else{
+            automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(false);
         }
     }
