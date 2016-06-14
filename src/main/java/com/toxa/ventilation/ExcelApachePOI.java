@@ -1,5 +1,6 @@
 package com.toxa.ventilation;
 
+import com.toxa.ventilation.json.CreateJson;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -8,10 +9,13 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 public class ExcelApachePOI {
 
-    private BufferedReader br = null;
+//    private BufferedReader br = null;
+
+    private Scanner scanner;
 
     private HSSFWorkbook wb;
     private HSSFSheet sheet;
@@ -36,16 +40,20 @@ public class ExcelApachePOI {
         setAlignmentCenter();
 
         saveThis();
-
     }
 
     private void getJson(){
-
         try {
-            br = new BufferedReader(new FileReader("base.json"));
+//            br = new BufferedReader(new FileReader("base.json"));
+
+            String json = new CreateJson().getJson();
+
+            scanner = new Scanner(json);
 
             String line;
-            while ((line = br.readLine()) != null){
+            while (scanner.hasNextLine()){
+                line = scanner.nextLine();
+
                 if(line.contains("Базовая информация"))
                     createHeadText();
 
@@ -59,6 +67,7 @@ public class ExcelApachePOI {
                     createGroupsText();
             }
         } catch (IOException e) {
+            new LogError(e.toString());
             e.printStackTrace();
         }
     }
@@ -143,21 +152,22 @@ public class ExcelApachePOI {
                 sheet.getRow(i).getCell(9).setCellStyle(style);
 
         sheet.getRow(3).getCell(3).setCellStyle(style);
-        sheet.getRow(3).getCell(3).setCellStyle(style);
-        sheet.getRow(3).getCell(3).setCellStyle(style);
-
-        style = wb.createCellStyle();
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        style.setBorderTop(HSSFCellStyle.BORDER_THIN);
-
-        sheet.getRow(4).getCell(3).setCellStyle(style);
-        sheet.getRow(4).getCell(4).setCellStyle(style);
-        sheet.getRow(4).getCell(5).setCellStyle(style);
-
-        if(sheet.getRow(4).getCell(6) != null){
-            sheet.getRow(4).getCell(6).setCellStyle(style);
+        sheet.getRow(3).getCell(4).setCellStyle(style);
+        sheet.getRow(3).getCell(5).setCellStyle(style);
+        if(sheet.getRow(3).getCell(6) != null)
             sheet.getRow(3).getCell(6).setCellStyle(style);
-        }
+
+        HSSFCellStyle style1 = wb.createCellStyle();
+        style1.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        style1.setBorderTop(HSSFCellStyle.BORDER_THIN);
+
+        sheet.getRow(4).getCell(3).setCellStyle(style1);
+        sheet.getRow(4).getCell(4).setCellStyle(style1);
+        sheet.getRow(4).getCell(5).setCellStyle(style1);
+        if(sheet.getRow(4).getCell(6) != null)
+            sheet.getRow(4).getCell(6).setCellStyle(style1);
+
+
 
     }
 
@@ -167,7 +177,7 @@ public class ExcelApachePOI {
 
         int i = 0;
 
-        while (! (line = br.readLine()).contains("}")){
+        while (! (line = scanner.nextLine()).contains("}")){
             i++;
 
             if(i == 5)
@@ -214,7 +224,7 @@ public class ExcelApachePOI {
 
         printText("Здание", 1, 3);
 
-        while (! (line = br.readLine()).contains("}")){
+        while (! (line = scanner.nextLine()).contains("}")){
             text = parseLine(line);
             if(! text[1].equals("0")){
                 printText(text[0], i, 3);
@@ -237,7 +247,7 @@ public class ExcelApachePOI {
         String[] text;
         rowNum = 10;
 
-        while (! (line = br.readLine()).contains("} ],")){
+        while (! (line = scanner.nextLine()).contains("} ],")){
             text = parseLine(line);
 
             if(text[0].equals("Подвид")){
@@ -253,7 +263,7 @@ public class ExcelApachePOI {
 
                     printText(text[1], c[i++], rowNum);
 
-                    line = br.readLine();
+                    line = scanner.nextLine();
                 }
 
                 rowNum++;
@@ -275,7 +285,7 @@ public class ExcelApachePOI {
         rowNum = 54;
 
 
-        while (! (line = br.readLine()).contains("}")){
+        while (! (line = scanner.nextLine()).contains("}")){
             text = parseLine(line);
 
             if(text[0].contains("first_group")){
@@ -285,7 +295,6 @@ public class ExcelApachePOI {
             } else{
                 sheet.addMergedRegion(new CellRangeAddress(52, 52, i, i + 1));
                 printBorderText(text[0], i, 52);
-//                sheet.getRow(52).getCell(i).setCellStyle(getCellStyleBorder());
 
                 if(i < 4)
                     printBorderText("шт.", i + 1, 53);
@@ -316,9 +325,7 @@ public class ExcelApachePOI {
                 }
                 else
                     i = i + 2;
-
             }
-
         }
     }
 
@@ -349,17 +356,22 @@ public class ExcelApachePOI {
         FileOutputStream fos = null;
 
         try {
+//            fos = new FileOutputStream(new File("tmp.xls"));
 //            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
             fos = new FileOutputStream(new File("d:\\12\\" + pathName + ".xls"));
-            System.err.println(pathName);
+//            System.err.println(pathName);
             wb.write(fos);
             fos.close();
         } catch (FileNotFoundException e) {
+            new LogError(e.toString());
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            new LogError(e.toString());
         }
     }
+
+
 
 
     private void printText(String text, int x, int y){

@@ -31,7 +31,7 @@ public class JsonBaseInfo {
         this.country = country;
         this.numberHeads = numberHeads;
         this.numberHouse = numberHouse;
-        this.cageName = cageName;
+        setCageName(cageName);
     }
 
     public String getName() {
@@ -71,7 +71,10 @@ public class JsonBaseInfo {
     }
 
     public void setCageName(String cageName) {
-        this.cageName = cageName;
+        if(! cageName.equals("Напольник"))
+            this.cageName = "Предусмотрена установка батарей " + cageName;
+        else
+            this.cageName = "Напольное";
     }
 
     public String getFilePathName() {

@@ -103,10 +103,13 @@ public class Count {
     public int countShaft(){
         int result = 0;
 
-        if(resultsPanel.getFan26RadioButton().isSelected())
+        if(resultsPanel.getFan26RadioButton().isSelected() && resultsPanel.getFan26Count() > 1)
             result = (int)(Math.ceil(resultsPanel.getFan26Count() * baseInfo.getFan26Capacity() / baseInfo.getShaftCapacity()));
-        if(resultsPanel.getFan36RadioButton().isSelected() || (resultsPanel.getFan26Count() == 1))
+        if(resultsPanel.getFan36RadioButton().isSelected() /*|| (resultsPanel.getFan26Count() == 1)*/)
             result += (int)(Math.ceil(resultsPanel.getFan36Count() * baseInfo.getFan36Capacity() / baseInfo.getShaftCapacity()));
+
+        if(resultsPanel.getFan26Count() == 1 && ! resultsPanel.getFan36RadioButton().isSelected())
+            result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirForAirInletForTunnelTypeOfVentilation() / baseInfo.getShaftCapacity()));
 
         countServomotor();
 
@@ -427,7 +430,7 @@ public class Count {
 
         Collections.sort(result);
 
-        System.out.println("Shutter " + result);
+//        System.out.println("Shutter " + result);
 
         return result;
     }
@@ -453,7 +456,7 @@ public class Count {
 
         Collections.sort(result);
 
-        System.out.println("FanRoof " + result);
+//        System.out.println("FanRoof " + result);
 
 
         return result;
@@ -485,7 +488,7 @@ public class Count {
 
         Collections.sort(result);
 
-        System.out.println("Fan26 " + result);
+//        System.out.println("Fan26 " + result);
 
 
         return result;
@@ -512,7 +515,7 @@ public class Count {
 
         Collections.sort(result);
 
-        System.out.println("Fan36 " + result);
+//        System.out.println("Fan36 " + result);
 
         return result;
     }
@@ -538,7 +541,7 @@ public class Count {
 
         Collections.sort(result);
 
-        System.out.println("Fan50 " + result);
+//        System.out.println("Fan50 " + result);
         return result;
     }
 

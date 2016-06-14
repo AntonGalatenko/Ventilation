@@ -4,6 +4,9 @@ package com.toxa.ventilation;
 import com.toxa.ventilation.gui.MyMainPanel;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 public class Main {
 
@@ -13,7 +16,19 @@ public class Main {
 
 //        new MyMainPanel();
 //        new CardLayoutPanel();
+
+        setLogFile();
+
         new MyMainPanel();
+    }
+
+    private static void setLogFile(){
+        try {
+            System.setErr(new PrintStream(new File("log_err.txt")));
+            System.setOut(new PrintStream(new File("log_out.txt")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void setNimbusLookAndFeel(){
@@ -34,4 +49,6 @@ public class Main {
         }
 
     }
+
+
 }

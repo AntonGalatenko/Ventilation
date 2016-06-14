@@ -3,10 +3,9 @@ package com.toxa.ventilation.json;
 import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
 import com.toxa.ventilation.Data.ActualValues;
+import com.toxa.ventilation.LogError;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.util.DefaultPrettyPrinter;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -17,6 +16,8 @@ public class CreateJson {
     private BaseInfo baseInfo;
     private JsonObject jsonObject;
     private ObjectMapper mapper;
+
+    private static String json;
 
     public CreateJson(BaseInfo baseInfo) {
         this.baseInfo = baseInfo;
@@ -31,6 +32,9 @@ public class CreateJson {
 
         createJson();
 
+    }
+
+    public CreateJson() {
     }
 
     private void createBaseInfo(){
@@ -55,7 +59,7 @@ public class CreateJson {
 
         LinkedHashMap<String, Integer> c = baseInfo.getSelectedComponents();
 
-        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
+//        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
 
         List<String> list = new ArrayList<>(c.keySet());
         for(int i = 0; i < list.size(); i++){
@@ -192,12 +196,16 @@ public class CreateJson {
 
     private void createJson(){
         try {
-            mapper.writer(new DefaultPrettyPrinter()).writeValue(new File("base.json"), jsonObject);
+//            mapper.writer(new DefaultPrettyPrinter()).writeValue(new File("base.json"), jsonObject);
 
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));//////////////////////////////////////////////////////////////
+            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
         } catch (IOException e) {
+            new LogError(e.toString());
             e.printStackTrace();
         }
     }
 
+    public static String getJson() {
+        return json;
+    }
 }

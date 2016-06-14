@@ -813,7 +813,7 @@
               <enabled value="true"/>
               <horizontalAlignment value="11"/>
               <inheritsPopupMenu value="false"/>
-              <text value="РЩУВ1"/>
+              <text value="РЩУВ2"/>
               <visible value="true"/>
             </properties>
           </component>

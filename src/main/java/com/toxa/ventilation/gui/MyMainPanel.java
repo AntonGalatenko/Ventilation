@@ -8,9 +8,10 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
+    private final int versionNumber = 1;
 
     public MyMainPanel(){
-        setTitle("Вентиляция");
+        setTitle("Вентиляция ver." + versionNumber);
 
         toolBar = new MyToolBar(this);
         taskPanel = new TaskPanel();
