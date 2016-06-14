@@ -48,6 +48,8 @@ public class ExcelApachePOI {
 
             String json = new CreateJson().getJson();
 
+//            System.out.println(json);
+
             scanner = new Scanner(json);
 
             String line;
@@ -189,7 +191,7 @@ public class ExcelApachePOI {
             else{
                 if(! text[1].equals("")){
                     printText(text[0], 1, rowNum);
-                    printText(text[1], 3, rowNum);
+                    printText(text[1].replace("\\", ""), 3, rowNum);
                     rowNum++;
                 }
             }
@@ -357,7 +359,7 @@ public class ExcelApachePOI {
         try {
 //            fos = new FileOutputStream(new File("tmp.xls"));
 //            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
-            fos = new FileOutputStream(new File("d:\\12\\" + pathName + ".xls"));
+            fos = new FileOutputStream(new File("d:\\12\\" + pathNameForFileName() + ".xls"));
 //            System.err.println(pathName);
             wb.write(fos);
             fos.close();
@@ -366,6 +368,12 @@ public class ExcelApachePOI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String pathNameForFileName(){
+        String result = pathName.replace("\"", "");
+        result = result.replace("\\","");
+        return result;
     }
 
 

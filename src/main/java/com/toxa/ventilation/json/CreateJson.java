@@ -58,7 +58,7 @@ public class CreateJson {
 
         LinkedHashMap<String, Integer> c = baseInfo.getSelectedComponents();
 
-        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
+//        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
 
         List<String> list = new ArrayList<>(c.keySet());
         for(int i = 0; i < list.size(); i++){
@@ -86,14 +86,17 @@ public class CreateJson {
                         ent = new JsonEnt(parseValue(getDescriptionEquipment(key))[1]);
                     }
 
-                if(key.contains("РЩУВ"))
+                if(key.contains("РЩУВ") || key.contains("СЩУМ"))
                     equipment = new JsonEquipment(key, "Щит вентиляции", c.get(key));
-                else{
-                    if(key.equals(parseValue(getDescriptionEquipment(key))[0]))
-                        equipment = new JsonEquipment("", parseValue(getDescriptionEquipment(key))[0], c.get(key));
-                    else
-                        equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
-                }
+                else if(key.contains("ОЩУМ"))
+                    equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                else if(key.equals("- климатконтроллер"))
+                    equipment = new JsonEquipment("Fancom Lumina 37", parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                else if(key.equals(parseValue(getDescriptionEquipment(key))[0]))
+                    equipment = new JsonEquipment("", parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                else
+                    equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
+
 
                 ent.addEquipment(equipment);
             }
@@ -182,7 +185,7 @@ public class CreateJson {
         else if(new ActualValues().loadActualValue().getEmergency().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getEmergency().get(nameEquipment).getDescription();
         else if(nameEquipment.contains("ОЩУМ"))
-            return value + "Щит микроклимата";
+            return value + "Щит микроклимата в комплекте";
 
         return nameEquipment;
     }
