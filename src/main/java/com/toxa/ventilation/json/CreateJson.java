@@ -3,7 +3,6 @@ package com.toxa.ventilation.json;
 import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
 import com.toxa.ventilation.Data.ActualValues;
-import com.toxa.ventilation.LogError;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
@@ -59,7 +58,7 @@ public class CreateJson {
 
         LinkedHashMap<String, Integer> c = baseInfo.getSelectedComponents();
 
-//        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
+        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
 
         List<String> list = new ArrayList<>(c.keySet());
         for(int i = 0; i < list.size(); i++){
@@ -94,7 +93,6 @@ public class CreateJson {
                         equipment = new JsonEquipment("", parseValue(getDescriptionEquipment(key))[0], c.get(key));
                     else
                         equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
-
                 }
 
                 ent.addEquipment(equipment);
@@ -183,6 +181,8 @@ public class CreateJson {
             return value + new ActualValues().loadActualValue().getServomotor().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getEmergency().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getEmergency().get(nameEquipment).getDescription();
+        else if(nameEquipment.contains("ОЩУМ"))
+            return value + "Щит микроклимата";
 
         return nameEquipment;
     }
@@ -200,7 +200,6 @@ public class CreateJson {
 
             json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
         } catch (IOException e) {
-            new LogError(e.toString());
             e.printStackTrace();
         }
     }

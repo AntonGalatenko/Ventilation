@@ -67,7 +67,6 @@ public class ExcelApachePOI {
                     createGroupsText();
             }
         } catch (IOException e) {
-            new LogError(e.toString());
             e.printStackTrace();
         }
     }
@@ -363,11 +362,9 @@ public class ExcelApachePOI {
             wb.write(fos);
             fos.close();
         } catch (FileNotFoundException e) {
-            new LogError(e.toString());
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-            new LogError(e.toString());
         }
     }
 

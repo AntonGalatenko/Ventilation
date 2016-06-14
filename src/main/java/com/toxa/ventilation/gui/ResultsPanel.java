@@ -525,11 +525,17 @@ public class ResultsPanel extends JPanel{
                 JSpinner number = (JSpinner) getNeededComponent(new JSpinner(), p);
 
                 if(name != null){
-                    result.put(name.getSelectedItem().toString(), (int)number.getValue());
+                    if(name.getSelectedItem().toString().equals("ОЩУМ"))
+                        result.put(getAutomaticOSHUMName(), 1);
+                    else
+                        result.put(name.getSelectedItem().toString(), (int)number.getValue());
+
                     if(radioButton.getText().equals("Вен-р крышний"))
                         result.put("Воздуховод Камин с клапаном батерфляй, 2000мм", (int)number.getValue());
 
                     if(radioButton.getText().equals("Компьютер")){
+                        if(getAutomaticName().equals("ОЩУМ"))
+                            result.put("- климатконтроллер", 1);
                         if(getAutomaticSensorTemperatureCount() > 0)
                             result.put("- датчик температуры", getAutomaticSensorTemperatureCount());
                         if(getAutomaticSensorPressureCount() > 0)
@@ -638,7 +644,7 @@ public class ResultsPanel extends JPanel{
     }
 
     public void changeVisibleOSHUMAndSSHUMTextField(){
-        if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ+СЩУМ")){
+        if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ")){
             automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(true);
         }

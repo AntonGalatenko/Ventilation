@@ -110,7 +110,7 @@ public class DataOfEquipment implements Serializable {
     public void setAutomaticDefaultValue(){
         automatic.put("Rotem Junior XL", new Storage(0, "Климатконтроллер"));
         automatic.put("Fancom Lumina 37", new Storage(0, "Климатконтроллер"));
-        automatic.put("ОЩУМ+СЩУМ", new Storage(0, "Щит микроклимата"));
+//        automatic.put("ОЩУМ+СЩУМ", new Storage(0, "Щит микроклимата"));
         automatic.put("ОЩУМ", new Storage(0, "Щит микроклимата"));
     }
 

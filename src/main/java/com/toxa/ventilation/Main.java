@@ -17,7 +17,7 @@ public class Main {
 //        new MyMainPanel();
 //        new CardLayoutPanel();
 
-        setLogFile();
+//        setLogFile();
 
         new MyMainPanel();
     }
