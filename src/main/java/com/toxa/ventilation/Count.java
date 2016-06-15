@@ -44,6 +44,8 @@ public class Count {
         countFan50AirSpeed();
         countAirTotalCurrent();
 //        countFinish();
+
+        countEmergency();
     }
 
     public void setBaseInfo(BaseInfo baseInfo) {
@@ -399,17 +401,18 @@ public class Count {
             result += 1;
         if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected() && resultsPanel.getHumidityCount1() > 0)
             result += 1;
+        if(resultsPanel.getAirInletForPadCoolRadioButton().isSelected() && resultsPanel.getAirInletForPadCoolCount() > 15)
+            result += 1;
 
         resultsPanel.setServomotorCount(result);
-
-        countEmergency();
+//        countEmergency();
 
         return result;
     }
 
     public int countEmergency(){
         int result = 0;
-        if(resultsPanel.getServomotorCount() > 0)
+        if(resultsPanel.getAirInletWallRadioButton().isSelected() || resultsPanel.getShaftRadioButton().isSelected())
             result = 1;
 
         resultsPanel.setEmergencyCount(result);

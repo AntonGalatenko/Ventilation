@@ -161,6 +161,13 @@ public class ResultsPanel extends JPanel{
             }
         });
 
+        airInletForPadCoolSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                count.countServomotor();
+            }
+        });
+
         humidityCountSpinner1.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -209,12 +216,12 @@ public class ResultsPanel extends JPanel{
             }
         });
 
-        servomotorSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                count.countEmergency();
-            }
-        });
+//        servomotorSpinner.addChangeListener(new ChangeListener() {
+//            @Override
+//            public void stateChanged(ChangeEvent e) {
+//                count.countEmergency();
+//            }
+//        });
 
         automaticComboBox.addItemListener(new ItemListener() {
             @Override
@@ -290,6 +297,7 @@ public class ResultsPanel extends JPanel{
                     disableElementsInPanel(shaftPanel);
 
                 count.countServomotor();
+                count.countEmergency();
             }
         });
 
@@ -324,6 +332,7 @@ public class ResultsPanel extends JPanel{
                     disableElementsInPanel(airInletForPadCoolPanel);
 
                 count.countServomotor();
+                count.countEmergency();
             }
         });
 
