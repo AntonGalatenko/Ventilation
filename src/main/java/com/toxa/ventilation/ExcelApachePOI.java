@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+import java.awt.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +26,7 @@ public class ExcelApachePOI {
     int rowNum = 0;
 
     String pathName;
+    private boolean openExcel;
 
     public ExcelApachePOI(){
 
@@ -39,7 +41,7 @@ public class ExcelApachePOI {
 
         setAlignmentCenter();
 
-        saveThis();
+//        saveThis();
     }
 
     private void getJson(){
@@ -283,27 +285,26 @@ public class ExcelApachePOI {
 
         int i = 0;
 
-        rowNum = 54;
-
+        rowNum = 55;
 
         while (! (line = scanner.nextLine()).contains("}")){
             text = parseLine(line);
 
             if(text[0].contains("first_group")){
-                firstGroup = text[1];
-                firstGroup = firstGroup.substring(2, 3);
+                firstGroup = text[1].substring(2, 3);
                 group = Integer.parseInt(firstGroup);
             } else{
-                sheet.addMergedRegion(new CellRangeAddress(52, 52, i, i + 1));
-                printBorderText(text[0], i, 52);
+                sheet.addMergedRegion(new CellRangeAddress(53, 53, i, i + 1));
+                printBorderText(text[0], i, 53);
+                printBorderText("", i + 1, 53);
 
                 if(i < 4)
-                    printBorderText("шт.", i + 1, 53);
+                    printBorderText("шт.", i + 1, 54);
                 else
-                    printBorderText("шт.", i, 53);
+                    printBorderText("шт.", i, 54);
 
                 if(i < 4)
-                    printBorderText("гр.", i, 53);
+                    printBorderText("гр.", i, 54);
 
                 for(String s : parseGroup(text[1])){
                     if(i > 4)
@@ -313,7 +314,6 @@ public class ExcelApachePOI {
 
                     if(i < 4)
                         printBorderText(s, i + 1, rowNum++);
-
                     else
                         printBorderText(s, i, rowNum++);
 
@@ -322,7 +322,7 @@ public class ExcelApachePOI {
 
                 if(i < 3){
                     i = i + 3;
-                    rowNum = 54;
+                    rowNum = 55;
                 }
                 else
                     i = i + 2;
@@ -353,7 +353,7 @@ public class ExcelApachePOI {
         return result;
     }
 
-    private void saveThis(){
+    public void saveThis(){
         FileOutputStream fos = null;
 
         try {
@@ -368,6 +368,18 @@ public class ExcelApachePOI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if(isOpenExcel())
+            openExcel();
+    }
+
+    public void openExcel(){
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(new File("d:\\12\\" + pathNameForFileName() + ".xls"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String pathNameForFileName(){
@@ -375,9 +387,6 @@ public class ExcelApachePOI {
         result = result.replace("\\","");
         return result;
     }
-
-
-
 
     private void printText(String text, int x, int y){
         row = sheet.getRow(y);
@@ -393,5 +402,11 @@ public class ExcelApachePOI {
         cell.setCellValue(text);
     }
 
+    public boolean isOpenExcel() {
+        return openExcel;
+    }
 
+    public void setOpenExcel(boolean openExcel) {
+        this.openExcel = openExcel;
+    }
 }

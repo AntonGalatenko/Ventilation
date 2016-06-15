@@ -15,6 +15,7 @@ public class TaskPanel extends JPanel{
 
     private BaseInfo baseInfo;
     private Count count;
+    ExcelApachePOI excelApachePOI;
 
     private ResultsPanel resultsPanel;
 
@@ -63,7 +64,8 @@ public class TaskPanel extends JPanel{
     private JLabel airSummerCurrentLabel;
     private JLabel airWinterCurrentLabel;
     private JLabel airTotalCurrentLabel;
-    private JButton excelButton;
+    private JButton saveExcelButton;
+    private JButton saveOpenExcelButton;
 
     public TaskPanel(){
 
@@ -116,16 +118,21 @@ public class TaskPanel extends JPanel{
             }
         });
 
-        excelButton.addActionListener(new ActionListener() {
+        saveExcelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//               baseInfo.getResultText();
-
                 baseInfo.getJson();
+                excelApachePOI = new ExcelApachePOI();
+            }
+        });
 
-//                count.getGroups();
-
-                new ExcelApachePOI();
+        saveOpenExcelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                baseInfo.getJson();
+                excelApachePOI = new ExcelApachePOI();
+                excelApachePOI.setOpenExcel(true);
+                excelApachePOI.saveThis();
             }
         });
 
