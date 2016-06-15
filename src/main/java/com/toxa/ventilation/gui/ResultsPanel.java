@@ -647,10 +647,14 @@ public class ResultsPanel extends JPanel{
         if(automaticComboBox.getSelectedItem().toString().equals("ОЩУМ")){
             automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(true);
+            automaticOSHUMTextField.setText("ОЩУМ");
+            automaticSSHUMTextField.setText("СЩУМ -01.000");
         }
         else{
             automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(false);
+            automaticOSHUMTextField.setText("РЩУВ2");
+            automaticSSHUMTextField.setText("");
         }
     }
 

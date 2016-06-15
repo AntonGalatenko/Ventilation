@@ -99,6 +99,8 @@ public class ExcelApachePOI {
         style.setBorderRight(HSSFCellStyle.BORDER_THIN);
         style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 
+        style.setAlignment(HSSFCellStyle.ALIGN_LEFT);
+
         return style;
     }
 
@@ -297,6 +299,7 @@ public class ExcelApachePOI {
                 sheet.addMergedRegion(new CellRangeAddress(53, 53, i, i + 1));
                 printBorderText(text[0], i, 53);
                 printBorderText("", i + 1, 53);
+                groupTextLeftAlignment(i);
 
                 if(i < 4)
                     printBorderText("шт.", i + 1, 54);
@@ -327,6 +330,19 @@ public class ExcelApachePOI {
                 else
                     i = i + 2;
             }
+        }
+    }
+
+    private void groupTextLeftAlignment(int n){
+        HSSFCellStyle style = wb.createCellStyle();
+        style.setAlignment(HSSFCellStyle.ALIGN_LEFT);
+
+        for(int i = 54; i < 63; i++){
+            if(sheet.getRow(i).getCell(n) == null)
+                sheet.getRow(i).createCell(n).setCellStyle(style);
+
+            if(sheet.getRow(i).getCell(n + 1) == null)
+                sheet.getRow(i).createCell(n + 1).setCellStyle(style);
         }
     }
 
