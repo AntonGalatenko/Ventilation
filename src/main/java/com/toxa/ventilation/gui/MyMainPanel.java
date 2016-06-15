@@ -11,7 +11,7 @@ public class MyMainPanel extends JFrame{
     private final double versionNumber = 1.11;
 
     public MyMainPanel(){
-        setTitle("Вентиляция ver." + versionNumber);
+        setTitle("Вентиляция ver" + versionNumber);
 
         toolBar = new MyToolBar(this);
         taskPanel = new TaskPanel();

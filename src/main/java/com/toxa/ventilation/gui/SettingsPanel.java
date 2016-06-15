@@ -127,7 +127,9 @@ public class SettingsPanel extends JDialog{
         setAirInletOnRoofNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAirInletOfRoof()));
         setAirInletOfPadCoolNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAirInletForPadCool()));
         setShutterNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getShutter()));
-        setHumidity2NamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getHumidity()));
+        setHumidity2NamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getHumidity2()));
+        setHumidity15NamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getHumidity15()));
+        setHumidity1NamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getHumidity1()));
         setHeaterNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getHeater()));
         setFanCirculationNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getFanCirculation()));
         setAutomaticNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAutomatic()));
@@ -163,7 +165,9 @@ public class SettingsPanel extends JDialog{
         dataOfEquipment.updateAirInletOfRoof(getAirInletOnRoofNamesDescriptionsCapacity());
         dataOfEquipment.updateAirInletOfPadCool(getAirInletForPadCoolNamesDescriptionsCapacity());
         dataOfEquipment.updateShutter(getShutterNamesDescriptionsCapacity());
-        dataOfEquipment.updateHumidity(getHumidity2mNamesDescriptionsCapacity());
+        dataOfEquipment.updateHumidity2(getHumidity2mNamesDescriptionsCapacity());
+        dataOfEquipment.updateHumidity15(getHumidity15mNamesDescriptionsCapacity());
+        dataOfEquipment.updateHumidity1(getHumidity1mNamesDescriptionsCapacity());
         dataOfEquipment.updateHeater(getHeaterNamesDescriptionsCapacity());
         dataOfEquipment.updateFanCirculation(getFanCirculationNamesDescriptionsCapacity());
         dataOfEquipment.updateAutomatic(getAutomaticNamesDescriptionsCapacity());

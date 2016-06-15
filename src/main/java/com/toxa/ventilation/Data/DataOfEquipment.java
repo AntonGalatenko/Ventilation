@@ -15,7 +15,9 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> airInletOfRoof = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> airInletOfPadCool = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> shutter = new LinkedHashMap<>();
-    private LinkedHashMap<String, Storage> humidity = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> humidity2 = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> humidity15 = new LinkedHashMap<>();
+    private LinkedHashMap<String, Storage> humidity1 = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> heater = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> fanCirculation = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> automatic = new LinkedHashMap<>();
@@ -128,19 +130,34 @@ public class DataOfEquipment implements Serializable {
     }
 
     public void setHumidityDefaultValue(){
-        humidity.put("6.0x2.0", new Storage(6.0, "ПУН")); humidity.put("6.6x2.0", new Storage(6.6, "ПУН-01")); humidity.put("7.2x2.0", new Storage(7.2, "ПУН-02.0"));
-        humidity.put("7.8x2.0", new Storage(7.8, "ПУН-17"));
-        humidity.put("8.4x2.0", new Storage(8.4, "ПУН-03")); humidity.put("9.0x2.0", new Storage(9.0, "ПУН-04")); humidity.put("9.6x2.0", new Storage(9.6, "ПУН-05"));
-        humidity.put("10.2x2.0", new Storage(10.0, "ПУН-06"));
-        humidity.put("10.8x2.0", new Storage(10.8, "ПУН-18")); humidity.put("11.4x2.0", new Storage(11.4, "ПУН-07")); humidity.put("12.0x2.0", new Storage(12.0, "ПУН-08"));
-        humidity.put("12.6x2.0", new Storage(12.6, "ПУН-09"));
-        humidity.put("13.2x2.0", new Storage(13.2, "ПУН-10")); humidity.put("13.8x2.0", new Storage(13.8, "ПУН-22"));humidity.put("13.8x2.0", new Storage(13.8, "ПУН-22"));
-        humidity.put("14.4x2.0", new Storage(14.4, "ПУН-11")); humidity.put("15.0x2.0", new Storage(15.0, "ПУН-12"));
-        humidity.put("15.6x2.0", new Storage(15.6, "ПУН-13")); humidity.put("16.2x2.0", new Storage(16.2, "ПУН-14")); humidity.put("16.8x2.0", new Storage(16.8, "ПУН-20"));
-        humidity.put("17.4x2.0", new Storage(17.4, "ПУН-15"));
-        humidity.put("18.0x2.0", new Storage(18.0, "ПУН-16")); humidity.put("18.6x2.0", new Storage(18.6, "ПУН-26")); humidity.put("19.2x2.0", new Storage(19.2, "ПУН-23"));
-        humidity.put("19.8x2.0", new Storage(19.8, "ПУН-25")); humidity.put("20.4x2.0", new Storage(20.4, "ПУН-27")); humidity.put("21.0x2.0", new Storage(21.0, "ПУН-24"));
+        humidity2.put("6.0x2.0", new Storage(6.0, "ПУН")); humidity2.put("6.6x2.0", new Storage(6.6, "ПУН-01")); humidity2.put("7.2x2.0", new Storage(7.2, "ПУН-02.0"));
+        humidity2.put("7.8x2.0", new Storage(7.8, "ПУН-17"));
+        humidity2.put("8.4x2.0", new Storage(8.4, "ПУН-03")); humidity2.put("9.0x2.0", new Storage(9.0, "ПУН-04")); humidity2.put("9.6x2.0", new Storage(9.6, "ПУН-05"));
+        humidity2.put("10.2x2.0", new Storage(10.0, "ПУН-06"));
+        humidity2.put("10.8x2.0", new Storage(10.8, "ПУН-18")); humidity2.put("11.4x2.0", new Storage(11.4, "ПУН-07")); humidity2.put("12.0x2.0", new Storage(12.0, "ПУН-08"));
+        humidity2.put("12.6x2.0", new Storage(12.6, "ПУН-09"));
+        humidity2.put("13.2x2.0", new Storage(13.2, "ПУН-10")); humidity2.put("13.8x2.0", new Storage(13.8, "ПУН-22"));humidity2.put("13.8x2.0", new Storage(13.8, "ПУН-22"));
+        humidity2.put("14.4x2.0", new Storage(14.4, "ПУН-11")); humidity2.put("15.0x2.0", new Storage(15.0, "ПУН-12"));
+        humidity2.put("15.6x2.0", new Storage(15.6, "ПУН-13")); humidity2.put("16.2x2.0", new Storage(16.2, "ПУН-14")); humidity2.put("16.8x2.0", new Storage(16.8, "ПУН-20"));
+        humidity2.put("17.4x2.0", new Storage(17.4, "ПУН-15"));
+        humidity2.put("18.0x2.0", new Storage(18.0, "ПУН-16")); humidity2.put("18.6x2.0", new Storage(18.6, "ПУН-26")); humidity2.put("19.2x2.0", new Storage(19.2, "ПУН-23"));
+        humidity2.put("19.8x2.0", new Storage(19.8, "ПУН-25")); humidity2.put("20.4x2.0", new Storage(20.4, "ПУН-27")); humidity2.put("21.0x2.0", new Storage(21.0, "ПУН-24"));
 
+        humidity15.put("6.0x1.5", new Storage(6.0, "ПУН23")); humidity15.put("6.6x1.5", new Storage(6.6, "ПУН23-01")); humidity15.put("7.2x1.5", new Storage(7.2, "ПУН23-02"));
+        humidity15.put("7.8x1.5", new Storage(7.8, "ПУН23-03")); humidity15.put("8.4x1.5", new Storage(8.4, "ПУН23-04")); humidity15.put("9.0x1.5", new Storage(9.0, "ПУН23-05"));
+        humidity15.put("9.6x1.5", new Storage(9.6, "ПУН23-06")); humidity15.put("10.2x1.5", new Storage(10.2, "ПУН23-07")); humidity15.put("10.8x1.5", new Storage(10.8, "ПУН23-08"));
+        humidity15.put("11.4x1.5", new Storage(11.4, "ПУН23-09")); humidity15.put("12.0x1.5", new Storage(12.0, "ПУН23-10")); humidity15.put("12.6x1.5", new Storage(12.6, "ПУН23-11"));
+        humidity15.put("13.2x1.5", new Storage(13.2, "ПУН23-12")); humidity15.put("13.8x1.5", new Storage(13.8, "ПУН23-13")); humidity15.put("14.4x1.5", new Storage(14.4, "ПУН23-14"));
+        humidity15.put("15.0x1.5", new Storage(15.0, "ПУН23-15")); humidity15.put("15.6x1.5", new Storage(15.6, "ПУН23-16")); humidity15.put("16.2x1.5", new Storage(16.2, "ПУН23-17"));
+        humidity15.put("16.8x1.5", new Storage(16.8, "ПУН23-18")); humidity15.put("17.4x1.5", new Storage(17.4, "ПУН23-19")); humidity15.put("18.0x1.5", new Storage(18.0, "ПУН23-20"));
+
+        humidity1.put("6.0x1.0", new Storage(6.0, "ПУН21")); humidity1.put("6.6x1.0", new Storage(6.6, "ПУН21-01")); humidity1.put("7.2x1.0", new Storage(7.2, "ПУН21-02"));
+        humidity1.put("7.8x1.0", new Storage(7.8, "ПУН21-03")); humidity1.put("8.4x1.0", new Storage(8.4, "ПУН21-04")); humidity1.put("9.0x1.0", new Storage(9.0, "ПУН21-05"));
+        humidity1.put("9.6x1.0", new Storage(9.6, "ПУН21-06")); humidity1.put("10.2x1.0", new Storage(10.2, "ПУН21-07")); humidity1.put("10.8x1.0", new Storage(10.8, "ПУН21-08"));
+        humidity1.put("11.4x1.0", new Storage(11.4, "ПУН21-09")); humidity1.put("12.0x1.0", new Storage(12.0, "ПУН21-10")); humidity1.put("12.6x1.0", new Storage(12.6, "ПУН21-11"));
+        humidity1.put("13.2x1.0", new Storage(13.2, "ПУН21-12")); humidity1.put("13.8x1.0", new Storage(13.8, "ПУН21-13")); humidity1.put("14.4x1.0", new Storage(14.4, "ПУН21-14"));
+        humidity1.put("15.0x1.0", new Storage(15.0, "ПУН21-15")); humidity1.put("15.6x1.0", new Storage(15.6, "ПУН21-16")); humidity1.put("16.2x1.0", new Storage(16.2, "ПУН21-17"));
+        humidity1.put("16.8x1.0", new Storage(16.8, "ПУН21-18")); humidity1.put("17.4x1.0", new Storage(17.4, "ПУН21-19")); humidity1.put("18.0x1.0", new Storage(18.0, "ПУН21-20"));
     }
 
     public void setCageAreaDefaultValue(){
@@ -191,7 +208,23 @@ public class DataOfEquipment implements Serializable {
     }
 
     public LinkedHashMap<String, Storage> getHumidity() {
-        return humidity;
+        LinkedHashMap<String, Storage> result = new LinkedHashMap<>();
+        result.putAll(humidity2);
+        result.putAll(humidity15);
+        result.putAll(humidity1);
+        return result;
+    }
+
+    public LinkedHashMap<String, Storage> getHumidity2() {
+         return humidity2;
+    }
+
+    public LinkedHashMap<String, Storage> getHumidity15() {
+        return humidity15;
+    }
+
+    public LinkedHashMap<String, Storage> getHumidity1() {
+        return humidity1;
     }
 
     public LinkedHashMap<String, Storage> getHeater() {
@@ -254,8 +287,16 @@ public class DataOfEquipment implements Serializable {
         updateHashMap(shutter, value);
     }
 
-    public void updateHumidity(StringBuilder value){
-        updateHashMap(humidity, value);
+    public void updateHumidity2(StringBuilder value){
+        updateHashMap(humidity2, value);
+    }
+
+    public void updateHumidity15(StringBuilder value){
+        updateHashMap(humidity15, value);
+    }
+
+    public void updateHumidity1(StringBuilder value){
+        updateHashMap(humidity1, value);
     }
 
     public void updateHeater(StringBuilder value){
