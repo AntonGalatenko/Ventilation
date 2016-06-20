@@ -32,11 +32,11 @@ public class MyMainPanel extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void update(ResultsPanel resultsPanel){
-        mainPanel.remove(resultPanel);
-        mainPanel.add(resultsPanel);
-        repaint();
-    }
+//    public void update(ResultsPanel resultsPanel){
+//        mainPanel.remove(resultPanel);
+//        mainPanel.add(resultsPanel);
+//        repaint();
+//    }
 
     public ResultsPanel getResultPanel (){
         return resultPanel;

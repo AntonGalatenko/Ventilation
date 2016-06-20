@@ -3,6 +3,7 @@ package com.toxa.ventilation;
 import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.gui.MyFileChooser;
 import com.toxa.ventilation.gui.ResultsPanel;
+import com.toxa.ventilation.gui.SettingsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
 
@@ -12,8 +13,12 @@ import java.util.List;
 
 public class BaseInfo {
 
+    private static BaseInfo instance;
+
     private TaskPanel taskPanel;
     private ResultsPanel resultsPanel;
+    private Count count;
+    private SettingsPanel settingsPanel;
 
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
 
@@ -25,7 +30,13 @@ public class BaseInfo {
         this.taskPanel = taskPanel;
     }
 
-    public BaseInfo() {
+    private BaseInfo() {
+    }
+
+        public static BaseInfo getInstance() {
+        if(instance == null)
+            instance = new BaseInfo();
+        return instance;
     }
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
@@ -177,6 +188,14 @@ public class BaseInfo {
         taskPanel.setDisablesCageTiredAndCageNumberComboBox();
     }
 
+    public void setCount(Count count){
+        this.count = count;
+    }
+
+    public void setSettingsPanel(SettingsPanel settingsPanel) {
+        this.settingsPanel = settingsPanel;
+    }
+
     public String getCompanyName() {
         return taskPanel.getCompanyName();
     }
@@ -310,8 +329,9 @@ public class BaseInfo {
     }
 
     public LinkedHashMap<String, Integer[]> getGroups(){
-        return Count.getInstance().getGroups();
+//        return Count.getInstance().getGroups();
 //        return  null;
+        return count.getGroups();
     }
 
     public int getFanRoofCapacity(){
@@ -394,10 +414,6 @@ public class BaseInfo {
         taskPanel.setAirTotalCurrent(value);
     }
 
-    public void getResultText(){
-        new SelectedComponents(resultsPanel).getSelectedComponents();
-    }
-
     public LinkedHashMap<String, Integer> getSelectedComponents(){
         return resultsPanel.getSelectedComponents();
     }
@@ -408,6 +424,10 @@ public class BaseInfo {
 
     public int getFirstGroup() {
         return firstGroup;
+    }
+
+    public int[] padCoolWaterCirculation(){
+        return count.padCoolWaterCirculation();
     }
 
     public static String getPathFile(){
@@ -423,5 +443,9 @@ public class BaseInfo {
                 getCageName() + " " +
                 getHeadsNumber();
 
+    }
+
+    public boolean isDirectory(){
+        return settingsPanel.isDirectory();
     }
 }

@@ -72,7 +72,7 @@ public class TaskPanel extends JPanel{
         add(mainPanel);
 
         baseInfo = new BaseInfo(this);
-        count = Count.getInstance();
+        count = new Count();
         count.setBaseInfo(baseInfo);
 
 
@@ -142,6 +142,7 @@ public class TaskPanel extends JPanel{
     public void setResultsPanel(ResultsPanel resultsPanel) {
         this.resultsPanel = resultsPanel;
         baseInfo.setResultsPanel(resultsPanel);
+        resultsPanel.setCount(count);
     }
 
 

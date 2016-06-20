@@ -1,5 +1,6 @@
 package com.toxa.ventilation.gui;
 
+import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.Data.Storage;
@@ -97,6 +98,8 @@ public class SettingsPanel extends JDialog{
         pack();
 
         setDefaultNamesDescriptionsCapacity();
+
+        BaseInfo.getInstance().setSettingsPanel(this);
 
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -330,5 +333,9 @@ public class SettingsPanel extends JDialog{
 
     public void setFanRoofNamesDescriptionsCapacity(StringBuilder text) {
         fanRoofTextArea.setText(text.toString());
+    }
+
+    public boolean isDirectory(){
+        return directorycheckBox.isSelected();
     }
 }

@@ -108,8 +108,8 @@ public class ResultsPanel extends JPanel{
     private JLabel airInletWallDistanceLabel;
 
     public ResultsPanel(){
-        count = Count.getInstance();
-        count.setResultsPanel(this);
+//        count = Count.getInstance();
+//        count.setResultsPanel(this);
 
         add(mainPanel);
 
@@ -667,6 +667,11 @@ public class ResultsPanel extends JPanel{
         }
     }
 
+    public void setCount(Count count){
+        this.count = count;
+        count.setResultsPanel(this);
+    }
+
     public int getFan50Count() {
         return (int) fan50Spinner.getValue();
     }
@@ -1017,6 +1022,10 @@ public class ResultsPanel extends JPanel{
 
     public void setAirInletWallDistance(double value) {
         airInletWallDistanceLabel.setText(String.format("%.2f", value) + "м");
+    }
+
+    public LinkedHashMap<String, Integer[]> getGroups() {
+        return count.getGroups();
     }
 
     public void setElementsOnPanelForTunnelVentilationType(){

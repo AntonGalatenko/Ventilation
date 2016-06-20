@@ -139,7 +139,7 @@ public class CreateJson {
     }
 
     private int[] getPadCoolWaterCirculation(){
-        return  Count.getInstance().padCoolWaterCirculation();
+        return  baseInfo.padCoolWaterCirculation();
     }
 
     private String getDescriptionEquipment(String nameEquipment){

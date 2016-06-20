@@ -13,14 +13,16 @@ public class Count {
     final double INDEX = 0.7;
 
 
-    private Count(){
+    public Count(){
+        baseInfo = BaseInfo.getInstance();
+        baseInfo.setCount(this);
     }
 
-    public static Count getInstance() {
-        if(instance == null)
-            instance = new Count();
-        return instance;
-    }
+//    public static Count getInstance() {
+//        if(instance == null)
+//            instance = new Count();
+//        return instance;
+//    }
 
 //    public void countFinish(){
 //        resultsPanel.updateResults();
@@ -559,6 +561,7 @@ public class Count {
     }
 
     public LinkedHashMap<String, Integer[]> getGroups(){
+//    public void setGroups(){
         LinkedHashMap<String, Integer[]> result = new LinkedHashMap<String, Integer[]>();
 
         result.put("first_group", new Integer[]{baseInfo.getFirstGroup()});
