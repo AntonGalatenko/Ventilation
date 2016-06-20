@@ -25,7 +25,10 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> emergency = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> cageArea = new LinkedHashMap<>();
 
-    public DataOfEquipment (){
+//    public DataOfEquipment (){
+//    }
+
+    public void setDefaultValues(){
         setFan50DefaultValue();
         setFan36DefaultValue();
         setFan26DefaultValue();
@@ -47,7 +50,6 @@ public class DataOfEquipment implements Serializable {
         setEmergencyDefaultValue();
 
         setCageAreaDefaultValue();
-
     }
 
     public void setFan50DefaultValue(){

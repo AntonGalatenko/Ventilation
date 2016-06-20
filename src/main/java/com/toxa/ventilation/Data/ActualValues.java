@@ -7,10 +7,10 @@ import java.io.ObjectInputStream;
 
 public class ActualValues extends DataOfEquipment{
 
-    private DataOfEquipment actualValues;
+    private static DataOfEquipment actualValues;
 
-    public ActualValues(){
-    }
+//    public ActualValues(){
+//    }
 
     public DataOfEquipment loadActualValue(){
         if(actualValues != null)
@@ -29,8 +29,10 @@ public class ActualValues extends DataOfEquipment{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        if(actualValues == null)
+        if(actualValues == null){
             actualValues = new DataOfEquipment();
+            actualValues.setDefaultValues();
+        }
         return actualValues;
     }
 
