@@ -23,8 +23,7 @@ public class SettingsPanel extends JDialog{
     private JTabbedPane tabbedPane;
     private JPanel mainPanel;
     private JPanel generalPanel;
-    private JLabel themeGeneralSettingsLabel;
-    private JComboBox pathGeneralSettingsComboBox;
+    private JLabel directoryLabel;
     private JPanel exhaustAirPanel;
     private JLabel fan50Label;
     private JLabel fan36Label;
@@ -84,6 +83,8 @@ public class SettingsPanel extends JDialog{
     private JLabel humidity1mLabel;
     private JScrollPane humidity1mScrollPane;
     private JTextArea humidity1mTextArea;
+    private JButton FileChooserButton;
+    private JCheckBox directorycheckBox;
 
     public SettingsPanel(final MyToolBar myToolBar){
         this.myToolBar = myToolBar;
@@ -111,6 +112,12 @@ public class SettingsPanel extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+            }
+        });
+        FileChooserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MyFileChooser();
             }
         });
     }

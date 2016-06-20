@@ -375,8 +375,8 @@ public class ExcelApachePOI {
         try {
 //            fos = new FileOutputStream(new File("tmp.xls"));
 //            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
-            fos = new FileOutputStream(new File("d:\\12\\" + pathNameForFileName() + ".xls"));
-//            System.err.println(pathName);
+//            fos = new FileOutputStream(new File("d:\\12\\" + pathNameForFileName() + ".xls"));
+            fos = new FileOutputStream(new File(pathNameForFileName() + ".xls"));
             wb.write(fos);
             fos.close();
         } catch (FileNotFoundException e) {
@@ -392,7 +392,8 @@ public class ExcelApachePOI {
     public void openExcel(){
         Desktop desktop = Desktop.getDesktop();
         try {
-            desktop.open(new File("d:\\12\\" + pathNameForFileName() + ".xls"));
+//            desktop.open(new File("d:\\12\\" + pathNameForFileName() + ".xls"));
+            desktop.open(new File(pathNameForFileName() + ".xls"));
         } catch (IOException e) {
             e.printStackTrace();
         }

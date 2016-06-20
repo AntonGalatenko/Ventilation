@@ -29,33 +29,37 @@
             <properties/>
             <border type="bevel-raised"/>
             <children>
-              <component id="8f132" class="javax.swing.JLabel" binding="themeGeneralSettingsLabel">
+              <component id="8f132" class="javax.swing.JLabel" binding="directoryLabel">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Тема"/>
+                  <text value=""/>
                 </properties>
-              </component>
-              <component id="66192" class="javax.swing.JComboBox" binding="pathGeneralSettingsComboBox">
-                <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
               </component>
               <component id="d6af4" class="javax.swing.JLabel" binding="pathGeneralSettingsLabel">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Путь"/>
+                  <text value=""/>
                 </properties>
               </component>
-              <component id="333e4" class="javax.swing.JComboBox">
+              <component id="eb086" class="javax.swing.JButton" binding="FileChooserButton">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <text value="Путь к папке"/>
+                </properties>
+              </component>
+              <component id="31ca4" class="javax.swing.JCheckBox" binding="directorycheckBox">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Распредилять по странам "/>
+                </properties>
               </component>
             </children>
           </grid>

@@ -1,6 +1,7 @@
 package com.toxa.ventilation;
 
 import com.toxa.ventilation.Data.ActualValues;
+import com.toxa.ventilation.gui.MyFileChooser;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
@@ -409,8 +410,13 @@ public class BaseInfo {
         return firstGroup;
     }
 
+    public static String getPathFile(){
+        return MyFileChooser.getPath();
+    }
+
     public String getFilePathName(){
-        return getCompanyName() + " " +
+        return getPathFile() + "/" +
+                getCompanyName() + " " +
                 getBuildingLengthString() + "x" +
                 getBuildingWidthString() + "x" +
                 getBuildingHeightMinString() + " " +
