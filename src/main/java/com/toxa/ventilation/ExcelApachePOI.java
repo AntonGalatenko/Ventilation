@@ -136,7 +136,7 @@ public class ExcelApachePOI {
 
 
         for(int i = 0; i < 2; i++)
-            sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 6));
+            sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 7));
 
         for(int i = 6; i < 8; i++)
             sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 8));
@@ -171,9 +171,6 @@ public class ExcelApachePOI {
         sheet.getRow(4).getCell(5).setCellStyle(style1);
         if(sheet.getRow(4).getCell(6) != null)
             sheet.getRow(4).getCell(6).setCellStyle(style1);
-
-
-
     }
 
     private void createHeadText() throws IOException {
@@ -401,7 +398,7 @@ public class ExcelApachePOI {
 
     private String pathNameForFileName(){
         String result = pathName.replace("\"", "");
-        result = result.replace("\\","");
+//        result = result.replace("\\","");
         return result;
     }
 
