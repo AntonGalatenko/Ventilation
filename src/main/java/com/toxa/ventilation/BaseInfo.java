@@ -461,11 +461,15 @@ public class BaseInfo {
     }
 
     public boolean isDistributeByCountry(){
-        return settingsPanel.isDistributeByCountry();
+        return new ActualValues().loadActualValue().isDistributeByCountry();
     }
 
     public boolean isDirectoryExist(String country){
         String dir = new ActualValues().loadActualValue().getFilePath() + "/" + country;
         return new File(dir).exists();
+    }
+
+    public String getFilePathText(){
+        return settingsPanel.getFilePath();
     }
 }

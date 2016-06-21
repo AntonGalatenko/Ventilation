@@ -20,6 +20,7 @@ public class SettingsPanel extends JDialog{
     private MyToolBar myToolBar;
 //    private MyMainPanel myMainPanel;
     private DataOfEquipment dataOfEquipment;
+    private MyFileChooser fileChooser;
 
     private JTabbedPane tabbedPane;
     private JPanel mainPanel;
@@ -85,7 +86,8 @@ public class SettingsPanel extends JDialog{
     private JScrollPane humidity1mScrollPane;
     private JTextArea humidity1mTextArea;
     private JButton FileChooserButton;
-    private JCheckBox directorycheckBox;
+    private JCheckBox distributeByCountryCheckBox;
+    private JLabel fileChooserLabel;
 
     public SettingsPanel(final MyToolBar myToolBar){
         this.myToolBar = myToolBar;
@@ -120,7 +122,8 @@ public class SettingsPanel extends JDialog{
         FileChooserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MyFileChooser();
+                fileChooser = new MyFileChooser();
+                fileChooserLabel.setText(fileChooser.getPath());
             }
         });
     }
@@ -145,6 +148,8 @@ public class SettingsPanel extends JDialog{
         setAutomaticNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getAutomatic()));
         setServomotorNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getServomotor()));
         setEmergencyNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getEmergency()));
+        setFileChooserText(dataOfEquipment.getFilePath());
+        setDistributeByCountry(dataOfEquipment.isDistributeByCountry());
     }
 
     public void saveActualValue(){
@@ -183,6 +188,8 @@ public class SettingsPanel extends JDialog{
         dataOfEquipment.updateAutomatic(getAutomaticNamesDescriptionsCapacity());
         dataOfEquipment.updateServomotor(getServomotorNamesDescriptionsCapacity());
         dataOfEquipment.updateEmergency(getEmergencyNamesDescriptionsCapacity());
+        dataOfEquipment.updateFilePath(getFilePath());
+        dataOfEquipment.updateDistributeByCountry(isDistributeByCountry());
 
     }
 
@@ -196,6 +203,22 @@ public class SettingsPanel extends JDialog{
     public void setLocationForThisFrame(){
         Point point = myToolBar.getMyMainPanel().getLocation();
         setLocation((int)point.getX() + 10, (int)point.getY() + 30);
+    }
+
+    public String getFilePath(){
+        return fileChooserLabel.getText();
+    }
+
+    public void setFileChooserText(String text){
+        fileChooserLabel.setText(text);
+    }
+
+    public boolean isDistributeByCountry(){
+        return distributeByCountryCheckBox.isSelected();
+    }
+
+    public void setDistributeByCountry(boolean value){
+        distributeByCountryCheckBox.setSelected(value);
     }
 
     public StringBuilder getFan50NamesDescriptionsCapacity() {
@@ -335,7 +358,4 @@ public class SettingsPanel extends JDialog{
         fanRoofTextArea.setText(text.toString());
     }
 
-    public boolean isDirectory(){
-        return directorycheckBox.isSelected();
-    }
 }

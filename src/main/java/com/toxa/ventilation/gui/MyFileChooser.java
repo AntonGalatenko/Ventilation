@@ -14,8 +14,8 @@ public class MyFileChooser extends JFrame {
         baseInfo = BaseInfo.getInstance();
         JFileChooser chooser = new JFileChooser();
 
-        if(baseInfo.getPathFile() != null)
-            chooser.setCurrentDirectory(new File(baseInfo.getPathFile()));
+//        if(baseInfo.getPathFile() != null)
+        chooser.setCurrentDirectory(new File(baseInfo.getFilePathText()));
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.showOpenDialog(this);

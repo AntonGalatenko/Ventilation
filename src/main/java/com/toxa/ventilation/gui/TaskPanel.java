@@ -17,6 +17,7 @@ public class TaskPanel extends JPanel{
     private Count count;
     private ExcelApachePOI excelApachePOI;
     private ResultsPanel resultsPanel;
+    private MyMainPanel myMainPanel;
 
     private JPanel mainPanel;
     private JTextField lengthTextField;
@@ -65,6 +66,7 @@ public class TaskPanel extends JPanel{
     private JLabel airTotalCurrentLabel;
     private JButton saveExcelButton;
     private JButton saveOpenExcelButton;
+    private JButton hideShowResPanelButton;
 
     public TaskPanel(){
 
@@ -116,14 +118,32 @@ public class TaskPanel extends JPanel{
                 System.out.println(getAirWinter());
 
                 count.startCount();
+
+                resultsPanel.setVisible(true);
+                myMainPanel.pack();
             }
         });
 
-        saveExcelButton.addActionListener(new ActionListener() {
+        countButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                baseInfo.getJson();
-                excelApachePOI = new ExcelApachePOI();
+                System.out.println(getCompanyName());
+                System.out.println(getCountry());
+                System.out.println(getHeadsNumber());
+                System.out.println(getBuildingLength());
+                System.out.println(getBuildingWidth());
+                System.out.println(getBuildingHeightMin());
+                System.out.println(getBuildingHeightMax());
+                System.out.println(getCageName());
+                System.out.println(getCageTiers1());
+                System.out.println(getCageNumber1());
+                System.out.println(getCageTiers2());
+                System.out.println(getCageNumber2());
+                System.out.println(getVentilationType());
+                System.out.println(getAirSummer());
+                System.out.println(getAirWinter());
+
+                count.startCount();
             }
         });
 
@@ -134,6 +154,17 @@ public class TaskPanel extends JPanel{
                 excelApachePOI = new ExcelApachePOI();
                 excelApachePOI.setOpenExcel(true);
                 excelApachePOI.saveThis();
+            }
+        });
+
+        hideShowResPanelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(resultsPanel.isVisible())
+                    resultsPanel.setVisible(false);
+                else
+                    resultsPanel.setVisible(true);
+                myMainPanel.pack();
             }
         });
 
@@ -148,6 +179,9 @@ public class TaskPanel extends JPanel{
         this.count = count;
     }
 
+    public void setMyMainPanel(MyMainPanel myMainPanel){
+        this.myMainPanel = myMainPanel;
+    }
 
     public void setDefaultValues() {
         airSummerSpinner.setModel(new SpinnerNumberModel(new Double(12), new Double(0), null, new Double(0.5)));

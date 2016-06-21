@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="749" height="734"/>
     </constraints>
-    <properties/>
+    <properties>
+      <visible value="true"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="efc9e" binding="fan50Panel" layout-manager="GridLayoutManager" row-count="1" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

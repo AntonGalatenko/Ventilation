@@ -58,7 +58,6 @@ public class DataOfEquipment implements Serializable {
 
     public void setFilePathDefaultValue(){
         filePath = "C:\\";
-        System.out.println("setFilePathDefaultValue " + filePath);
     }
 
     public void setFan50DefaultValue(){
