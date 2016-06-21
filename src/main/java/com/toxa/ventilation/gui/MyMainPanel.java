@@ -1,5 +1,8 @@
 package com.toxa.ventilation.gui;
 
+import com.toxa.ventilation.BaseInfo;
+import com.toxa.ventilation.Count;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,14 +11,26 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
-    private final double versionNumber = 1.121;
+    private final double versionNumber = 1.2;
 
     public MyMainPanel(){
         setTitle("Вентиляция ver" + versionNumber);
 
+        BaseInfo baseInfo = BaseInfo.getInstance();
+        Count count = new Count();
+        count.setBaseInfo(baseInfo);
+        baseInfo.setCount(count);
+
+
         toolBar = new MyToolBar(this);
+
         taskPanel = new TaskPanel();
-        resultPanel = new ResultsPanel();
+        taskPanel.setCount(count);
+
+        resultPanel = new ResultsPanel(count);
+        count.setResultsPanel(resultPanel);
+        baseInfo.setResultsPanel(resultPanel);
+        resultPanel.setTunnel();
 
         taskPanel.setResultsPanel(resultPanel);
 

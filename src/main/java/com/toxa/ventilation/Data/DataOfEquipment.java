@@ -24,6 +24,8 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> servomotor = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> emergency = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> cageArea = new LinkedHashMap<>();
+    private String filePath;
+    private boolean distributeByCountry;
 
 //    public DataOfEquipment (){
 //    }
@@ -50,6 +52,13 @@ public class DataOfEquipment implements Serializable {
         setEmergencyDefaultValue();
 
         setCageAreaDefaultValue();
+
+        setFilePathDefaultValue();
+    }
+
+    public void setFilePathDefaultValue(){
+        filePath = "C:\\";
+        System.out.println("setFilePathDefaultValue " + filePath);
     }
 
     public void setFan50DefaultValue(){
@@ -119,6 +128,7 @@ public class DataOfEquipment implements Serializable {
     }
 
     public void setServomotorDefaultValue(){
+        servomotor.put("TW150", new Storage(0, "Привод управления тросовкой"));
         servomotor.put("RW45E", new Storage(0, "Привод управления тросовкой"));
         servomotor.put("EGM-100A", new Storage(0, "Привод управления тросовкой"));
         servomotor.put("RDL200", new Storage(0, "Привод управления тросовкой"));
@@ -171,6 +181,14 @@ public class DataOfEquipment implements Serializable {
         cageArea.put("ТБЦ(бр)6", new Storage(4.2, ""));
         cageArea.put("ТББ3", new Storage(3.2, "")); cageArea.put("ТББ4", new Storage(4.1, "")); cageArea.put("ТББ5", new Storage(5.0, ""));
         cageArea.put("ТБР2", new Storage(1.9, "")); cageArea.put("ТБР3", new Storage(2.6, ""));
+    }
+
+    public String getFilePath(){
+        return filePath;
+    }
+
+    public boolean isDistributeByCountry(){
+        return distributeByCountry;
     }
 
     public LinkedHashMap<String, Storage> getFan50() {
@@ -251,6 +269,14 @@ public class DataOfEquipment implements Serializable {
 
     public LinkedHashMap<String, Storage> getCageArea() {
         return cageArea;
+    }
+
+    public void updateFilePath(String filePath){
+        this.filePath = filePath;
+    }
+
+    public void updateDistributeByCountry(boolean value){
+        distributeByCountry = value;
     }
 
     public void updateFan50(StringBuilder value){

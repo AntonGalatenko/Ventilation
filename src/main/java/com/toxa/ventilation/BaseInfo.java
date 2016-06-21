@@ -1,12 +1,12 @@
 package com.toxa.ventilation;
 
 import com.toxa.ventilation.Data.ActualValues;
-import com.toxa.ventilation.gui.MyFileChooser;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.SettingsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,17 +26,30 @@ public class BaseInfo {
     private double airSpeedForPadCool = 1.5;
 
     private int firstGroup;
-    public BaseInfo(TaskPanel taskPanel) {
-        this.taskPanel = taskPanel;
-    }
+
+//    public BaseInfo(TaskPanel taskPanel) {
+//        this.taskPanel = taskPanel;
+//    }
 
     private BaseInfo() {
     }
 
-        public static BaseInfo getInstance() {
+    public static BaseInfo getInstance() {
         if(instance == null)
             instance = new BaseInfo();
         return instance;
+    }
+
+    public void setTaskPanel(TaskPanel taskPanel){
+        this.taskPanel = taskPanel;
+    }
+
+    public void setCount(Count count){
+        this.count = count;
+    }
+
+    public void setSettingsPanel(SettingsPanel settingsPanel) {
+        this.settingsPanel = settingsPanel;
     }
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
@@ -186,14 +199,6 @@ public class BaseInfo {
         resultsPanel.setAutomaticSensorCO2Spinner(1);
 
         taskPanel.setDisablesCageTiredAndCageNumberComboBox();
-    }
-
-    public void setCount(Count count){
-        this.count = count;
-    }
-
-    public void setSettingsPanel(SettingsPanel settingsPanel) {
-        this.settingsPanel = settingsPanel;
     }
 
     public String getCompanyName() {
@@ -430,10 +435,6 @@ public class BaseInfo {
         return count.padCoolWaterCirculation();
     }
 
-    public static String getPathFile(){
-        return MyFileChooser.getPath();
-    }
-
     public String getFilePathName(){
         return getPathFile() + "/" +
                 getCompanyName() + " " +
@@ -445,7 +446,26 @@ public class BaseInfo {
 
     }
 
-    public boolean isDirectory(){
-        return settingsPanel.isDirectory();
+    public String getPathFile(){
+        if(isDistributeByCountry()){
+            if (isDirectoryExist(getCountry()))
+                return new ActualValues().loadActualValue().getFilePath() + "/" + getCountry();
+            else{
+                if(! isDirectoryExist("Temp"))
+                    new File(new ActualValues().loadActualValue().getFilePath() + "/Temp").mkdir();
+                return new ActualValues().loadActualValue().getFilePath() + "/Temp";
+                }
+            }
+        else
+            return new ActualValues().loadActualValue().getFilePath();
+    }
+
+    public boolean isDistributeByCountry(){
+        return settingsPanel.isDistributeByCountry();
+    }
+
+    public boolean isDirectoryExist(String country){
+        String dir = new ActualValues().loadActualValue().getFilePath() + "/" + country;
+        return new File(dir).exists();
     }
 }

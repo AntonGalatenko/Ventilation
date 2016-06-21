@@ -14,8 +14,8 @@ public class Count {
 
 
     public Count(){
-        baseInfo = BaseInfo.getInstance();
-        baseInfo.setCount(this);
+//        baseInfo = BaseInfo.getInstance();
+//        baseInfo.setCount(this);
     }
 
 //    public static Count getInstance() {

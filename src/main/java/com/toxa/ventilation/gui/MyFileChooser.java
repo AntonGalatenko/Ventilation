@@ -7,13 +7,15 @@ import java.io.File;
 
 public class MyFileChooser extends JFrame {
 
-    private static String path;
+    private String path;
+    BaseInfo baseInfo;
 
     public MyFileChooser(){
+        baseInfo = BaseInfo.getInstance();
         JFileChooser chooser = new JFileChooser();
 
-        if(BaseInfo.getPathFile() != null)
-            chooser.setCurrentDirectory(new File(BaseInfo.getPathFile()));
+        if(baseInfo.getPathFile() != null)
+            chooser.setCurrentDirectory(new File(baseInfo.getPathFile()));
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.showOpenDialog(this);
@@ -21,12 +23,14 @@ public class MyFileChooser extends JFrame {
         if(chooser.getSelectedFile().getPath() != null)
             path = chooser.getSelectedFile().getPath();
 
+//        System.out.println("MyFileChooser " + path);
+
 //        setPreferredSize(new Dimension(500, 200));
 //        pack();
 //        setVisible(true);
     }
 
-    public static String getPath(){
+    public String getPath(){
         return path;
     }
 }

@@ -15,8 +15,7 @@ public class TaskPanel extends JPanel{
 
     private BaseInfo baseInfo;
     private Count count;
-    ExcelApachePOI excelApachePOI;
-
+    private ExcelApachePOI excelApachePOI;
     private ResultsPanel resultsPanel;
 
     private JPanel mainPanel;
@@ -71,9 +70,11 @@ public class TaskPanel extends JPanel{
 
         add(mainPanel);
 
-        baseInfo = new BaseInfo(this);
-        count = new Count();
-        count.setBaseInfo(baseInfo);
+//        baseInfo = new BaseInfo(this);
+        baseInfo = BaseInfo.getInstance();
+        baseInfo.setTaskPanel(this);
+//        count = new Count();
+//        count.setBaseInfo(baseInfo);
 
 
         cageNameComboBox.addItemListener(new ItemListener() {
@@ -141,8 +142,10 @@ public class TaskPanel extends JPanel{
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
         this.resultsPanel = resultsPanel;
-        baseInfo.setResultsPanel(resultsPanel);
-        resultsPanel.setCount(count);
+    }
+
+    public void setCount(Count count){
+        this.count = count;
     }
 
 

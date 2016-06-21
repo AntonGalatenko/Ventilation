@@ -107,9 +107,11 @@ public class ResultsPanel extends JPanel{
     private JLabel airInletWallAirOneHeadLabel;
     private JLabel airInletWallDistanceLabel;
 
-    public ResultsPanel(){
+    public ResultsPanel(Count c){
 //        count = Count.getInstance();
 //        count.setResultsPanel(this);
+
+        count = c;
 
         add(mainPanel);
 
@@ -431,9 +433,6 @@ public class ResultsPanel extends JPanel{
             }
         });
 
-        setElementsOnPanelForTunnelVentilationType();
-        setElementOnPanelDisableForHeating();
-
         fan50ComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -472,6 +471,12 @@ public class ResultsPanel extends JPanel{
                 count.countAirInletWallAndAirOneHeadAndDistance();
             }
         });
+
+    }
+
+    public void setTunnel(){
+        setElementsOnPanelForTunnelVentilationType();
+        setElementOnPanelDisableForHeating();
     }
 
     public void setDefaultValues(){
@@ -669,7 +674,7 @@ public class ResultsPanel extends JPanel{
 
     public void setCount(Count count){
         this.count = count;
-        count.setResultsPanel(this);
+//        count.setResultsPanel(this);
     }
 
     public int getFan50Count() {
