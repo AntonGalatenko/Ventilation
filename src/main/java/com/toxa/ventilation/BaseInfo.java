@@ -202,7 +202,7 @@ public class BaseInfo {
     }
 
     public String getCompanyName() {
-        return taskPanel.getCompanyName();
+        return taskPanel.getCompanyName().trim();
     }
 
     public String getPoultryHouseNumber() {
@@ -449,7 +449,7 @@ public class BaseInfo {
     public String getPathFile(){
         if(isDistributeByCountry()){
             if (isDirectoryExist(getCountry()))
-                return new ActualValues().loadActualValue().getFilePath() + "/" + getCountry();
+                return new ActualValues().loadActualValue().getFilePath() + "/" + getCountry().trim();
             else{
                 if(! isDirectoryExist("Temp"))
                     new File(new ActualValues().loadActualValue().getFilePath() + "/Temp").mkdir();
