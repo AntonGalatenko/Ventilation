@@ -149,19 +149,21 @@ public class Count {
     }
 
     public double[] padCoolFaceSideLength(){
-        double result = 0;
+        double length = 0;
         int count = 0;
 
         if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSide()){
-            result = padCoolCurrentLength(baseInfo.getBuildingWidth(), true);
+            length = padCoolCurrentLength(baseInfo.getBuildingWidth(), true);
             count = 1;
+            System.out.println("if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSide()){");
         }
         else if(! baseInfo.isFan50TwoSide()){
-            result = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2 ,true);
+            length = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2 ,true);
             count = 2;
+            System.out.println("else if(! baseInfo.isFan50TwoSide()){");
         }
-
-        return new double[]{result, count};
+        System.out.println("length " + length + ", count " + count);
+        return new double[]{length, count};
     }
 
     public double padCoolCurrentLength(double value, boolean isFaceSide) {
