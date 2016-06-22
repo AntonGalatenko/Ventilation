@@ -403,6 +403,7 @@ public class ResultsPanel extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 count.countFan50();
                 count.countPadCoolAndAirInlet();
+                count.countFan50AirSpeed();
             }
         });
 

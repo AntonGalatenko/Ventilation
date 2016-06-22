@@ -155,14 +155,11 @@ public class Count {
         if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSide()){
             length = padCoolCurrentLength(baseInfo.getBuildingWidth(), true);
             count = 1;
-            System.out.println("if (baseInfo.getBuildingWidth() <= 22 && ! baseInfo.isFan50TwoSide()){");
         }
         else if(! baseInfo.isFan50TwoSide()){
             length = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2 ,true);
             count = 2;
-            System.out.println("else if(! baseInfo.isFan50TwoSide()){");
         }
-        System.out.println("length " + length + ", count " + count);
         return new double[]{length, count};
     }
 

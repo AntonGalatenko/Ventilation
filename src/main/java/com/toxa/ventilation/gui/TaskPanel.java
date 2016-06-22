@@ -84,7 +84,6 @@ public class TaskPanel extends JPanel{
                 if(e.getStateChange() == 1){
                     baseInfo.setInfo();
                 }
-
             }
         });
 
@@ -100,22 +99,6 @@ public class TaskPanel extends JPanel{
         countButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(getCompanyName());
-                System.out.println(getCountry());
-                System.out.println(getHeadsNumber());
-                System.out.println(getBuildingLength());
-                System.out.println(getBuildingWidth());
-                System.out.println(getBuildingHeightMin());
-                System.out.println(getBuildingHeightMax());
-                System.out.println(getCageName());
-                System.out.println(getCageTiers1());
-                System.out.println(getCageNumber1());
-                System.out.println(getCageTiers2());
-                System.out.println(getCageNumber2());
-                System.out.println(getVentilationType());
-                System.out.println(getAirSummer());
-                System.out.println(getAirWinter());
-
                 count.startCount();
 
                 baseInfo.setResultPanelVisible(true);
@@ -147,10 +130,6 @@ public class TaskPanel extends JPanel{
         setDefaultValues();
     }
 
-//    public void setResultsPanel(ResultsPanel resultsPanel) {
-//        this.resultsPanel = resultsPanel;
-//    }
-
     public void setCount(Count count){
         this.count = count;
     }
@@ -173,38 +152,54 @@ public class TaskPanel extends JPanel{
     }
 
     public String getCompanyName() {
-        if(companyNameTextField.getText().length() == 0)
-            companyNameTextField.setText("Название фабрики");
         return companyNameTextField.getText();
     }
 
     public String getCountry(){
-        if(countryTextField.getText().length() == 0)
-            countryTextField.setText("Страна");
         return countryTextField.getText();
     }
 
     public int getHeadsNumber() {
-        if(headsNumberTextField.getText().length() == 0)
-            headsNumberTextField.setText("96360");
+        try{
+            headsNumberTextField.setBackground(Color.WHITE);
+            return Integer.parseInt(headsNumberTextField.getText());
+        } catch (NumberFormatException e){
+            headsNumberTextField.setBackground(Color.YELLOW);
+            e.printStackTrace();
+        }
         return Integer.parseInt(headsNumberTextField.getText());
     }
 
     public double getBuildingLength() {
-        if(lengthTextField.getText().length() == 0)
-            lengthTextField.setText("96");
+        try{
+            lengthTextField.setBackground(Color.WHITE);
+            return Integer.parseInt(lengthTextField.getText());
+        } catch (NumberFormatException e){
+            lengthTextField.setBackground(Color.YELLOW);
+            e.printStackTrace();
+        }
         return Double.parseDouble(lengthTextField.getText().replace(",", "."));
     }
 
     public double getBuildingWidth() {
-        if(widthTextField.getText().length() == 0)
-            widthTextField.setText("18");
+        try{
+            widthTextField.setBackground(Color.WHITE);
+            return Integer.parseInt(widthTextField.getText());
+        } catch (NumberFormatException e){
+            widthTextField.setBackground(Color.YELLOW);
+            e.printStackTrace();
+        }
         return Double.parseDouble(widthTextField.getText().replace(",", "."));
     }
 
     public double getBuildingHeightMin() {
-        if(heightMinTextField.getText().length() == 0)
-            heightMinTextField.setText("4");
+        try{
+            heightMinTextField.setBackground(Color.WHITE);
+            return Integer.parseInt(heightMinTextField.getText());
+        } catch (NumberFormatException e){
+            heightMinTextField.setBackground(Color.YELLOW);
+            e.printStackTrace();
+        }
         return Double.parseDouble(heightMinTextField.getText().replace(",", "."));
     }
 
