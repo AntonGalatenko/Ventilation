@@ -471,21 +471,31 @@ public class Count {
 
         int fans = (int)Math.ceil(baseInfo.getHeadsNumber() * INDEX / baseInfo.getFan50Capacity());
 
+        int fanCount = resultsPanel.getFan50Count();
+        if(resultsPanel.isFan50TwoSide()){
+            fanCount /= 2;
+            fans /= 2;
+        }
+
         if(fans == 0)
             fans++;
 
         result.add(fans);
 
-        while (groupCountAllList(result) < resultsPanel.getFan50Count()) {
+        while (groupCountAllList(result) < fanCount) {
             fans = (int)Math.ceil(fans * 1.55);
 
-            if(groupCountAllList(result) + fans > resultsPanel.getFan50Count())
-                result.add(resultsPanel.getFan50Count() - groupCountAllList(result));
+            if(groupCountAllList(result) + fans > fanCount)
+                result.add(fanCount - groupCountAllList(result));
             else
                 result.add(fans);
         }
 
         Collections.sort(result);
+
+        if(resultsPanel.isFan50TwoSide())
+            result.add(-1);
+
         return result;
     }
 
@@ -522,6 +532,11 @@ public class Count {
         if(resultsPanel.getFan50RadioButton().isSelected()){
             Integer[] x = countFan50Group().toArray(new Integer[0]);
             result.put(resultsPanel.getFan50Name(), x);
+        }
+
+        if(resultsPanel.getShutterRadioButton().isSelected()){
+            Integer[] x = countShutterGroup().toArray(new Integer[0]);
+            result.put(resultsPanel.getShutterName(), x);
         }
 
         return result;

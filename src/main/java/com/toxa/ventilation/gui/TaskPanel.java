@@ -152,55 +152,59 @@ public class TaskPanel extends JPanel{
     }
 
     public String getCompanyName() {
+        if(companyNameTextField.getText().length() == 0)
+            companyNameTextField.setText("Название фабирики");
+
         return companyNameTextField.getText();
     }
 
     public String getCountry(){
+        if(countryTextField.getText().length() == 0)
+            countryTextField.setText("Страна");
+
         return countryTextField.getText();
     }
 
     public int getHeadsNumber() {
-        try{
-            headsNumberTextField.setBackground(Color.WHITE);
-            return Integer.parseInt(headsNumberTextField.getText());
-        } catch (NumberFormatException e){
-            headsNumberTextField.setBackground(Color.YELLOW);
-            e.printStackTrace();
-        }
+        if(headsNumberTextField.getText().length() == 0)
+            headsNumberTextField.setText("96360");
+
+        checkNumberField(headsNumberTextField);
         return Integer.parseInt(headsNumberTextField.getText());
     }
 
     public double getBuildingLength() {
-        try{
-            lengthTextField.setBackground(Color.WHITE);
-            return Integer.parseInt(lengthTextField.getText());
-        } catch (NumberFormatException e){
-            lengthTextField.setBackground(Color.YELLOW);
-            e.printStackTrace();
-        }
+        if(lengthTextField.getText().length() == 0)
+            lengthTextField.setText("96");
+
+        checkNumberField(lengthTextField);
         return Double.parseDouble(lengthTextField.getText().replace(",", "."));
     }
 
     public double getBuildingWidth() {
-        try{
-            widthTextField.setBackground(Color.WHITE);
-            return Integer.parseInt(widthTextField.getText());
-        } catch (NumberFormatException e){
-            widthTextField.setBackground(Color.YELLOW);
-            e.printStackTrace();
-        }
+        if(widthTextField.getText().length() == 0)
+            widthTextField.setText("18");
+
+        checkNumberField(widthTextField);
         return Double.parseDouble(widthTextField.getText().replace(",", "."));
     }
 
     public double getBuildingHeightMin() {
+        if(heightMinTextField.getText().length() == 0)
+            heightMinTextField.setText("4");
+
+        checkNumberField(heightMinTextField);
+        return Double.parseDouble(heightMinTextField.getText().replace(",", "."));
+    }
+
+    private void checkNumberField(JTextField field){
         try{
-            heightMinTextField.setBackground(Color.WHITE);
-            return Integer.parseInt(heightMinTextField.getText());
+            field.setBackground(Color.WHITE);
+            Double.parseDouble(field.getText().replace(",", "."));
         } catch (NumberFormatException e){
-            heightMinTextField.setBackground(Color.YELLOW);
+            field.setBackground(Color.YELLOW);
             e.printStackTrace();
         }
-        return Double.parseDouble(heightMinTextField.getText().replace(",", "."));
     }
 
     public double getBuildingHeightMax() {

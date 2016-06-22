@@ -14,8 +14,6 @@ import java.util.Scanner;
 
 public class ExcelApachePOI {
 
-//    private BufferedReader br = null;
-
     private Scanner scanner;
 
     private HSSFWorkbook wb;
@@ -41,16 +39,14 @@ public class ExcelApachePOI {
 
         setAlignmentCenter();
 
-//        saveThis();
     }
 
     private void getJson(){
         try {
-//            br = new BufferedReader(new FileReader("base.json"));
 
             String json = new CreateJson().getJson();
 
-//            System.out.println(json);
+            System.out.println(json);
 
             scanner = new Scanner(json);
 
@@ -307,27 +303,45 @@ public class ExcelApachePOI {
                     printBorderText("гр.", i, 54);
 
                 for(String s : parseGroup(text[1])){
-                    if(i > 4)
-                        printBorderText(String.valueOf(group), i - 2, rowNum);
-                    else
+                    if(s.equals("-1 ")){
+                        copyCellForFan50TwoSide(i + 1, rowNum);
+                    } else if(i < 4){
                         printBorderText(String.valueOf(group), i, rowNum);
-
-                    if(i < 4)
                         printBorderText(s, i + 1, rowNum++);
-                    else
+                    } else
                         printBorderText(s, i, rowNum++);
-
                     group++;
                 }
 
                 if(i < 3){
-                    i = i + 3;
+                    i += 3;
                     rowNum = 55;
                 }
-                else
-                    i = i + 2;
+                else{
+                    i += 2;
+                    rowNum = 55;
+                }
             }
         }
+    }
+
+    private void copyCellForFan50TwoSide(int cellNum, int finishRowNum){
+        int startRowNum = 54;
+
+        HSSFCell cellTmp;
+        do {
+            row = sheet.getRow(startRowNum);
+            cell = row.getCell(cellNum);
+
+            cellTmp = row.createCell(cellNum + 1);
+            cellTmp.setCellStyle(cell.getCellStyle());
+            cellTmp.setCellValue(cell.getStringCellValue());
+
+
+            startRowNum++;
+        } while (startRowNum < finishRowNum);
+
+
     }
 
     private void groupTextLeftAlignment(int n){
@@ -370,9 +384,6 @@ public class ExcelApachePOI {
         FileOutputStream fos = null;
 
         try {
-//            fos = new FileOutputStream(new File("tmp.xls"));
-//            fos = new FileOutputStream(new File("d:\\12\\tmp.xls"));
-//            fos = new FileOutputStream(new File("d:\\12\\" + pathNameForFileName() + ".xls"));
             fos = new FileOutputStream(new File(pathNameForFileName() + ".xls"));
             wb.write(fos);
             fos.close();
@@ -389,7 +400,6 @@ public class ExcelApachePOI {
     public void openExcel(){
         Desktop desktop = Desktop.getDesktop();
         try {
-//            desktop.open(new File("d:\\12\\" + pathNameForFileName() + ".xls"));
             desktop.open(new File(pathNameForFileName() + ".xls"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -398,7 +408,6 @@ public class ExcelApachePOI {
 
     private String pathNameForFileName(){
         String result = pathName.replace("\"", "");
-//        result = result.replace("\\","");
         return result;
     }
 

@@ -432,7 +432,7 @@ public class BaseInfo {
     }
 
     public String getFilePathName(){
-        return getPathFile() + "/" +
+        return getPathFile() + "\\" +
                 getCompanyName() + " " +
                 getBuildingLengthString() + "x" +
                 getBuildingWidthString() + "x" +
@@ -461,7 +461,7 @@ public class BaseInfo {
     }
 
     public boolean isDirectoryExist(String country){
-        String dir = new ActualValues().loadActualValue().getFilePath() + "/" + country;
+        String dir = new ActualValues().loadActualValue().getFilePath() + "\\" + country;
         return new File(dir).exists();
     }
 
