@@ -672,10 +672,10 @@ public class ResultsPanel extends JPanel{
         }
     }
 
-    public void setCount(Count count){
-        this.count = count;
-//        count.setResultsPanel(this);
-    }
+//    public void setCount(Count count){
+//        this.count = count;
+////        count.setResultsPanel(this);
+//    }
 
     public int getFan50Count() {
         return (int) fan50Spinner.getValue();
@@ -1031,6 +1031,10 @@ public class ResultsPanel extends JPanel{
 
     public LinkedHashMap<String, Integer[]> getGroups() {
         return count.getGroups();
+    }
+
+    public int[] padCoolWaterCirculation(){
+        return count.padCoolWaterCirculation();
     }
 
     public void setElementsOnPanelForTunnelVentilationType(){

@@ -2,7 +2,6 @@ package com.toxa.ventilation;
 
 import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.gui.ResultsPanel;
-import com.toxa.ventilation.gui.SettingsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
 
@@ -17,14 +16,11 @@ public class BaseInfo {
 
     private TaskPanel taskPanel;
     private ResultsPanel resultsPanel;
-    private Count count;
-    private SettingsPanel settingsPanel;
-
+//    private Count count;
+//    private SettingsPanel settingsPanel;
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
-
     private int airForAirInletForTunnelTypeOfVentilation = 3;
     private double airSpeedForPadCool = 1.5;
-
     private int firstGroup;
 
 //    public BaseInfo(TaskPanel taskPanel) {
@@ -44,13 +40,13 @@ public class BaseInfo {
         this.taskPanel = taskPanel;
     }
 
-    public void setCount(Count count){
-        this.count = count;
-    }
+//    public void setCount(Count count){
+//        this.count = count;
+//    }
 
-    public void setSettingsPanel(SettingsPanel settingsPanel) {
-        this.settingsPanel = settingsPanel;
-    }
+//    public void setSettingsPanel(SettingsPanel settingsPanel) {
+//        this.settingsPanel = settingsPanel;
+//    }
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
         this.resultsPanel = resultsPanel;
@@ -336,7 +332,7 @@ public class BaseInfo {
     public LinkedHashMap<String, Integer[]> getGroups(){
 //        return Count.getInstance().getGroups();
 //        return  null;
-        return count.getGroups();
+        return resultsPanel.getGroups();
     }
 
     public int getFanRoofCapacity(){
@@ -432,7 +428,7 @@ public class BaseInfo {
     }
 
     public int[] padCoolWaterCirculation(){
-        return count.padCoolWaterCirculation();
+        return resultsPanel.padCoolWaterCirculation();
     }
 
     public String getFilePathName(){
@@ -470,6 +466,19 @@ public class BaseInfo {
     }
 
     public String getFilePathText(){
-        return settingsPanel.getFilePath();
+        return new ActualValues().loadActualValue().getFilePath();
     }
+
+    public void setModelsToComboBoxInResultsPanel(){
+        resultsPanel.setModelsToComboBox();
+    }
+
+    public boolean isResultsPanelVisible(){
+        return resultsPanel.isVisible();
+    }
+
+    public void setResultPanelVisible(boolean value){
+        resultsPanel.setVisible(value);
+    }
+
 }

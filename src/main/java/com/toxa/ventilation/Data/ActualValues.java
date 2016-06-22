@@ -9,9 +9,6 @@ public class ActualValues extends DataOfEquipment{
 
     private static DataOfEquipment actualValues;
 
-//    public ActualValues(){
-//    }
-
     public DataOfEquipment loadActualValue(){
         if(actualValues != null)
             return actualValues;
@@ -22,8 +19,8 @@ public class ActualValues extends DataOfEquipment{
             ois = new ObjectInputStream(fis);
             actualValues = (DataOfEquipment)ois.readObject();
         } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-            System.err.println(e.getMessage());
+            e.printStackTrace();
+//            System.err.println(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

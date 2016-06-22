@@ -16,7 +16,6 @@ public class TaskPanel extends JPanel{
     private BaseInfo baseInfo;
     private Count count;
     private ExcelApachePOI excelApachePOI;
-    private ResultsPanel resultsPanel;
     private MyMainPanel myMainPanel;
 
     private JPanel mainPanel;
@@ -119,31 +118,8 @@ public class TaskPanel extends JPanel{
 
                 count.startCount();
 
-                resultsPanel.setVisible(true);
+                baseInfo.setResultPanelVisible(true);
                 myMainPanel.pack();
-            }
-        });
-
-        countButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(getCompanyName());
-                System.out.println(getCountry());
-                System.out.println(getHeadsNumber());
-                System.out.println(getBuildingLength());
-                System.out.println(getBuildingWidth());
-                System.out.println(getBuildingHeightMin());
-                System.out.println(getBuildingHeightMax());
-                System.out.println(getCageName());
-                System.out.println(getCageTiers1());
-                System.out.println(getCageNumber1());
-                System.out.println(getCageTiers2());
-                System.out.println(getCageNumber2());
-                System.out.println(getVentilationType());
-                System.out.println(getAirSummer());
-                System.out.println(getAirWinter());
-
-                count.startCount();
             }
         });
 
@@ -160,10 +136,10 @@ public class TaskPanel extends JPanel{
         hideShowResPanelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(resultsPanel.isVisible())
-                    resultsPanel.setVisible(false);
+                if(baseInfo.isResultsPanelVisible())
+                    baseInfo.setResultPanelVisible(false);
                 else
-                    resultsPanel.setVisible(true);
+                    baseInfo.setResultPanelVisible(true);
                 myMainPanel.pack();
             }
         });
@@ -171,9 +147,9 @@ public class TaskPanel extends JPanel{
         setDefaultValues();
     }
 
-    public void setResultsPanel(ResultsPanel resultsPanel) {
-        this.resultsPanel = resultsPanel;
-    }
+//    public void setResultsPanel(ResultsPanel resultsPanel) {
+//        this.resultsPanel = resultsPanel;
+//    }
 
     public void setCount(Count count){
         this.count = count;
@@ -189,6 +165,11 @@ public class TaskPanel extends JPanel{
         cageNumberComboBox1.setSelectedIndex(1);
 
         updateCageTiersComboBox();
+    }
+
+    public void updateCageTiersComboBox() {
+        cageTiersComboBox1.setModel(getCageTiersForComboBoxModel());
+        cageTiersComboBox2.setModel(getCageTiersForComboBoxModel());
     }
 
     public String getCompanyName() {
@@ -283,11 +264,6 @@ public class TaskPanel extends JPanel{
             defaultComboBoxModel.addElement(i);
 
         return defaultComboBoxModel;
-    }
-
-    public void updateCageTiersComboBox() {
-        cageTiersComboBox1.setModel(getCageTiersForComboBoxModel());
-        cageTiersComboBox2.setModel(getCageTiersForComboBoxModel());
     }
 
     public void updateAirSpinner() {

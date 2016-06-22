@@ -11,18 +11,18 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
-    private final double versionNumber = 1.221;
+    private final double versionNumber = 1.3;
 
     public MyMainPanel(){
         setTitle("Вентиляция ver" + versionNumber);
 
         BaseInfo baseInfo = BaseInfo.getInstance();
         Count count = new Count();
-        count.setBaseInfo(baseInfo);
-        baseInfo.setCount(count);
+//        count.setBaseInfo(baseInfo);
+//        baseInfo.setCount(count);
 
 
-        toolBar = new MyToolBar(this);
+        toolBar = new MyToolBar(/*this*/);
 
         taskPanel = new TaskPanel();
         taskPanel.setCount(count);
@@ -34,7 +34,7 @@ public class MyMainPanel extends JFrame{
         resultPanel.setTunnel();
         resultPanel.setVisible(false);
 
-        taskPanel.setResultsPanel(resultPanel);
+//        taskPanel.setResultsPanel(resultPanel);
 
         mainPanel = new JPanel(new BorderLayout());
 
@@ -49,23 +49,8 @@ public class MyMainPanel extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-//    public void update(ResultsPanel resultsPanel){
-//        mainPanel.remove(resultPanel);
-//        mainPanel.add(resultsPanel);
-//        repaint();
-//    }
-
     public ResultsPanel getResultPanel (){
         return resultPanel;
     }
 
-//    public void setVisibleAndInvisibleSettingsPanel(){
-//        if(settingsPanel.isVisible())
-//            settingsPanel.setVisible(false);
-//        else
-//            settingsPanel.setVisible(true);
-//        System.out.println("123");
-//        repaint();
-//        revalidate();
-//    }
 }

@@ -4,11 +4,13 @@ package com.toxa.ventilation;
 import com.toxa.ventilation.gui.MyMainPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
 public class Main {
+    private static MyMainPanel mainPanel;
 
     public static void main(String[] args) {
 
@@ -17,9 +19,13 @@ public class Main {
 //        new MyMainPanel();
 //        new CardLayoutPanel();
 
-        setLogFile();
+//        setLogFile();
 
-        new MyMainPanel();
+        mainPanel = new MyMainPanel();
+    }
+
+    public static Point getMainPanelLocation(){
+        return mainPanel.getLocation();
     }
 
     private static void setLogFile(){

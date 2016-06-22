@@ -4,6 +4,7 @@ import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.Data.Storage;
+import com.toxa.ventilation.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 
 public class SettingsPanel extends JDialog{
 
-    private MyToolBar myToolBar;
+//    private MyToolBar myToolBar;
 //    private MyMainPanel myMainPanel;
     private DataOfEquipment dataOfEquipment;
     private MyFileChooser fileChooser;
@@ -89,8 +90,8 @@ public class SettingsPanel extends JDialog{
     private JCheckBox distributeByCountryCheckBox;
     private JLabel fileChooserLabel;
 
-    public SettingsPanel(final MyToolBar myToolBar){
-        this.myToolBar = myToolBar;
+    public SettingsPanel(/*final MyToolBar myToolBar*/){
+//        this.myToolBar = myToolBar;
         setLocationForThisFrame();
 
         setTitle("Настройки");
@@ -101,14 +102,15 @@ public class SettingsPanel extends JDialog{
 
         setDefaultNamesDescriptionsCapacity();
 
-        BaseInfo.getInstance().setSettingsPanel(this);
+//        BaseInfo.getInstance().setSettingsPanel(this);
 
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveActualValue();
                 dispose();
-                myToolBar.getMyMainPanel().getResultPanel().setModelsToComboBox();
+//                myToolBar.getMyMainPanel().getResultPanel().setModelsToComboBox();
+                BaseInfo.getInstance().setModelsToComboBoxInResultsPanel();
                 new ActualValues().loadActualValue();
             }
         });
@@ -201,7 +203,7 @@ public class SettingsPanel extends JDialog{
     }
 
     public void setLocationForThisFrame(){
-        Point point = myToolBar.getMyMainPanel().getLocation();
+        Point point = Main.getMainPanelLocation();
         setLocation((int)point.getX() + 10, (int)point.getY() + 30);
     }
 

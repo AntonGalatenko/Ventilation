@@ -6,29 +6,14 @@ import java.util.*;
 
 public class Count {
 
-    private static Count instance;
     private BaseInfo baseInfo;
     private ResultsPanel resultsPanel;
 
     final double INDEX = 0.7;
 
-
-    public Count(){
-//        baseInfo = BaseInfo.getInstance();
-//        baseInfo.setCount(this);
-    }
-
-//    public static Count getInstance() {
-//        if(instance == null)
-//            instance = new Count();
-//        return instance;
-//    }
-
-//    public void countFinish(){
-//        resultsPanel.updateResults();
-//    }
-
     public void startCount(){
+        baseInfo = BaseInfo.getInstance();
+
         countFan50();
         countFan36();
         countFan26();
@@ -39,20 +24,18 @@ public class Count {
         countShutter();
 
         countPadCoolAndAirInlet();
-//        countAirInletPadCool();
 
         countHeaterAndFanCirculation();
 
         countFan50AirSpeed();
         countAirTotalCurrent();
-//        countFinish();
 
         countEmergency();
     }
 
-    public void setBaseInfo(BaseInfo baseInfo) {
-        this.baseInfo = baseInfo;
-    }
+//    public void setBaseInfo(BaseInfo baseInfo) {
+//        this.baseInfo = baseInfo;
+//    }
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
         this.resultsPanel = resultsPanel;
@@ -65,8 +48,6 @@ public class Count {
             result++;
 
         resultsPanel.setFan50Count(result);
-//        countFan50Group();
-
         return result;
     }
 
@@ -74,8 +55,6 @@ public class Count {
         int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter()) / baseInfo.getFan36Capacity());
 
         resultsPanel.setFan36Count(result);
-        countFan36Group();
-
         return result;
     }
 
@@ -90,8 +69,6 @@ public class Count {
         }
 
         resultsPanel.setFan26Count(result);
-        countFan26Group();
-
         return result;
     }
 
@@ -99,8 +76,6 @@ public class Count {
         int result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirWinter() / baseInfo.getFanRoofCapacity()));
 
         resultsPanel.setFanRoofCount(result);
-        countFanRoofGroup();
-
         return result;
     }
 
@@ -109,6 +84,7 @@ public class Count {
 
         if(resultsPanel.getFan26RadioButton().isSelected() && resultsPanel.getFan26Count() > 1)
             result = (int)(Math.ceil(resultsPanel.getFan26Count() * baseInfo.getFan26Capacity() / baseInfo.getShaftCapacity()));
+
         if(resultsPanel.getFan36RadioButton().isSelected() /*|| (resultsPanel.getFan26Count() == 1)*/)
             result += (int)(Math.ceil(resultsPanel.getFan36Count() * baseInfo.getFan36Capacity() / baseInfo.getShaftCapacity()));
 
@@ -116,9 +92,7 @@ public class Count {
             result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirForAirInletForTunnelTypeOfVentilation() / baseInfo.getShaftCapacity()));
 
         countServomotor();
-
         resultsPanel.setShaftCount(result);
-
         return result;
     }
 
@@ -144,7 +118,6 @@ public class Count {
         int result = (int)(Math.ceil(resultsPanel.getFan50Count() * baseInfo.getFan50Capacity() / baseInfo.getShutterCapacity()));
 
         resultsPanel.setShutterCount(result);
-
         return result;
     }
 
@@ -155,8 +128,7 @@ public class Count {
         resultsPanel.setHumidityLength2(padCoolOneSideLength()[0]);
         resultsPanel.setHumidityCount2((int) padCoolOneSideLength()[1]);
 
-        countShutterGroup();
-
+//        countShutterGroup();
         countAirInletPadCool();
     }
 
@@ -171,7 +143,6 @@ public class Count {
             count++;
 
         oneSideLength = padCoolCurrentLength(oneSideLength / count, false);
-
         count *= 2;
 
         return new double[]{oneSideLength, count};
@@ -203,7 +174,6 @@ public class Count {
             result = value - x + 0.6;
 
         result = Math.round(result * 10) / 10.0;
-
         return result;
     }
 
@@ -219,9 +189,7 @@ public class Count {
                 fansCapacity += resultsPanel.getFan26Count() * baseInfo.getFan26Capacity();
         }
 
-
         double result = fansCapacity / 3600 / baseInfo.getAirSpeedForPadCool();
-
         return result;
     }
 
@@ -243,7 +211,6 @@ public class Count {
         double result = fansCapacity / 3600 / padCoolSquareCurrent;
 
         resultsPanel.setHumidityAirSpeed(result);
-
         return result;
     }
 
@@ -287,7 +254,6 @@ public class Count {
         int result = resultFaceSide + resultOneSide;
 
         resultsPanel.setAirInletForPadCoolCount(result);
-
         countServomotor();
 
         return result;
@@ -303,6 +269,7 @@ public class Count {
 
         if(baseInfo.getCageName().equals("ТБР"))
             result /= 2;
+
         resultsPanel.setHeaterCount(result);
         resultsPanel.setFanCirculationCount(result);
         resultsPanel.setHeaterNeedPower(needPower);
@@ -315,7 +282,6 @@ public class Count {
         double airSummer = airSummerCount / baseInfo.getHeadsNumber();
 
         baseInfo.setAirSummerCurrent(airSummer);
-
         return  airSummer;
     }
 
@@ -330,7 +296,6 @@ public class Count {
             airWinterCount += resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity();
 
         double airWinter = airWinterCount / baseInfo.getHeadsNumber();
-
         baseInfo.setAirWinterCurrent(airWinter);
 
         return airWinter;
@@ -359,14 +324,12 @@ public class Count {
             cageSquare += (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers2())) * baseInfo.getCageNumber2();
 
         double totalSquare = buildSquare - cageSquare;
-
         double result = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity() / totalSquare / 3600;
 
         if(baseInfo.isFan50TwoSide())
             result /= 2;
 
         resultsPanel.setFan50AirSpeed(result);
-
         return result;
     }
 
@@ -375,7 +338,6 @@ public class Count {
         double result = airCapacity / baseInfo.getHeadsNumber();
 
         resultsPanel.setAirInletWallAirOneHead(result);
-
         return result;
     }
 
@@ -384,11 +346,9 @@ public class Count {
         buildingLength -= 12;
 
         double airInletNumberForOneSide = resultsPanel.getAirInletOnWallCount() / 2 - 1;
-
         double result = buildingLength / airInletNumberForOneSide;
 
         resultsPanel.setAirInletWallDistance(result);
-
         return result;
     }
 
@@ -407,8 +367,6 @@ public class Count {
             result += 1;
 
         resultsPanel.setServomotorCount(result);
-//        countEmergency();
-
         return result;
     }
 
@@ -418,13 +376,11 @@ public class Count {
             result = 1;
 
         resultsPanel.setEmergencyCount(result);
-
         return result;
     }
 
     public ArrayList<Integer> countShutterGroup() {
         ArrayList<Integer> result = new ArrayList<>();
-
         ArrayList<Integer> fan50GroupList = countFan50Group();
 
         for(int fans : fan50GroupList)
@@ -434,9 +390,6 @@ public class Count {
             result.set(result.size() - 1, result.get(result.size() - 1) - (groupCountAllList(result) - resultsPanel.getShutterCount()));
 
         Collections.sort(result);
-
-//        System.out.println("Shutter " + result);
-
         return result;
     }
 
@@ -460,10 +413,6 @@ public class Count {
         }
 
         Collections.sort(result);
-
-//        System.out.println("FanRoof " + result);
-
-
         return result;
     }
 
@@ -492,10 +441,6 @@ public class Count {
         }
 
         Collections.sort(result);
-
-//        System.out.println("Fan26 " + result);
-
-
         return result;
     }
 
@@ -519,9 +464,6 @@ public class Count {
         }
 
         Collections.sort(result);
-
-//        System.out.println("Fan36 " + result);
-
         return result;
     }
 
@@ -545,8 +487,6 @@ public class Count {
         }
 
         Collections.sort(result);
-
-//        System.out.println("Fan50 " + result);
         return result;
     }
 
@@ -561,7 +501,6 @@ public class Count {
     }
 
     public LinkedHashMap<String, Integer[]> getGroups(){
-//    public void setGroups(){
         LinkedHashMap<String, Integer[]> result = new LinkedHashMap<String, Integer[]>();
 
         result.put("first_group", new Integer[]{baseInfo.getFirstGroup()});
@@ -572,8 +511,6 @@ public class Count {
         }
 
         if(resultsPanel.getFanRoofRadioButton().isSelected()){
-
-
             Integer[] x = countFanRoofGroup().toArray(new Integer[0]);
             result.put(resultsPanel.getFanRoofName(), x);
         }
@@ -587,14 +524,6 @@ public class Count {
             Integer[] x = countFan50Group().toArray(new Integer[0]);
             result.put(resultsPanel.getFan50Name(), x);
         }
-
-//        Iterator<Map.Entry<String, Integer[]>> iterator = result.entrySet().iterator();
-//        while (iterator.hasNext()){
-//            Map.Entry<String, Integer[]>  entry = iterator.next();
-//            System.err.print(entry.getKey() + " ");
-//            for(int i : entry.getValue())
-//                System.err.print(i + " ");
-//        }
 
         return result;
     }
