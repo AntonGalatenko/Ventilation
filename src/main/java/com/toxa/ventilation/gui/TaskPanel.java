@@ -146,9 +146,23 @@ public class TaskPanel extends JPanel{
         updateCageTiersComboBox();
     }
 
-    public void updateCageTiersComboBox() {
+    private void updateCageTiersComboBox() {
         cageTiersComboBox1.setModel(getCageTiersForComboBoxModel());
         cageTiersComboBox2.setModel(getCageTiersForComboBoxModel());
+    }
+
+    public void setCageTierCurrentValue(){
+        int cageTier1 = 0;
+        int cageTier2 = 0;
+        if(cageTiersComboBox1.getSelectedItem() != null)
+            cageTier1 = getCageTiers1();
+        if(cageTiersComboBox2.getSelectedItem() != null)
+            cageTier2 = getCageTiers2();
+
+        updateCageTiersComboBox();
+
+        cageTiersComboBox1.setSelectedItem(cageTier1);
+        cageTiersComboBox2.setSelectedItem(cageTier2);
     }
 
     public String getCompanyName() {

@@ -78,7 +78,7 @@ public class BaseInfo {
                 break;
         }
 
-        taskPanel.updateCageTiersComboBox();
+        taskPanel.setCageTierCurrentValue();
         taskPanel.updateAirSpinner();
     }
 
