@@ -89,6 +89,9 @@ public class SettingsPanel extends JDialog{
     private JButton FileChooserButton;
     private JCheckBox distributeByCountryCheckBox;
     private JLabel fileChooserLabel;
+    private JLabel humidityWaterCirculationLabel;
+    private JTextArea humidityWaterCirculationTextArea;
+    private JScrollPane humidityWaterCirculationScrollPane;
 
     public SettingsPanel(/*final MyToolBar myToolBar*/){
 //        this.myToolBar = myToolBar;
@@ -152,6 +155,7 @@ public class SettingsPanel extends JDialog{
         setEmergencyNamesDescriptionsCapacity(parseEquipmentValue(dataOfEquipment.getEmergency()));
         setFileChooserText(dataOfEquipment.getFilePath());
         setDistributeByCountry(dataOfEquipment.isDistributeByCountry());
+        setHumidityWaterCirculation(dataOfEquipment.getHumidityWaterCirculation());
     }
 
     public void saveActualValue(){
@@ -185,6 +189,7 @@ public class SettingsPanel extends JDialog{
         dataOfEquipment.updateHumidity2(getHumidity2mNamesDescriptionsCapacity());
         dataOfEquipment.updateHumidity15(getHumidity15mNamesDescriptionsCapacity());
         dataOfEquipment.updateHumidity1(getHumidity1mNamesDescriptionsCapacity());
+        dataOfEquipment.updateHumidityWaterCirculation(getHumidityWaterCirculation());
         dataOfEquipment.updateHeater(getHeaterNamesDescriptionsCapacity());
         dataOfEquipment.updateFanCirculation(getFanCirculationNamesDescriptionsCapacity());
         dataOfEquipment.updateAutomatic(getAutomaticNamesDescriptionsCapacity());
@@ -192,7 +197,6 @@ public class SettingsPanel extends JDialog{
         dataOfEquipment.updateEmergency(getEmergencyNamesDescriptionsCapacity());
         dataOfEquipment.updateFilePath(getFilePath());
         dataOfEquipment.updateDistributeByCountry(isDistributeByCountry());
-
     }
 
     public StringBuilder parseEquipmentValue(HashMap<String, Storage> map){
@@ -300,6 +304,10 @@ public class SettingsPanel extends JDialog{
         return new StringBuilder().append(humidity1mTextArea.getText());
     }
 
+    public String getHumidityWaterCirculation(){
+        return humidityWaterCirculationTextArea.getText();
+    }
+
     public void setHumidity2NamesDescriptionsCapacity(StringBuilder text) {
         humidity2mTextArea.setText(text.toString());
     }
@@ -310,6 +318,10 @@ public class SettingsPanel extends JDialog{
 
     public void setHumidity1NamesDescriptionsCapacity(StringBuilder text) {
         humidity1mTextArea.setText(text.toString());
+    }
+
+    public void setHumidityWaterCirculation(String text){
+        humidityWaterCirculationTextArea.setText(text);
     }
 
     public StringBuilder getHeaterNamesDescriptionsCapacity() {

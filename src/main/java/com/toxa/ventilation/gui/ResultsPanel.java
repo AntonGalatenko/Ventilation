@@ -835,6 +835,10 @@ public class ResultsPanel extends JPanel{
         return (double)humidityLengthSpinner2.getValue();
     }
 
+    public String getHumidityWaterCirculation(){
+        return dataOfEquipment.getHumidityWaterCirculation();
+    }
+
     public void setHumidityLength2(double humidityLength2) {
         humidityLengthSpinner2.setValue(humidityLength2);
     }

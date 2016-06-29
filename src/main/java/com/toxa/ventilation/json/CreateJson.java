@@ -1,7 +1,6 @@
 package com.toxa.ventilation.json;
 
 import com.toxa.ventilation.BaseInfo;
-import com.toxa.ventilation.Count;
 import com.toxa.ventilation.Data.ActualValues;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -13,6 +12,7 @@ import java.util.List;
 public class CreateJson {
 
     private BaseInfo baseInfo;
+
     private JsonObject jsonObject;
     private ObjectMapper mapper;
 
@@ -115,14 +115,14 @@ public class CreateJson {
 
     private void selectedComponentsAddHumidityWaterCirculation(JsonEnt ent){
         JsonEquipment equipment = new JsonEquipment();
-        equipment.setName("ТСУ3-01.000-0" + getPadCoolWaterCirculation()[0]);
+        equipment.setName(baseInfo.getHumidityWaterCirculation() + "-0" + getPadCoolWaterCirculation()[0]);
         equipment.setDescription("Система циркуляции воды");
         equipment.setNumber(getPadCoolWaterCirculation()[1]);
         ent.addEquipment(equipment);
 
         if(getPadCoolWaterCirculation()[3] != 0){
             equipment = new JsonEquipment();
-            equipment.setName("ТСУ3-01.000-0" + getPadCoolWaterCirculation()[2]);
+            equipment.setName(baseInfo.getHumidityWaterCirculation() + "-0" + getPadCoolWaterCirculation()[2]);
             equipment.setDescription("Система циркуляции воды");
             equipment.setNumber(getPadCoolWaterCirculation()[3]);
             ent.addEquipment(equipment);

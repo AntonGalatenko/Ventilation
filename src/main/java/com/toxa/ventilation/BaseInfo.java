@@ -383,6 +383,10 @@ public class BaseInfo {
         return resultsPanel.getHumidityLength2();
     }
 
+    public String getHumidityWaterCirculation(){
+        return resultsPanel.getHumidityWaterCirculation();
+    }
+
     public double getCageArea(String value){
         return new ActualValues().loadActualValue().getCageArea().get(value).getCapacity();
     }

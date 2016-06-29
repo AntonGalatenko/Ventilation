@@ -24,6 +24,7 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> servomotor = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> emergency = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> cageArea = new LinkedHashMap<>();
+    private String humidityWaterCirculation;
     private String filePath;
     private boolean distributeByCountry;
 
@@ -43,6 +44,7 @@ public class DataOfEquipment implements Serializable {
         setShutterDefaultValue();
 
         setHumidityDefaultValue();
+        setHumidityWaterCirculationDefaultValue();
 
         setHeaterDefaultValue();
         setFanCirculationDefaultValue();
@@ -171,6 +173,10 @@ public class DataOfEquipment implements Serializable {
         humidity1.put("16.8x1.0", new Storage(16.8, "ПУН21-18")); humidity1.put("17.4x1.0", new Storage(17.4, "ПУН21-19")); humidity1.put("18.0x1.0", new Storage(18.0, "ПУН21-20"));
     }
 
+    private void setHumidityWaterCirculationDefaultValue(){
+        humidityWaterCirculation = "ТСУ3-01.000";
+    }
+
     public void setCageAreaDefaultValue(){
         cageArea.put("ТБК3", new Storage(2.1, "")); cageArea.put("ТБК4", new Storage(2.6, "")); cageArea.put("ТБК5", new Storage(3.1, ""));
         cageArea.put("ТБК6", new Storage(3.7, "")); cageArea.put("ТБК12", new Storage(5.2, ""));
@@ -232,6 +238,10 @@ public class DataOfEquipment implements Serializable {
         result.putAll(humidity15);
         result.putAll(humidity1);
         return result;
+    }
+
+    public String getHumidityWaterCirculation() {
+        return humidityWaterCirculation;
     }
 
     public LinkedHashMap<String, Storage> getHumidity2() {
@@ -324,6 +334,10 @@ public class DataOfEquipment implements Serializable {
 
     public void updateHumidity1(StringBuilder value){
         updateHashMap(humidity1, value);
+    }
+
+    public void updateHumidityWaterCirculation(String value){
+        humidityWaterCirculation = value;
     }
 
     public void updateHeater(StringBuilder value){
