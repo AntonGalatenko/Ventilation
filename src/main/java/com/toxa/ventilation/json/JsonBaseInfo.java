@@ -22,15 +22,23 @@ public class JsonBaseInfo {
     @JsonProperty("Поголовье")
     private String numberHeads;
 
+    @JsonProperty("Составил")
+    private String compose;
+
+    @JsonProperty("Проверил")
+    private String checked;
+
     public JsonBaseInfo() {
     }
 
-    public JsonBaseInfo(String filePathName, String name, String country, String numberHeads, String numberHouse, String cageName) {
+    public JsonBaseInfo(String filePathName, String name, String country, String numberHeads, String numberHouse, String cageName, String compose, String checked) {
         this.filePathName = filePathName;
         this.name = name;
         this.country = country;
         this.numberHeads = numberHeads;
         this.numberHouse = numberHouse;
+        this.compose = compose;
+        this.checked = checked;
         setCageName(cageName);
     }
 
@@ -83,5 +91,13 @@ public class JsonBaseInfo {
 
     public void setFilePathName(String filePathName) {
         this.filePathName = filePathName;
+    }
+
+    public String getCompose() {
+        return compose;
+    }
+
+    public String getChecked() {
+        return checked;
     }
 }

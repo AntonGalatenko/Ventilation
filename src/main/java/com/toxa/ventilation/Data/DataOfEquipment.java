@@ -1,6 +1,7 @@
 package com.toxa.ventilation.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -25,6 +26,7 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> emergency = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> cageArea = new LinkedHashMap<>();
     private String humidityWaterCirculation;
+    private ArrayList<String> composeChecked = new ArrayList<>();
     private String filePath;
     private boolean distributeByCountry;
 
@@ -54,6 +56,8 @@ public class DataOfEquipment implements Serializable {
         setEmergencyDefaultValue();
 
         setCageAreaDefaultValue();
+
+        setComposeCheckedDefaultValue();
 
         setFilePathDefaultValue();
     }
@@ -188,6 +192,11 @@ public class DataOfEquipment implements Serializable {
         cageArea.put("ТБР2", new Storage(1.9, "")); cageArea.put("ТБР3", new Storage(2.6, ""));
     }
 
+    public void setComposeCheckedDefaultValue(){
+        composeChecked.add("Составляющий");
+        composeChecked.add("Проверяющий");
+    }
+
     public String getFilePath(){
         return filePath;
     }
@@ -280,6 +289,10 @@ public class DataOfEquipment implements Serializable {
         return cageArea;
     }
 
+    public ArrayList<String> getComposeChecked(){
+        return composeChecked;
+    }
+
     public void updateFilePath(String filePath){
         this.filePath = filePath;
     }
@@ -362,6 +375,10 @@ public class DataOfEquipment implements Serializable {
 
     public void updateCageArea(StringBuilder value){
         updateHashMap(cageArea, value);
+    }
+
+    public void updateComposeChecked(ArrayList<String> value){
+        composeChecked = value;
     }
 
     public void updateHashMap(LinkedHashMap<String, Storage> map, StringBuilder value){

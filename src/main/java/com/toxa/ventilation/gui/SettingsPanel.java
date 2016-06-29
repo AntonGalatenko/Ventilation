@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SettingsPanel extends JDialog{
@@ -92,6 +93,10 @@ public class SettingsPanel extends JDialog{
     private JLabel humidityWaterCirculationLabel;
     private JTextArea humidityWaterCirculationTextArea;
     private JScrollPane humidityWaterCirculationScrollPane;
+    private JLabel composeLabel;
+    private JTextArea composeTextArea;
+    private JLabel checkedLabel;
+    private JTextArea chackedTextArea;
 
     public SettingsPanel(/*final MyToolBar myToolBar*/){
 //        this.myToolBar = myToolBar;
@@ -156,6 +161,7 @@ public class SettingsPanel extends JDialog{
         setFileChooserText(dataOfEquipment.getFilePath());
         setDistributeByCountry(dataOfEquipment.isDistributeByCountry());
         setHumidityWaterCirculation(dataOfEquipment.getHumidityWaterCirculation());
+        setComposeChecked(dataOfEquipment.getComposeChecked());
     }
 
     public void saveActualValue(){
@@ -197,6 +203,7 @@ public class SettingsPanel extends JDialog{
         dataOfEquipment.updateEmergency(getEmergencyNamesDescriptionsCapacity());
         dataOfEquipment.updateFilePath(getFilePath());
         dataOfEquipment.updateDistributeByCountry(isDistributeByCountry());
+        dataOfEquipment.updateComposeChecked(getComposeChecked());
     }
 
     public StringBuilder parseEquipmentValue(HashMap<String, Storage> map){
@@ -272,6 +279,13 @@ public class SettingsPanel extends JDialog{
         return new StringBuilder().append(airInletOnRoofTextArea.getText());
     }
 
+    public ArrayList<String> getComposeChecked(){
+        ArrayList<String> result = new ArrayList<>();
+        result.add(composeTextArea.getText());
+        result.add(chackedTextArea.getText());
+        return result;
+    }
+
     public void setAirInletOnRoofNamesDescriptionsCapacity(StringBuilder text) {
         airInletOnRoofTextArea.setText(text.toString());
     }
@@ -290,6 +304,23 @@ public class SettingsPanel extends JDialog{
 
     public void setShutterNamesDescriptionsCapacity(StringBuilder text) {
         shutterTextArea.setText(text.toString());
+    }
+
+    public void setComposeChecked(ArrayList<String> text){
+        composeTextArea.setText(text.get(0));
+        chackedTextArea.setText(text.get(1));
+    }
+
+//    public void setChecked(String text){
+//        chackedTextArea.setText(text);
+//    }
+
+    public String getCompose(){
+        return composeTextArea.getText();
+    }
+
+    public String getChecked(){
+        return chackedTextArea.getText();
     }
 
     public StringBuilder getHumidity2mNamesDescriptionsCapacity() {
