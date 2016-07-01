@@ -183,14 +183,16 @@ public class ExcelApachePOI {
 
             text = parseLine(line);
 
-            if(text[0].equals("Название файла"))
+            if(text[0].equals("Составил"))
+                printText(text[1], 7, 46);
+            else if(text[0].equals("Проверил"))
+                printText(text[1], 7, 50);
+            else if(text[0].equals("Название файла"))
                 pathName = text[1];
-            else{
-                if(! text[1].equals("")){
-                    printText(text[0], 1, rowNum);
-                    printText(text[1].replace("\\", ""), 3, rowNum);
-                    rowNum++;
-                }
+            else if(! text[1].equals("")){
+                printText(text[0], 1, rowNum);
+                printText(text[1].replace("\\", ""), 3, rowNum);
+                rowNum++;
             }
         }
     }
@@ -199,8 +201,8 @@ public class ExcelApachePOI {
         printText("Составил", 4, 46);
         printText("Проверил", 4, 50);
 
-        printText("(Галатенко А.Н.)", 7, 46);
-        printText("(Васильчук С.В.)", 7, 50);
+//        printText("(Галатенко А.Н.)", 7, 46);
+//        printText("(Васильчук С.В.)", 7, 50);
 
         buttonTextCreateBorder();
 

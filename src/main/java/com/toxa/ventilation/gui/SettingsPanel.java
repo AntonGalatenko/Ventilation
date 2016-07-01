@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SettingsPanel extends JDialog{
@@ -279,11 +278,8 @@ public class SettingsPanel extends JDialog{
         return new StringBuilder().append(airInletOnRoofTextArea.getText());
     }
 
-    public ArrayList<String> getComposeChecked(){
-        ArrayList<String> result = new ArrayList<>();
-        result.add(composeTextArea.getText());
-        result.add(chackedTextArea.getText());
-        return result;
+    public String[] getComposeChecked(){
+        return new String[]{composeTextArea.getText(), chackedTextArea.getText()};
     }
 
     public void setAirInletOnRoofNamesDescriptionsCapacity(StringBuilder text) {
@@ -306,9 +302,9 @@ public class SettingsPanel extends JDialog{
         shutterTextArea.setText(text.toString());
     }
 
-    public void setComposeChecked(ArrayList<String> text){
-        composeTextArea.setText(text.get(0));
-        chackedTextArea.setText(text.get(1));
+    public void setComposeChecked(String[] text){
+        composeTextArea.setText(text[0]);
+        chackedTextArea.setText(text[1]);
     }
 
 //    public void setChecked(String text){

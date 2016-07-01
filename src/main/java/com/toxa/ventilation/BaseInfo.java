@@ -485,4 +485,12 @@ public class BaseInfo {
         resultsPanel.setVisible(value);
     }
 
+    public String getCompose(){
+        return new ActualValues().loadActualValue().getComposeChecked()[0];
+    }
+
+    public String getChecked(){
+        return new ActualValues().loadActualValue().getComposeChecked()[1];
+    }
+
 }

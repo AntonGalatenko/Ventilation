@@ -1,7 +1,6 @@
 package com.toxa.ventilation.Data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -26,7 +25,7 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> emergency = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> cageArea = new LinkedHashMap<>();
     private String humidityWaterCirculation;
-    private ArrayList<String> composeChecked = new ArrayList<>();
+    private String[] composeChecked = new String[2];
     private String filePath;
     private boolean distributeByCountry;
 
@@ -193,8 +192,8 @@ public class DataOfEquipment implements Serializable {
     }
 
     public void setComposeCheckedDefaultValue(){
-        composeChecked.add("Составляющий");
-        composeChecked.add("Проверяющий");
+        composeChecked[0] = "Составляющий";
+        composeChecked[1] = "Проверяющий";
     }
 
     public String getFilePath(){
@@ -289,7 +288,7 @@ public class DataOfEquipment implements Serializable {
         return cageArea;
     }
 
-    public ArrayList<String> getComposeChecked(){
+    public String[] getComposeChecked(){
         return composeChecked;
     }
 
@@ -377,7 +376,7 @@ public class DataOfEquipment implements Serializable {
         updateHashMap(cageArea, value);
     }
 
-    public void updateComposeChecked(ArrayList<String> value){
+    public void updateComposeChecked(String[] value){
         composeChecked = value;
     }
 
