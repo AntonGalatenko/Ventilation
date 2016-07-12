@@ -18,8 +18,6 @@ import java.util.HashMap;
 
 public class SettingsPanel extends JDialog{
 
-//    private MyToolBar myToolBar;
-//    private MyMainPanel myMainPanel;
     private DataOfEquipment dataOfEquipment;
     private MyFileChooser fileChooser;
 
@@ -97,8 +95,7 @@ public class SettingsPanel extends JDialog{
     private JLabel checkedLabel;
     private JTextArea chackedTextArea;
 
-    public SettingsPanel(/*final MyToolBar myToolBar*/){
-//        this.myToolBar = myToolBar;
+    public SettingsPanel(){
         setLocationForThisFrame();
 
         setTitle("Настройки");
@@ -109,14 +106,12 @@ public class SettingsPanel extends JDialog{
 
         setDefaultNamesDescriptionsCapacity();
 
-//        BaseInfo.getInstance().setSettingsPanel(this);
-
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveActualValue();
                 dispose();
-//                myToolBar.getMyMainPanel().getResultPanel().setModelsToComboBox();
+
                 BaseInfo.getInstance().setModelsToComboBoxInResultsPanel();
                 new ActualValues().loadActualValue();
             }
@@ -305,18 +300,6 @@ public class SettingsPanel extends JDialog{
     public void setComposeChecked(String[] text){
         composeTextArea.setText(text[0]);
         chackedTextArea.setText(text[1]);
-    }
-
-//    public void setChecked(String text){
-//        chackedTextArea.setText(text);
-//    }
-
-    public String getCompose(){
-        return composeTextArea.getText();
-    }
-
-    public String getChecked(){
-        return chackedTextArea.getText();
     }
 
     public StringBuilder getHumidity2mNamesDescriptionsCapacity() {

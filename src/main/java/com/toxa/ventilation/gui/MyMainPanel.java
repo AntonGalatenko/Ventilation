@@ -18,9 +18,6 @@ public class MyMainPanel extends JFrame{
 
         BaseInfo baseInfo = BaseInfo.getInstance();
         Count count = new Count();
-//        count.setBaseInfo(baseInfo);
-//        baseInfo.setCount(count);
-
 
         toolBar = new MyToolBar(/*this*/);
 
@@ -34,8 +31,6 @@ public class MyMainPanel extends JFrame{
         resultPanel.setTunnel();
         resultPanel.setVisible(false);
 
-//        taskPanel.setResultsPanel(resultPanel);
-
         mainPanel = new JPanel(new BorderLayout());
 
         mainPanel.add(toolBar, BorderLayout.NORTH);
@@ -47,10 +42,6 @@ public class MyMainPanel extends JFrame{
         setVisible(true);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public ResultsPanel getResultPanel (){
-        return resultPanel;
     }
 
 }

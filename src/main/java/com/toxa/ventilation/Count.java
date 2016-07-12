@@ -502,7 +502,6 @@ public class Count {
 
      private int groupCountAllList(ArrayList<Integer> list){
         int result = 0;
-
         for(int i : list)
             result += i;
 

@@ -46,7 +46,7 @@ public class ExcelApachePOI {
 
             String json = new CreateJson().getJson();
 
-            System.out.println(json);
+//            System.out.println(json);
 
             scanner = new Scanner(json);
 

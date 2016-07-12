@@ -3,13 +3,13 @@ package com.toxa.ventilation.gui;
 import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
 import com.toxa.ventilation.ExcelApachePOI;
+import com.toxa.ventilation.model.entity.Factory;
+import com.toxa.ventilation.model.repository.Repository;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
+import java.util.List;
 
 public class TaskPanel extends JPanel{
 
@@ -67,6 +67,9 @@ public class TaskPanel extends JPanel{
     private JButton saveOpenExcelButton;
     private JButton hideShowResPanelButton;
 
+//    @Autowired
+    private Repository repository = new Repository();
+
     public TaskPanel(){
 
         add(mainPanel);
@@ -103,6 +106,8 @@ public class TaskPanel extends JPanel{
 
                 baseInfo.setResultPanelVisible(true);
                 myMainPanel.pack();
+
+                checkFactoryToSimilar();
             }
         });
 
@@ -113,6 +118,8 @@ public class TaskPanel extends JPanel{
                 excelApachePOI = new ExcelApachePOI();
                 excelApachePOI.setOpenExcel(true);
                 excelApachePOI.saveThis();
+
+                addFactoryToDataBase();
             }
         });
 
@@ -127,7 +134,31 @@ public class TaskPanel extends JPanel{
             }
         });
 
+        companyNameTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+
+                System.out.println("name " + repository.getNameEquals(companyNameTextField.getText()));
+            }
+        });
+
         setDefaultValues();
+
+    }
+
+    private void addFactoryToDataBase(){
+        repository.addItem(getFactory());
+    }
+
+    private void checkFactoryToSimilar(){
+        List<Factory> result = repository.getSimilar(getFactory());
+        System.out.println(result.size());
+    }
+
+    private Factory getFactory(){
+        return new Factory(baseInfo.getCompanyName(), baseInfo.getCountry(), baseInfo.getCageName(), baseInfo.getHeadsNumber(),
+                baseInfo.getBuildingLength(), baseInfo.getBuildingWidth(), baseInfo.getBuildingHeightMin(), baseInfo.getBuildingHeightMax());
     }
 
     public void setCount(Count count){

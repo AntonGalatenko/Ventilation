@@ -539,7 +539,7 @@
             <properties>
               <selected value="true"/>
               <text value="+"/>
-              <toolTipText value="Увлажнение рассчитывается на Вентиляторы 50&quot; и Крышные вентиляторы"/>
+              <toolTipText value="Увлажнение рассчитывается на всю вытяжку"/>
             </properties>
           </component>
           <component id="63668" class="javax.swing.JLabel" binding="humidityAirSpeedLabel">

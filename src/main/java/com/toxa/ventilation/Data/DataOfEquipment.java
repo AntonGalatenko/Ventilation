@@ -29,9 +29,6 @@ public class DataOfEquipment implements Serializable {
     private String filePath;
     private boolean distributeByCountry;
 
-//    public DataOfEquipment (){
-//    }
-
     public void setDefaultValues(){
         setFan50DefaultValue();
         setFan36DefaultValue();
@@ -127,7 +124,6 @@ public class DataOfEquipment implements Serializable {
     public void setAutomaticDefaultValue(){
         automatic.put("Rotem Junior XL", new Storage(0, "Климатконтроллер в комплекте"));
         automatic.put("Fancom Lumina 37", new Storage(0, "Климатконтроллер в комплекте"));
-//        automatic.put("ОЩУМ+СЩУМ", new Storage(0, "Щит микроклимата"));
         automatic.put("ОЩУМ", new Storage(0, "Щит микроклимата"));
     }
 
