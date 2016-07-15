@@ -107,7 +107,7 @@ public class TaskPanel extends JPanel{
                 baseInfo.setResultPanelVisible(true);
                 myMainPanel.pack();
 
-                checkFactoryToSimilar();
+//                checkFactoryToSimilar();
             }
         });
 
@@ -119,7 +119,7 @@ public class TaskPanel extends JPanel{
                 excelApachePOI.setOpenExcel(true);
                 excelApachePOI.saveThis();
 
-                addFactoryToDataBase();
+//                addFactoryToDataBase();
             }
         });
 
