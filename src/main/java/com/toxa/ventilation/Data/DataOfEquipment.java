@@ -64,7 +64,7 @@ public class DataOfEquipment implements Serializable {
 
     public void setFan50DefaultValue(){
         fan50.put("TBO12,7-2-1", new Storage(40000, "Вентилятор осевой с жалюзи 40000м3/ч при 20Па ~3 1,1кВт"));
-        fan50.put("DB1380", new Storage(40000, "Вентилятор осевой с конусом и клапаном 43000м3/ч при 20Па ~3 1,1кВт"));
+        fan50.put("DB1380", new Storage(43000, "Вентилятор осевой с конусом и клапаном 43000м3/ч при 20Па ~3 1,1кВт"));
         fan50.put("EOS53/1,5", new Storage(40000, "Вентилятор осевой с жалюзи 40000м3/ч при 20Па ~3 1,1кВт"));
         fan50.put("EOC53/1,5", new Storage(43000, "Вентилятор осевой с конусом и жалюзи 43000м3/ч при 20Па ~3 1,1кВт"));
     }
@@ -162,6 +162,7 @@ public class DataOfEquipment implements Serializable {
         humidity15.put("13.2x1.5", new Storage(13.2, "ПУН23-12")); humidity15.put("13.8x1.5", new Storage(13.8, "ПУН23-13")); humidity15.put("14.4x1.5", new Storage(14.4, "ПУН23-14"));
         humidity15.put("15.0x1.5", new Storage(15.0, "ПУН23-15")); humidity15.put("15.6x1.5", new Storage(15.6, "ПУН23-16")); humidity15.put("16.2x1.5", new Storage(16.2, "ПУН23-17"));
         humidity15.put("16.8x1.5", new Storage(16.8, "ПУН23-18")); humidity15.put("17.4x1.5", new Storage(17.4, "ПУН23-19")); humidity15.put("18.0x1.5", new Storage(18.0, "ПУН23-20"));
+        humidity15.put("19.2x1.5", new Storage(19.2, "ПУН23-27")); humidity15.put("21.0x1.5", new Storage(21.0, "ПУН23-28"));
 
         humidity1.put("6.0x1.0", new Storage(6.0, "ПУН21")); humidity1.put("6.6x1.0", new Storage(6.6, "ПУН21-01")); humidity1.put("7.2x1.0", new Storage(7.2, "ПУН21-02"));
         humidity1.put("7.8x1.0", new Storage(7.8, "ПУН21-03")); humidity1.put("8.4x1.0", new Storage(8.4, "ПУН21-04")); humidity1.put("9.0x1.0", new Storage(9.0, "ПУН21-05"));
