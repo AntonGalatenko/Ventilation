@@ -145,10 +145,16 @@ public class Count {
         oneSideLength = padCoolCurrentLength(oneSideLength / count, false);
         count *= 2;
 
+        if(oneSideLength < 6)
+            oneSideLength = 6;
+
         return new double[]{oneSideLength, count};
     }
 
     public double[] padCoolFaceSideLength(){
+        if(padCoolTotalSquare() < 36)
+            return new double[]{0, 0};
+
         double length = 0;
         int count = 0;
 
@@ -160,6 +166,7 @@ public class Count {
             length = padCoolCurrentLength((baseInfo.getBuildingWidth() - 1)/ 2 ,true);
             count = 2;
         }
+
         return new double[]{length, count};
     }
 
