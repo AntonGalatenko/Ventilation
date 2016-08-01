@@ -167,6 +167,11 @@ public class Count {
             count = 2;
         }
 
+        double faceSideSquare = length * baseInfo.getHumidityHeight1() * baseInfo.getHumidityCount1();
+
+        if((padCoolTotalSquare() - faceSideSquare) < 24)
+            length = padCoolCurrentLength((padCoolTotalSquare() - 24) / baseInfo.getHumidityHeight1(), false);
+
         return new double[]{length, count};
     }
 
