@@ -9,6 +9,7 @@ import com.toxa.ventilation.model.repository.Repository;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Iterator;
 import java.util.List;
 
 public class TaskPanel extends JPanel{
@@ -66,6 +67,7 @@ public class TaskPanel extends JPanel{
     private JButton saveExcelButton;
     private JButton saveOpenExcelButton;
     private JButton hideShowResPanelButton;
+    private FactoryInfo factoryInfo;
 
 //    @Autowired
     private Repository repository = new Repository();
@@ -140,11 +142,27 @@ public class TaskPanel extends JPanel{
                 super.focusLost(e);
 
                 System.out.println("name " + repository.getNameEquals(companyNameTextField.getText()));
+
+                List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
+
+                Iterator<Factory> iterator = list.iterator();
+                String[][] data = new String[list.size()][3];
+                int i = 0;
+                while (iterator.hasNext()){
+                    Factory factory = iterator.next();
+                    data[i][1] = factory.getName();
+                    data[i][2] = factory.getCage();
+//                    data[i++][3] = String.valueOf(factory.getNumberOfHeads());
+
+                    System.out.println("name " + factory.getName());
+                    System.out.println("NumberOfHeads " + factory.getNumberOfHeads());
+                }
+
+                factoryInfo = new FactoryInfo(data);
             }
         });
 
         setDefaultValues();
-
     }
 
     private void addFactoryToDataBase(){
