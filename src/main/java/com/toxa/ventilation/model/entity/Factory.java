@@ -41,6 +41,8 @@ public class Factory {
     @Column(name = "height_max")
     private double heightMax;
 
+    private String link;
+
     public long getId() {
         return id;
     }
@@ -111,6 +113,14 @@ public class Factory {
 
     public void setHeightMax(double heightMax) {
         this.heightMax = heightMax;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     @Override

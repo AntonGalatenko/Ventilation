@@ -24,7 +24,7 @@ public class MyTableModel implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 7;
     }
 
     @Override
@@ -33,9 +33,17 @@ public class MyTableModel implements TableModel {
             case 0:
                 return "Название фабрики";
             case 1:
-                return "Тип батареи";
+                return "Страна";
             case 2:
-                return "Кол-во п/м";
+                return "Тип";
+            case 3:
+                return "П/м";
+            case 4:
+                return "Длина";
+            case 5:
+                return "Ширина";
+            case 6:
+                return "Высота";
         }
         return null;
     }
@@ -58,9 +66,17 @@ public class MyTableModel implements TableModel {
             case 0:
                 return factory.getName();
             case 1:
-                return factory.getCage();
+                return factory.getCountry();
             case 2:
+                return factory.getCage();
+            case 3:
                 return factory.getNumberOfHeads();
+            case 4:
+                return parseToString(factory.getLength());
+            case 5:
+                return parseToString(factory.getWidth());
+            case 6:
+                return parseToString(factory.getHeightMin());
         }
         return null;
     }
@@ -79,4 +95,16 @@ public class MyTableModel implements TableModel {
     public void removeTableModelListener(TableModelListener l) {
         listeners.remove(l);
     }
+
+    public List<Factory> getFactoryList(){
+        return factoryList;
+    }
+
+    public String parseToString(double value){
+        if(value % 1 == 0)
+            return String.valueOf((int)value);
+        else
+            return String.valueOf(value);
+    }
+
 }

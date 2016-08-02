@@ -8,7 +8,6 @@ import com.toxa.ventilation.model.entity.Factory;
 import com.toxa.ventilation.model.repository.Repository;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -140,29 +139,14 @@ public class TaskPanel extends JPanel{
         companyNameTextField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                super.focusLost(e);
-
-                System.out.println("name " + repository.getNameEquals(companyNameTextField.getText()));
+//                super.focusLost(e);
 
                 List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
 
-                TableModel model = new MyTableModel(list);
-                new FactoryInfo(model);
-
-//                Iterator<Factory> iterator = list.iterator();
-//                String[][] data = new String[list.size()][3];
-//                int i = 0;
-//                while (iterator.hasNext()){
-//                    Factory factory = iterator.next();
-//                    data[i][1] = factory.getName();
-//                    data[i][2] = factory.getCage();
-//                    data[i++][3] = String.valueOf(factory.getNumberOfHeads());
-//
-//                    System.out.println("name " + factory.getName());
-//                    System.out.println("NumberOfHeads " + factory.getNumberOfHeads());
-//                }
-//
-//                factoryInfo = new FactoryInfo(data);
+                if(list.size() > 0){
+                    MyTableModel model = new MyTableModel(list);
+                    new FactoryInfo(model);
+                }
             }
         });
 
