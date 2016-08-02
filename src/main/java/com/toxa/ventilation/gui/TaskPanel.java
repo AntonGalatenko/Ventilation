@@ -3,13 +3,14 @@ package com.toxa.ventilation.gui;
 import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
 import com.toxa.ventilation.ExcelApachePOI;
+import com.toxa.ventilation.MyTableModel;
 import com.toxa.ventilation.model.entity.Factory;
 import com.toxa.ventilation.model.repository.Repository;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Iterator;
 import java.util.List;
 
 public class TaskPanel extends JPanel{
@@ -145,20 +146,23 @@ public class TaskPanel extends JPanel{
 
                 List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
 
-                Iterator<Factory> iterator = list.iterator();
-                String[][] data = new String[list.size()][3];
-                int i = 0;
-                while (iterator.hasNext()){
-                    Factory factory = iterator.next();
-                    data[i][1] = factory.getName();
-                    data[i][2] = factory.getCage();
+                TableModel model = new MyTableModel(list);
+                new FactoryInfo(model);
+
+//                Iterator<Factory> iterator = list.iterator();
+//                String[][] data = new String[list.size()][3];
+//                int i = 0;
+//                while (iterator.hasNext()){
+//                    Factory factory = iterator.next();
+//                    data[i][1] = factory.getName();
+//                    data[i][2] = factory.getCage();
 //                    data[i++][3] = String.valueOf(factory.getNumberOfHeads());
-
-                    System.out.println("name " + factory.getName());
-                    System.out.println("NumberOfHeads " + factory.getNumberOfHeads());
-                }
-
-                factoryInfo = new FactoryInfo(data);
+//
+//                    System.out.println("name " + factory.getName());
+//                    System.out.println("NumberOfHeads " + factory.getNumberOfHeads());
+//                }
+//
+//                factoryInfo = new FactoryInfo(data);
             }
         });
 

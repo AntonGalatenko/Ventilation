@@ -1,15 +1,16 @@
 package com.toxa.ventilation.gui;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 
 public class FactoryInfo extends JDialog{
     private JPanel mainPanel;
     private JTable table1;
     private JScrollPane mainScrollPane;
 
-    public FactoryInfo(String[][] data){
-        String[] columnName = {"Название", "Кол-во п/м"};
-        table1 = new JTable(data, columnName);
+    public FactoryInfo(TableModel model){
+
+        table1.setModel(model);
 
         add(mainPanel);
 
