@@ -23,7 +23,7 @@ public class FactoryInfo extends JDialog{
 
         add(mainPanel);
 
-        setPreferredSize(new Dimension(660, getHeight(model.getFactoryList().size())));
+        setPreferredSize(new Dimension(700, getHeight(model.getFactoryList().size())));
         setVisible(true);
         setLocationForThisFrame();
 
@@ -44,7 +44,7 @@ public class FactoryInfo extends JDialog{
 
     public void setLocationForThisFrame(){
         Point point = Main.getMainPanelLocation();
-        setLocation((int)point.getX() + 150, (int)point.getY() + 120);
+        setLocation((int)point.getX() + 200, (int)point.getY() + 120);
     }
 
     public int getHeight(int size){
@@ -55,13 +55,14 @@ public class FactoryInfo extends JDialog{
 
     private void setColumnSize(){
         TableColumnModel tcm = table1.getColumnModel();
-        tcm.getColumn(0).setPreferredWidth(250);
-        tcm.getColumn(1).setPreferredWidth(150);
-        tcm.getColumn(2).setPreferredWidth(70);
-        tcm.getColumn(3).setPreferredWidth(80);
-        tcm.getColumn(4).setPreferredWidth(70);
-        tcm.getColumn(5).setPreferredWidth(50);
-        tcm.getColumn(6).setPreferredWidth(40);
+        tcm.getColumn(0).setPreferredWidth(50);
+        tcm.getColumn(1).setPreferredWidth(300);
+        tcm.getColumn(2).setPreferredWidth(150);
+        tcm.getColumn(3).setPreferredWidth(70);
+        tcm.getColumn(4).setPreferredWidth(80);
+        tcm.getColumn(5).setPreferredWidth(70);
+        tcm.getColumn(6).setPreferredWidth(50);
+        tcm.getColumn(7).setPreferredWidth(40);
     }
 
     public void openExcel(String path){

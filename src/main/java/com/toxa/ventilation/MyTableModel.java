@@ -24,25 +24,27 @@ public class MyTableModel implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 8;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
         switch (columnIndex){
             case 0:
-                return "Название фабрики";
+                return "Год";
             case 1:
-                return "Страна";
+                return "Название фабрики";
             case 2:
-                return "Тип";
+                return "Страна";
             case 3:
-                return "П/м";
+                return "Тип";
             case 4:
-                return "Длина";
+                return "П/м";
             case 5:
-                return "Ширина";
+                return "Длина";
             case 6:
+                return "Ширина";
+            case 7:
                 return "Высота";
         }
         return null;
@@ -64,18 +66,20 @@ public class MyTableModel implements TableModel {
 
         switch (columnIndex){
             case 0:
-                return factory.getName();
+                return factory.getYear();
             case 1:
-                return factory.getCountry();
+                return factory.getName();
             case 2:
-                return factory.getCage();
+                return factory.getCountry();
             case 3:
-                return factory.getNumberOfHeads();
+                return factory.getCage();
             case 4:
-                return parseToString(factory.getLength());
+                return factory.getNumberOfHeads();
             case 5:
-                return parseToString(factory.getWidth());
+                return parseToString(factory.getLength());
             case 6:
+                return parseToString(factory.getWidth());
+            case 7:
                 return parseToString(factory.getHeightMin());
         }
         return null;

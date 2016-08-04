@@ -180,7 +180,7 @@ public class TaskPanel extends JPanel{
     }
 
     private Factory getFactory(){
-        return new Factory(baseInfo.getCompanyName(), baseInfo.getCountry(), baseInfo.getCageName(), baseInfo.getHeadsNumber(),
+        return new Factory(00, baseInfo.getCompanyName(), baseInfo.getCountry(), baseInfo.getCageName(), baseInfo.getHeadsNumber(),
                 baseInfo.getBuildingLength(), baseInfo.getBuildingWidth(), baseInfo.getBuildingHeightMin(), baseInfo.getBuildingHeightMax(),
                 baseInfo.getFilePathName());
     }

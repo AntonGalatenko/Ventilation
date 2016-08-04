@@ -22,8 +22,8 @@ public class Repository {
     }
 
     public void addItem(Factory factory){
-        if(isFactoryExists(factory))
-            return;
+//        if(isFactoryExists(factory))
+//            return;
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(factory);

@@ -48,7 +48,6 @@ public class AddAndCheckDataBase {
             String country = file.getPath().substring(file.getPath().indexOf("ПЧ") + 3, file.getPath().indexOf("\\", file.getPath().indexOf("ПЧ") + 3));
 
             String[] build = findBuild(fileNames[--num]);
-            System.out.println("!! " + build[0]);
             double length = Double.parseDouble(build[0]);
             double width = Double.parseDouble(build[1]);
             double height = Double.parseDouble(build[2]);
@@ -57,15 +56,11 @@ public class AddAndCheckDataBase {
             for(int i = 1; i < num; i++)
                 name += " " + fileNames[i];
 
-            repository.addItem(new Factory(name, country, cage, Integer.parseInt(numOfHeads[0]) ,length, width, height, 0, file.getPath()));
+            repository.addItem(new Factory(2016, name, country, cage, Integer.parseInt(numOfHeads[0]) ,length, width, height, 0, file.getPath()));
 
         } catch (Exception e){
-
             writeErrToFile(e.toString());
         }
-
-//        System.out.println(name + " " + cage + " " + length + " " + width + " " + height + " " +numOfHeads[0]);
-
     }
 
     private String[] findNumberOfHeads(String[] name){
@@ -138,7 +133,6 @@ public class AddAndCheckDataBase {
         value = value.replace("х", "x");
 
         String[] t;
-        System.out.println("!@! " + value);
         if(value.contains("x"))
             t = value.split("x");
         else if(value.contains("х"))

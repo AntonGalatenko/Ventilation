@@ -9,8 +9,9 @@ public class Factory {
     public Factory() {
     }
 
-    public Factory(String name, String country, String cage, int numberOfHeads, double length, double width,
+    public Factory(int year, String name, String country, String cage, int numberOfHeads, double length, double width,
                    double heightMin, double heightMax, String link) {
+        this.year = year;
         this.name = name;
         this.country = country;
         this.cage = cage;
@@ -26,6 +27,7 @@ public class Factory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private int year;
     private String name;
     private String country;
     private String cage;
@@ -43,6 +45,7 @@ public class Factory {
     private double heightMax;
 
     private String link;
+    private boolean drawing;
 
     public long getId() {
         return id;
@@ -50,6 +53,14 @@ public class Factory {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getName() {
@@ -124,30 +135,38 @@ public class Factory {
         this.link = link;
     }
 
-    @Override
-    public boolean equals(Object obj){
-        if(obj == null)
-            return false;
-
-        if(this.getClass() != obj.getClass())
-            return false;
-
-        Factory other = (Factory) obj;
-
-        return (this.name.equals(other.name)) && (this.country.equals(other.country)) && (this.cage.equals(other.cage)) &&
-                (this.numberOfHeads == other.numberOfHeads) && (this.length == other.length) &&
-                (this.width == other.width) && (this.heightMin == other.heightMin) && (this.heightMax == other.heightMax) &&
-                (this.link == other.link);
+    public boolean isDrawing() {
+        return drawing;
     }
 
-    @Override
-    public int hashCode(){
-        int hash = name.hashCode() + country.hashCode() + cage.hashCode() + link.hashCode();
-        int hash1 = (int)(numberOfHeads * length * width * heightMin + heightMax);
-
-        return hash + hash1;
+    public void setDrawing(boolean drawing) {
+        this.drawing = drawing;
     }
 
+//    @Override
+//    public boolean equals(Object obj){
+//        if(obj == null)
+//            return false;
+//
+//        if(this.getClass() != obj.getClass())
+//            return false;
+//
+//        Factory other = (Factory) obj;
+//
+//        return (this.name.equals(other.name)) && (this.country.equals(other.country)) && (this.cage.equals(other.cage)) &&
+//                (this.numberOfHeads == other.numberOfHeads) && (this.length == other.length) &&
+//                (this.width == other.width) && (this.heightMin == other.heightMin) && (this.heightMax == other.heightMax) &&
+//                (this.link == other.link);
+//    }
+//
+//    @Override
+//    public int hashCode(){
+//        int hash = name.hashCode() + country.hashCode() + cage.hashCode() + link.hashCode();
+//        int hash1 = (int)(numberOfHeads * length * width * heightMin + heightMax);
+//
+//        return hash + hash1;
+//    }
+//
     public boolean isSimilar(Factory factory){
         if(! this.cage.equals(factory.cage))
             return false;
@@ -156,11 +175,11 @@ public class Factory {
 
         return true;
     }
-
-    public boolean isNameEquals(Factory factory){
-        if(this.name.equals(factory.name))
-            return true;
-
-        return false;
-    }
+//
+//    public boolean isNameEquals(Factory factory){
+//        if(this.name.equals(factory.name))
+//            return true;
+//
+//        return false;
+//    }
 }
