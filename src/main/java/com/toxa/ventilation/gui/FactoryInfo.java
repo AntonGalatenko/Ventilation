@@ -23,7 +23,7 @@ public class FactoryInfo extends JDialog{
 
         add(mainPanel);
 
-        setPreferredSize(new Dimension(600, getHeight(model.getFactoryList().size())));
+        setPreferredSize(new Dimension(660, getHeight(model.getFactoryList().size())));
         setVisible(true);
         setLocationForThisFrame();
 
@@ -48,26 +48,29 @@ public class FactoryInfo extends JDialog{
     }
 
     public int getHeight(int size){
-        if(size > 20)
-            return 382;
+        if(size > 30)
+            return 542;
         return 62 + size * 16;
     }
 
     private void setColumnSize(){
         TableColumnModel tcm = table1.getColumnModel();
         tcm.getColumn(0).setPreferredWidth(250);
-        tcm.getColumn(1).setPreferredWidth(100);
+        tcm.getColumn(1).setPreferredWidth(150);
         tcm.getColumn(2).setPreferredWidth(70);
-        tcm.getColumn(3).setPreferredWidth(70);
+        tcm.getColumn(3).setPreferredWidth(80);
         tcm.getColumn(4).setPreferredWidth(70);
         tcm.getColumn(5).setPreferredWidth(50);
         tcm.getColumn(6).setPreferredWidth(40);
     }
 
     public void openExcel(String path){
+        if(path == null)
+            return;
+
         Desktop desktop = Desktop.getDesktop();
         try {
-            desktop.open(new File(path + ".xls"));
+            desktop.open(new File(path));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,9 +1,6 @@
 package com.toxa.ventilation.gui;
 
-import com.toxa.ventilation.BaseInfo;
-import com.toxa.ventilation.Count;
-import com.toxa.ventilation.ExcelApachePOI;
-import com.toxa.ventilation.MyTableModel;
+import com.toxa.ventilation.*;
 import com.toxa.ventilation.model.entity.Factory;
 import com.toxa.ventilation.model.repository.Repository;
 
@@ -125,6 +122,13 @@ public class TaskPanel extends JPanel{
             }
         });
 
+        saveExcelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddAndCheckDataBase();
+            }
+        });
+
         hideShowResPanelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -139,14 +143,14 @@ public class TaskPanel extends JPanel{
         companyNameTextField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-//                super.focusLost(e);
+                checkFactoryNames();
+            }
+        });
 
-                List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
-
-                if(list.size() > 0){
-                    MyTableModel model = new MyTableModel(list);
-                    new FactoryInfo(model);
-                }
+        headsNumberTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                checkFactoryToSimilar();
             }
         });
 
@@ -157,14 +161,28 @@ public class TaskPanel extends JPanel{
         repository.addItem(getFactory());
     }
 
+    private void checkFactoryNames(){
+        List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
+
+        if(list.size() > 0){
+            MyTableModel model = new MyTableModel(list);
+            new FactoryInfo(model);
+        }
+    }
+
     private void checkFactoryToSimilar(){
-        List<Factory> result = repository.getSimilar(getFactory());
-        System.out.println(result.size());
+        List<Factory> list = repository.getSimilar(getFactory());
+
+        if(list.size() > 0){
+            MyTableModel model = new MyTableModel(list);
+            new FactoryInfo(model);
+        }
     }
 
     private Factory getFactory(){
         return new Factory(baseInfo.getCompanyName(), baseInfo.getCountry(), baseInfo.getCageName(), baseInfo.getHeadsNumber(),
-                baseInfo.getBuildingLength(), baseInfo.getBuildingWidth(), baseInfo.getBuildingHeightMin(), baseInfo.getBuildingHeightMax());
+                baseInfo.getBuildingLength(), baseInfo.getBuildingWidth(), baseInfo.getBuildingHeightMin(), baseInfo.getBuildingHeightMax(),
+                baseInfo.getFilePathName());
     }
 
     public void setCount(Count count){

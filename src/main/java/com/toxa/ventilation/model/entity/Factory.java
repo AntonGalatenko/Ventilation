@@ -10,7 +10,7 @@ public class Factory {
     }
 
     public Factory(String name, String country, String cage, int numberOfHeads, double length, double width,
-                   double heightMin, double heightMax) {
+                   double heightMin, double heightMax, String link) {
         this.name = name;
         this.country = country;
         this.cage = cage;
@@ -19,6 +19,7 @@ public class Factory {
         this.width = width;
         this.heightMin = heightMin;
         this.heightMax = heightMax;
+        this.link = link;
     }
 
     @Id
@@ -135,13 +136,13 @@ public class Factory {
 
         return (this.name.equals(other.name)) && (this.country.equals(other.country)) && (this.cage.equals(other.cage)) &&
                 (this.numberOfHeads == other.numberOfHeads) && (this.length == other.length) &&
-                (this.width == other.width) && (this.heightMin == other.heightMin) && (this.heightMax == other.heightMax);
-
+                (this.width == other.width) && (this.heightMin == other.heightMin) && (this.heightMax == other.heightMax) &&
+                (this.link == other.link);
     }
 
     @Override
     public int hashCode(){
-        int hash = name.hashCode() + country.hashCode() + cage.hashCode();
+        int hash = name.hashCode() + country.hashCode() + cage.hashCode() + link.hashCode();
         int hash1 = (int)(numberOfHeads * length * width * heightMin + heightMax);
 
         return hash + hash1;
@@ -150,7 +151,7 @@ public class Factory {
     public boolean isSimilar(Factory factory){
         if(! this.cage.equals(factory.cage))
             return false;
-        if(! (this.numberOfHeads >= factory.numberOfHeads * 0.95) && (this.numberOfHeads <= factory.numberOfHeads * 1.05))
+        if(! ((this.numberOfHeads >= factory.numberOfHeads * 0.95) && (this.numberOfHeads <= factory.numberOfHeads * 1.05)))
             return false;
 
         return true;

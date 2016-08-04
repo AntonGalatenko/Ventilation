@@ -38,7 +38,7 @@ public class Repository {
 
         List<Factory> factoryList = session.createCriteria(Factory.class).list();
         for(Factory f : factoryList)
-            if(f.equals(factory))
+            if(f.hashCode() == (factory.hashCode()))
                 isFactoryExists = true;
 
         session.close();
