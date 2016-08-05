@@ -118,6 +118,8 @@ public class TaskPanel extends JPanel{
                 excelApachePOI.setOpenExcel(true);
                 excelApachePOI.saveThis();
 
+                addFactoryToDataBase();
+
 //                addFactoryToDataBase();
             }
         });
@@ -166,7 +168,7 @@ public class TaskPanel extends JPanel{
 
         if(list.size() > 0){
             MyTableModel model = new MyTableModel(list);
-            new FactoryInfo(model);
+            new FactoryInfo(model, list);
         }
     }
 
@@ -175,12 +177,12 @@ public class TaskPanel extends JPanel{
 
         if(list.size() > 0){
             MyTableModel model = new MyTableModel(list);
-            new FactoryInfo(model);
+            new FactoryInfo(model, list);
         }
     }
 
     private Factory getFactory(){
-        return new Factory(00, baseInfo.getCompanyName(), baseInfo.getCountry(), baseInfo.getCageName(), baseInfo.getHeadsNumber(),
+        return new Factory(2016, baseInfo.getCompanyName(), baseInfo.getCountry(), baseInfo.getCageName(), baseInfo.getHeadsNumber(),
                 baseInfo.getBuildingLength(), baseInfo.getBuildingWidth(), baseInfo.getBuildingHeightMin(), baseInfo.getBuildingHeightMax(),
                 baseInfo.getFilePathName());
     }

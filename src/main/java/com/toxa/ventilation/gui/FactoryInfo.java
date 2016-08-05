@@ -1,41 +1,48 @@
 package com.toxa.ventilation.gui;
 
 import com.toxa.ventilation.Main;
-import com.toxa.ventilation.MyTableModel;
+import com.toxa.ventilation.model.entity.Factory;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class FactoryInfo extends JDialog{
     private JPanel mainPanel;
     private JTable table1;
     private JScrollPane mainScrollPane;
 
-    public FactoryInfo(final MyTableModel model){
+    public FactoryInfo(final TableModel model, final List<Factory> factoryList){
 
         table1.setModel(model);
         setColumnSize();
 
         add(mainPanel);
 
-        setPreferredSize(new Dimension(700, getHeight(model.getFactoryList().size())));
+        setPreferredSize(new Dimension(700, getHeight(factoryList.size())));
         setVisible(true);
         setLocationForThisFrame();
 
+        setTableSorter(model);
         pack();
 
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JTable table = (JTable)e.getSource();
-                int row = table.getSelectedRow();
+//                Component component = e.getComponent();
+//                System.out.println("123 " + component.getClass());
 
-                String path = model.getFactoryList().get(row).getLink();
+                int row = table.getSelectedRow();
+//
+                String path = factoryList.get(row).getLink();
                 openExcel(path);
             }
         });
@@ -65,7 +72,7 @@ public class FactoryInfo extends JDialog{
         tcm.getColumn(7).setPreferredWidth(40);
     }
 
-    public void openExcel(String path){
+    private void openExcel(String path){
         if(path == null)
             return;
 
@@ -75,5 +82,10 @@ public class FactoryInfo extends JDialog{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setTableSorter(TableModel model){
+        RowSorter<TableModel> sorter = new TableRowSorter<>(model);
+        table1.setRowSorter(sorter);
     }
 }

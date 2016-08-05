@@ -170,6 +170,8 @@ public class Factory {
     public boolean isSimilar(Factory factory){
         if(! this.cage.equals(factory.cage))
             return false;
+        if(this.year < 2015)
+            return false;
         if(! ((this.numberOfHeads >= factory.numberOfHeads * 0.95) && (this.numberOfHeads <= factory.numberOfHeads * 1.05)))
             return false;
 

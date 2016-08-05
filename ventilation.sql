@@ -9,13 +9,48 @@
 /*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Дамп структуры базы данных ventilation
+CREATE DATABASE IF NOT EXISTS `ventilation` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+USE `ventilation`;
+
+
+-- Дамп структуры для таблица ventilation.equipment
+CREATE TABLE IF NOT EXISTS `equipment` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `factory_id` int(10) NOT NULL DEFAULT '0',
+  `length` int(10) NOT NULL DEFAULT '0',
+  `width` int(10) NOT NULL DEFAULT '0',
+  `height` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_factory` (`factory_id`),
+  CONSTRAINT `FK_factory` FOREIGN KEY (`factory_id`) REFERENCES `factory` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Дамп данных таблицы ventilation.equipment: ~0 rows (приблизительно)
-DELETE FROM `equipment`;
 /*!40000 ALTER TABLE `equipment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `equipment` ENABLE KEYS */;
 
--- Дамп данных таблицы ventilation.factory: ~2 857 rows (приблизительно)
-DELETE FROM `factory`;
+
+-- Дамп структуры для таблица ventilation.factory
+CREATE TABLE IF NOT EXISTS `factory` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `year` int(10) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `country` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `cage` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `number_of_heads` int(10) NOT NULL DEFAULT '0',
+  `length` double NOT NULL DEFAULT '0',
+  `width` double NOT NULL DEFAULT '0',
+  `height_min` double NOT NULL DEFAULT '0',
+  `height_max` double DEFAULT '0',
+  `link` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `drawing` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `link` (`link`)
+) ENGINE=InnoDB AUTO_INCREMENT=2707 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Дамп данных таблицы ventilation.factory: ~2 779 rows (приблизительно)
 /*!40000 ALTER TABLE `factory` DISABLE KEYS */;
 INSERT INTO `factory` (`id`, `year`, `name`, `country`, `cage`, `number_of_heads`, `length`, `width`, `height_min`, `height_max`, `link`, `drawing`) VALUES
 	(1, 2013, 'Писаатчайская ПФ', 'Азербайджан', 'ТБЦ', 47488, 69.9, 11.85, 2.65, 0, '\\\\10.1.0.201\\dep_constr\\Ы\\2013\\ПЧ\\Азербайджан\\Писаатчайская ПФ 69,9х11,85х2,65 ТБЦ 47488.xls', 0),
@@ -2726,8 +2761,13 @@ INSERT INTO `factory` (`id`, `year`, `name`, `country`, `cage`, `number_of_heads
 	(2706, 2016, 'Марроко', 'Марроко', 'ТБК', 120384, 125, 18, 4.5, 0, '\\\\10.1.0.201\\dep_constr\\Ы\\2016\\ПЧ\\Марроко\\Марроко 125x18x4.5 ТБК 120384.xls', 0);
 /*!40000 ALTER TABLE `factory` ENABLE KEYS */;
 
+
+-- Дамп структуры для таблица ventilation.hibernate_sequence
+CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Дамп данных таблицы ventilation.hibernate_sequence: ~1 rows (приблизительно)
-DELETE FROM `hibernate_sequence`;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 	(2707);

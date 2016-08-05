@@ -52,7 +52,25 @@ public class MyTableModel implements TableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return String.class;
+        switch (columnIndex){
+            case 0:
+                return Integer.class;
+            case 1:
+                return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
+            case 4:
+                return Integer.class;
+            case 5:
+                return Double.class;
+            case 6:
+                return Double.class;
+            case 7:
+                return Double.class;
+        }
+        return null;
     }
 
     @Override
@@ -76,11 +94,11 @@ public class MyTableModel implements TableModel {
             case 4:
                 return factory.getNumberOfHeads();
             case 5:
-                return parseToString(factory.getLength());
+                return factory.getLength();
             case 6:
-                return parseToString(factory.getWidth());
+                return factory.getWidth();
             case 7:
-                return parseToString(factory.getHeightMin());
+                return factory.getHeightMin();
         }
         return null;
     }
@@ -100,9 +118,9 @@ public class MyTableModel implements TableModel {
         listeners.remove(l);
     }
 
-    public List<Factory> getFactoryList(){
-        return factoryList;
-    }
+//    public List<Factory> getFactoryList(){
+//        return factoryList;
+//    }
 
     public String parseToString(double value){
         if(value % 1 == 0)
