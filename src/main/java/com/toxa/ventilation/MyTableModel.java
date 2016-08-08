@@ -24,7 +24,7 @@ public class MyTableModel implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return 8;
+        return 9;
     }
 
     @Override
@@ -69,6 +69,8 @@ public class MyTableModel implements TableModel {
                 return Double.class;
             case 7:
                 return Double.class;
+            case 8:
+                return String.class;
         }
         return null;
     }
@@ -99,6 +101,8 @@ public class MyTableModel implements TableModel {
                 return factory.getWidth();
             case 7:
                 return factory.getHeightMin();
+            case 8:
+                return factory.getLink();
         }
         return null;
     }
