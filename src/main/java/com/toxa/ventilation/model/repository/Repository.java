@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Repository {
@@ -54,6 +55,7 @@ public class Repository {
             if(f.isSimilar(factory))
                 result.add(f);
 
+        Collections.reverse(result);
         session.close();
         return result;
     }

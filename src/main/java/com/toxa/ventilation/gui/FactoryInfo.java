@@ -40,9 +40,12 @@ public class FactoryInfo extends JDialog{
 //                Component component = e.getComponent();
 //                System.out.println("123 " + component.getClass());
 
-                int row = table.getSelectedRow();
-//
-                String path = factoryList.get(row).getLink();
+//                int row = table.getSelectedRow();
+
+                String path = (String)table.getValueAt(table.getSelectedRow(), 8);
+//                System.out.println("123 " + link);
+
+//                String path = factoryList.get(row).getLink();
                 openExcel(path);
             }
         });
@@ -70,6 +73,8 @@ public class FactoryInfo extends JDialog{
         tcm.getColumn(5).setPreferredWidth(70);
         tcm.getColumn(6).setPreferredWidth(50);
         tcm.getColumn(7).setPreferredWidth(40);
+        tcm.getColumn(8).setMinWidth(0);
+        tcm.getColumn(8).setMaxWidth(0);
     }
 
     private void openExcel(String path){
