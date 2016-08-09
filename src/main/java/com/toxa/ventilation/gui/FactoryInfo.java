@@ -18,6 +18,11 @@ public class FactoryInfo extends JDialog{
     private JPanel mainPanel;
     private JTable table1;
     private JScrollPane mainScrollPane;
+    private JPanel yearsPanel;
+    private JCheckBox checkBox2016;
+    private JCheckBox checkBox2013;
+    private JCheckBox checkBox2014;
+    private JCheckBox checkBox2015;
 
     public FactoryInfo(final TableModel model, final List<Factory> factoryList){
 
@@ -26,11 +31,12 @@ public class FactoryInfo extends JDialog{
 
         add(mainPanel);
 
-        setPreferredSize(new Dimension(700, getHeight(factoryList.size())));
+        setTableSorter(model);
+
+        setPreferredSize(new Dimension(700, getHeight(table1.getRowCount())));
         setVisible(true);
         setLocationForThisFrame();
 
-        setTableSorter(model);
         pack();
 
         table1.addMouseListener(new MouseAdapter() {
@@ -90,7 +96,10 @@ public class FactoryInfo extends JDialog{
     }
 
     private void setTableSorter(TableModel model){
-        RowSorter<TableModel> sorter = new TableRowSorter<>(model);
+//        RowSorter<TableModel> sorter = new TableRowSorter<>(model);
+//        sorter.setr
+        TableRowSorter sorter = new TableRowSorter(model);
+        sorter.setRowFilter(RowFilter.regexFilter("2014", 0));
         table1.setRowSorter(sorter);
     }
 }
