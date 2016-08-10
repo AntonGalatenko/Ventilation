@@ -2,6 +2,8 @@ package com.toxa.ventilation.model.repository;
 
 import com.toxa.ventilation.model.config.RepositoryConfig;
 import com.toxa.ventilation.model.entity.Factory;
+import org.apache.commons.codec.binary.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +68,24 @@ public class Repository {
 
         List<Factory> factoryList = session.createCriteria(Factory.class).list();
         for(Factory f : factoryList)
-            if(f.getName().equals(name))
+            if(parseName(f.getName().toLowerCase()).contains(parseName(name.toLowerCase())))
                 result.add(f);
 
         session.close();
         return result;
+    }
+
+    private String parseName(String name){
+        name = name.trim();
+
+        if(name.contains("\""))
+            name = name.substring(name.indexOf("\"") + 1, name.lastIndexOf("\""));
+
+        if(name.contains("«") && name.contains("»"))
+            name = name.substring(name.indexOf("«") + 1, name.indexOf("»"));
+
+        name = name.replace("-", " ");
+        return name;
     }
 
 
