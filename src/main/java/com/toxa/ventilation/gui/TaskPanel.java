@@ -166,7 +166,7 @@ public class TaskPanel extends JPanel{
     private void checkFactoryNames(){
         List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
 
-        if(list.size() > 0){
+        if(list != null){
             MyTableModel model = new MyTableModel(list);
             new FactoryInfo(model);
         }

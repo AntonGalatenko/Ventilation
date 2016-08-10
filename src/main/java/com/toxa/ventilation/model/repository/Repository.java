@@ -63,6 +63,9 @@ public class Repository {
     }
 
     public List<Factory> getNameEquals(String name){
+        if(name.length() == 0)
+            return null;
+
         Session session = sessionFactory.openSession();
         List<Factory> result = new ArrayList<>();
 
@@ -72,6 +75,10 @@ public class Repository {
                 result.add(f);
 
         session.close();
+
+        if(result.size() > 30)
+            return  null;
+
         return result;
     }
 

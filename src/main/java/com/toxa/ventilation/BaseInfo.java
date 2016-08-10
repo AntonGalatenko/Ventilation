@@ -5,10 +5,12 @@ import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
 
+import javax.swing.*;
 import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BaseInfo {
 
@@ -16,16 +18,10 @@ public class BaseInfo {
 
     private TaskPanel taskPanel;
     private ResultsPanel resultsPanel;
-//    private Count count;
-//    private SettingsPanel settingsPanel;
     private List<Integer> cageTiers = Arrays.asList(3, 4, 5, 6);
     private int airForAirInletForTunnelTypeOfVentilation = 3;
     private double airSpeedForPadCool = 1.5;
     private int firstGroup;
-
-//    public BaseInfo(TaskPanel taskPanel) {
-//        this.taskPanel = taskPanel;
-//    }
 
     private BaseInfo() {
     }
@@ -39,14 +35,6 @@ public class BaseInfo {
     public void setTaskPanel(TaskPanel taskPanel){
         this.taskPanel = taskPanel;
     }
-
-//    public void setCount(Count count){
-//        this.count = count;
-//    }
-
-//    public void setSettingsPanel(SettingsPanel settingsPanel) {
-//        this.settingsPanel = settingsPanel;
-//    }
 
     public void setResultsPanel(ResultsPanel resultsPanel) {
         this.resultsPanel = resultsPanel;
@@ -330,8 +318,6 @@ public class BaseInfo {
     }
 
     public LinkedHashMap<String, Integer[]> getGroups(){
-//        return Count.getInstance().getGroups();
-//        return  null;
         return resultsPanel.getGroups();
     }
 
@@ -492,5 +478,10 @@ public class BaseInfo {
     public String getChecked(){
         return new ActualValues().loadActualValue().getComposeChecked()[1];
     }
+
+    public Map<JCheckBox, Boolean> getYearsToView(){
+        return new ActualValues().loadActualValue().getYearsToView();
+    }
+
 
 }

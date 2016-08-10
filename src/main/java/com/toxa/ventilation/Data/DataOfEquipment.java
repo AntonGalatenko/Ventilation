@@ -1,8 +1,8 @@
 package com.toxa.ventilation.Data;
 
+import javax.swing.*;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class DataOfEquipment implements Serializable {
 
@@ -28,6 +28,8 @@ public class DataOfEquipment implements Serializable {
     private String[] composeChecked = new String[2];
     private String filePath;
     private boolean distributeByCountry;
+    private Map<JCheckBox, Boolean> yearsToView = new HashMap<>();
+
 
     public void setDefaultValues(){
         setFan50DefaultValue();
@@ -287,6 +289,14 @@ public class DataOfEquipment implements Serializable {
 
     public String[] getComposeChecked(){
         return composeChecked;
+    }
+
+    public Map<JCheckBox, Boolean> getYearsToView() {
+        return yearsToView;
+    }
+
+    public void updateYearsToView(Map<JCheckBox, Boolean> yearsToView) {
+        this.yearsToView = yearsToView;
     }
 
     public void updateFilePath(String filePath){
