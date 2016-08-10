@@ -168,7 +168,7 @@ public class TaskPanel extends JPanel{
 
         if(list.size() > 0){
             MyTableModel model = new MyTableModel(list);
-            new FactoryInfo(model, list);
+            new FactoryInfo(model);
         }
     }
 
@@ -177,7 +177,7 @@ public class TaskPanel extends JPanel{
 
         if(list.size() > 0){
             MyTableModel model = new MyTableModel(list);
-            new FactoryInfo(model, list);
+            new FactoryInfo(model).doSort();
         }
     }
 

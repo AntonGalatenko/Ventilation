@@ -1,7 +1,6 @@
 package com.toxa.ventilation.gui;
 
 import com.toxa.ventilation.Main;
-import com.toxa.ventilation.model.entity.Factory;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -29,17 +28,14 @@ public class FactoryInfo extends JDialog{
     private JCheckBox checkBox2015;
     private List<Integer> years = new ArrayList<>();
 
-    public FactoryInfo(final TableModel model, final List<Factory> factoryList){
+    public FactoryInfo(final TableModel model){
         this.model = model;
         table1.setModel(model);
         setColumnSize();
 
         add(mainPanel);
 
-        checkBox2016.setSelected(true);
-        years.add(2016);
 
-        setTableSorter();
 
         setPreferredSize(new Dimension(700, getHeight(table1.getRowCount())));
         setVisible(true);
@@ -51,19 +47,10 @@ public class FactoryInfo extends JDialog{
             @Override
             public void mouseClicked(MouseEvent e) {
                 JTable table = (JTable)e.getSource();
-//                Component component = e.getComponent();
-//                System.out.println("123 " + component.getClass());
-
-//                int row = table.getSelectedRow();
-
                 String path = (String)table.getValueAt(table.getSelectedRow(), 8);
-//                System.out.println("123 " + link);
-
-//                String path = factoryList.get(row).getLink();
                 openExcel(path);
             }
         });
-
 
         checkBox2016.addItemListener(new ItemListener() {
             @Override
@@ -113,7 +100,17 @@ public class FactoryInfo extends JDialog{
             }
         });
 
+        yearsPanel.setVisible(false);
 
+    }
+
+    public void doSort(){
+        checkBox2016.setSelected(true);
+        years.add(2016);
+
+        setTableSorter();
+
+        yearsPanel.setVisible(true);
     }
 
     public void setLocationForThisFrame(){
