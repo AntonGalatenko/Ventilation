@@ -143,45 +143,12 @@ public class Factory {
         this.drawing = drawing;
     }
 
-//    @Override
-//    public boolean equals(Object obj){
-//        if(obj == null)
-//            return false;
-//
-//        if(this.getClass() != obj.getClass())
-//            return false;
-//
-//        Factory other = (Factory) obj;
-//
-//        return (this.name.equals(other.name)) && (this.country.equals(other.country)) && (this.cage.equals(other.cage)) &&
-//                (this.numberOfHeads == other.numberOfHeads) && (this.length == other.length) &&
-//                (this.width == other.width) && (this.heightMin == other.heightMin) && (this.heightMax == other.heightMax) &&
-//                (this.link == other.link);
-//    }
-//
-//    @Override
-//    public int hashCode(){
-//        int hash = name.hashCode() + country.hashCode() + cage.hashCode() + link.hashCode();
-//        int hash1 = (int)(numberOfHeads * length * width * heightMin + heightMax);
-//
-//        return hash + hash1;
-//    }
-//
-    public boolean isSimilar(Factory factory){
-        if(! this.cage.equals(factory.cage))
+    public boolean isSimilar(int numberOfHeads, String cage){
+        if(! this.cage.equals(cage))
             return false;
-//        if(this.year < 2015)
-//            return false;
-        if(! ((this.numberOfHeads >= factory.numberOfHeads * 0.95) && (this.numberOfHeads <= factory.numberOfHeads * 1.05)))
+        if(! ((this.numberOfHeads >= numberOfHeads * 0.95) && (this.numberOfHeads <= numberOfHeads * 1.05)))
             return false;
 
         return true;
     }
-//
-//    public boolean isNameEquals(Factory factory){
-//        if(this.name.equals(factory.name))
-//            return true;
-//
-//        return false;
-//    }
 }

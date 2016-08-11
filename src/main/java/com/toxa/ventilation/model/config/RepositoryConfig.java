@@ -1,15 +1,17 @@
 package com.toxa.ventilation.model.config;
 
 
+import com.toxa.ventilation.model.repository.Repository;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-//@Configuration
+@Configuration
 public class RepositoryConfig {
 
     private static SessionFactory sessionFactory;
@@ -48,9 +50,9 @@ public class RepositoryConfig {
 
     }
 
-//    @Bean
-//    public Repository repository(){
-//        return new Repository();
-//    }
+    @Bean
+    public Repository repository(){
+        return new Repository();
+    }
 
 }

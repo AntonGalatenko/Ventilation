@@ -1,7 +1,9 @@
 package com.toxa.ventilation.Data;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class DataOfEquipment implements Serializable {
@@ -28,6 +30,8 @@ public class DataOfEquipment implements Serializable {
     private String[] composeChecked = new String[2];
     private String filePath;
     private boolean distributeByCountry;
+    private Map<String, Boolean> yearsToView = new HashMap<>();
+
 
     public void setDefaultValues(){
         setFan50DefaultValue();
@@ -171,6 +175,8 @@ public class DataOfEquipment implements Serializable {
         humidity1.put("13.2x1.0", new Storage(13.2, "ПУН21-12")); humidity1.put("13.8x1.0", new Storage(13.8, "ПУН21-13")); humidity1.put("14.4x1.0", new Storage(14.4, "ПУН21-14"));
         humidity1.put("15.0x1.0", new Storage(15.0, "ПУН21-15")); humidity1.put("15.6x1.0", new Storage(15.6, "ПУН21-16")); humidity1.put("16.2x1.0", new Storage(16.2, "ПУН21-17"));
         humidity1.put("16.8x1.0", new Storage(16.8, "ПУН21-18")); humidity1.put("17.4x1.0", new Storage(17.4, "ПУН21-19")); humidity1.put("18.0x1.0", new Storage(18.0, "ПУН21-20"));
+        humidity1.put("18.6x1.0", new Storage(18.6, "ПУН21-21")); humidity1.put("19.2x1.0", new Storage(19.2, "ПУН21-22")); humidity1.put("19.8x1.0", new Storage(19.8, "ПУН21-23"));
+        humidity1.put("20.4x1.0", new Storage(20.4, "ПУН21-24")); humidity1.put("21.0x1.0", new Storage(21.0, "ПУН21-25"));
     }
 
     private void setHumidityWaterCirculationDefaultValue(){
@@ -287,6 +293,14 @@ public class DataOfEquipment implements Serializable {
 
     public String[] getComposeChecked(){
         return composeChecked;
+    }
+
+    public Map<String, Boolean> getYearsToView() {
+        return yearsToView;
+    }
+
+    public void updateYearsToView(Map<String, Boolean> yearsToView) {
+        this.yearsToView = yearsToView;
     }
 
     public void updateFilePath(String filePath){

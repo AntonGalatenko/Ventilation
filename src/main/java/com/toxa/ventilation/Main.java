@@ -16,9 +16,6 @@ public class Main {
 
         setNimbusLookAndFeel();
 
-//        new MyMainPanel();
-//        new CardLayoutPanel();
-
 //        setLogFile();
 
         mainPanel = new MyMainPanel();

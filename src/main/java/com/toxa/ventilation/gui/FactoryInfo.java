@@ -1,39 +1,43 @@
 package com.toxa.ventilation.gui;
 
+import com.toxa.ventilation.BaseInfo;
+import com.toxa.ventilation.Data.ActualValues;
+import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.Main;
-import com.toxa.ventilation.model.entity.Factory;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.*;
+import java.io.*;
+import java.util.*;
 import java.util.List;
 
 public class FactoryInfo extends JDialog{
     private JPanel mainPanel;
     private JTable table1;
+    private TableModel model;
     private JScrollPane mainScrollPane;
     private JPanel yearsPanel;
     private JCheckBox checkBox2016;
     private JCheckBox checkBox2013;
     private JCheckBox checkBox2014;
     private JCheckBox checkBox2015;
+    private Map<String, Boolean> yearsMap;
+    private DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
 
-    public FactoryInfo(final TableModel model, final List<Factory> factoryList){
-
+    public FactoryInfo(final TableModel model){
+        this.model = model;
         table1.setModel(model);
         setColumnSize();
 
         add(mainPanel);
 
-        setTableSorter(model);
-
+        yearsPanel.setVisible(false);
         setPreferredSize(new Dimension(700, getHeight(table1.getRowCount())));
+
         setVisible(true);
         setLocationForThisFrame();
 
@@ -43,19 +47,64 @@ public class FactoryInfo extends JDialog{
             @Override
             public void mouseClicked(MouseEvent e) {
                 JTable table = (JTable)e.getSource();
-//                Component component = e.getComponent();
-//                System.out.println("123 " + component.getClass());
-
-//                int row = table.getSelectedRow();
-
                 String path = (String)table.getValueAt(table.getSelectedRow(), 8);
-//                System.out.println("123 " + link);
-
-//                String path = factoryList.get(row).getLink();
                 openExcel(path);
             }
         });
 
+        checkBox2016.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2016, true);
+                else
+                    updateYears(checkBox2016, false);
+
+                setTableSorter();
+            }
+        });
+
+        checkBox2015.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2015, true);
+                else
+                    updateYears(checkBox2015, false);
+
+                setTableSorter();
+            }
+        });
+
+        checkBox2014.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2014, true);
+                else
+                    updateYears(checkBox2014, false);
+
+                setTableSorter();
+            }
+        });
+
+        checkBox2013.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2013, true);
+                else
+                    updateYears(checkBox2013, false);
+
+                setTableSorter();
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                saveActualValue();
+            }
+        });
     }
 
     public void setLocationForThisFrame(){
@@ -64,9 +113,15 @@ public class FactoryInfo extends JDialog{
     }
 
     public int getHeight(int size){
+        int a = 62;
+
+        if(yearsPanel.isVisible())
+            a = 90;
+
         if(size > 30)
-            return 542;
-        return 62 + size * 16;
+            return 570;
+
+        return a + size * 16;
     }
 
     private void setColumnSize(){
@@ -83,6 +138,34 @@ public class FactoryInfo extends JDialog{
         tcm.getColumn(8).setMaxWidth(0);
     }
 
+    private void addCheckBoxToMap(){
+        yearsMap.put("2013", false);
+        yearsMap.put("2014", false);
+        yearsMap.put("2015", false);
+        yearsMap.put("2016", false);
+
+        checkBox2016.setSelected(true);
+
+    }
+
+    public void doSort(){
+        yearsMap = BaseInfo.getInstance().getYearsToView();
+        if(yearsMap.size() == 0){
+            addCheckBoxToMap();
+            System.out.println("true");
+        } else{
+            checkBox2013.setSelected(yearsMap.get("2013"));
+            checkBox2014.setSelected(yearsMap.get("2014"));
+            checkBox2015.setSelected(yearsMap.get("2015"));
+            checkBox2016.setSelected(yearsMap.get("2016"));
+        }
+
+        yearsPanel.setVisible(true);
+        setTableSorter();
+    }
+
+
+
     private void openExcel(String path){
         if(path == null)
             return;
@@ -95,11 +178,65 @@ public class FactoryInfo extends JDialog{
         }
     }
 
-    private void setTableSorter(TableModel model){
-//        RowSorter<TableModel> sorter = new TableRowSorter<>(model);
-//        sorter.setr
+    private void setTableSorter(){
         TableRowSorter sorter = new TableRowSorter(model);
-        sorter.setRowFilter(RowFilter.regexFilter("2014", 0));
+
+        final Set<String> years = yearsMap.keySet();
+        Iterator<String> iterator = years.iterator();
+
+        final List<Integer> l = new ArrayList<>();
+
+        while (iterator.hasNext()){
+            String ye = iterator.next();
+            if(yearsMap.get(ye))
+                l.add(Integer.parseInt(ye));
+        }
+
+        RowFilter<Object, Object> filter = new RowFilter<Object, Object>() {
+            @Override
+            public boolean include(Entry<?, ?> entry) {
+            Integer i = (Integer) entry.getValue(0);
+            return (l.indexOf(i.intValue()) >= 0);
+            }
+        };
+
+        sorter.setRowFilter(filter);
+        sorter.setSortsOnUpdates(true);
         table1.setRowSorter(sorter);
+
+        setPreferredSize(new Dimension(700, getHeight(table1.getRowCount())));
+        pack();
+    }
+
+    private void updateYears(JCheckBox checkBox, boolean value){
+        yearsMap.replace(checkBox.getText(), value);
+
+        dataOfEquipment.updateYearsToView(yearsMap);
+    }
+
+//    private List<Integer> parseYearsMap(){
+//        List<Integer> result = new ArrayList<>();
+//        for(JCheckBox checkBox : yearsMap.keySet())
+//            if(yearsMap.get(checkBox))
+//                result.add(Integer.parseInt(checkBox.getText()));
+//
+//        return  result;
+//    }
+
+
+    public void saveActualValue(){
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+        try {
+            fos = new FileOutputStream("save_ventilation");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(dataOfEquipment);
+            oos.flush();
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
