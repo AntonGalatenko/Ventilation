@@ -35,6 +35,7 @@ public class FactoryInfo extends JDialog{
 
         add(mainPanel);
 
+        yearsPanel.setVisible(false);
         setPreferredSize(new Dimension(700, getHeight(table1.getRowCount())));
 
         setVisible(true);
@@ -99,15 +100,11 @@ public class FactoryInfo extends JDialog{
             }
         });
 
-        yearsPanel.setVisible(false);
-
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 saveActualValue();
             }
         });
-
-
     }
 
     public void setLocationForThisFrame(){
@@ -116,9 +113,15 @@ public class FactoryInfo extends JDialog{
     }
 
     public int getHeight(int size){
+        int a = 62;
+
+        if(yearsPanel.isVisible())
+            a = 90;
+
         if(size > 30)
-            return 542;
-        return 62 + size * 16;
+            return 570;
+
+        return a + size * 16;
     }
 
     private void setColumnSize(){
@@ -201,7 +204,8 @@ public class FactoryInfo extends JDialog{
         sorter.setSortsOnUpdates(true);
         table1.setRowSorter(sorter);
 
-
+        setPreferredSize(new Dimension(700, getHeight(table1.getRowCount())));
+        pack();
     }
 
     private void updateYears(JCheckBox checkBox, boolean value){
@@ -221,7 +225,6 @@ public class FactoryInfo extends JDialog{
 
 
     public void saveActualValue(){
-
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
