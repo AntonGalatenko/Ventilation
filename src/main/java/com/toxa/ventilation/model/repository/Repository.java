@@ -63,12 +63,14 @@ public class Repository {
         if(name.length() == 0)
             return null;
 
+        name = parseName(name);
+
         Session session = sessionFactory.openSession();
         List<Factory> result = new ArrayList<>();
 
         List<Factory> factoryList = session.createCriteria(Factory.class).list();
         for(Factory f : factoryList)
-            if(parseName(f.getName().toLowerCase()).contains(parseName(name.toLowerCase())))
+            if(parseName(f.getName()).contains(name))
                 result.add(f);
 
         session.close();
@@ -89,7 +91,7 @@ public class Repository {
             name = name.substring(name.indexOf("«") + 1, name.indexOf("»"));
 
         name = name.replace("-", " ");
-        return name;
+        return name.toLowerCase();
     }
 
 
