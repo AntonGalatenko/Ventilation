@@ -1,6 +1,7 @@
 package com.toxa.ventilation.gui;
 
 import com.toxa.ventilation.BaseInfo;
+import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.Main;
 
@@ -11,9 +12,8 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class FactoryInfo extends JDialog{
     private JPanel mainPanel;
@@ -25,9 +25,8 @@ public class FactoryInfo extends JDialog{
     private JCheckBox checkBox2013;
     private JCheckBox checkBox2014;
     private JCheckBox checkBox2015;
-//    private List<Integer> years = new ArrayList<>();
-    private Map<JCheckBox, Boolean> yearsMap;
-    DataOfEquipment dataOfEquipment = new DataOfEquipment();
+    private Map<String, Boolean> yearsMap;
+    private DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
 
     public FactoryInfo(final TableModel model){
         this.model = model;
@@ -37,12 +36,11 @@ public class FactoryInfo extends JDialog{
         add(mainPanel);
 
         setPreferredSize(new Dimension(700, getHeight(table1.getRowCount())));
+
         setVisible(true);
         setLocationForThisFrame();
 
         pack();
-
-
 
         table1.addMouseListener(new MouseAdapter() {
             @Override
@@ -56,12 +54,11 @@ public class FactoryInfo extends JDialog{
         checkBox2016.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-//                if(e.getStateChange() == ItemEvent.SELECTED)
-//                    years.add(2016);
-//                else
-//                    years.remove(years.indexOf(2016));
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2016, true);
+                else
+                    updateYears(checkBox2016, false);
 
-                updateYears(checkBox2016);
                 setTableSorter();
             }
         });
@@ -69,12 +66,11 @@ public class FactoryInfo extends JDialog{
         checkBox2015.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-//                if(e.getStateChange() == ItemEvent.SELECTED)
-//                    years.add(2015);
-//                else
-//                    years.remove(years.indexOf(2015));
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2015, true);
+                else
+                    updateYears(checkBox2015, false);
 
-                updateYears(checkBox2015);
                 setTableSorter();
             }
         });
@@ -82,12 +78,11 @@ public class FactoryInfo extends JDialog{
         checkBox2014.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-//                if(e.getStateChange() == ItemEvent.SELECTED)
-//                    years.add(2014);
-//                else
-//                    years.remove(years.indexOf(2014));
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2014, true);
+                else
+                    updateYears(checkBox2014, false);
 
-                updateYears(checkBox2014);
                 setTableSorter();
             }
         });
@@ -95,12 +90,11 @@ public class FactoryInfo extends JDialog{
         checkBox2013.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-//                if(e.getStateChange() == ItemEvent.SELECTED)
-//                    years.add(2013);
-//                else
-//                    years.remove(years.indexOf(2013));
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2013, true);
+                else
+                    updateYears(checkBox2013, false);
 
-                updateYears(checkBox2013);
                 setTableSorter();
             }
         });
@@ -112,30 +106,6 @@ public class FactoryInfo extends JDialog{
                 saveActualValue();
             }
         });
-
-    }
-
-    private void addCheckBoxToMap(){
-        yearsMap.put(checkBox2013, false);
-        yearsMap.put(checkBox2014, false);
-        yearsMap.put(checkBox2015, false);
-        yearsMap.put(checkBox2016, false);
-
-        checkBox2016.setSelected(true);
-
-
-    }
-
-    public void doSort(){
-        yearsMap = BaseInfo.getInstance().getYearsToView();
-        if(yearsMap.size() == 0){
-            addCheckBoxToMap();
-            System.out.println("true");
-        }
-
-        yearsPanel.setVisible(true);
-
-        setTableSorter();
 
 
     }
@@ -165,6 +135,34 @@ public class FactoryInfo extends JDialog{
         tcm.getColumn(8).setMaxWidth(0);
     }
 
+    private void addCheckBoxToMap(){
+        yearsMap.put("2013", false);
+        yearsMap.put("2014", false);
+        yearsMap.put("2015", false);
+        yearsMap.put("2016", false);
+
+        checkBox2016.setSelected(true);
+
+    }
+
+    public void doSort(){
+        yearsMap = BaseInfo.getInstance().getYearsToView();
+        if(yearsMap.size() == 0){
+            addCheckBoxToMap();
+            System.out.println("true");
+        } else{
+            checkBox2013.setSelected(yearsMap.get("2013"));
+            checkBox2014.setSelected(yearsMap.get("2014"));
+            checkBox2015.setSelected(yearsMap.get("2015"));
+            checkBox2016.setSelected(yearsMap.get("2016"));
+        }
+
+        yearsPanel.setVisible(true);
+        setTableSorter();
+    }
+
+
+
     private void openExcel(String path){
         if(path == null)
             return;
@@ -180,38 +178,46 @@ public class FactoryInfo extends JDialog{
     private void setTableSorter(){
         TableRowSorter sorter = new TableRowSorter(model);
 
-        final List<Integer> years = parseYearsMap();
+        final Set<String> years = yearsMap.keySet();
+        Iterator<String> iterator = years.iterator();
+
+        final List<Integer> l = new ArrayList<>();
+
+        while (iterator.hasNext()){
+            String ye = iterator.next();
+            if(yearsMap.get(ye))
+                l.add(Integer.parseInt(ye));
+        }
 
         RowFilter<Object, Object> filter = new RowFilter<Object, Object>() {
             @Override
             public boolean include(Entry<?, ?> entry) {
-                Integer i = (Integer) entry.getValue(0);
-                return (years.indexOf(i.intValue()) >= 0);
+            Integer i = (Integer) entry.getValue(0);
+            return (l.indexOf(i.intValue()) >= 0);
             }
         };
 
         sorter.setRowFilter(filter);
         sorter.setSortsOnUpdates(true);
         table1.setRowSorter(sorter);
+
+
     }
 
-    private void updateYears(JCheckBox checkBox){
-        boolean value = true;
-        if(yearsMap.get(checkBox))
-            value = false;
-        yearsMap.replace(checkBox, value);
+    private void updateYears(JCheckBox checkBox, boolean value){
+        yearsMap.replace(checkBox.getText(), value);
 
         dataOfEquipment.updateYearsToView(yearsMap);
     }
 
-    private List<Integer> parseYearsMap(){
-        List<Integer> result = new ArrayList<>();
-        for(JCheckBox checkBox : yearsMap.keySet())
-            if(yearsMap.get(checkBox))
-                result.add(Integer.parseInt(checkBox.getText()));
-
-        return  result;
-    }
+//    private List<Integer> parseYearsMap(){
+//        List<Integer> result = new ArrayList<>();
+//        for(JCheckBox checkBox : yearsMap.keySet())
+//            if(yearsMap.get(checkBox))
+//                result.add(Integer.parseInt(checkBox.getText()));
+//
+//        return  result;
+//    }
 
 
     public void saveActualValue(){

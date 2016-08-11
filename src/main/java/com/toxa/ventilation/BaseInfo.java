@@ -5,7 +5,6 @@ import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -479,7 +478,7 @@ public class BaseInfo {
         return new ActualValues().loadActualValue().getComposeChecked()[1];
     }
 
-    public Map<JCheckBox, Boolean> getYearsToView(){
+    public Map<String, Boolean> getYearsToView(){
         return new ActualValues().loadActualValue().getYearsToView();
     }
 
