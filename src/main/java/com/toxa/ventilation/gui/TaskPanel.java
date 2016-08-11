@@ -73,12 +73,8 @@ public class TaskPanel extends JPanel{
 
         add(mainPanel);
 
-//        baseInfo = new BaseInfo(this);
         baseInfo = BaseInfo.getInstance();
         baseInfo.setTaskPanel(this);
-//        count = new Count();
-//        count.setBaseInfo(baseInfo);
-
 
         cageNameComboBox.addItemListener(new ItemListener() {
             @Override
@@ -86,6 +82,14 @@ public class TaskPanel extends JPanel{
                 if(e.getStateChange() == 1){
                     baseInfo.setInfo();
                 }
+            }
+        });
+
+        cageNameComboBox.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                checkFactoryToSimilar();
             }
         });
 
@@ -101,12 +105,11 @@ public class TaskPanel extends JPanel{
         countButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                count.startCount();
-
-                baseInfo.setResultPanelVisible(true);
-                myMainPanel.pack();
-
-//                checkFactoryToSimilar();
+                if(isAllDataOk()){
+                    count.startCount();
+                    baseInfo.setResultPanelVisible(true);
+                    myMainPanel.pack();
+                }
             }
         });
 
@@ -119,8 +122,6 @@ public class TaskPanel extends JPanel{
                 excelApachePOI.saveThis();
 
                 addFactoryToDataBase();
-
-//                addFactoryToDataBase();
             }
         });
 
@@ -149,14 +150,31 @@ public class TaskPanel extends JPanel{
             }
         });
 
-        headsNumberTextField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                checkFactoryToSimilar();
-            }
-        });
-
         setDefaultValues();
+    }
+
+    private boolean isAllDataOk(){
+        try{
+            if(getBuildingLength() < 0)
+                return false;
+
+            if(getBuildingWidth() < 0)
+                return false;
+
+            if(getBuildingHeightMin() < 0)
+                return false;
+
+            if(getBuildingHeightMax() < 0)
+                return false;
+
+            if(getHeadsNumber() < 0)
+                return false;
+
+        }catch (NumberFormatException e){
+            System.err.println(e.toString());
+        }
+
+        return true;
     }
 
     private void addFactoryToDataBase(){
@@ -173,7 +191,7 @@ public class TaskPanel extends JPanel{
     }
 
     private void checkFactoryToSimilar(){
-        List<Factory> list = repository.getSimilar(getFactory());
+        List<Factory> list = repository.getSimilar(baseInfo.getHeadsNumber(), baseInfo.getCageName());
 
         if(list.size() > 0){
             MyTableModel model = new MyTableModel(list);
@@ -240,48 +258,47 @@ public class TaskPanel extends JPanel{
         if(headsNumberTextField.getText().length() == 0)
             headsNumberTextField.setText("96360");
 
-        checkNumberField(headsNumberTextField);
-        return Integer.parseInt(headsNumberTextField.getText());
+        return checkNumberField(headsNumberTextField).intValue();
     }
 
     public double getBuildingLength() {
         if(lengthTextField.getText().length() == 0)
             lengthTextField.setText("96");
 
-        checkNumberField(lengthTextField);
-        return Double.parseDouble(lengthTextField.getText().replace(",", "."));
+        return checkNumberField(lengthTextField);
     }
 
     public double getBuildingWidth() {
         if(widthTextField.getText().length() == 0)
             widthTextField.setText("18");
 
-        checkNumberField(widthTextField);
-        return Double.parseDouble(widthTextField.getText().replace(",", "."));
+        return checkNumberField(widthTextField);
     }
 
     public double getBuildingHeightMin() {
         if(heightMinTextField.getText().length() == 0)
             heightMinTextField.setText("4");
 
-        checkNumberField(heightMinTextField);
-        return Double.parseDouble(heightMinTextField.getText().replace(",", "."));
-    }
-
-    private void checkNumberField(JTextField field){
-        try{
-            field.setBackground(Color.WHITE);
-            Double.parseDouble(field.getText().replace(",", "."));
-        } catch (NumberFormatException e){
-            field.setBackground(Color.YELLOW);
-            e.printStackTrace();
-        }
+        return checkNumberField(heightMinTextField);
     }
 
     public double getBuildingHeightMax() {
-        if(heightMaxTextField.getText().length() == 0)
+        if(heightMaxTextField.getText().length() == 0){
+            heightMaxTextField.setBackground(Color.WHITE);
             return 0;
-        return Double.parseDouble(heightMaxTextField.getText().replace(",", "."));
+        }
+        return checkNumberField(heightMaxTextField);
+    }
+
+    private Double checkNumberField(JTextField field){
+        try{
+            field.setBackground(Color.WHITE);
+            return Double.parseDouble(field.getText().replace(",", "."));
+        } catch (NumberFormatException e){
+            field.setBackground(Color.YELLOW);
+            System.err.println(e.toString());
+        }
+        return new Double(-1);
     }
 
     public String getPoultryHouseNumber() {

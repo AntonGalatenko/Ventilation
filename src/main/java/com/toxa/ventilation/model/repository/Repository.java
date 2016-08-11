@@ -2,11 +2,8 @@ package com.toxa.ventilation.model.repository;
 
 import com.toxa.ventilation.model.config.RepositoryConfig;
 import com.toxa.ventilation.model.entity.Factory;
-import org.apache.commons.codec.binary.StringUtils;
-import org.apache.poi.util.StringUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +11,7 @@ import java.util.List;
 
 public class Repository {
 
-    @Autowired
+//    @Autowired
     public SessionFactory sessionFactory = RepositoryConfig.sessionFactory();
 
     public List<Factory> getAllItems(){
@@ -48,13 +45,13 @@ public class Repository {
         return isFactoryExists;
     }
 
-    public List<Factory> getSimilar(Factory factory){
+    public List<Factory> getSimilar(int numberOfHeads, String cage){
         Session session = sessionFactory.openSession();
         List<Factory> result = new ArrayList<>();
 
         List<Factory> factoryList = session.createCriteria(Factory.class).list();
         for(Factory f : factoryList)
-            if(f.isSimilar(factory))
+            if(f.isSimilar(numberOfHeads, cage))
                 result.add(f);
 
         Collections.reverse(result);

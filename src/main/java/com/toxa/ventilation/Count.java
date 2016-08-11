@@ -33,10 +33,6 @@ public class Count {
         countEmergency();
     }
 
-//    public void setBaseInfo(BaseInfo baseInfo) {
-//        this.baseInfo = baseInfo;
-//    }
-
     public void setResultsPanel(ResultsPanel resultsPanel) {
         this.resultsPanel = resultsPanel;
     }

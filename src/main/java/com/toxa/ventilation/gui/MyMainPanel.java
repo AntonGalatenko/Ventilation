@@ -11,7 +11,7 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
-    private final double versionNumber = 1.53;
+    private final double versionNumber = 1.6;
 
     public MyMainPanel(){
         setTitle("Вентиляция ver" + versionNumber);
@@ -38,6 +38,8 @@ public class MyMainPanel extends JFrame{
         mainPanel.add(resultPanel, BorderLayout.EAST);
 
         add(mainPanel);
+
+        setResizable(false);
 
         setVisible(true);
         pack();
