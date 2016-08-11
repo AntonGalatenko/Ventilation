@@ -65,7 +65,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="Распредилять по странам "/>
+                  <text value="Распределять по странам "/>
                 </properties>
               </component>
               <component id="f64be" class="javax.swing.JLabel" binding="fileChooserLabel">

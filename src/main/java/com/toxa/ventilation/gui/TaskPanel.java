@@ -170,7 +170,12 @@ public class TaskPanel extends JPanel{
             if(getHeadsNumber() < 0)
                 return false;
 
-        }catch (NumberFormatException e){
+            if(getBuildingHeightMax() <= getBuildingHeightMin() && getBuildingHeightMax() != 0){
+                heightMaxTextField.setBackground(Color.YELLOW);
+                return false;
+            }
+
+        } catch(NumberFormatException e){
             System.err.println(e.toString());
         }
 
@@ -287,6 +292,7 @@ public class TaskPanel extends JPanel{
             heightMaxTextField.setBackground(Color.WHITE);
             return 0;
         }
+
         return checkNumberField(heightMaxTextField);
     }
 
