@@ -192,6 +192,13 @@ public class BaseInfo {
         return taskPanel.getPoultryHouseNumber();
     }
 
+    public String getSecondFolder(){
+        if(taskPanel.getCageName().equals("Напольник"))
+            return taskPanel.getCageName();
+        else
+            return "ПЧ";
+    }
+
     public String getCountry(){
         return taskPanel.getCountry();
     }
@@ -434,11 +441,11 @@ public class BaseInfo {
     public String getPathFile(){
         if(isDistributeByCountry()){
             if (isDirectoryExist(getCountry()))
-                return new ActualValues().loadActualValue().getFilePath() + "/" + getCountry().trim();
+                return new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/" + getCountry().trim();
             else{
                 if(! isDirectoryExist("Temp"))
-                    new File(new ActualValues().loadActualValue().getFilePath() + "/Temp").mkdir();
-                return new ActualValues().loadActualValue().getFilePath() + "/Temp";
+                    new File(new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/Temp").mkdir();
+                return new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/Temp";
                 }
             }
         else

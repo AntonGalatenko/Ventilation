@@ -246,43 +246,43 @@ public class TaskPanel extends JPanel{
     }
 
     public String getCompanyName() {
-//        if(companyNameTextField.getText().length() == 0)
-//            companyNameTextField.setText("Название фабирики");
+        if(companyNameTextField.getText().length() == 0)
+            companyNameTextField.setText("Название фабирики");
 
         return companyNameTextField.getText();
     }
 
     public String getCountry(){
-//        if(countryTextField.getText().length() == 0)
-//            countryTextField.setText("Страна");
+        if(countryTextField.getText().length() == 0)
+            countryTextField.setText("Страна");
 
         return countryTextField.getText();
     }
 
     public int getHeadsNumber() {
-//        if(headsNumberTextField.getText().length() == 0)
-//            headsNumberTextField.setText("96360");
+        if(headsNumberTextField.getText().length() == 0)
+            headsNumberTextField.setText("96360");
 
         return checkNumberField(headsNumberTextField).intValue();
     }
 
     public double getBuildingLength() {
-//        if(lengthTextField.getText().length() == 0)
-//            lengthTextField.setText("96");
+        if(lengthTextField.getText().length() == 0)
+            lengthTextField.setText("96");
 
         return checkNumberField(lengthTextField);
     }
 
     public double getBuildingWidth() {
-//        if(widthTextField.getText().length() == 0)
-//            widthTextField.setText("18");
+        if(widthTextField.getText().length() == 0)
+            widthTextField.setText("18");
 
         return checkNumberField(widthTextField);
     }
 
     public double getBuildingHeightMin() {
-//        if(heightMinTextField.getText().length() == 0)
-//            heightMinTextField.setText("4");
+        if(heightMinTextField.getText().length() == 0)
+            heightMinTextField.setText("4");
 
         return checkNumberField(heightMinTextField);
     }
