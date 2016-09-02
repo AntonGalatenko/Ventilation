@@ -535,6 +535,11 @@ public class ResultsPanel extends JPanel{
             JRadioButton radioButton = (JRadioButton)getNeededComponent(new JRadioButton(), p);
 
             if(radioButton.isSelected()){
+                JCheckBox jcb = (JCheckBox)getNeededComponent(new JCheckBox(), p);
+//                if(jcb != null)
+//                    if(jcb.isSelected() && jcb.getText().length() == 0)
+//                        System.out.println("jcb.getText " + jcb.getText());
+
                 JComboBox name =(JComboBox) getNeededComponent(new JComboBox(), p);
                 JSpinner number = (JSpinner) getNeededComponent(new JSpinner(), p);
 
@@ -543,6 +548,14 @@ public class ResultsPanel extends JPanel{
                         result.put(getAutomaticOSHUMName(), 1);
                     else
                         result.put(name.getSelectedItem().toString(), (int)number.getValue());
+
+                    if(jcb != null)
+                        if(jcb.isSelected() && jcb.getText().length() == 0)
+                            result.put("LightTrap=" + name.getSelectedItem().toString(), (int)number.getValue());
+
+
+//                    System.out.println("name.getSelectedItem().toString() " + name.getSelectedItem().toString());
+
 
                     if(radioButton.getText().equals("Вен-р крышний"))
                         result.put("Воздуховод Камин с клапаном батерфляй, 2000мм", (int)number.getValue());
@@ -581,6 +594,8 @@ public class ResultsPanel extends JPanel{
 
         return result;
     }
+
+
 
     public void selectedComponentsAddHumidity(LinkedHashMap<String, Integer> result){
         String length1 = String.format("%.1f", getHumidityLength1()).replace(",", ".");

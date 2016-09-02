@@ -440,6 +440,11 @@ public class BaseInfo {
 
     public String getPathFile(){
         if(isDistributeByCountry()){
+
+            String dir = new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder();
+            if(! new File(dir).exists())
+                new File(dir).mkdir();
+
             if (isDirectoryExist(getCountry()))
                 return new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/" + getCountry().trim();
             else{
@@ -456,8 +461,8 @@ public class BaseInfo {
         return new ActualValues().loadActualValue().isDistributeByCountry();
     }
 
-    public boolean isDirectoryExist(String country){
-        String dir = new ActualValues().loadActualValue().getFilePath() + "\\" + country;
+    public boolean isDirectoryExist(String value){
+        String dir = new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/" + value;
         return new File(dir).exists();
     }
 

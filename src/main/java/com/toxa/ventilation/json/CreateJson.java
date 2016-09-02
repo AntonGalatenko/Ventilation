@@ -5,9 +5,7 @@ import com.toxa.ventilation.Data.ActualValues;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class CreateJson {
 
@@ -58,11 +56,11 @@ public class CreateJson {
 
         LinkedHashMap<String, Integer> c = baseInfo.getSelectedComponents();
 
-//        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
-
         List<String> list = new ArrayList<>(c.keySet());
         for(int i = 0; i < list.size(); i++){
             String key = list.get(i);
+
+            System.out.println(key);
 
             if(ent.getName() == null)
                 ent = new JsonEnt(parseValue(getDescriptionEquipment(key))[1]);
@@ -94,14 +92,14 @@ public class CreateJson {
                     equipment = new JsonEquipment("Fancom Lumina 37", parseValue(getDescriptionEquipment(key))[0], c.get(key));
                 else if(key.equals(parseValue(getDescriptionEquipment(key))[0]))
                     equipment = new JsonEquipment("", parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                else if(key.contains("="))
+                    equipment = new JsonEquipment(getLightTrapName(key), parseValue(getDescriptionEquipment(key))[0], c.get(key));
                 else
                     equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
-
 
                 ent.addEquipment(equipment);
             }
         }
-
         jsonObject.addEqu(ent);
     }
 
@@ -155,6 +153,9 @@ public class CreateJson {
             return value + new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
+        else if(wqe(nameEquipment))
+            return value + "Светофильтр";
+
 
         value = "Приток=";
 
@@ -168,6 +169,8 @@ public class CreateJson {
             return value + new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
+        else if(wqe1(nameEquipment))
+            return value + "Светофильтр";
 
         value = "Отопление=";
 
@@ -190,11 +193,84 @@ public class CreateJson {
         return nameEquipment;
     }
 
+    private boolean wqe(String value){
+        if(! value.contains("="))
+            return false;
+        value = value.split("=")[1];
+
+        Set<Map.Entry<LinkedHashMap, String>> set50 = new ActualValues().loadActualValue().getLightTrap50().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : set50)
+            if(link.getKey().containsKey(value))
+                return true;
+
+        Set<Map.Entry<LinkedHashMap, String>> set36 = new ActualValues().loadActualValue().getLightTrap36().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : set36)
+            if(link.getKey().containsKey(value))
+                return true;
+
+        Set<Map.Entry<LinkedHashMap, String>> set26 = new ActualValues().loadActualValue().getLightTrap26().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : set26)
+            if(link.getKey().containsKey(value))
+                return true;
+
+        return false;
+    }
+
+    private boolean wqe1(String value){
+        if(! value.contains("="))
+            return false;
+        value = value.split("=")[1];
+
+        Set<Map.Entry<LinkedHashMap, String>> setAI = new ActualValues().loadActualValue().getLightTrapAirInletOfWall().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : setAI)
+            if(link.getKey().containsKey(value))
+                return true;
+
+        Set<Map.Entry<LinkedHashMap, String>> setSH = new ActualValues().loadActualValue().getLightTrapShutter().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : setSH)
+            if(link.getKey().containsKey(value))
+                return true;
+
+        return false;
+    }
+
+
     private String getHumidityDescription(String value){
         int length = (int) (Double.parseDouble(value.substring(0, value.indexOf("x"))) * 1000);
         int height = (int) (Double.parseDouble(value.substring(value.indexOf("x") + 1)) * 1000);
 
         return "Испарительная панель " + length + "x" + height + "x150";
+    }
+
+    private String getLightTrapName(String value){
+        value = value.split("=")[1];
+
+        Set<Map.Entry<LinkedHashMap, String>> set50 = new ActualValues().loadActualValue().getLightTrap50().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : set50)
+            if(link.getKey().containsKey(value))
+                return link.getValue();
+
+        Set<Map.Entry<LinkedHashMap, String>> set36 = new ActualValues().loadActualValue().getLightTrap36().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : set36)
+            if(link.getKey().containsKey(value))
+                return link.getValue();
+
+        Set<Map.Entry<LinkedHashMap, String>> set26 = new ActualValues().loadActualValue().getLightTrap26().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : set26)
+            if(link.getKey().containsKey(value))
+                return link.getValue();
+
+        Set<Map.Entry<LinkedHashMap, String>> setAI = new ActualValues().loadActualValue().getLightTrapAirInletOfWall().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : setAI)
+            if(link.getKey().containsKey(value))
+                return link.getValue();
+
+        Set<Map.Entry<LinkedHashMap, String>> setSH = new ActualValues().loadActualValue().getLightTrapShutter().entrySet();
+        for(Map.Entry<LinkedHashMap, String> link : setSH)
+            if(link.getKey().containsKey(value))
+                return link.getValue();
+
+        return null;
     }
 
     private void createJson(){
