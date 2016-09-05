@@ -428,7 +428,7 @@ public class BaseInfo {
     }
 
     public String getFilePathName(){
-        return getPathFile() + "\\" +
+        return getPathFile() + "/" +
                 getCompanyName() + " " +
                 getBuildingLengthString() + "x" +
                 getBuildingWidthString() + "x" +
