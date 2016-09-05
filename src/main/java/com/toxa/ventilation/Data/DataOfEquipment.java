@@ -76,21 +76,15 @@ public class DataOfEquipment implements Serializable {
         fan50.put("DB1380", new Storage(43000, "Вентилятор осевой с конусом и клапаном 43000м3/ч при 20Па ~3 1,1кВт"));
         fan50.put("EOS53/1,5", new Storage(40000, "Вентилятор осевой с жалюзи 40000м3/ч при 20Па ~3 1,1кВт"));
         fan50.put("EOC53/1,5", new Storage(43000, "Вентилятор осевой с конусом и жалюзи 43000м3/ч при 20Па ~3 1,1кВт"));
-
-//        lightTrap50.put(fan50, "LTP53");
     }
 
     public void setFan36DefaultValue(){
         fan36.put("EOS42/1,1", new Storage(20000, "Вентилятор осевой с жалюзи 20000м³/ч при 20Па ~3 0,76кВт"));
         fan36.put("DM1000/1,1", new Storage(20000, "Вентилятор осевой с жалюзи 20000м³/ч при 20Па ~3 0,4кВт"));
-
-//        lightTrap36.put(fan36, "LTP42");
     }
 
     public void setFan26DefaultValue(){
         fan26.put("TBO6,6-2-1", new Storage(10000, "Вентилятор осевой с жалюзи 10000м³/ч при 20Па ~3 0,37кВт"));
-
-//        lightTrap26.put(fan26, "LTP26");
     }
 
     public void setFanRoofDefaultValue(){
@@ -101,8 +95,6 @@ public class DataOfEquipment implements Serializable {
     public void setAirInletOfWallDefaultValue(){
         airInletOfWall.put("ZWN3000", new Storage(4100, "Стеновой клапан"));
         airInletOfWall.put("ZWN1500", new Storage(2050, "Стеновой клапан"));
-
-//        lightTrapAirInletOfWall.put(airInletOfWall, "OS2");
     }
 
     public void setAirInletOfRoofDefaultValue(){
@@ -118,8 +110,6 @@ public class DataOfEquipment implements Serializable {
         shutter.put("SOB53(SA2S)", new Storage(33000, "Туннельные жалюзи 1380х1380мм"));
         shutter.put("SOB53(DMS1,1)", new Storage(33000, "Туннельные жалюзи 1380х1380мм"));
         shutter.put("VJ130", new Storage(33000, "Туннельные жалюзи 1380х1380мм"));
-
-//        lightTrapShutter.put(shutter, "LTP53");
     }
 
     public void setShaftDefaultValue(){

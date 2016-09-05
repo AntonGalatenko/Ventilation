@@ -91,9 +91,20 @@ public class SettingsPanel extends JDialog{
     private JTextArea humidityWaterCirculationTextArea;
     private JScrollPane humidityWaterCirculationScrollPane;
     private JLabel composeLabel;
-    private JTextArea composeTextArea;
     private JLabel checkedLabel;
-    private JTextArea chackedTextArea;
+    private JPanel lightTrapPanel;
+    private JLabel lightTrap50Label;
+    private JLabel lightTrap36Label;
+    private JLabel lightTrap26Label;
+    private JLabel lightTrapAirInletOfWallLabel;
+    private JLabel lightTrapShutterLabel;
+    private JTextField lightTrap36TextField;
+    private JTextField lightTrap50TextField;
+    private JTextField lightTrap26TextField;
+    private JTextField lightTrapAirInletOfWallTextField;
+    private JTextField lightTrapShutterTextField;
+    private JTextField composeTextField;
+    private JTextField checkedTextField;
 
     public SettingsPanel(){
         setLocationForThisFrame();
@@ -156,6 +167,11 @@ public class SettingsPanel extends JDialog{
         setDistributeByCountry(dataOfEquipment.isDistributeByCountry());
         setHumidityWaterCirculation(dataOfEquipment.getHumidityWaterCirculation());
         setComposeChecked(dataOfEquipment.getComposeChecked());
+        setLightTrap50(dataOfEquipment.getLightTrap50());
+        setLightTrap36(dataOfEquipment.getLightTrap36());
+        setLightTrap26(dataOfEquipment.getLightTrap26());
+        setLightTrapAirInletOfWall(dataOfEquipment.getLightTrapAirInletOfWall());
+        setLightTrapShutter(dataOfEquipment.getLightTrapShutter());
     }
 
     public void saveActualValue(){
@@ -198,6 +214,11 @@ public class SettingsPanel extends JDialog{
         dataOfEquipment.updateFilePath(getFilePath());
         dataOfEquipment.updateDistributeByCountry(isDistributeByCountry());
         dataOfEquipment.updateComposeChecked(getComposeChecked());
+        dataOfEquipment.updateLightTrap50(getLightTrap50());
+        dataOfEquipment.updateLightTrap36(getLightTrap36());
+        dataOfEquipment.updateLightTrap26(getLightTrap26());
+        dataOfEquipment.updateLightTrapAirInletOfWall(getLightTrapAirInletOfWall());
+        dataOfEquipment.updateLightTrapShutter(getLightTrapShutter());
     }
 
     public StringBuilder parseEquipmentValue(HashMap<String, Storage> map){
@@ -274,7 +295,7 @@ public class SettingsPanel extends JDialog{
     }
 
     public String[] getComposeChecked(){
-        return new String[]{composeTextArea.getText(), chackedTextArea.getText()};
+        return new String[]{composeTextField.getText(), checkedTextField.getText()};
     }
 
     public void setAirInletOnRoofNamesDescriptionsCapacity(StringBuilder text) {
@@ -298,8 +319,8 @@ public class SettingsPanel extends JDialog{
     }
 
     public void setComposeChecked(String[] text){
-        composeTextArea.setText(text[0]);
-        chackedTextArea.setText(text[1]);
+        composeTextField.setText(text[0]);
+        checkedTextField.setText(text[1]);
     }
 
     public StringBuilder getHumidity2mNamesDescriptionsCapacity() {
@@ -382,4 +403,43 @@ public class SettingsPanel extends JDialog{
         fanRoofTextArea.setText(text.toString());
     }
 
+    public String getLightTrapShutter() {
+        return lightTrapShutterTextField.getText();
+    }
+
+    public void setLightTrapShutter(String value) {
+        lightTrapShutterTextField.setText(value);
+    }
+
+    public String getLightTrapAirInletOfWall() {
+        return lightTrapAirInletOfWallTextField.getText();
+    }
+
+    public void setLightTrapAirInletOfWall(String value) {
+        lightTrapAirInletOfWallTextField.setText(value);
+    }
+
+    public String getLightTrap26() {
+        return lightTrap26TextField.getText();
+    }
+
+    public void setLightTrap26(String value) {
+        lightTrap26TextField.setText(value);
+    }
+
+    public String getLightTrap50() {
+        return lightTrap50TextField.getText();
+    }
+
+    public void setLightTrap50(String value) {
+        lightTrap50TextField.setText(value);
+    }
+
+    public String getLightTrap36() {
+        return lightTrap36TextField.getText();
+    }
+
+    public void setLightTrap36(String value) {
+        lightTrap36TextField.setText(value);
+    }
 }

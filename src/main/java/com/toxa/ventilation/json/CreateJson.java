@@ -28,7 +28,6 @@ public class CreateJson {
         createGroups();
 
         createJson();
-
     }
 
     public CreateJson() {
@@ -144,7 +143,6 @@ public class CreateJson {
         String value = null;
 
         value = "Вытяжка=";
-
         if(! nameEquipment.contains("=")){
             if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
                 return value + new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
@@ -163,12 +161,8 @@ public class CreateJson {
             else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment1))
                 return value + "Светофильтр для " + nameEquipment1;
         }
-//        else if(wqe(nameEquipment))
-//            return value + "Светофильтр";
-
 
         value = "Приток=";
-
         if(! nameEquipment.contains("=")){
             if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
                 return value + new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
@@ -188,18 +182,13 @@ public class CreateJson {
                 return value + "Светофильтр для " + nameEquipment1;
         }
 
-//        else if(wqe1(nameEquipment))
-//            return value + "Светофильтр";
-
         value = "Отопление=";
-
         if(new ActualValues().loadActualValue().getHeater().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getHeater().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getFanCirculation().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getFanCirculation().get(nameEquipment).getDescription();
 
         value = "Автоматика=";
-
         if(new ActualValues().loadActualValue().getAutomatic().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getAutomatic().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getServomotor().containsKey(nameEquipment))
@@ -211,48 +200,6 @@ public class CreateJson {
 
         return nameEquipment;
     }
-
-//    private boolean wqe(String value){
-//        if(! value.contains("="))
-//            return false;
-//        value = value.split("=")[1];
-//
-//        Set<Map.Entry<LinkedHashMap, String>> set50 = new ActualValues().loadActualValue().getLightTrap50().entrySet();
-//        for(Map.Entry<LinkedHashMap, String> link : set50)
-//            if(link.getKey().containsKey(value))
-//                return true;
-//
-//        Set<Map.Entry<LinkedHashMap, String>> set36 = new ActualValues().loadActualValue().getLightTrap36().entrySet();
-//        for(Map.Entry<LinkedHashMap, String> link : set36)
-//            if(link.getKey().containsKey(value))
-//                return true;
-//
-//        Set<Map.Entry<LinkedHashMap, String>> set26 = new ActualValues().loadActualValue().getLightTrap26().entrySet();
-//        for(Map.Entry<LinkedHashMap, String> link : set26)
-//            if(link.getKey().containsKey(value))
-//                return true;
-//
-//        return false;
-//    }
-
-//    private boolean wqe1(String value){
-//        if(! value.contains("="))
-//            return false;
-//        value = value.split("=")[1];
-//
-//        Set<Map.Entry<LinkedHashMap, String>> setAI = new ActualValues().loadActualValue().getLightTrapAirInletOfWall().entrySet();
-//        for(Map.Entry<LinkedHashMap, String> link : setAI)
-//            if(link.getKey().containsKey(value))
-//                return true;
-//
-//        Set<Map.Entry<LinkedHashMap, String>> setSH = new ActualValues().loadActualValue().getLightTrapShutter().entrySet();
-//        for(Map.Entry<LinkedHashMap, String> link : setSH)
-//            if(link.getKey().containsKey(value))
-//                return true;
-//
-//        return false;
-//    }
-
 
     private String getHumidityDescription(String value){
         int length = (int) (Double.parseDouble(value.substring(0, value.indexOf("x"))) * 1000);
@@ -280,8 +227,6 @@ public class CreateJson {
 
     private void createJson(){
         try {
-//            mapper.writer(new DefaultPrettyPrinter()).writeValue(new File("base.json"), jsonObject);
-
             json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
         } catch (IOException e) {
             e.printStackTrace();
