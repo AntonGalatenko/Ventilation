@@ -145,32 +145,51 @@ public class CreateJson {
 
         value = "Вытяжка=";
 
-        if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
-        else if(wqe(nameEquipment))
-            return value + "Светофильтр";
+        if(! nameEquipment.contains("=")){
+            if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
+        } else {
+            String nameEquipment1 = nameEquipment.split("=")[1];
+            if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+            else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+            else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+        }
+//        else if(wqe(nameEquipment))
+//            return value + "Светофильтр";
 
 
         value = "Приток=";
 
-        if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletOfRoof().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletForPadCool().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
-        else if(wqe1(nameEquipment))
-            return value + "Светофильтр";
+        if(! nameEquipment.contains("=")){
+            if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getAirInletOfRoof().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getAirInletForPadCool().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
+        } else{
+            String nameEquipment1 = nameEquipment.split("=")[1];
+            if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+            else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+        }
+
+//        else if(wqe1(nameEquipment))
+//            return value + "Светофильтр";
 
         value = "Отопление=";
 
@@ -193,46 +212,46 @@ public class CreateJson {
         return nameEquipment;
     }
 
-    private boolean wqe(String value){
-        if(! value.contains("="))
-            return false;
-        value = value.split("=")[1];
+//    private boolean wqe(String value){
+//        if(! value.contains("="))
+//            return false;
+//        value = value.split("=")[1];
+//
+//        Set<Map.Entry<LinkedHashMap, String>> set50 = new ActualValues().loadActualValue().getLightTrap50().entrySet();
+//        for(Map.Entry<LinkedHashMap, String> link : set50)
+//            if(link.getKey().containsKey(value))
+//                return true;
+//
+//        Set<Map.Entry<LinkedHashMap, String>> set36 = new ActualValues().loadActualValue().getLightTrap36().entrySet();
+//        for(Map.Entry<LinkedHashMap, String> link : set36)
+//            if(link.getKey().containsKey(value))
+//                return true;
+//
+//        Set<Map.Entry<LinkedHashMap, String>> set26 = new ActualValues().loadActualValue().getLightTrap26().entrySet();
+//        for(Map.Entry<LinkedHashMap, String> link : set26)
+//            if(link.getKey().containsKey(value))
+//                return true;
+//
+//        return false;
+//    }
 
-        Set<Map.Entry<LinkedHashMap, String>> set50 = new ActualValues().loadActualValue().getLightTrap50().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : set50)
-            if(link.getKey().containsKey(value))
-                return true;
-
-        Set<Map.Entry<LinkedHashMap, String>> set36 = new ActualValues().loadActualValue().getLightTrap36().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : set36)
-            if(link.getKey().containsKey(value))
-                return true;
-
-        Set<Map.Entry<LinkedHashMap, String>> set26 = new ActualValues().loadActualValue().getLightTrap26().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : set26)
-            if(link.getKey().containsKey(value))
-                return true;
-
-        return false;
-    }
-
-    private boolean wqe1(String value){
-        if(! value.contains("="))
-            return false;
-        value = value.split("=")[1];
-
-        Set<Map.Entry<LinkedHashMap, String>> setAI = new ActualValues().loadActualValue().getLightTrapAirInletOfWall().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : setAI)
-            if(link.getKey().containsKey(value))
-                return true;
-
-        Set<Map.Entry<LinkedHashMap, String>> setSH = new ActualValues().loadActualValue().getLightTrapShutter().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : setSH)
-            if(link.getKey().containsKey(value))
-                return true;
-
-        return false;
-    }
+//    private boolean wqe1(String value){
+//        if(! value.contains("="))
+//            return false;
+//        value = value.split("=")[1];
+//
+//        Set<Map.Entry<LinkedHashMap, String>> setAI = new ActualValues().loadActualValue().getLightTrapAirInletOfWall().entrySet();
+//        for(Map.Entry<LinkedHashMap, String> link : setAI)
+//            if(link.getKey().containsKey(value))
+//                return true;
+//
+//        Set<Map.Entry<LinkedHashMap, String>> setSH = new ActualValues().loadActualValue().getLightTrapShutter().entrySet();
+//        for(Map.Entry<LinkedHashMap, String> link : setSH)
+//            if(link.getKey().containsKey(value))
+//                return true;
+//
+//        return false;
+//    }
 
 
     private String getHumidityDescription(String value){
@@ -245,30 +264,16 @@ public class CreateJson {
     private String getLightTrapName(String value){
         value = value.split("=")[1];
 
-        Set<Map.Entry<LinkedHashMap, String>> set50 = new ActualValues().loadActualValue().getLightTrap50().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : set50)
-            if(link.getKey().containsKey(value))
-                return link.getValue();
-
-        Set<Map.Entry<LinkedHashMap, String>> set36 = new ActualValues().loadActualValue().getLightTrap36().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : set36)
-            if(link.getKey().containsKey(value))
-                return link.getValue();
-
-        Set<Map.Entry<LinkedHashMap, String>> set26 = new ActualValues().loadActualValue().getLightTrap26().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : set26)
-            if(link.getKey().containsKey(value))
-                return link.getValue();
-
-        Set<Map.Entry<LinkedHashMap, String>> setAI = new ActualValues().loadActualValue().getLightTrapAirInletOfWall().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : setAI)
-            if(link.getKey().containsKey(value))
-                return link.getValue();
-
-        Set<Map.Entry<LinkedHashMap, String>> setSH = new ActualValues().loadActualValue().getLightTrapShutter().entrySet();
-        for(Map.Entry<LinkedHashMap, String> link : setSH)
-            if(link.getKey().containsKey(value))
-                return link.getValue();
+        if(new ActualValues().loadActualValue().getFan50().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrap50();
+        else if(new ActualValues().loadActualValue().getFan36().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrap36();
+        else if(new ActualValues().loadActualValue().getFan26().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrap26();
+        else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrapAirInletOfWall();
+        else if(new ActualValues().loadActualValue().getShutter().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrapShutter();
 
         return null;
     }

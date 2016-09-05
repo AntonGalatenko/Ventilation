@@ -1,10 +1,7 @@
 package com.toxa.ventilation.Data;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class DataOfEquipment implements Serializable {
 
@@ -26,11 +23,11 @@ public class DataOfEquipment implements Serializable {
     private LinkedHashMap<String, Storage> servomotor = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> emergency = new LinkedHashMap<>();
     private LinkedHashMap<String, Storage> cageArea = new LinkedHashMap<>();
-    private Map<LinkedHashMap, String> lightTrap50 = new HashMap<>();
-    private Map<LinkedHashMap, String> lightTrap36 = new HashMap<>();
-    private Map<LinkedHashMap, String> lightTrap26 = new HashMap<>();
-    private Map<LinkedHashMap, String> lightTrapAirInletOfWall = new HashMap<>();
-    private Map<LinkedHashMap, String> lightTrapShutter = new HashMap<>();
+    private String lightTrap50;
+    private String lightTrap36;
+    private String lightTrap26;
+    private String lightTrapAirInletOfWall;
+    private String lightTrapShutter;
 
     private String humidityWaterCirculation;
     private String[] composeChecked = new String[2];
@@ -66,10 +63,12 @@ public class DataOfEquipment implements Serializable {
         setComposeCheckedDefaultValue();
 
         setFilePathDefaultValue();
+
+        setLightTrapDefaultValue();
     }
 
     public void setFilePathDefaultValue(){
-        filePath = "C:\\";
+        filePath = "C:/";
     }
 
     public void setFan50DefaultValue(){
@@ -78,20 +77,20 @@ public class DataOfEquipment implements Serializable {
         fan50.put("EOS53/1,5", new Storage(40000, "Вентилятор осевой с жалюзи 40000м3/ч при 20Па ~3 1,1кВт"));
         fan50.put("EOC53/1,5", new Storage(43000, "Вентилятор осевой с конусом и жалюзи 43000м3/ч при 20Па ~3 1,1кВт"));
 
-        lightTrap50.put(fan50, "LTP53");
+//        lightTrap50.put(fan50, "LTP53");
     }
 
     public void setFan36DefaultValue(){
         fan36.put("EOS42/1,1", new Storage(20000, "Вентилятор осевой с жалюзи 20000м³/ч при 20Па ~3 0,76кВт"));
         fan36.put("DM1000/1,1", new Storage(20000, "Вентилятор осевой с жалюзи 20000м³/ч при 20Па ~3 0,4кВт"));
 
-        lightTrap36.put(fan36, "LTP42");
+//        lightTrap36.put(fan36, "LTP42");
     }
 
     public void setFan26DefaultValue(){
         fan26.put("TBO6,6-2-1", new Storage(10000, "Вентилятор осевой с жалюзи 10000м³/ч при 20Па ~3 0,37кВт"));
 
-        lightTrap26.put(fan26, "LTP26");
+//        lightTrap26.put(fan26, "LTP26");
     }
 
     public void setFanRoofDefaultValue(){
@@ -103,7 +102,7 @@ public class DataOfEquipment implements Serializable {
         airInletOfWall.put("ZWN3000", new Storage(4100, "Стеновой клапан"));
         airInletOfWall.put("ZWN1500", new Storage(2050, "Стеновой клапан"));
 
-        lightTrapAirInletOfWall.put(airInletOfWall, "OS2");
+//        lightTrapAirInletOfWall.put(airInletOfWall, "OS2");
     }
 
     public void setAirInletOfRoofDefaultValue(){
@@ -120,7 +119,7 @@ public class DataOfEquipment implements Serializable {
         shutter.put("SOB53(DMS1,1)", new Storage(33000, "Туннельные жалюзи 1380х1380мм"));
         shutter.put("VJ130", new Storage(33000, "Туннельные жалюзи 1380х1380мм"));
 
-        lightTrapShutter.put(shutter, "LTP53");
+//        lightTrapShutter.put(shutter, "LTP53");
     }
 
     public void setShaftDefaultValue(){
@@ -215,6 +214,14 @@ public class DataOfEquipment implements Serializable {
         composeChecked[1] = "Проверяющий";
     }
 
+    private void setLightTrapDefaultValue(){
+        lightTrap50 = "LTP53";
+        lightTrap36 = "LTP42";
+        lightTrap26 = "LTP26";
+        lightTrapAirInletOfWall = "OS2";
+        lightTrapShutter = "LTP53";
+    }
+
     public String getFilePath(){
         return filePath;
     }
@@ -307,25 +314,23 @@ public class DataOfEquipment implements Serializable {
         return cageArea;
     }
 
-    public Map<LinkedHashMap, String> getLightTrap50(){
-//        lightTrap50.
-
+    public String getLightTrap50(){
         return lightTrap50;
     }
 
-    public Map<LinkedHashMap, String> getLightTrap36(){
+    public String getLightTrap36(){
         return lightTrap36;
     }
 
-    public Map<LinkedHashMap, String> getLightTrap26(){
+    public String getLightTrap26(){
         return lightTrap26;
     }
 
-    public Map<LinkedHashMap, String> getLightTrapAirInletOfWall(){
+    public String getLightTrapAirInletOfWall(){
         return lightTrapAirInletOfWall;
     }
 
-    public Map<LinkedHashMap, String> getLightTrapShutter(){
+    public String getLightTrapShutter(){
         return lightTrapShutter;
     }
 
@@ -351,30 +356,22 @@ public class DataOfEquipment implements Serializable {
 
     public void updateFan50(StringBuilder value){
         updateHashMap(fan50, value);
-
-        lightTrap50.put(fan50, lightTrap50.entrySet().iterator().next().getValue());
     }
 
-    public void updateFan36(StringBuilder value){
+    public void updateFan36(StringBuilder value) {
         updateHashMap(fan36, value);
-
-        lightTrap36.put(fan36, lightTrap36.entrySet().iterator().next().getValue());
     }
 
-    public void updateFan26(StringBuilder value){
+    public void updateFan26(StringBuilder value) {
         updateHashMap(fan26, value);
-
-        lightTrap26.put(fan26, lightTrap26.entrySet().iterator().next().getValue());
     }
 
     public void updateFanRoof(StringBuilder value){
         updateHashMap(fanRoof, value);
     }
 
-    public void updateAirInletOfWall(StringBuilder value){
+    public void updateAirInletOfWall(StringBuilder value) {
         updateHashMap(airInletOfWall, value);
-
-        lightTrapAirInletOfWall.put(airInletOfWall, lightTrapAirInletOfWall.entrySet().iterator().next().getValue());
     }
 
     public void updateAirInletOfRoof(StringBuilder value){
@@ -389,10 +386,8 @@ public class DataOfEquipment implements Serializable {
         updateHashMap(shaft, value);
     }
 
-    public void updateShutter(StringBuilder value){
+    public void updateShutter(StringBuilder value) {
         updateHashMap(shutter, value);
-
-        lightTrapShutter.put(shutter, lightTrapShutter.entrySet().iterator().next().getValue());
     }
 
     public void updateHumidity2(StringBuilder value){
@@ -436,23 +431,23 @@ public class DataOfEquipment implements Serializable {
     }
 
     public void updateLightTrap50(String value){
-        lightTrap50.put(fan50, value);
+        lightTrap50 = value;
     }
 
     public void updateLightTrap36(String value){
-        lightTrap36.put(fan36, value);
+        lightTrap36 = value;
     }
 
     public void updateLightTrap26(String value){
-        lightTrap26.put(fan26, value);
+        lightTrap26 = value;
     }
 
     public void updateLightTrapAirInletOfWall(String value){
-        lightTrapAirInletOfWall.put(airInletOfWall, value);
+        lightTrapAirInletOfWall = value;
     }
 
     public void updateLightTrapShutter(String value){
-        lightTrapShutter.put(shutter, value);
+        lightTrapShutter = value;
     }
 
     public void updateComposeChecked(String[] value){
