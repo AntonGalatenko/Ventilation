@@ -5,9 +5,7 @@ import com.toxa.ventilation.Data.ActualValues;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class CreateJson {
 
@@ -30,7 +28,6 @@ public class CreateJson {
         createGroups();
 
         createJson();
-
     }
 
     public CreateJson() {
@@ -58,11 +55,11 @@ public class CreateJson {
 
         LinkedHashMap<String, Integer> c = baseInfo.getSelectedComponents();
 
-//        System.out.println(c);////////////////////////////////////////////////////////////////////////////////////
-
         List<String> list = new ArrayList<>(c.keySet());
         for(int i = 0; i < list.size(); i++){
             String key = list.get(i);
+
+//            System.out.println(key);
 
             if(ent.getName() == null)
                 ent = new JsonEnt(parseValue(getDescriptionEquipment(key))[1]);
@@ -94,14 +91,14 @@ public class CreateJson {
                     equipment = new JsonEquipment("Fancom Lumina 37", parseValue(getDescriptionEquipment(key))[0], c.get(key));
                 else if(key.equals(parseValue(getDescriptionEquipment(key))[0]))
                     equipment = new JsonEquipment("", parseValue(getDescriptionEquipment(key))[0], c.get(key));
+                else if(key.contains("="))
+                    equipment = new JsonEquipment(getLightTrapName(key), parseValue(getDescriptionEquipment(key))[0], c.get(key));
                 else
                     equipment = new JsonEquipment(key, parseValue(getDescriptionEquipment(key))[0], c.get(key));
-
 
                 ent.addEquipment(equipment);
             }
         }
-
         jsonObject.addEqu(ent);
     }
 
@@ -146,38 +143,52 @@ public class CreateJson {
         String value = null;
 
         value = "Вытяжка=";
-
-        if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
+        if(! nameEquipment.contains("=")){
+            if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getFan50().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getFan36().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getFan26().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getFanRoof().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getFanRoof().get(nameEquipment).getDescription();
+        } else {
+            String nameEquipment1 = nameEquipment.split("=")[1];
+            if(new ActualValues().loadActualValue().getFan50().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+            else if(new ActualValues().loadActualValue().getFan36().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+            else if(new ActualValues().loadActualValue().getFan26().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+        }
 
         value = "Приток=";
-
-        if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletOfRoof().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getAirInletForPadCool().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
-        else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
-            return value + new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
+        if(! nameEquipment.contains("=")){
+            if(new ActualValues().loadActualValue().getShaft().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getShaft().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getAirInletOfWall().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getAirInletOfRoof().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getAirInletOfRoof().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getAirInletForPadCool().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getAirInletForPadCool().get(nameEquipment).getDescription();
+            else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment))
+                return value + new ActualValues().loadActualValue().getShutter().get(nameEquipment).getDescription();
+        } else{
+            String nameEquipment1 = nameEquipment.split("=")[1];
+            if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+            else if(new ActualValues().loadActualValue().getShutter().containsKey(nameEquipment1))
+                return value + "Светофильтр для " + nameEquipment1;
+        }
 
         value = "Отопление=";
-
         if(new ActualValues().loadActualValue().getHeater().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getHeater().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getFanCirculation().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getFanCirculation().get(nameEquipment).getDescription();
 
         value = "Автоматика=";
-
         if(new ActualValues().loadActualValue().getAutomatic().containsKey(nameEquipment))
             return value + new ActualValues().loadActualValue().getAutomatic().get(nameEquipment).getDescription();
         else if(new ActualValues().loadActualValue().getServomotor().containsKey(nameEquipment))
@@ -197,10 +208,25 @@ public class CreateJson {
         return "Испарительная панель " + length + "x" + height + "x150";
     }
 
+    private String getLightTrapName(String value){
+        value = value.split("=")[1];
+
+        if(new ActualValues().loadActualValue().getFan50().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrap50();
+        else if(new ActualValues().loadActualValue().getFan36().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrap36();
+        else if(new ActualValues().loadActualValue().getFan26().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrap26();
+        else if(new ActualValues().loadActualValue().getAirInletOfWall().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrapAirInletOfWall();
+        else if(new ActualValues().loadActualValue().getShutter().containsKey(value))
+            return new ActualValues().loadActualValue().getLightTrapShutter();
+
+        return null;
+    }
+
     private void createJson(){
         try {
-//            mapper.writer(new DefaultPrettyPrinter()).writeValue(new File("base.json"), jsonObject);
-
             json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
         } catch (IOException e) {
             e.printStackTrace();

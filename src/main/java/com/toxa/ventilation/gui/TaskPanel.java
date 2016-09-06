@@ -170,7 +170,12 @@ public class TaskPanel extends JPanel{
             if(getHeadsNumber() < 0)
                 return false;
 
-        }catch (NumberFormatException e){
+            if(getBuildingHeightMax() <= getBuildingHeightMin() && getBuildingHeightMax() != 0){
+                heightMaxTextField.setBackground(Color.YELLOW);
+                return false;
+            }
+
+        } catch(NumberFormatException e){
             System.err.println(e.toString());
         }
 
@@ -184,7 +189,7 @@ public class TaskPanel extends JPanel{
     private void checkFactoryNames(){
         List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
 
-        if(list != null){
+        if(list != null && list.size() > 0){
             MyTableModel model = new MyTableModel(list);
             new FactoryInfo(model);
         }
@@ -287,6 +292,7 @@ public class TaskPanel extends JPanel{
             heightMaxTextField.setBackground(Color.WHITE);
             return 0;
         }
+
         return checkNumberField(heightMaxTextField);
     }
 

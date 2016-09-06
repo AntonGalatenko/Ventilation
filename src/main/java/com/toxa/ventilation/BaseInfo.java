@@ -192,6 +192,13 @@ public class BaseInfo {
         return taskPanel.getPoultryHouseNumber();
     }
 
+    public String getSecondFolder(){
+        if(taskPanel.getCageName().equals("Напольник"))
+            return taskPanel.getCageName();
+        else
+            return "ПЧ";
+    }
+
     public String getCountry(){
         return taskPanel.getCountry();
     }
@@ -421,7 +428,7 @@ public class BaseInfo {
     }
 
     public String getFilePathName(){
-        return getPathFile() + "\\" +
+        return getPathFile() + "/" +
                 getCompanyName() + " " +
                 getBuildingLengthString() + "x" +
                 getBuildingWidthString() + "x" +
@@ -433,12 +440,17 @@ public class BaseInfo {
 
     public String getPathFile(){
         if(isDistributeByCountry()){
+
+            String dir = new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder();
+            if(! new File(dir).exists())
+                new File(dir).mkdir();
+
             if (isDirectoryExist(getCountry()))
-                return new ActualValues().loadActualValue().getFilePath() + "/" + getCountry().trim();
+                return new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/" + getCountry().trim();
             else{
                 if(! isDirectoryExist("Temp"))
-                    new File(new ActualValues().loadActualValue().getFilePath() + "/Temp").mkdir();
-                return new ActualValues().loadActualValue().getFilePath() + "/Temp";
+                    new File(new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/Temp").mkdir();
+                return new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/Temp";
                 }
             }
         else
@@ -449,8 +461,8 @@ public class BaseInfo {
         return new ActualValues().loadActualValue().isDistributeByCountry();
     }
 
-    public boolean isDirectoryExist(String country){
-        String dir = new ActualValues().loadActualValue().getFilePath() + "\\" + country;
+    public boolean isDirectoryExist(String value){
+        String dir = new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/" + value;
         return new File(dir).exists();
     }
 

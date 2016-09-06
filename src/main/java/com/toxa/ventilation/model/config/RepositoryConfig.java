@@ -3,12 +3,14 @@ package com.toxa.ventilation.model.config;
 
 import com.toxa.ventilation.model.repository.Repository;
 import org.hibernate.SessionFactory;
+import org.hibernate.tool.schema.spi.SchemaManagementException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
@@ -40,14 +42,21 @@ public class RepositoryConfig {
 
     @Bean
     public static SessionFactory sessionFactory() {
-        if (sessionFactory == null){
-            sessionFactory = new LocalSessionFactoryBuilder(dataSource())
-                    .scanPackages("com.toxa.ventilation.model.entity")
-                    .addProperties(hibernateProperties())
-                    .buildSessionFactory();
+        try{
+            if (sessionFactory == null){
+                sessionFactory = new LocalSessionFactoryBuilder(dataSource())
+                        .scanPackages("com.toxa.ventilation.model.entity")
+                        .addProperties(hibernateProperties())
+                        .buildSessionFactory();
+            }
+        } catch (SchemaManagementException e){
+            try {
+                Runtime.getRuntime().exec("net START MySQL");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         return sessionFactory;
-
     }
 
     @Bean
