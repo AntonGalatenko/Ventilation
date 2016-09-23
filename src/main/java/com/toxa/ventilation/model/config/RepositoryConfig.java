@@ -1,6 +1,7 @@
 package com.toxa.ventilation.model.config;
 
 
+import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.model.repository.Repository;
 import org.hibernate.SessionFactory;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
@@ -52,10 +53,37 @@ public class RepositoryConfig {
         } catch (SchemaManagementException e){
             try {
                 Runtime.getRuntime().exec("net START MySQL");
+
+                int i = 0;
+                while (sessionFactory == null && i < 15){
+
+                    try{
+                        if (sessionFactory == null){
+                            sessionFactory = new LocalSessionFactoryBuilder(dataSource())
+                                    .scanPackages("com.toxa.ventilation.model.entity")
+                                    .addProperties(hibernateProperties())
+                                    .buildSessionFactory();
+                        }
+                    } catch (SchemaManagementException e1){}
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+
+                    i++;
+                }
+
+                BaseInfo.getInstance().setDataBaseStatus("База данных не подключена!!!");
+//                System.err.println("БД не запускается...");
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+
         }
+
         return sessionFactory;
     }
 

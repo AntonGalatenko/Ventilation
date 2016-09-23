@@ -64,6 +64,7 @@ public class TaskPanel extends JPanel{
     private JButton saveExcelButton;
     private JButton saveOpenExcelButton;
     private JButton hideShowResPanelButton;
+    private JLabel dataBaseStatusLabel;
     private FactoryInfo factoryInfo;
 
 //    @Autowired
@@ -224,6 +225,8 @@ public class TaskPanel extends JPanel{
         cageNumberComboBox1.setSelectedIndex(1);
 
         updateCageTiersComboBox();
+
+        setBaseDataStatus(baseInfo.getDataBaseStatusText());
     }
 
     private void updateCageTiersComboBox() {
@@ -393,6 +396,14 @@ public class TaskPanel extends JPanel{
             airTotalCurrentLabel.setText("");
         else
             airTotalCurrentLabel.setText(String.format("%.2f", value) + "м3/час");
+    }
+
+    public void setBaseDataStatus(String text){
+        if(text == null)
+            dataBaseStatusLabel.setVisible(false);
+
+        dataBaseStatusLabel.setText(text);
+        dataBaseStatusLabel.setForeground(Color.RED);
     }
 
 }

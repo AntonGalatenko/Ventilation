@@ -21,6 +21,7 @@ public class BaseInfo {
     private int airForAirInletForTunnelTypeOfVentilation = 3;
     private double airSpeedForPadCool = 1.5;
     private int firstGroup;
+    private String dataBaseStatus;
 
     private BaseInfo() {
     }
@@ -494,5 +495,11 @@ public class BaseInfo {
         return new ActualValues().loadActualValue().getYearsToView();
     }
 
+    public void setDataBaseStatus(String text){
+        dataBaseStatus = text;
+    }
 
+    public String getDataBaseStatusText(){
+        return dataBaseStatus;
+    }
 }
