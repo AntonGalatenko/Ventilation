@@ -75,8 +75,8 @@ public class RepositoryConfig {
                     i++;
                 }
 
-                BaseInfo.getInstance().setDataBaseStatus("База данных не подключена!!!");
-//                System.err.println("БД не запускается...");
+                if (sessionFactory == null)
+                    BaseInfo.getInstance().setDataBaseStatus("База данных не подключена!!!");
 
             } catch (IOException e1) {
                 e1.printStackTrace();
