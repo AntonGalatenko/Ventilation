@@ -65,7 +65,8 @@ public class TaskPanel extends JPanel{
     private JButton saveOpenExcelButton;
     private JButton hideShowResPanelButton;
     private JLabel dataBaseStatusLabel;
-    private FactoryInfo factoryInfo;
+    private FactoryInfo factoryInfoNames;
+    private FactoryInfo factoryInfoSimilar;
 
 //    @Autowired
     private Repository repository = new Repository();
@@ -192,7 +193,8 @@ public class TaskPanel extends JPanel{
 
         if(list != null && list.size() > 0){
             MyTableModel model = new MyTableModel(list);
-            new FactoryInfo(model);
+            if(factoryInfoNames == null)
+                factoryInfoNames = new FactoryInfo(model);
         }
     }
 
@@ -201,7 +203,11 @@ public class TaskPanel extends JPanel{
 
         if(list.size() > 0){
             MyTableModel model = new MyTableModel(list);
-            new FactoryInfo(model).doSort();
+            if(factoryInfoSimilar == null){
+                factoryInfoSimilar = new FactoryInfo(model);
+                factoryInfoSimilar.doSort();
+            }
+
         }
     }
 
