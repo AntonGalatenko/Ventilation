@@ -67,6 +67,7 @@ public class TaskPanel extends JPanel{
     private JLabel dataBaseStatusLabel;
     private FactoryInfo factoryInfoNames;
     private FactoryInfo factoryInfoSimilar;
+    MouseListener mouseListenerSelectAll;
 
 //    @Autowired
     private Repository repository = new Repository();
@@ -77,6 +78,14 @@ public class TaskPanel extends JPanel{
 
         baseInfo = BaseInfo.getInstance();
         baseInfo.setTaskPanel(this);
+
+        mouseListenerSelectAll = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                super.mouseClicked(e);
+                ((JTextField)e.getSource()).selectAll();
+            }
+        };
 
         cageNameComboBox.addItemListener(new ItemListener() {
             @Override
@@ -152,8 +161,13 @@ public class TaskPanel extends JPanel{
             }
         });
 
+        addTextFieldsToMouseListenerForSelectAllText();
         setDefaultValues();
+
+
     }
+
+
 
     private boolean isAllDataOk(){
         try{
@@ -223,6 +237,17 @@ public class TaskPanel extends JPanel{
 
     public void setMyMainPanel(MyMainPanel myMainPanel){
         this.myMainPanel = myMainPanel;
+    }
+
+    private void addTextFieldsToMouseListenerForSelectAllText(){
+        companyNameTextField.addMouseListener(mouseListenerSelectAll);
+        countryTextField.addMouseListener(mouseListenerSelectAll);
+        poultryHouseNumberTextField.addMouseListener(mouseListenerSelectAll);
+        headsNumberTextField.addMouseListener(mouseListenerSelectAll);
+        lengthTextField.addMouseListener(mouseListenerSelectAll);
+        widthTextField.addMouseListener(mouseListenerSelectAll);
+        heightMinTextField.addMouseListener(mouseListenerSelectAll);
+        heightMaxTextField.addMouseListener(mouseListenerSelectAll);
     }
 
     public void setDefaultValues() {
