@@ -2,7 +2,7 @@ package com.toxa.ventilation.model.entity;
 
 import javax.persistence.*;
 
-@Entity
+ @Entity
 @Table(name = "factory")
 public class Factory {
 

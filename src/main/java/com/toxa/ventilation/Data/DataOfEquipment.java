@@ -34,6 +34,7 @@ public class DataOfEquipment implements Serializable {
     private String filePath;
     private boolean distributeByCountry;
     private Map<String, Boolean> yearsToView = new HashMap<>();
+    private long filesSize;
 
 
     public void setDefaultValues(){
@@ -332,6 +333,12 @@ public class DataOfEquipment implements Serializable {
         return yearsToView;
     }
 
+    public long getFilesSize(){
+        return filesSize;
+    }
+
+
+
     public void updateYearsToView(Map<String, Boolean> yearsToView) {
         this.yearsToView = yearsToView;
     }
@@ -457,6 +464,10 @@ public class DataOfEquipment implements Serializable {
     public String[] parseStringLine(String line){
         String[] result = line.split(" : ");
         return  result;
+    }
+
+    public void updateFileSize(long value){
+        filesSize = value;
     }
 
 }

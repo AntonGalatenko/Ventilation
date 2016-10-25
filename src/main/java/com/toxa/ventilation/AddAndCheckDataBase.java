@@ -1,5 +1,7 @@
 package com.toxa.ventilation;
 
+import com.toxa.ventilation.Data.ActualValues;
+import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.model.entity.Factory;
 import com.toxa.ventilation.model.repository.Repository;
 
@@ -11,26 +13,61 @@ public class AddAndCheckDataBase {
 
     private Repository repository = new Repository();
     private BaseInfo baseInfo = BaseInfo.getInstance();
-    private final String PATH = "\\\\10.1.0.201\\dep_constr\\Ы\\2016";
+    private final String PATH = baseInfo.getFilePathText();
+    private long fileSize = baseInfo.getFileSize();
+    long fileSizeCurrent;
 
     public AddAndCheckDataBase(){
         File file = new File(PATH);
 
-        checkDirectory(file);
+        checkDirectory1(file);
     }
 
     private void checkDirectory(File file){
         File[] files = file.listFiles();
 
+        for(File f : files)
+            if(f.getName().equals("Напольник") || f.getName().equals("ПЧ"))
+                fileSizeCurrent += calcFilesSize(f);
+
+        System.out.println(fileSizeCurrent + " || " + baseInfo.getFileSize());
+
+        DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
+        dataOfEquipment.updateFileSize(fileSizeCurrent);
+        baseInfo.saveActualValue(dataOfEquipment);
+
+
+
+    }
+
+    private long calcFilesSize(File file){
+        long result = 0;
+        File[] files = file.listFiles();
+
+        for (File f : files)
+            if(f.isFile())
+                result += f.length();
+            else
+                result += calcFilesSize(f);
+
+        return result;
+    }
+
+
+    private void checkDirectory1(File file){
+        File[] files = file.listFiles();
+
         for(File f : files){
             if(f.isDirectory())
-                checkDirectory(f);
+                checkDirectory1(f);
             else if(f.getName().contains("xls"))
                 addToDataBase(f);
         }
     }
 
-    private void addToDataBase(File file){
+//    private
+
+    public void addToDataBase(File file){
         try {
             String fileName = file.getName().replace(".xls", "");
 

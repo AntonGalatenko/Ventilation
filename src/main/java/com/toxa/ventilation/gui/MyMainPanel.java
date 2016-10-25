@@ -2,6 +2,7 @@ package com.toxa.ventilation.gui;
 
 import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
+import com.toxa.ventilation.model.CompareDBandFiles;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +12,10 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
-    private final double versionNumber = 1.73;
+    private final double versionNumber = 1.74;
 
     public MyMainPanel(){
-        setTitle("Вентиляция ver" + versionNumber);
+        setTitle("Вентиляция ver" + versionNumber + " ТЕСТ");
 
         BaseInfo baseInfo = BaseInfo.getInstance();
         Count count = new Count();
@@ -45,6 +46,8 @@ public class MyMainPanel extends JFrame{
         setVisible(true);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        new CompareDBandFiles();
     }
 
 

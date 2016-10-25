@@ -4,6 +4,7 @@ import com.toxa.ventilation.model.config.RepositoryConfig;
 import com.toxa.ventilation.model.entity.Factory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,12 +22,35 @@ public class Repository {
         return result;
     }
 
+    public List<Factory> getItemsByYear(int year){
+        Session session = sessionFactory.openSession();
+        List<Factory> result = session.createCriteria(Factory.class).add(Restrictions.eq("year", year)).list();
+        session.close();
+        return result;
+    }
+
     public void addItem(Factory factory){
 //        if(isFactoryExists(factory))
 //            return;
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(factory);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateItem(Factory factory){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(factory);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void deleteItem(Factory factory){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(factory);
         session.getTransaction().commit();
         session.close();
     }

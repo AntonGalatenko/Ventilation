@@ -1,11 +1,12 @@
 package com.toxa.ventilation;
 
 import com.toxa.ventilation.Data.ActualValues;
+import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
 
-import java.io.File;
+import java.io.*;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -429,7 +430,7 @@ public class BaseInfo {
     }
 
     public String getFilePathName(){
-        return getPathFile() + "/" +
+        return getPathFile() + "\\" +
                 getCompanyName() + " " +
                 getBuildingLengthString() + "x" +
                 getBuildingWidthString() + "x" +
@@ -442,16 +443,16 @@ public class BaseInfo {
     public String getPathFile(){
         if(isDistributeByCountry()){
 
-            String dir = new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder();
+            String dir = new ActualValues().loadActualValue().getFilePath() + "\\" + getSecondFolder();
             if(! new File(dir).exists())
                 new File(dir).mkdir();
 
             if (isDirectoryExist(getCountry()))
-                return new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/" + getCountry().trim();
+                return new ActualValues().loadActualValue().getFilePath() + "\\" + getSecondFolder() + "\\" + getCountry().trim();
             else{
                 if(! isDirectoryExist("Temp"))
-                    new File(new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/Temp").mkdir();
-                return new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/Temp";
+                    new File(new ActualValues().loadActualValue().getFilePath() + "\\" + getSecondFolder() + "\\Temp").mkdir();
+                return new ActualValues().loadActualValue().getFilePath() + "\\" + getSecondFolder() + "\\Temp";
                 }
             }
         else
@@ -463,7 +464,7 @@ public class BaseInfo {
     }
 
     public boolean isDirectoryExist(String value){
-        String dir = new ActualValues().loadActualValue().getFilePath() + "/" + getSecondFolder() + "/" + value;
+        String dir = new ActualValues().loadActualValue().getFilePath() + "\\" + getSecondFolder() + "\\" + value;
         return new File(dir).exists();
     }
 
@@ -501,5 +502,30 @@ public class BaseInfo {
 
     public String getDataBaseStatusText(){
         return dataBaseStatus;
+    }
+
+    public long getFileSize(){
+        return new ActualValues().loadActualValue().getFilesSize();
+    }
+
+    public void setFilesSize(int value){
+        new ActualValues().loadActualValue().updateFileSize(value);
+    }
+
+    public void saveActualValue(DataOfEquipment dataOfEquipment){
+
+        FileOutputStream fos;
+        ObjectOutputStream oos;
+        try {
+            fos = new FileOutputStream("save_ventilation");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(dataOfEquipment);
+            oos.flush();
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
