@@ -18,9 +18,9 @@ public class AddAndCheckDataBase {
     long fileSizeCurrent;
 
     public AddAndCheckDataBase(){
-        File file = new File(PATH);
+//        File file = new File(PATH);
 
-        checkDirectory1(file);
+//        checkDirectory1(file);
     }
 
     private void checkDirectory(File file){
@@ -70,8 +70,6 @@ public class AddAndCheckDataBase {
     public void addToDataBase(File file){
         try {
             String fileName = file.getName().replace(".xls", "");
-
-            System.out.println(file.getPath());
 
             String[] fileNames= fileName.split(" ");
 

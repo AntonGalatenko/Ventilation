@@ -37,6 +37,8 @@ public class Repository {
         session.save(factory);
         session.getTransaction().commit();
         session.close();
+
+        System.out.println("adding file: " + factory.getLink());
     }
 
     public void updateItem(Factory factory){
@@ -53,6 +55,8 @@ public class Repository {
         session.delete(factory);
         session.getTransaction().commit();
         session.close();
+
+        System.out.println("deleting file: " + factory.getLink());
     }
 
     public boolean isFactoryExists(Factory factory){

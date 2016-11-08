@@ -12,10 +12,14 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
-    private final double versionNumber = 1.74;
+    private CompareDBandFiles compareDBandFiles;
+    private final double versionNumber = 1.75;
 
     public MyMainPanel(){
-        setTitle("Вентиляция ver" + versionNumber + " ТЕСТ");
+        compareDBandFiles = new CompareDBandFiles();
+        compareDBandFiles.start();
+
+        setTitle("Вентиляция ver" + versionNumber);
 
         BaseInfo baseInfo = BaseInfo.getInstance();
         Count count = new Count();
@@ -47,7 +51,7 @@ public class MyMainPanel extends JFrame{
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        new CompareDBandFiles();
+//        new CompareDBandFiles();
     }
 
 

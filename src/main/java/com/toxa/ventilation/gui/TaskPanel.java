@@ -67,7 +67,8 @@ public class TaskPanel extends JPanel{
     private JLabel dataBaseStatusLabel;
     private FactoryInfo factoryInfoNames;
     private FactoryInfo factoryInfoSimilar;
-    MouseListener mouseListenerSelectAll;
+    FocusListener focusListenerSelectAll;
+    String oldNameForModel;
 
 //    @Autowired
     private Repository repository = new Repository();
@@ -79,11 +80,15 @@ public class TaskPanel extends JPanel{
         baseInfo = BaseInfo.getInstance();
         baseInfo.setTaskPanel(this);
 
-        mouseListenerSelectAll = new MouseAdapter() {
+        focusListenerSelectAll = new FocusListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
+            public void focusGained(FocusEvent e) {
                 ((JTextField)e.getSource()).selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
             }
         };
 
@@ -136,12 +141,12 @@ public class TaskPanel extends JPanel{
             }
         });
 
-        saveExcelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddAndCheckDataBase();
-            }
-        });
+//        saveExcelButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                new AddAndCheckDataBase();
+//            }
+//        });
 
         hideShowResPanelButton.addActionListener(new ActionListener() {
             @Override
@@ -161,7 +166,18 @@ public class TaskPanel extends JPanel{
             }
         });
 
-        addTextFieldsToMouseListenerForSelectAllText();
+        companyNameLabel.addMouseListener(new MouseAdapter() {
+            public void  mouseClicked(MouseEvent e){
+                List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
+
+                if(list != null && list.size() > 0){
+                    new FactoryInfo(new MyTableModel(list));
+
+                }
+            }
+        });
+
+        addTextFieldsToFocusListenerForSelectAllText();
         setDefaultValues();
 
 
@@ -206,9 +222,10 @@ public class TaskPanel extends JPanel{
         List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
 
         if(list != null && list.size() > 0){
-            MyTableModel model = new MyTableModel(list);
-            if(factoryInfoNames == null)
-                factoryInfoNames = new FactoryInfo(model);
+            if(! getCompanyName().equals(oldNameForModel)){
+                new FactoryInfo(new MyTableModel(list));
+                oldNameForModel = getCompanyName();
+            }
         }
     }
 
@@ -239,15 +256,15 @@ public class TaskPanel extends JPanel{
         this.myMainPanel = myMainPanel;
     }
 
-    private void addTextFieldsToMouseListenerForSelectAllText(){
-        companyNameTextField.addMouseListener(mouseListenerSelectAll);
-        countryTextField.addMouseListener(mouseListenerSelectAll);
-        poultryHouseNumberTextField.addMouseListener(mouseListenerSelectAll);
-        headsNumberTextField.addMouseListener(mouseListenerSelectAll);
-        lengthTextField.addMouseListener(mouseListenerSelectAll);
-        widthTextField.addMouseListener(mouseListenerSelectAll);
-        heightMinTextField.addMouseListener(mouseListenerSelectAll);
-        heightMaxTextField.addMouseListener(mouseListenerSelectAll);
+    private void addTextFieldsToFocusListenerForSelectAllText(){
+        companyNameTextField.addFocusListener(focusListenerSelectAll);
+        countryTextField.addFocusListener(focusListenerSelectAll);
+        poultryHouseNumberTextField.addFocusListener(focusListenerSelectAll);
+        headsNumberTextField.addFocusListener(focusListenerSelectAll);
+        lengthTextField.addFocusListener(focusListenerSelectAll);
+        widthTextField.addFocusListener(focusListenerSelectAll);
+        heightMinTextField.addFocusListener(focusListenerSelectAll);
+        heightMaxTextField.addFocusListener(focusListenerSelectAll);
     }
 
     public void setDefaultValues() {

@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompareDBandFiles {
+public class CompareDBandFiles extends Thread{
 
     private AddAndCheckDataBase addAndCheckDataBase = new AddAndCheckDataBase();
     private BaseInfo baseInfo = BaseInfo.getInstance();
@@ -17,7 +17,8 @@ public class CompareDBandFiles {
     private List<String> filesList = new ArrayList<>();
     private Repository repository = new Repository();
 
-    public CompareDBandFiles(){
+    @Override
+    public void  run(){
         createDBList();
         createFilesList();
         compare();
@@ -71,11 +72,14 @@ public class CompareDBandFiles {
         List<String> different  = new ArrayList<>(filesList);
         different.removeAll(dbStrList);
 
+        if (different.size() == 33)
+            different.clear();
+
         System.out.println("add size: " + different.size());
 
         if(different.size() > 0)
             for(String s : different)
-                addAndCheckDataBase.addToDataBase(new File(s + ".xls"));
+                addAndCheckDataBase.addToDataBase(new File(s));
     }
 
     private Factory getFactoryByLink(String link){
@@ -85,11 +89,6 @@ public class CompareDBandFiles {
         return  null;
     }
 
-    private void compFileToDB(){
-
-    }
-
-
     private List<String> getDBPathList(){
         List<String> result = new ArrayList<>();
 
@@ -98,7 +97,5 @@ public class CompareDBandFiles {
 
         return result;
     }
-
-
 
 }

@@ -16,7 +16,7 @@ public class Main {
 
         setNimbusLookAndFeel();
 
-//        setLogFile();
+        setLogFile();
 
         mainPanel = new MyMainPanel();
     }
