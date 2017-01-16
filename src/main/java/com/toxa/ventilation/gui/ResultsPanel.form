@@ -297,7 +297,7 @@
             </constraints>
             <properties>
               <text value=""/>
-              <toolTipText value="Светозащита"/>
+              <toolTipText value="Ветрозащита"/>
             </properties>
           </component>
           <component id="ba719" class="javax.swing.JLabel" binding="airInletWallAirOneHeadLabel">

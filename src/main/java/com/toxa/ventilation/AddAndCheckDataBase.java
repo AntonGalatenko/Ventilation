@@ -8,6 +8,7 @@ import com.toxa.ventilation.model.repository.Repository;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class AddAndCheckDataBase {
 
@@ -19,7 +20,6 @@ public class AddAndCheckDataBase {
 
     public AddAndCheckDataBase(){
 //        File file = new File(PATH);
-
 //        checkDirectory1(file);
     }
 
@@ -35,9 +35,6 @@ public class AddAndCheckDataBase {
         DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
         dataOfEquipment.updateFileSize(fileSizeCurrent);
         baseInfo.saveActualValue(dataOfEquipment);
-
-
-
     }
 
     private long calcFilesSize(File file){
@@ -53,7 +50,6 @@ public class AddAndCheckDataBase {
         return result;
     }
 
-
     private void checkDirectory1(File file){
         File[] files = file.listFiles();
 
@@ -64,8 +60,6 @@ public class AddAndCheckDataBase {
                 addToDataBase(f);
         }
     }
-
-//    private
 
     public void addToDataBase(File file){
         try {
@@ -91,7 +85,7 @@ public class AddAndCheckDataBase {
             for(int i = 1; i < num; i++)
                 name += " " + fileNames[i];
 
-            repository.addItem(new Factory(2016, name, country, cage, Integer.parseInt(numOfHeads[0]) ,length, width, height, 0, file.getPath()));
+            repository.addItem(new Factory(Calendar.getInstance().get(Calendar.YEAR), name, country, cage, Integer.parseInt(numOfHeads[0]) ,length, width, height, 0, file.getPath()));
 
         } catch (Exception e){
             writeErrToFile(e.toString());

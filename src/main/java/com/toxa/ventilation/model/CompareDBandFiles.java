@@ -7,6 +7,7 @@ import com.toxa.ventilation.model.repository.Repository;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class CompareDBandFiles extends Thread{
@@ -25,7 +26,7 @@ public class CompareDBandFiles extends Thread{
     }
 
     private void createDBList(){
-        dbList = repository.getItemsByYear(2016);
+        dbList = repository.getItemsByYear(Calendar.getInstance().get(Calendar.YEAR));
     }
 
     private void createFilesList(){

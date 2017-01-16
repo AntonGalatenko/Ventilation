@@ -1,12 +1,16 @@
 package com.toxa.ventilation.gui;
 
-import com.toxa.ventilation.*;
+import com.toxa.ventilation.BaseInfo;
+import com.toxa.ventilation.Count;
+import com.toxa.ventilation.ExcelApachePOI;
+import com.toxa.ventilation.MyTableModel;
 import com.toxa.ventilation.model.entity.Factory;
 import com.toxa.ventilation.model.repository.Repository;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Calendar;
 import java.util.List;
 
 public class TaskPanel extends JPanel{
@@ -177,13 +181,17 @@ public class TaskPanel extends JPanel{
             }
         });
 
+        saveExcelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+
         addTextFieldsToFocusListenerForSelectAllText();
         setDefaultValues();
 
-
     }
-
-
 
     private boolean isAllDataOk(){
         try{
@@ -243,7 +251,7 @@ public class TaskPanel extends JPanel{
     }
 
     private Factory getFactory(){
-        return new Factory(2016, baseInfo.getCompanyName(), baseInfo.getCountry(), baseInfo.getCageName(), baseInfo.getHeadsNumber(),
+        return new Factory(Calendar.getInstance().get(Calendar.YEAR), baseInfo.getCompanyName(), baseInfo.getCountry(), baseInfo.getCageName(), baseInfo.getHeadsNumber(),
                 baseInfo.getBuildingLength(), baseInfo.getBuildingWidth(), baseInfo.getBuildingHeightMin(), baseInfo.getBuildingHeightMax(),
                 baseInfo.getFilePathName());
     }
