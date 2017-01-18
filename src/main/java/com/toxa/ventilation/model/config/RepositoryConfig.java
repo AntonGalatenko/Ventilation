@@ -2,6 +2,7 @@ package com.toxa.ventilation.model.config;
 
 
 import com.toxa.ventilation.BaseInfo;
+import com.toxa.ventilation.gui.LoadingPanel;
 import com.toxa.ventilation.model.repository.Repository;
 import org.hibernate.SessionFactory;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
@@ -43,6 +44,7 @@ public class RepositoryConfig {
 
     @Bean
     public static SessionFactory sessionFactory() {
+        LoadingPanel loadingPanel;
         try{
             if (sessionFactory == null){
                 sessionFactory = new LocalSessionFactoryBuilder(dataSource())
@@ -54,9 +56,10 @@ public class RepositoryConfig {
             try {
                 Runtime.getRuntime().exec("net START MySQL");
 
+                loadingPanel = new LoadingPanel();
                 int i = 0;
-                while (sessionFactory == null && i < 15){
 
+                while (sessionFactory == null && i < 15){
                     try{
                         if (sessionFactory == null){
                             sessionFactory = new LocalSessionFactoryBuilder(dataSource())
@@ -74,6 +77,8 @@ public class RepositoryConfig {
 
                     i++;
                 }
+
+                loadingPanel.setVisible(false);
 
                 if (sessionFactory == null)
                     BaseInfo.getInstance().setDataBaseStatus("База данных не подключена!!!");
