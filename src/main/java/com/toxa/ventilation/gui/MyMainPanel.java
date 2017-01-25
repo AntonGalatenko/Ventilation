@@ -13,7 +13,7 @@ public class MyMainPanel extends JFrame{
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
     private CompareDBandFiles compareDBandFiles;
-    private final double versionNumber = 1.8;
+    private final double versionNumber = 1.81;
 
     public MyMainPanel(){
         new CompareDBandFiles().start();

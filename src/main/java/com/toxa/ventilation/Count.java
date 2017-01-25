@@ -93,10 +93,10 @@ public class Count {
     }
 
     public int countAirInletWallAndAirOneHeadAndDistance(){
-        int result = (int)(Math.ceil(resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity() / baseInfo.getAirInletOnWallCapacity()));
+        int result = (int)(Math.ceil(resultsPanel.getFanRoofCount() * baseInfo.getFanRoofCapacity() / getAirInletWallCapacity()));
 
         if(result == 0)
-            result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirForAirInletForTunnelTypeOfVentilation() / baseInfo.getAirInletOnWallCapacity()));
+            result = (int)(Math.ceil(baseInfo.getHeadsNumber() * baseInfo.getAirForAirInletForTunnelTypeOfVentilation() / getAirInletWallCapacity()));
 
         if(result % 2 != 0)
             result++;
@@ -108,6 +108,15 @@ public class Count {
         countServomotor();
 
         return result;
+    }
+
+    private int getAirInletWallCapacity(){
+        double k = 1;
+
+        if(baseInfo.getBuildingWidth() > 10)
+            k = (baseInfo.getBuildingWidth() - 10) * 0.37 / 10 + 1;
+
+        return (int)(baseInfo.getAirInletOnWallCapacity() * k);
     }
 
     public int countShutter(){
