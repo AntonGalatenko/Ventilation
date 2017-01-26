@@ -94,8 +94,8 @@ public class DataOfEquipment implements Serializable {
     }
 
     public void setAirInletOfWallDefaultValue(){
-        airInletOfWall.put("ZWN3000", new Storage(4100, "Стеновой клапан"));
-        airInletOfWall.put("ZWN1500", new Storage(2050, "Стеновой клапан"));
+        airInletOfWall.put("ZWN3000", new Storage(3000, "Стеновой клапан"));
+        airInletOfWall.put("ZWN1500", new Storage(1500, "Стеновой клапан"));
     }
 
     public void setAirInletOfRoofDefaultValue(){

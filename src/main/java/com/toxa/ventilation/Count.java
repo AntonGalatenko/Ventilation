@@ -350,7 +350,7 @@ public class Count {
     }
 
     public double countAirInletWallAirOneHead(){
-        double airCapacity = resultsPanel.getAirInletOnWallCount() * baseInfo.getAirInletOnWallCapacity();
+        double airCapacity = resultsPanel.getAirInletOnWallCount() * getAirInletWallCapacity();
         double result = airCapacity / baseInfo.getHeadsNumber();
 
         resultsPanel.setAirInletWallAirOneHead(result);
