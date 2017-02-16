@@ -29,6 +29,41 @@ public class DataOfEquipment implements Serializable {
     private String lightTrapAirInletOfWall;
     private String lightTrapShutter;
 
+    private double airSummerTBKTunnel;
+    private double airSummerTBKShaft;
+    private double airSummerTBKEuro;
+    private double airWinterTBKTunnel;
+    private double airWinterTBKShaft;
+    private double airWinterTBKEuro;
+
+    private double airSummerTBCTunnel;
+    private double airSummerTBCShaft;
+    private double airSummerTBCEuro;
+    private double airWinterTBCTunnel;
+    private double airWinterTBCShaft;
+    private double airWinterTBCEuro;
+
+    private double airSummerTBBTunnel;
+    private double airSummerTBBShaft;
+    private double airSummerTBBEuro;
+    private double airWinterTBBTunnel;
+    private double airWinterTBBShaft;
+    private double airWinterTBBEuro;
+
+    private double airSummerTBRTunnel;
+    private double airSummerTBRShaft;
+    private double airSummerTBREuro;
+    private double airWinterTBRTunnel;
+    private double airWinterTBRShaft;
+    private double airWinterTBREuro;
+
+    private double airSummerNapolnikTunnel;
+//    private double airSummerNapolnikShaft;
+    private double airSummerNapolnikEuro;
+    private double airWinterNapolnikTunnel;
+//    private double airWinterNapolnikShaft;
+    private double airWinterNapolnikEuro;
+
     private String humidityWaterCirculation;
     private String[] composeChecked = new String[2];
     private String filePath;
@@ -66,6 +101,47 @@ public class DataOfEquipment implements Serializable {
         setFilePathDefaultValue();
 
         setLightTrapDefaultValue();
+
+        setAirInletDefaultValue();
+
+        System.out.println("setDefaultValues");
+    }
+
+    private void setAirInletDefaultValue() {
+        airSummerTBKTunnel = 12;
+        airSummerTBKShaft = 10;
+        airSummerTBKEuro = 10;
+        airWinterTBKTunnel = 0;
+        airWinterTBKShaft = 3;
+        airWinterTBKEuro = 3;
+
+        airSummerTBCTunnel = 9;
+        airSummerTBCShaft = 8;
+        airSummerTBCEuro = 8;
+        airWinterTBCTunnel = 0;
+        airWinterTBCShaft = 3;
+        airWinterTBCEuro = 3;
+
+        airSummerTBBTunnel = 14;
+        airSummerTBBShaft = 12;
+        airSummerTBBEuro = 12;
+        airWinterTBBTunnel = 0;
+        airWinterTBBShaft = 3;
+        airWinterTBBEuro = 3;
+
+        airSummerTBRTunnel = 16;
+        airSummerTBRShaft = 13;
+        airSummerTBREuro = 13;
+        airWinterTBRTunnel = 0;
+        airWinterTBRShaft = 3;
+        airWinterTBREuro = 3;
+
+        airSummerNapolnikTunnel = 12;
+//        airSummerNapolnikShaft = 9;
+        airSummerNapolnikEuro = 9;
+        airWinterNapolnikTunnel = 0;
+//        airWinterNapolnikShaft = 3;
+        airWinterNapolnikEuro = 3;
     }
 
     public void setFilePathDefaultValue(){
@@ -163,7 +239,8 @@ public class DataOfEquipment implements Serializable {
         humidity2.put("15.6x2.0", new Storage(15.6, "ПУН-13")); humidity2.put("16.2x2.0", new Storage(16.2, "ПУН-14")); humidity2.put("16.8x2.0", new Storage(16.8, "ПУН-20"));
         humidity2.put("17.4x2.0", new Storage(17.4, "ПУН-15"));
         humidity2.put("18.0x2.0", new Storage(18.0, "ПУН-16")); humidity2.put("18.6x2.0", new Storage(18.6, "ПУН-26")); humidity2.put("19.2x2.0", new Storage(19.2, "ПУН-23"));
-        humidity2.put("19.8x2.0", new Storage(19.8, "ПУН-25")); humidity2.put("20.4x2.0", new Storage(20.4, "ПУН-27")); humidity2.put("21.0x2.0", new Storage(21.0, "ПУН-24"));
+        humidity2.put("19.8x2.0", new Storage(19.8, "ПУН-25")); humidity2.put("20.4x2.0", new Storage(20.4, "ПУН-28")); humidity2.put("21.0x2.0", new Storage(21.0, "ПУН-24"));
+        humidity2.put("23.4x2.0", new Storage(23.4, "ПУН-27"));
 
         humidity15.put("6.0x1.5", new Storage(6.0, "ПУН23")); humidity15.put("6.6x1.5", new Storage(6.6, "ПУН23-01")); humidity15.put("7.2x1.5", new Storage(7.2, "ПУН23-02"));
         humidity15.put("7.8x1.5", new Storage(7.8, "ПУН23-03")); humidity15.put("8.4x1.5", new Storage(8.4, "ПУН23-04")); humidity15.put("9.0x1.5", new Storage(9.0, "ПУН23-05"));
@@ -337,7 +414,125 @@ public class DataOfEquipment implements Serializable {
         return filesSize;
     }
 
+    public double getAirSummerTBKTunnel() {
+        return airSummerTBKTunnel;
+    }
 
+    public double getAirSummerTBKShaft() {
+        return airSummerTBKShaft;
+    }
+
+    public double getAirSummerTBKEuro() {
+        return airSummerTBKEuro;
+    }
+
+    public double getAirWinterTBKTunnel() {
+        return airWinterTBKTunnel;
+    }
+
+    public double getAirWinterTBKShaft() {
+        return airWinterTBKShaft;
+    }
+
+    public double getAirWinterTBKEuro() {
+        return airWinterTBKEuro;
+    }
+
+    public double getAirSummerTBCTunnel() {
+        return airSummerTBCTunnel;
+    }
+
+    public double getAirSummerTBCShaft() {
+        return airSummerTBCShaft;
+    }
+
+    public double getAirSummerTBCEuro() {
+        return airSummerTBCEuro;
+    }
+
+    public double getAirWinterTBCTunnel() {
+        return airWinterTBCTunnel;
+    }
+
+    public double getAirWinterTBCShaft() {
+        return airWinterTBCShaft;
+    }
+
+    public double getAirWinterTBCEuro() {
+        return airWinterTBCEuro;
+    }
+
+    public double getAirSummerTBBTunnel() {
+        return airSummerTBBTunnel;
+    }
+
+    public double getAirSummerTBBShaft() {
+        return airSummerTBBShaft;
+    }
+
+    public double getAirSummerTBBEuro() {
+        return airSummerTBBEuro;
+    }
+
+    public double getAirWinterTBBTunnel() {
+        return airWinterTBBTunnel;
+    }
+
+    public double getAirWinterTBBShaft() {
+        return airWinterTBBShaft;
+    }
+
+    public double getAirWinterTBBEuro() {
+        return airWinterTBBEuro;
+    }
+
+    public double getAirSummerTBRTunnel() {
+        return airSummerTBRTunnel;
+    }
+
+    public double getAirSummerTBRShaft() {
+        return airSummerTBRShaft;
+    }
+
+    public double getAirSummerTBREuro() {
+        return airSummerTBREuro;
+    }
+
+    public double getAirWinterTBRTunnel() {
+        return airWinterTBRTunnel;
+    }
+
+    public double getAirWinterTBRShaft() {
+        return airWinterTBRShaft;
+    }
+
+    public double getAirWinterTBREuro() {
+        return airWinterTBREuro;
+    }
+
+    public double getAirSummerNapolnikTunnel() {
+        return airSummerNapolnikTunnel;
+    }
+
+//    public double getAirSummerNapolnikShaft() {
+//        return airSummerNapolnikShaft;
+//    }
+
+    public double getAirSummerNapolnikEuro() {
+        return airSummerNapolnikEuro;
+    }
+
+    public double getAirWinterNapolnikTunnel() {
+        return airWinterNapolnikTunnel;
+    }
+
+//    public double getAirWinterNapolnikShaft() {
+//        return airWinterNapolnikShaft;
+//    }
+
+    public double getAirWinterNapolnikEuro() {
+        return airWinterNapolnikEuro;
+    }
 
     public void updateYearsToView(Map<String, Boolean> yearsToView) {
         this.yearsToView = yearsToView;
@@ -470,4 +665,124 @@ public class DataOfEquipment implements Serializable {
         filesSize = value;
     }
 
+
+    public void updateAirSummerTBKTunnel(double airSummerTBKTunnel) {
+        this.airSummerTBKTunnel = airSummerTBKTunnel;
+    }
+
+    public void updateAirSummerTBKShaft(double airSummerTBKShaft) {
+        this.airSummerTBKShaft = airSummerTBKShaft;
+    }
+
+    public void updateAirSummerTBKEuro(double airSummerTBKEuro) {
+        this.airSummerTBKEuro = airSummerTBKEuro;
+    }
+
+    public void updateAirWinterTBKTunnel(double airWinterTBKTunnel) {
+        this.airWinterTBKTunnel = airWinterTBKTunnel;
+    }
+
+    public void updateAirWinterTBKShaft(double airWinterTBKShaft) {
+        this.airWinterTBKShaft = airWinterTBKShaft;
+    }
+
+    public void updateAirWinterTBKEuro(double airWinterTBKEuro) {
+        this.airWinterTBKEuro = airWinterTBKEuro;
+    }
+
+    public void updateAirSummerTBCTunnel(double airSummerTBCTunnel) {
+        this.airSummerTBCTunnel = airSummerTBCTunnel;
+    }
+
+    public void updateAirSummerTBCShaft(double airSummerTBCShaft) {
+        this.airSummerTBCShaft = airSummerTBCShaft;
+    }
+
+    public void updateAirSummerTBCEuro(double airSummerTBCEuro) {
+        this.airSummerTBCEuro = airSummerTBCEuro;
+    }
+
+    public void updateAirWinterTBCTunnel(double airWinterTBCTunnel) {
+        this.airWinterTBCTunnel = airWinterTBCTunnel;
+    }
+
+    public void updateAirWinterTBCShaft(double airWinterTBCShaft) {
+        this.airWinterTBCShaft = airWinterTBCShaft;
+    }
+
+    public void updateAirWinterTBCEuro(double airWinterTBCEuro) {
+        this.airWinterTBCEuro = airWinterTBCEuro;
+    }
+
+    public void updateAirSummerTBBTunnel(double airSummerTBBTunnel) {
+        this.airSummerTBBTunnel = airSummerTBBTunnel;
+    }
+
+    public void updateAirSummerTBBShaft(double airSummerTBBShaft) {
+        this.airSummerTBBShaft = airSummerTBBShaft;
+    }
+
+    public void updateAirSummerTBBEuro(double airSummerTBBEuro) {
+        this.airSummerTBBEuro = airSummerTBBEuro;
+    }
+
+    public void updateAirWinterTBBTunnel(double airWinterTBBTunnel) {
+        this.airWinterTBBTunnel = airWinterTBBTunnel;
+    }
+
+    public void updateAirWinterTBBShaft(double airWinterTBBShaft) {
+        this.airWinterTBBShaft = airWinterTBBShaft;
+    }
+
+    public void updateAirWinterTBBEuro(double airWinterTBBEuro) {
+        this.airWinterTBBEuro = airWinterTBBEuro;
+    }
+
+    public void updateAirSummerTBRTunnel(double airSummerTBRTunnel) {
+        this.airSummerTBRTunnel = airSummerTBRTunnel;
+    }
+
+    public void updateAirSummerTBRShaft(double airSummerTBRShaft) {
+        this.airSummerTBRShaft = airSummerTBRShaft;
+    }
+
+    public void updateAirSummerTBREuro(double airSummerTBREuro) {
+        this.airSummerTBREuro = airSummerTBREuro;
+    }
+
+    public void updateAirWinterTBRTunnel(double airWinterTBRTunnel) {
+        this.airWinterTBRTunnel = airWinterTBRTunnel;
+    }
+
+    public void updateAirWinterTBRShaft(double airWinterTBRShaft) {
+        this.airWinterTBRShaft = airWinterTBRShaft;
+    }
+
+    public void updateAirWinterTBREuro(double airWinterTBREuro) {
+        this.airWinterTBREuro = airWinterTBREuro;
+    }
+
+    public void updateAirSummerNapolnikTunnel(double airSummerNaporlikTunnel) {
+        this.airSummerNapolnikTunnel = airSummerNaporlikTunnel;
+    }
+
+//    public void updateAirSummerNapolnikShaft(double airSummerNaporlikShaft) {
+//        this.airSummerNapolnikShaft = airSummerNaporlikShaft;
+//    }
+
+    public void updateAirSummerNapolnikEuro(double airSummerNaporlikEuro) {
+        this.airSummerNapolnikEuro = airSummerNaporlikEuro;
+    }
+
+    public void updateAirWinterNapolnikTunnel(double airWinterNaporlikTunnel) {
+        this.airWinterNapolnikTunnel = airWinterNaporlikTunnel;
+    }
+
+//    public void updateAirWinterNapolnikShaft(double airWinterNaporlikShaft) {
+//        this.airWinterNapolnikShaft = airWinterNaporlikShaft;
+//    }
+
+    public void updateAirWinterNapolnikEuro(double airWinterNaporlikEuro) {
+        this.airWinterNapolnikEuro = airWinterNaporlikEuro;
+    }
 }

@@ -72,17 +72,18 @@ public class BaseInfo {
     }
 
     private void setTBKInfo(){
+        DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
         if(taskPanel.getVentilationType().equals("Тунель")){
-            taskPanel.setAirSummer(12);
-            taskPanel.setAirWinter(0);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBKTunnel());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBKTunnel());
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
         } else if(taskPanel.getVentilationType().equals("Евро")){
-            taskPanel.setAirSummer(9);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBKEuro());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBKEuro());
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         } else{
-            taskPanel.setAirSummer(9);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBKShaft());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBKShaft());
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
 
@@ -96,17 +97,18 @@ public class BaseInfo {
     }
 
     private void setTBCInfo(){
+        DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
         if(taskPanel.getVentilationType().equals("Тунель")){
-            taskPanel.setAirSummer(9);
-            taskPanel.setAirWinter(0);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBCTunnel());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBCTunnel());
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
         } else if(taskPanel.getVentilationType().equals("Евро")){
-            taskPanel.setAirSummer(6);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBCEuro());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBCEuro());
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         } else{
-            taskPanel.setAirSummer(6);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBCShaft());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBCShaft());
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
         firstGroup = 1;
@@ -119,17 +121,18 @@ public class BaseInfo {
     }
 
     private void setTBBInfo() {
+        DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
         if(taskPanel.getVentilationType().equals("Тунель")){
-            taskPanel.setAirSummer(14);
-            taskPanel.setAirWinter(0);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBBTunnel());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBBTunnel());
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
         } else if(taskPanel.getVentilationType().equals("Евро")){
-            taskPanel.setAirSummer(11);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBBEuro());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBBEuro());
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         } else{
-            taskPanel.setAirSummer(11);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBBShaft());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBBShaft());
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
 
@@ -143,17 +146,18 @@ public class BaseInfo {
     }
 
     private void setTBRInfo() {
+        DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
         if (taskPanel.getVentilationType().equals("Тунель")) {
-            taskPanel.setAirSummer(16);
-            taskPanel.setAirWinter(0);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBRTunnel());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBRTunnel());
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
         } else if(taskPanel.getVentilationType().equals("Евро")){
-            taskPanel.setAirSummer(13);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBREuro());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBREuro());
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         } else{
-            taskPanel.setAirSummer(13);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBRShaft());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBRShaft());
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
 
@@ -167,13 +171,14 @@ public class BaseInfo {
     }
 
     private void setNapolnikInfo() {
+        DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
         if (taskPanel.getVentilationType().equals("Тунель")) {
-            taskPanel.setAirSummer(12);
-            taskPanel.setAirWinter(0);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerNapolnikTunnel());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterNapolnikTunnel());
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
         } else {
-            taskPanel.setAirSummer(9);
-            taskPanel.setAirWinter(3);
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerNapolnikEuro());
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterNapolnikEuro());
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         }
 

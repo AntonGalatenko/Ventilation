@@ -19,7 +19,7 @@ public class CompareDBandFiles extends Thread{
     private Repository repository = new Repository();
 
     @Override
-    public void  run(){
+    public void run(){
         createDBList();
         createFilesList();
         compare();
@@ -33,7 +33,10 @@ public class CompareDBandFiles extends Thread{
         String path = baseInfo.getFilePathText();
         File file = new File(path);
 
-        filesList = getAllFilesPath(file);
+        File[] files = file.listFiles();
+        for(File f : files)
+        if(f.getName().equals("ПЧ") || f.getName().equals("ГЧ") || f.getName().equals("Напольник"))
+            filesList = getAllFilesPath(file);
     }
 
     private List<String> getAllFilesPath(File file) {
@@ -55,6 +58,9 @@ public class CompareDBandFiles extends Thread{
     }
 
     private void deleteItemFromDB(){
+        if(filesList.size() < 1)
+            return;
+
         List<String> dbStrList = getDBPathList();
 
         List<String> different  = new ArrayList<>(dbStrList);

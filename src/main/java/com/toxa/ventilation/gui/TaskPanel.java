@@ -2,12 +2,16 @@ package com.toxa.ventilation.gui;
 
 import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
+import com.toxa.ventilation.Data.ActualValues;
+import com.toxa.ventilation.Data.DataOfEquipment;
 import com.toxa.ventilation.ExcelApachePOI;
 import com.toxa.ventilation.MyTableModel;
 import com.toxa.ventilation.model.entity.Factory;
 import com.toxa.ventilation.model.repository.Repository;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Calendar;
@@ -19,6 +23,7 @@ public class TaskPanel extends JPanel{
     private Count count;
     private ExcelApachePOI excelApachePOI;
     private MyMainPanel myMainPanel;
+    DataOfEquipment dataOfEquipment;
 
     private JPanel mainPanel;
     private JTextField lengthTextField;
@@ -83,6 +88,7 @@ public class TaskPanel extends JPanel{
 
         baseInfo = BaseInfo.getInstance();
         baseInfo.setTaskPanel(this);
+        dataOfEquipment = new ActualValues().loadActualValue();
 
         focusListenerSelectAll = new FocusListener() {
             @Override
@@ -105,10 +111,9 @@ public class TaskPanel extends JPanel{
             }
         });
 
-        cageNameComboBox.addMouseListener(new MouseAdapter() {
+        cageNameLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
                 checkFactoryToSimilar();
             }
         });
@@ -187,10 +192,87 @@ public class TaskPanel extends JPanel{
             }
         });
 
+        airSummerSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if(getCageName().equals("ТБК")){
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirSummerTBKTunnel((double) airSummerSpinner.getValue());
+                    else if(getVentilationType().equals("Евро"))
+                        dataOfEquipment.updateAirSummerTBKEuro((double) airSummerSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirSummerTBKShaft((double) airSummerSpinner.getValue());
+                } else if(getCageName().equals("ТБЦ")){
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirSummerTBCTunnel((double) airSummerSpinner.getValue());
+                    else if(getVentilationType().equals("Евро"))
+                        dataOfEquipment.updateAirSummerTBCEuro((double) airSummerSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirSummerTBCShaft((double) airSummerSpinner.getValue());
+                } else if(getCageName().equals("ТББ") || getCageName().equals("ТБЦ(бр)")){
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirSummerTBBTunnel((double) airSummerSpinner.getValue());
+                    else if(getVentilationType().equals("Евро"))
+                        dataOfEquipment.updateAirSummerTBBEuro((double) airSummerSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirSummerTBBShaft((double) airSummerSpinner.getValue());
+                } else if(getCageName().equals("ТБР")){
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirSummerTBRTunnel((double) airSummerSpinner.getValue());
+                    else if(getVentilationType().equals("Евро"))
+                        dataOfEquipment.updateAirSummerTBREuro((double) airSummerSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirSummerTBRShaft((double) airSummerSpinner.getValue());
+                } else {
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirSummerNapolnikTunnel((double) airSummerSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirSummerNapolnikEuro((double) airSummerSpinner.getValue());
+                }
+            }
+        });
+        airWinterSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if(getCageName().equals("ТБК")){
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirWinterTBKTunnel((double) airWinterSpinner.getValue());
+                    else if(getVentilationType().equals("Евро"))
+                        dataOfEquipment.updateAirWinterTBKEuro((double) airWinterSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirWinterTBKShaft((double) airWinterSpinner.getValue());
+                } else if(getCageName().equals("ТБЦ")){
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirWinterTBCTunnel((double) airWinterSpinner.getValue());
+                    else if(getVentilationType().equals("Евро"))
+                        dataOfEquipment.updateAirWinterTBCEuro((double) airWinterSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirWinterTBCShaft((double) airWinterSpinner.getValue());
+                } else if(getCageName().equals("ТББ") || getCageName().equals("ТБЦ(бр)")){
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirWinterTBBTunnel((double) airWinterSpinner.getValue());
+                    else if(getVentilationType().equals("Евро"))
+                        dataOfEquipment.updateAirWinterTBBEuro((double) airWinterSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirWinterTBBShaft((double) airWinterSpinner.getValue());
+                } else if(getCageName().equals("ТБР")){
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirWinterTBRTunnel((double) airWinterSpinner.getValue());
+                    else if(getVentilationType().equals("Евро"))
+                        dataOfEquipment.updateAirWinterTBREuro((double) airWinterSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirWinterTBRShaft((double) airWinterSpinner.getValue());
+                } else {
+                    if(getVentilationType().equals("Тунель"))
+                        dataOfEquipment.updateAirWinterNapolnikTunnel((double) airWinterSpinner.getValue());
+                    else
+                        dataOfEquipment.updateAirWinterNapolnikEuro((double) airWinterSpinner.getValue());
+                }
+            }
+        });
 
         addTextFieldsToFocusListenerForSelectAllText();
         setDefaultValues();
-
     }
 
     private boolean isAllDataOk(){
@@ -276,8 +358,8 @@ public class TaskPanel extends JPanel{
     }
 
     public void setDefaultValues() {
-        airSummerSpinner.setModel(new SpinnerNumberModel(new Double(12), new Double(0), null, new Double(0.5)));
-        airWinterSpinner.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(0.5)));
+        airSummerSpinner.setModel(new SpinnerNumberModel(new Double(new ActualValues().loadActualValue().getAirSummerTBKTunnel()), new Double(0), null, new Double(0.2)));
+        airWinterSpinner.setModel(new SpinnerNumberModel(new Double(new ActualValues().loadActualValue().getAirWinterTBKTunnel()), new Double(0), null, new Double(0.2)));
         cageNumberComboBox1.setSelectedIndex(1);
 
         updateCageTiersComboBox();
@@ -305,43 +387,43 @@ public class TaskPanel extends JPanel{
     }
 
     public String getCompanyName() {
-//        if(companyNameTextField.getText().length() == 0)
-//            companyNameTextField.setText("Название фабирики");
+        if(companyNameTextField.getText().length() == 0)
+            companyNameTextField.setText("Название фабирики");
 
         return companyNameTextField.getText();
     }
 
     public String getCountry(){
-//        if(countryTextField.getText().length() == 0)
-//            countryTextField.setText("Страна");
+        if(countryTextField.getText().length() == 0)
+            countryTextField.setText("Страна");
 
         return countryTextField.getText();
     }
 
     public int getHeadsNumber() {
-//        if(headsNumberTextField.getText().length() == 0)
-//            headsNumberTextField.setText("96360");
+        if(headsNumberTextField.getText().length() == 0)
+            headsNumberTextField.setText("96360");
 
         return checkNumberField(headsNumberTextField).intValue();
     }
 
     public double getBuildingLength() {
-//        if(lengthTextField.getText().length() == 0)
-//            lengthTextField.setText("96");
+        if(lengthTextField.getText().length() == 0)
+            lengthTextField.setText("96");
 
         return checkNumberField(lengthTextField);
     }
 
     public double getBuildingWidth() {
-//        if(widthTextField.getText().length() == 0)
-//            widthTextField.setText("18");
+        if(widthTextField.getText().length() == 0)
+            widthTextField.setText("18");
 
         return checkNumberField(widthTextField);
     }
 
     public double getBuildingHeightMin() {
-//        if(heightMinTextField.getText().length() == 0)
-//            heightMinTextField.setText("4");
+        if(heightMinTextField.getText().length() == 0)
+            heightMinTextField.setText("4");
 
         return checkNumberField(heightMinTextField);
     }
@@ -462,4 +544,7 @@ public class TaskPanel extends JPanel{
         dataBaseStatusLabel.setForeground(Color.RED);
     }
 
+    public DataOfEquipment getDataOfEquipment() {
+        return dataOfEquipment;
+    }
 }

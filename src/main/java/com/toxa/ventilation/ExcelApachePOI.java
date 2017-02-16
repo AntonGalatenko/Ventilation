@@ -229,8 +229,6 @@ public class ExcelApachePOI {
             if(! text[1].equals("0")){
                 printText(text[0], i, 3);
                 printText(text[1], i++, 4);
-
-
             }
         }
     }
