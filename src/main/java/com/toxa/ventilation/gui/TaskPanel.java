@@ -4,6 +4,7 @@ import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
 import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.Data.DataOfEquipment;
+import com.toxa.ventilation.Enums.VentilationType;
 import com.toxa.ventilation.ExcelApachePOI;
 import com.toxa.ventilation.MyTableModel;
 import com.toxa.ventilation.model.entity.Factory;
@@ -195,79 +196,15 @@ public class TaskPanel extends JPanel{
         airSummerSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if(getCageName().equals("ТБК")){
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirSummerTBKTunnel((double) airSummerSpinner.getValue());
-                    else if(getVentilationType().equals("Евро"))
-                        dataOfEquipment.updateAirSummerTBKEuro((double) airSummerSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirSummerTBKShaft((double) airSummerSpinner.getValue());
-                } else if(getCageName().equals("ТБЦ")){
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirSummerTBCTunnel((double) airSummerSpinner.getValue());
-                    else if(getVentilationType().equals("Евро"))
-                        dataOfEquipment.updateAirSummerTBCEuro((double) airSummerSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirSummerTBCShaft((double) airSummerSpinner.getValue());
-                } else if(getCageName().equals("ТББ") || getCageName().equals("ТБЦ(бр)")){
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirSummerTBBTunnel((double) airSummerSpinner.getValue());
-                    else if(getVentilationType().equals("Евро"))
-                        dataOfEquipment.updateAirSummerTBBEuro((double) airSummerSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirSummerTBBShaft((double) airSummerSpinner.getValue());
-                } else if(getCageName().equals("ТБР")){
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirSummerTBRTunnel((double) airSummerSpinner.getValue());
-                    else if(getVentilationType().equals("Евро"))
-                        dataOfEquipment.updateAirSummerTBREuro((double) airSummerSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirSummerTBRShaft((double) airSummerSpinner.getValue());
-                } else {
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirSummerNapolnikTunnel((double) airSummerSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirSummerNapolnikEuro((double) airSummerSpinner.getValue());
-                }
+                dataOfEquipment.updateAirSummer((double) airSummerSpinner.getValue(), getCageName(), getVentilationType());
+
             }
         });
+
         airWinterSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if(getCageName().equals("ТБК")){
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirWinterTBKTunnel((double) airWinterSpinner.getValue());
-                    else if(getVentilationType().equals("Евро"))
-                        dataOfEquipment.updateAirWinterTBKEuro((double) airWinterSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirWinterTBKShaft((double) airWinterSpinner.getValue());
-                } else if(getCageName().equals("ТБЦ")){
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirWinterTBCTunnel((double) airWinterSpinner.getValue());
-                    else if(getVentilationType().equals("Евро"))
-                        dataOfEquipment.updateAirWinterTBCEuro((double) airWinterSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirWinterTBCShaft((double) airWinterSpinner.getValue());
-                } else if(getCageName().equals("ТББ") || getCageName().equals("ТБЦ(бр)")){
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirWinterTBBTunnel((double) airWinterSpinner.getValue());
-                    else if(getVentilationType().equals("Евро"))
-                        dataOfEquipment.updateAirWinterTBBEuro((double) airWinterSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirWinterTBBShaft((double) airWinterSpinner.getValue());
-                } else if(getCageName().equals("ТБР")){
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirWinterTBRTunnel((double) airWinterSpinner.getValue());
-                    else if(getVentilationType().equals("Евро"))
-                        dataOfEquipment.updateAirWinterTBREuro((double) airWinterSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirWinterTBRShaft((double) airWinterSpinner.getValue());
-                } else {
-                    if(getVentilationType().equals("Тунель"))
-                        dataOfEquipment.updateAirWinterNapolnikTunnel((double) airWinterSpinner.getValue());
-                    else
-                        dataOfEquipment.updateAirWinterNapolnikEuro((double) airWinterSpinner.getValue());
-                }
+                dataOfEquipment.updateAirWinter((double) airWinterSpinner.getValue(), getCageName(), getVentilationType());
             }
         });
 
@@ -358,8 +295,8 @@ public class TaskPanel extends JPanel{
     }
 
     public void setDefaultValues() {
-        airSummerSpinner.setModel(new SpinnerNumberModel(new Double(new ActualValues().loadActualValue().getAirSummerTBKTunnel()), new Double(0), null, new Double(0.2)));
-        airWinterSpinner.setModel(new SpinnerNumberModel(new Double(new ActualValues().loadActualValue().getAirWinterTBKTunnel()), new Double(0), null, new Double(0.2)));
+        airSummerSpinner.setModel(new SpinnerNumberModel(new Double(new ActualValues().loadActualValue().getAirSummerTBK(VentilationType.TUNNEL)), new Double(0), null, new Double(0.2)));
+        airWinterSpinner.setModel(new SpinnerNumberModel(new Double(new ActualValues().loadActualValue().getAirWinterTBK(VentilationType.TUNNEL)), new Double(0), null, new Double(0.2)));
         cageNumberComboBox1.setSelectedIndex(1);
 
         updateCageTiersComboBox();

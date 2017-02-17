@@ -3,7 +3,7 @@ package com.toxa.ventilation.gui;
 import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.Count;
 import com.toxa.ventilation.Data.DataOfEquipment;
-import com.toxa.ventilation.model.CompareDBandFiles;
+import com.toxa.ventilation.CompareDBandFiles;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class MyMainPanel extends JFrame{
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
     private CompareDBandFiles compareDBandFiles;
-    private final double versionNumber = 1.84;
+    private final double versionNumber = 1.85;
 
     public MyMainPanel(){
         new CompareDBandFiles().start();

@@ -2,6 +2,7 @@ package com.toxa.ventilation;
 
 import com.toxa.ventilation.Data.ActualValues;
 import com.toxa.ventilation.Data.DataOfEquipment;
+import com.toxa.ventilation.Enums.VentilationType;
 import com.toxa.ventilation.gui.ResultsPanel;
 import com.toxa.ventilation.gui.TaskPanel;
 import com.toxa.ventilation.json.CreateJson;
@@ -73,17 +74,17 @@ public class BaseInfo {
 
     private void setTBKInfo(){
         DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
-        if(taskPanel.getVentilationType().equals("Тунель")){
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBKTunnel());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBKTunnel());
+        if(taskPanel.getVentilationType() == VentilationType.TUNNEL.getName()){
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBK(VentilationType.TUNNEL));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBK(VentilationType.TUNNEL));
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
-        } else if(taskPanel.getVentilationType().equals("Евро")){
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBKEuro());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBKEuro());
+        } else if(taskPanel.getVentilationType() == VentilationType.EURO.getName()){
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBK(VentilationType.EURO));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBK(VentilationType.EURO));
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         } else{
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBKShaft());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBKShaft());
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBK(VentilationType.TEXHA));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBK(VentilationType.TEXHA));
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
 
@@ -98,17 +99,17 @@ public class BaseInfo {
 
     private void setTBCInfo(){
         DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
-        if(taskPanel.getVentilationType().equals("Тунель")){
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBCTunnel());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBCTunnel());
+        if(taskPanel.getVentilationType() == VentilationType.TUNNEL.getName()){
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBC(VentilationType.TUNNEL));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBC(VentilationType.TUNNEL));
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
-        } else if(taskPanel.getVentilationType().equals("Евро")){
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBCEuro());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBCEuro());
+        } else if(taskPanel.getVentilationType() == VentilationType.EURO.getName()){
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBC(VentilationType.EURO));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBC(VentilationType.EURO));
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         } else{
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBCShaft());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBCShaft());
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBC(VentilationType.TEXHA));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBC(VentilationType.TEXHA));
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
         firstGroup = 1;
@@ -122,17 +123,17 @@ public class BaseInfo {
 
     private void setTBBInfo() {
         DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
-        if(taskPanel.getVentilationType().equals("Тунель")){
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBBTunnel());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBBTunnel());
+        if(taskPanel.getVentilationType() == VentilationType.TUNNEL.getName()){
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBB(VentilationType.TUNNEL));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBB(VentilationType.TUNNEL));
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
-        } else if(taskPanel.getVentilationType().equals("Евро")){
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBBEuro());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBBEuro());
+        } else if(taskPanel.getVentilationType() == VentilationType.EURO.getName()){
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBB(VentilationType.EURO));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBB(VentilationType.EURO));
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         } else{
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBBShaft());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBBShaft());
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBB(VentilationType.TEXHA));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBB(VentilationType.TEXHA));
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
 
@@ -147,17 +148,17 @@ public class BaseInfo {
 
     private void setTBRInfo() {
         DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
-        if (taskPanel.getVentilationType().equals("Тунель")) {
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBRTunnel());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBRTunnel());
+        if (taskPanel.getVentilationType() == VentilationType.TUNNEL.getName()) {
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBR(VentilationType.TUNNEL));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBR(VentilationType.TUNNEL));
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
-        } else if(taskPanel.getVentilationType().equals("Евро")){
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBREuro());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBREuro());
+        } else if(taskPanel.getVentilationType() == VentilationType.EURO.getName()){
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBR(VentilationType.EURO));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBR(VentilationType.EURO));
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         } else{
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBRShaft());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBRShaft());
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerTBR(VentilationType.TEXHA));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBR(VentilationType.TEXHA));
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
 
@@ -172,13 +173,13 @@ public class BaseInfo {
 
     private void setNapolnikInfo() {
         DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
-        if (taskPanel.getVentilationType().equals("Тунель")) {
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerNapolnikTunnel());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterNapolnikTunnel());
+        if (taskPanel.getVentilationType() == VentilationType.TUNNEL.getName()) {
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerNapolnik(VentilationType.TUNNEL));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterNapolnik(VentilationType.TUNNEL));
             resultsPanel.setElementsOnPanelForTunnelVentilationType();
         } else {
-            taskPanel.setAirSummer(dataOfEquipment.getAirSummerNapolnikEuro());
-            taskPanel.setAirWinter(dataOfEquipment.getAirWinterNapolnikEuro());
+            taskPanel.setAirSummer(dataOfEquipment.getAirSummerNapolnik(VentilationType.EURO));
+            taskPanel.setAirWinter(dataOfEquipment.getAirWinterNapolnik(VentilationType.EURO));
             resultsPanel.setElementsOnPanelForEuroVentilationType();
         }
 

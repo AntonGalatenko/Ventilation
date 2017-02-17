@@ -1,7 +1,5 @@
-package com.toxa.ventilation.model;
+package com.toxa.ventilation;
 
-import com.toxa.ventilation.AddAndCheckDataBase;
-import com.toxa.ventilation.BaseInfo;
 import com.toxa.ventilation.model.entity.Factory;
 import com.toxa.ventilation.model.repository.Repository;
 
@@ -66,11 +64,14 @@ public class CompareDBandFiles extends Thread{
         List<String> different  = new ArrayList<>(dbStrList);
         different.removeAll(filesList);
 
-        System.out.println("delete size: " + different.size());
 
-        if(different.size() > 0)
+        if(different.size() > 0){
             for(String s : different)
                 repository.deleteItem(getFactoryByLink(s));
+
+            System.out.println("delete size: " + different.size());
+        }
+
     }
 
     private void addItemToDB(){
@@ -82,11 +83,13 @@ public class CompareDBandFiles extends Thread{
         if (different.size() == 33)
             different.clear();
 
-        System.out.println("add size: " + different.size());
-
-        if(different.size() > 0)
+        if(different.size() > 0){
             for(String s : different)
                 addAndCheckDataBase.addToDataBase(new File(s));
+
+            System.out.println("add size: " + different.size());
+        }
+
     }
 
     private Factory getFactoryByLink(String link){
