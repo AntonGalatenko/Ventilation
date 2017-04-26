@@ -628,7 +628,7 @@
           <component id="64829" class="javax.swing.JLabel" binding="heaterLabel">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="8" use-parent-layout="false">
-                <preferred-size width="50" height="-1"/>
+                <preferred-size width="80" height="-1"/>
               </grid>
             </constraints>
             <properties>

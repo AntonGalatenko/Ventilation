@@ -472,6 +472,13 @@ public class ResultsPanel extends JPanel{
             }
         });
 
+        heaterComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                count.countHeaterAndFanCirculation();
+            }
+        });
+
     }
 
     public void setTunnel(){

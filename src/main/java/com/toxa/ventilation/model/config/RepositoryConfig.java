@@ -59,23 +59,25 @@ public class RepositoryConfig {
                 loadingPanel = new LoadingPanel();
                 int i = 0;
 
-                while (sessionFactory == null && i < 15){
+                while (sessionFactory == null){
                     try{
                         if (sessionFactory == null){
                             sessionFactory = new LocalSessionFactoryBuilder(dataSource())
                                     .scanPackages("com.toxa.ventilation.model.entity")
                                     .addProperties(hibernateProperties())
                                     .buildSessionFactory();
-                        }
-                    } catch (SchemaManagementException e1){}
 
-                    try {
-                        Thread.sleep(1000);
+                            Thread.sleep(1000);
+
+                            i++;
+                            if(i > 15)
+                                break;
+                        }
+                    } catch (SchemaManagementException e1){
+                        e1.printStackTrace();
                     } catch (InterruptedException e1) {
                         e1.printStackTrace();
                     }
-
-                    i++;
                 }
 
                 loadingPanel.setVisible(false);
@@ -86,7 +88,6 @@ public class RepositoryConfig {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         }
 
         return sessionFactory;

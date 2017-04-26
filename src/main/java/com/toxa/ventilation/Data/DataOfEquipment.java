@@ -324,7 +324,7 @@ public class DataOfEquipment implements Serializable {
         cageArea.put("ТБЦ(бр)3", new Storage(2.4, "")); cageArea.put("ТБЦ(бр)4", new Storage(3.1, "")); cageArea.put("ТБЦ(бр)5", new Storage(3.7, ""));
         cageArea.put("ТБЦ(бр)6", new Storage(4.2, ""));
         cageArea.put("ТББ3", new Storage(3.2, "")); cageArea.put("ТББ4", new Storage(4.1, "")); cageArea.put("ТББ5", new Storage(5.0, ""));
-        cageArea.put("ТБР2", new Storage(1.9, "")); cageArea.put("ТБР3", new Storage(2.6, ""));
+        cageArea.put("ТБР2", new Storage(1.9, "")); cageArea.put("ТБР3", new Storage(2.6, "")); cageArea.put("ТБР4", new Storage(3.3, ""));
     }
 
     public void setComposeCheckedDefaultValue(){

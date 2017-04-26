@@ -19,8 +19,8 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
-    private CompareDBandFiles compareDBandFiles;
-    private final double versionNumber = 1.85;
+//    private CompareDBandFiles compareDBandFiles;
+    private final double versionNumber = 1.86;
 
     public MyMainPanel(){
         new CompareDBandFiles().start();

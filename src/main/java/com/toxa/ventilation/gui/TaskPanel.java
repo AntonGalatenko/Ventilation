@@ -57,7 +57,6 @@ public class TaskPanel extends JPanel{
     private JLabel ventilationTypeLabel;
     private JComboBox ventilationTypeComboBox;
     private JPanel climatInfoPanel;
-    private JLabel airQuantityLabel;
     private JLabel airSummerLabel;
     private JSpinner airSummerSpinner;
     private JLabel airWinterLabel;
@@ -75,6 +74,8 @@ public class TaskPanel extends JPanel{
     private JButton saveOpenExcelButton;
     private JButton hideShowResPanelButton;
     private JLabel dataBaseStatusLabel;
+    private JSpinner outsideSummerTempSpinner;
+    private JSpinner outsideWinterTempSpinner;
     private FactoryInfo factoryInfoNames;
     private FactoryInfo factoryInfoSimilar;
     FocusListener focusListenerSelectAll;
@@ -297,6 +298,7 @@ public class TaskPanel extends JPanel{
     public void setDefaultValues() {
         airSummerSpinner.setModel(new SpinnerNumberModel(new Double(new ActualValues().loadActualValue().getAirSummerTBK(VentilationType.TUNNEL)), new Double(0), null, new Double(0.2)));
         airWinterSpinner.setModel(new SpinnerNumberModel(new Double(new ActualValues().loadActualValue().getAirWinterTBK(VentilationType.TUNNEL)), new Double(0), null, new Double(0.2)));
+        outsideWinterTempSpinner.setModel(new SpinnerNumberModel(new Integer(-15), new Integer(-40), null, new Integer(1)));
         cageNumberComboBox1.setSelectedIndex(1);
 
         updateCageTiersComboBox();
@@ -427,6 +429,14 @@ public class TaskPanel extends JPanel{
 
     public void setAirWinter(double value) {
         airWinterSpinner.setValue(value);
+    }
+
+    public int getOutsideSummerTemp() {
+        return (int) outsideSummerTempSpinner.getValue();
+    }
+
+    public int getOutsideWinterTemp() {
+        return (int) outsideWinterTempSpinner.getValue();
     }
 
     private DefaultComboBoxModel getCageTiersForComboBoxModel(){

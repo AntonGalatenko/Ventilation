@@ -164,9 +164,12 @@ public class BaseInfo {
 
         firstGroup = 0;
 
-        cageTiers = Arrays.asList(3, 4);
+        cageTiers = Arrays.asList(2, 3, 4);
 
         resultsPanel.setAutomaticSensorCO2Spinner(0);
+
+        resultsPanel.enableElementsInPanel(resultsPanel.getHeaterRadioButton());
+        resultsPanel.enableElementsInPanel(resultsPanel.getFanCirculationRadioButton());
 
         taskPanel.setEnableCageTiredAndCageNumberComboBox();
     }
@@ -304,6 +307,14 @@ public class BaseInfo {
 
     public double getAirSummer() {
         return taskPanel.getAirSummer() * 0.99;
+    }
+
+    public int getOutsideSummerTemp(){
+        return taskPanel.getOutsideSummerTemp();
+    }
+
+    public int getOutsideWinterTemp(){
+        return taskPanel.getOutsideWinterTemp();
     }
 
     public int getAirForAirInletForTunnelTypeOfVentilation() {

@@ -276,15 +276,30 @@ public class Count {
     }
 
     public int countHeaterAndFanCirculation(){
-        double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() / 3;
+        double heightAverage = baseInfo.getBuildingHeightMin();
+        if(baseInfo.getBuildingHeightMax() != 0)
+            heightAverage = (heightAverage + baseInfo.getBuildingHeightMax()) / 2;
 
-        int result = (int) Math.ceil(needPower / baseInfo.getHeaterCapacity());
+        double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() * heightAverage;
+
+        int temp = 18;
+        if(baseInfo.getCageName().equals("ТБЦ") || baseInfo.getCageName().equals("ТББ"))
+            temp = 32;
+        int yTemp = temp - baseInfo.getOutsideWinterTemp();
+
+        needPower *= yTemp;
+        needPower *= 1.5;
+        needPower /= 860.61;
+
+        int currPower = 0;
+        if(baseInfo.getCageName().equals("ТБР") || baseInfo.getCageName().equals("ТБК"))
+            currPower = baseInfo.getHeadsNumber() * 10 / 1000;
+
+        int result = (int) Math.ceil((needPower - currPower) * 0.9 / baseInfo.getHeaterCapacity());
 
         if(result % 2 != 0)
             result ++;
 
-        if(baseInfo.getCageName().equals("ТБР"))
-            result /= 2;
 
         resultsPanel.setHeaterCount(result);
         resultsPanel.setFanCirculationCount(result);
