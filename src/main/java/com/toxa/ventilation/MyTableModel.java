@@ -122,10 +122,6 @@ public class MyTableModel implements TableModel {
         listeners.remove(l);
     }
 
-//    public List<Factory> getFactoryList(){
-//        return factoryList;
-//    }
-
     public String parseToString(double value){
         if(value % 1 == 0)
             return String.valueOf((int)value);

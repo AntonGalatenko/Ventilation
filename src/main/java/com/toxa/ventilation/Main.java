@@ -11,6 +11,7 @@ import java.io.PrintStream;
 
 public class Main {
     private static MyMainPanel mainPanel;
+    private static final double versionNumber = 1.88;
 
     public static void main(String[] args) {
 
@@ -18,7 +19,7 @@ public class Main {
 
         setLogFile();
 
-        mainPanel = new MyMainPanel();
+        mainPanel = new MyMainPanel(versionNumber);
     }
 
     public static Point getMainPanelLocation(){
@@ -50,8 +51,9 @@ public class Main {
                 ex.printStackTrace();
             }
         }
-
     }
 
-
+    public double getVersionNumber() {
+        return versionNumber;
+    }
 }

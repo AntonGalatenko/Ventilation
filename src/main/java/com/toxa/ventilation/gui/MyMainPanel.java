@@ -20,9 +20,8 @@ public class MyMainPanel extends JFrame{
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
 //    private CompareDBandFiles compareDBandFiles;
-    private final double versionNumber = 1.86;
 
-    public MyMainPanel(){
+    public MyMainPanel(double  versionNumber){
         new CompareDBandFiles().start();
 
         setTitle("Вентиляция ver" + versionNumber);

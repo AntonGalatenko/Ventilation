@@ -50,41 +50,6 @@ public class DataOfEquipment implements Serializable {
     private HashMap<Enum, Double> airSummerNapolnik = new HashMap<>();
     private HashMap<Enum, Double> airWinterNapolnik = new HashMap<>();
 
-//    private double airSummerTBKTunnel;
-//    private double airSummerTBKShaft;
-//    private double airSummerTBKEuro;
-//    private double airWinterTBKTunnel;
-//    private double airWinterTBKShaft;
-//    private double airWinterTBKEuro;
-//
-//    private double airSummerTBCTunnel;
-//    private double airSummerTBCShaft;
-//    private double airSummerTBCEuro;
-//    private double airWinterTBCTunnel;
-//    private double airWinterTBCShaft;
-//    private double airWinterTBCEuro;
-//
-//    private double airSummerTBBTunnel;
-//    private double airSummerTBBShaft;
-//    private double airSummerTBBEuro;
-//    private double airWinterTBBTunnel;
-//    private double airWinterTBBShaft;
-//    private double airWinterTBBEuro;
-//
-//    private double airSummerTBRTunnel;
-//    private double airSummerTBRShaft;
-//    private double airSummerTBREuro;
-//    private double airWinterTBRTunnel;
-//    private double airWinterTBRShaft;
-//    private double airWinterTBREuro;
-//
-//    private double airSummerNapolnikTunnel;
-//    private double airSummerNapolnikShaft;
-//    private double airSummerNapolnikEuro;
-//    private double airWinterNapolnikTunnel;
-//    private double airWinterNapolnikShaft;
-//    private double airWinterNapolnikEuro;
-
     private String humidityWaterCirculation;
     private String[] composeChecked = new String[2];
     private String filePath;
@@ -265,12 +230,13 @@ public class DataOfEquipment implements Serializable {
 
     public void setServomotorDefaultValue(){
         servomotor.put("TW150", new Storage(0, "Привод управления тросовкой"));
-        servomotor.put("RW45E", new Storage(0, "Привод управления тросовкой"));
+        servomotor.put("RAL120", new Storage(0, "Привод управления тросовкой"));
         servomotor.put("EGM-100A", new Storage(0, "Привод управления тросовкой"));
         servomotor.put("RDL200", new Storage(0, "Привод управления тросовкой"));
     }
 
     public void setEmergencyDefaultValue(){
+        emergency.put("САОПТ", new Storage(0, "Система аварийного открытия приточной вентиляции"));
         emergency.put("САОП1", new Storage(0, "Система аварийного открытия приточной вентиляции"));
         emergency.put("САОП2", new Storage(0, "Система аварийного открытия приточной вентиляции"));
         emergency.put("ESE24/2", new Storage(0, "Система аварийного открытия приточной вентиляции"));
@@ -278,7 +244,7 @@ public class DataOfEquipment implements Serializable {
     }
 
     public void setHumidityDefaultValue(){
-        humidity2.put("6.0x2.0", new Storage(6.0, "ПУН")); humidity2.put("6.6x2.0", new Storage(6.6, "ПУН-01")); humidity2.put("7.2x2.0", new Storage(7.2, "ПУН-02.0"));
+        humidity2.put("6.0x2.0", new Storage(6.0, "ПУН")); humidity2.put("6.6x2.0", new Storage(6.6, "ПУН-01")); humidity2.put("7.2x2.0", new Storage(7.2, "ПУН-02"));
         humidity2.put("7.8x2.0", new Storage(7.8, "ПУН-17"));
         humidity2.put("8.4x2.0", new Storage(8.4, "ПУН-03")); humidity2.put("9.0x2.0", new Storage(9.0, "ПУН-04")); humidity2.put("9.6x2.0", new Storage(9.6, "ПУН-05"));
         humidity2.put("10.2x2.0", new Storage(10.0, "ПУН-06"));

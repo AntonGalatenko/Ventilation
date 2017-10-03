@@ -283,12 +283,12 @@ public class Count {
         double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() * heightAverage;
 
         int temp = 18;
-        if(baseInfo.getCageName().equals("ТБЦ") || baseInfo.getCageName().equals("ТББ"))
+        if(baseInfo.getCageName().equals("ТБЦ") || baseInfo.getCageName().equals("ТББ") || baseInfo.getCageName().equals("ТБЦ(бр)"))
             temp = 32;
         int yTemp = temp - baseInfo.getOutsideWinterTemp();
 
         needPower *= yTemp;
-        needPower *= 1.5;
+        needPower *= 1.9;
         needPower /= 860.61;
 
         int currPower = 0;

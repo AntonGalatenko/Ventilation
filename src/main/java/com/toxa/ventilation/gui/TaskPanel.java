@@ -178,7 +178,7 @@ public class TaskPanel extends JPanel{
         });
 
         companyNameLabel.addMouseListener(new MouseAdapter() {
-            public void  mouseClicked(MouseEvent e){
+            public void mouseClicked(MouseEvent e){
                 List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
 
                 if(list != null && list.size() > 0){
@@ -262,10 +262,10 @@ public class TaskPanel extends JPanel{
 
         if(list.size() > 0){
             MyTableModel model = new MyTableModel(list);
-            if(factoryInfoSimilar == null){
+//            if(factoryInfoSimilar == null){
                 factoryInfoSimilar = new FactoryInfo(model);
                 factoryInfoSimilar.doSort();
-            }
+//            }
 
         }
     }

@@ -1,18 +1,14 @@
 package com.toxa.ventilation.model.config;
 
 
-import com.toxa.ventilation.BaseInfo;
-import com.toxa.ventilation.gui.LoadingPanel;
 import com.toxa.ventilation.model.repository.Repository;
 import org.hibernate.SessionFactory;
-import org.hibernate.tool.schema.spi.SchemaManagementException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
@@ -44,51 +40,51 @@ public class RepositoryConfig {
 
     @Bean
     public static SessionFactory sessionFactory() {
-        LoadingPanel loadingPanel;
-        try{
+//        LoadingPanel loadingPanel;
+//        try{
             if (sessionFactory == null){
                 sessionFactory = new LocalSessionFactoryBuilder(dataSource())
                         .scanPackages("com.toxa.ventilation.model.entity")
                         .addProperties(hibernateProperties())
                         .buildSessionFactory();
             }
-        } catch (SchemaManagementException e){
-            try {
-                Runtime.getRuntime().exec("net START MySQL");
-
-                loadingPanel = new LoadingPanel();
-                int i = 0;
-
-                while (sessionFactory == null){
-                    try{
-                        if (sessionFactory == null){
-                            sessionFactory = new LocalSessionFactoryBuilder(dataSource())
-                                    .scanPackages("com.toxa.ventilation.model.entity")
-                                    .addProperties(hibernateProperties())
-                                    .buildSessionFactory();
-
-                            Thread.sleep(1000);
-
-                            i++;
-                            if(i > 15)
-                                break;
-                        }
-                    } catch (SchemaManagementException e1){
-                        e1.printStackTrace();
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-
-                loadingPanel.setVisible(false);
-
-                if (sessionFactory == null)
-                    BaseInfo.getInstance().setDataBaseStatus("База данных не подключена!!!");
-
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
+//        } catch (SchemaManagementException e){
+//            try {
+//                Runtime.getRuntime().exec("net START MySQL");
+//
+//                loadingPanel = new LoadingPanel();
+//                int i = 0;
+//
+//                while (sessionFactory == null){
+//                    try{
+//                        if (sessionFactory == null){
+//                            sessionFactory = new LocalSessionFactoryBuilder(dataSource())
+//                                    .scanPackages("com.toxa.ventilation.model.entity")
+//                                    .addProperties(hibernateProperties())
+//                                    .buildSessionFactory();
+//
+//                            Thread.sleep(1000);
+//
+//                            i++;
+//                            if(i > 15)
+//                                break;
+//                        }
+//                    } catch (SchemaManagementException e1){
+//                        e1.printStackTrace();
+//                    } catch (InterruptedException e1) {
+//                        e1.printStackTrace();
+//                    }
+//                }
+//
+//                loadingPanel.setVisible(false);
+//
+//                if (sessionFactory == null)
+//                    BaseInfo.getInstance().setDataBaseStatus("База данных не подключена!!!");
+//
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+//        }
 
         return sessionFactory;
     }

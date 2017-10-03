@@ -25,6 +25,7 @@ public class FactoryInfo extends JDialog{
     private JCheckBox checkBox2013;
     private JCheckBox checkBox2014;
     private JCheckBox checkBox2015;
+    private JCheckBox checkBox2017;
     private Map<String, Boolean> yearsMap;
     private DataOfEquipment dataOfEquipment = new ActualValues().loadActualValue();
 
@@ -49,6 +50,18 @@ public class FactoryInfo extends JDialog{
                 JTable table = (JTable)e.getSource();
                 String path = (String)table.getValueAt(table.getSelectedRow(), 8);
                 openExcel(path);
+            }
+        });
+
+        checkBox2017.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    updateYears(checkBox2017, true);
+                else
+                    updateYears(checkBox2017, false);
+
+                setTableSorter();
             }
         });
 
@@ -127,10 +140,10 @@ public class FactoryInfo extends JDialog{
     }
 
     public int getHeight(int size){
-        int a = 62;
+        int a = 67;
 
         if(yearsPanel.isVisible())
-            a = 90;
+            a = 95;
 
         if(size > 30)
             return 570;
@@ -157,8 +170,9 @@ public class FactoryInfo extends JDialog{
         yearsMap.put("2014", false);
         yearsMap.put("2015", false);
         yearsMap.put("2016", false);
+        yearsMap.put("2017", false);
 
-        checkBox2016.setSelected(true);
+        checkBox2017.setSelected(true);
 
     }
 
@@ -172,6 +186,7 @@ public class FactoryInfo extends JDialog{
             checkBox2014.setSelected(yearsMap.get("2014"));
             checkBox2015.setSelected(yearsMap.get("2015"));
             checkBox2016.setSelected(yearsMap.get("2016"));
+            checkBox2017.setSelected(yearsMap.get("2017"));
         }
 
         yearsPanel.setVisible(true);
@@ -218,7 +233,7 @@ public class FactoryInfo extends JDialog{
         sorter.setSortsOnUpdates(true);
         table1.setRowSorter(sorter);
 
-        setPreferredSize(new Dimension(700, getHeight(table1.getRowCount())));
+        setPreferredSize(new Dimension(700, getHeight(table1.getRowCount()) + 5));
         pack();
     }
 
