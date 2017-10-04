@@ -144,7 +144,6 @@ public class SettingsPanel extends JDialog{
         });
 
         addEscapeListener(this);
-
     }
 
     public void setDefaultNamesDescriptionsCapacity(){
@@ -245,7 +244,6 @@ public class SettingsPanel extends JDialog{
                 dialog.dispose();
             }
         };
-
         dialog.getRootPane().registerKeyboardAction(escListener, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
 

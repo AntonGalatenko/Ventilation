@@ -81,11 +81,9 @@ public class TaskPanel extends JPanel{
     FocusListener focusListenerSelectAll;
     String oldNameForModel;
 
-//    @Autowired
     private Repository repository = new Repository();
 
     public TaskPanel(){
-
         add(mainPanel);
 
         baseInfo = BaseInfo.getInstance();
@@ -100,16 +98,14 @@ public class TaskPanel extends JPanel{
 
             @Override
             public void focusLost(FocusEvent e) {
-
             }
         };
 
         cageNameComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if(e.getStateChange() == 1){
+                if(e.getStateChange() == 1)
                     baseInfo.setInfo();
-                }
             }
         });
 
@@ -181,10 +177,8 @@ public class TaskPanel extends JPanel{
             public void mouseClicked(MouseEvent e){
                 List<Factory> list = repository.getNameEquals(companyNameTextField.getText());
 
-                if(list != null && list.size() > 0){
+                if(list != null && list.size() > 0)
                     new FactoryInfo(new MyTableModel(list));
-
-                }
             }
         });
 
@@ -198,7 +192,6 @@ public class TaskPanel extends JPanel{
             @Override
             public void stateChanged(ChangeEvent e) {
                 dataOfEquipment.updateAirSummer((double) airSummerSpinner.getValue(), getCageName(), getVentilationType());
-
             }
         });
 
@@ -384,6 +377,7 @@ public class TaskPanel extends JPanel{
             field.setBackground(Color.YELLOW);
             System.err.println(e.toString());
         }
+
         return new Double(-1);
     }
 

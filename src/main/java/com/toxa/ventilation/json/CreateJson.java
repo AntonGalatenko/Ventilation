@@ -59,8 +59,6 @@ public class CreateJson {
         for(int i = 0; i < list.size(); i++){
             String key = list.get(i);
 
-//            System.out.println(key);
-
             if(ent.getName() == null)
                 ent = new JsonEnt(parseValue(getDescriptionEquipment(key))[1]);
 
@@ -99,6 +97,7 @@ public class CreateJson {
                 ent.addEquipment(equipment);
             }
         }
+
         jsonObject.addEqu(ent);
     }
 

@@ -108,7 +108,6 @@ public class ResultsPanel extends JPanel{
     private JLabel airInletWallDistanceLabel;
 
     public ResultsPanel(Count c){
-
         count = c;
 
         add(mainPanel);
@@ -216,13 +215,6 @@ public class ResultsPanel extends JPanel{
             }
         });
 
-//        servomotorSpinner.addChangeListener(new ChangeListener() {
-//            @Override
-//            public void stateChanged(ChangeEvent e) {
-//                count.countEmergency();
-//            }
-//        });
-
         automaticComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -268,7 +260,6 @@ public class ResultsPanel extends JPanel{
                     count.countAirTotalCurrent();
                     count.countPadCoolAndAirInlet();
                 }
-
             }
         });
 
@@ -284,7 +275,6 @@ public class ResultsPanel extends JPanel{
                     count.countAirTotalCurrent();
                     count.countPadCoolAndAirInlet();
                 }
-
             }
         });
 
@@ -543,9 +533,6 @@ public class ResultsPanel extends JPanel{
 
             if(radioButton.isSelected()){
                 JCheckBox jcb = (JCheckBox)getNeededComponent(new JCheckBox(), p);
-//                if(jcb != null)
-//                    if(jcb.isSelected() && jcb.getText().length() == 0)
-//                        System.out.println("jcb.getText " + jcb.getText());
 
                 JComboBox name =(JComboBox) getNeededComponent(new JComboBox(), p);
                 JSpinner number = (JSpinner) getNeededComponent(new JSpinner(), p);
@@ -559,10 +546,6 @@ public class ResultsPanel extends JPanel{
                     if(jcb != null)
                         if(jcb.isSelected() && jcb.getText().length() == 0)
                             result.put("LightTrap=" + name.getSelectedItem().toString(), (int)number.getValue());
-
-
-//                    System.out.println("name.getSelectedItem().toString() " + name.getSelectedItem().toString());
-
 
                     if(radioButton.getText().equals("Вен-р крышний"))
                         result.put("Воздуховод Камин с клапаном батерфляй, 2000мм", (int)number.getValue());
@@ -585,10 +568,8 @@ public class ResultsPanel extends JPanel{
 
                         if(getAutomaticSSHUMName().length() > 0)
                             result.put(getAutomaticSSHUMName(), 1);
-
                     }
-                }
-                else
+                } else
                     selectedComponentsAddHumidity(result);
             }
         }
@@ -601,8 +582,6 @@ public class ResultsPanel extends JPanel{
 
         return result;
     }
-
-
 
     public void selectedComponentsAddHumidity(LinkedHashMap<String, Integer> result){
         String length1 = String.format("%.1f", getHumidityLength1()).replace(",", ".");
@@ -648,6 +627,7 @@ public class ResultsPanel extends JPanel{
         int i = 0;
         for(String key : map.keySet())
             result[i++] = key;
+
         return result;
     }
 
@@ -685,8 +665,7 @@ public class ResultsPanel extends JPanel{
             automaticSSHUMTextField.setEnabled(true);
             automaticOSHUMTextField.setText("ОЩУМ");
             automaticSSHUMTextField.setText("СЩУМ -01.000");
-        }
-        else{
+        } else{
             automaticOSHUMTextField.setEnabled(true);
             automaticSSHUMTextField.setEnabled(false);
             automaticOSHUMTextField.setText("РЩУВ2");

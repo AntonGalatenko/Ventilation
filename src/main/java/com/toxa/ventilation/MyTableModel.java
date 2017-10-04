@@ -109,7 +109,6 @@ public class MyTableModel implements TableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
     }
 
     @Override
@@ -122,11 +121,11 @@ public class MyTableModel implements TableModel {
         listeners.remove(l);
     }
 
-    public String parseToString(double value){
-        if(value % 1 == 0)
-            return String.valueOf((int)value);
-        else
-            return String.valueOf(value);
-    }
+//    public String parseToString(double value){
+//        if(value % 1 == 0)
+//            return String.valueOf((int)value);
+//        else
+//            return String.valueOf(value);
+//    }
 
 }

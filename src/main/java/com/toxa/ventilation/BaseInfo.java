@@ -112,6 +112,7 @@ public class BaseInfo {
             taskPanel.setAirWinter(dataOfEquipment.getAirWinterTBC(VentilationType.TEXHA));
             resultsPanel.setElementsOnPanelForTexhaVentilationType();
         }
+
         firstGroup = 1;
 
         cageTiers = Arrays.asList(3, 4, 5);

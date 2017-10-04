@@ -64,7 +64,6 @@ public class CompareDBandFiles extends Thread{
         List<String> different  = new ArrayList<>(dbStrList);
         different.removeAll(filesList);
 
-
         if(different.size() > 0){
             for(String s : different)
                 repository.deleteItem(getFactoryByLink(s));
@@ -96,6 +95,7 @@ public class CompareDBandFiles extends Thread{
         for(Factory f : dbList)
             if(f.getLink().equals(link))
                 return f;
+
         return  null;
     }
 

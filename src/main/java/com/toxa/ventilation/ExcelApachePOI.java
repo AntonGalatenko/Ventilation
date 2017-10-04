@@ -27,7 +27,6 @@ public class ExcelApachePOI {
     private boolean openExcel;
 
     public ExcelApachePOI(){
-
         wb = new HSSFWorkbook();
 
         setDefaultSheetSettings();
@@ -38,15 +37,11 @@ public class ExcelApachePOI {
         getJson();
 
         setAlignmentCenter();
-
     }
 
     private void getJson(){
         try {
-
             String json = new CreateJson().getJson();
-
-//            System.out.println(json);
 
             scanner = new Scanner(json);
 
@@ -73,7 +68,6 @@ public class ExcelApachePOI {
 
     private HSSFCellStyle getCellStyleTop(){
         HSSFCellStyle style = wb.createCellStyle();
-
         style.setBorderTop(HSSFCellStyle.BORDER_THIN);
 
         return style;
@@ -81,7 +75,6 @@ public class ExcelApachePOI {
 
     private HSSFCellStyle getCellStyleButton(){
         HSSFCellStyle style = wb.createCellStyle();
-
         style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 
         return style;
@@ -94,7 +87,6 @@ public class ExcelApachePOI {
         style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
         style.setBorderRight(HSSFCellStyle.BORDER_THIN);
         style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-
         style.setAlignment(HSSFCellStyle.ALIGN_LEFT);
 
         return style;
@@ -137,7 +129,6 @@ public class ExcelApachePOI {
         for(int i = 6; i < 8; i++)
             sheet.addMergedRegion(new CellRangeAddress(i, i, 3, 8));
 
-
         sheet.addMergedRegion(new CellRangeAddress(9, 9, 0, 1));
         sheet.addMergedRegion(new CellRangeAddress(46, 46, 7, 8));
         sheet.addMergedRegion(new CellRangeAddress(50, 50, 7, 8));
@@ -172,7 +163,6 @@ public class ExcelApachePOI {
     private void createHeadText() throws IOException {
         String line;
         String[] text;
-
         int i = 0;
 
         while (! (line = scanner.nextLine()).contains("}")){
@@ -200,9 +190,6 @@ public class ExcelApachePOI {
     private void createButtonText(){
         printText("Составил", 4, 46);
         printText("Проверил", 4, 50);
-
-//        printText("(Галатенко А.Н.)", 7, 46);
-//        printText("(Васильчук С.В.)", 7, 50);
 
         buttonTextCreateBorder();
 
@@ -258,12 +245,9 @@ public class ExcelApachePOI {
 
                 while (line.contains("\"")){
                     text = parseLine(line);
-
                     printText(text[1], c[i++], rowNum);
-
                     line = scanner.nextLine();
                 }
-
                 rowNum++;
             }
 
@@ -277,7 +261,6 @@ public class ExcelApachePOI {
         String[] text;
         String firstGroup = "";
         int group = 0;
-
         int i = 0;
 
         rowNum = 55;
@@ -316,8 +299,7 @@ public class ExcelApachePOI {
                 if(i < 3){
                     i += 3;
                     rowNum = 55;
-                }
-                else{
+                } else{
                     i += 2;
                     rowNum = 55;
                 }
@@ -337,11 +319,8 @@ public class ExcelApachePOI {
             cellTmp.setCellStyle(cell.getCellStyle());
             cellTmp.setCellValue(cell.getStringCellValue());
 
-
             startRowNum++;
         } while (startRowNum < finishRowNum);
-
-
     }
 
     private void groupTextLeftAlignment(int n){
@@ -359,7 +338,6 @@ public class ExcelApachePOI {
 
     private String[] parseGroup(String text){
         text = text.substring(text.indexOf("[") + 2, text.indexOf("]"));
-
         String[] result = text.split(", ");
 
         return result;
@@ -374,8 +352,6 @@ public class ExcelApachePOI {
             result[0] = result[0].substring(result[0].indexOf("\"") + 1, result[0].lastIndexOf("\""));
         if(result[1].contains("\"") && result[1] != null)
             result[1] = result[1].substring(result[1].indexOf("\"") + 1, result[1].lastIndexOf("\""));
-
-//        System.out.println(result[0] + " " + result[1]);
 
         return result;
     }
@@ -415,7 +391,6 @@ public class ExcelApachePOI {
         row = sheet.getRow(y);
         cell = row.createCell(x);
         cell.setCellValue(text);
-
     }
 
     private void printBorderText(String text, int x, int y){

@@ -19,7 +19,6 @@ public class MyMainPanel extends JFrame{
     private TaskPanel taskPanel;
     private ResultsPanel resultPanel;
     private MyToolBar toolBar;
-//    private CompareDBandFiles compareDBandFiles;
 
     public MyMainPanel(double  versionNumber){
         new CompareDBandFiles().start();
@@ -54,12 +53,10 @@ public class MyMainPanel extends JFrame{
 
         setVisible(true);
         pack();
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-
             }
 
             @Override
@@ -85,33 +82,25 @@ public class MyMainPanel extends JFrame{
 
             @Override
             public void windowClosed(WindowEvent e) {
-
             }
 
             @Override
             public void windowIconified(WindowEvent e) {
-
             }
 
             @Override
             public void windowDeiconified(WindowEvent e) {
-
             }
 
             @Override
             public void windowActivated(WindowEvent e) {
-
             }
 
             @Override
             public void windowDeactivated(WindowEvent e) {
-
             }
         });
 
-//        new CompareDBandFiles();
     }
-
-
 
 }

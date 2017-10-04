@@ -21,10 +21,6 @@ public class MyFileChooser extends JFrame {
 
         if(chooser.getSelectedFile().getPath() != null)
             path = chooser.getSelectedFile().getPath();
-
-//        System.out.println("MyFileChooser " + path);
-
-//        setPreferredSize(new Dimension(500, 200));
     }
 
     public String getPath(){

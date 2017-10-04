@@ -94,12 +94,6 @@ public class DataOfEquipment implements Serializable {
     }
 
     private void setAirInletDefaultValue() {
-//        airSummerTBKTunnel = 12;
-//        airSummerTBKShaft = 10;
-//        airSummerTBKEuro = 10;
-//        airWinterTBKTunnel = 0;
-//        airWinterTBKShaft = 3;
-//        airWinterTBKEuro = 3;
         airSummerTBK.put(VentilationType.TUNNEL, 12.0);
         airSummerTBK.put(VentilationType.EURO, 10.0);
         airSummerTBK.put(VentilationType.TEXHA, 10.0);
@@ -107,13 +101,6 @@ public class DataOfEquipment implements Serializable {
         airWinterTBK.put(VentilationType.EURO, 3.0);
         airWinterTBK.put(VentilationType.TEXHA, 3.0);
 
-
-//        airSummerTBCTunnel = 9;
-//        airSummerTBCShaft = 8;
-//        airSummerTBCEuro = 8;
-//        airWinterTBCTunnel = 0;
-//        airWinterTBCShaft = 3;
-//        airWinterTBCEuro = 3;
         airSummerTBC.put(VentilationType.TUNNEL, 9.0);
         airSummerTBC.put(VentilationType.EURO, 8.0);
         airSummerTBC.put(VentilationType.TEXHA, 8.0);
@@ -121,12 +108,6 @@ public class DataOfEquipment implements Serializable {
         airWinterTBC.put(VentilationType.EURO, 3.0);
         airWinterTBC.put(VentilationType.TEXHA, 3.0);
 
-//        airSummerTBBTunnel = 14;
-//        airSummerTBBShaft = 12;
-//        airSummerTBBEuro = 12;
-//        airWinterTBBTunnel = 0;
-//        airWinterTBBShaft = 3;
-//        airWinterTBBEuro = 3;
         airSummerTBB.put(VentilationType.TUNNEL, 14.0);
         airSummerTBB.put(VentilationType.EURO, 12.0);
         airSummerTBB.put(VentilationType.TEXHA, 12.0);
@@ -134,12 +115,6 @@ public class DataOfEquipment implements Serializable {
         airWinterTBB.put(VentilationType.EURO, 3.0);
         airWinterTBB.put(VentilationType.TEXHA, 3.0);
 
-//        airSummerTBRTunnel = 16;
-//        airSummerTBRShaft = 13;
-//        airSummerTBREuro = 13;
-//        airWinterTBRTunnel = 0;
-//        airWinterTBRShaft = 3;
-//        airWinterTBREuro = 3;
         airSummerTBR.put(VentilationType.TUNNEL, 16.0);
         airSummerTBR.put(VentilationType.EURO, 13.0);
         airSummerTBR.put(VentilationType.TEXHA, 13.0);
@@ -147,12 +122,6 @@ public class DataOfEquipment implements Serializable {
         airWinterTBR.put(VentilationType.EURO, 3.0);
         airWinterTBR.put(VentilationType.TEXHA, 3.0);
 
-//        airSummerNapolnikTunnel = 12;
-//        airSummerNapolnikShaft = 9;
-//        airSummerNapolnikEuro = 9;
-//        airWinterNapolnikTunnel = 0;
-//        airWinterNapolnikShaft = 3;
-//        airWinterNapolnikEuro = 3;
         airSummerNapolnik.put(VentilationType.TUNNEL, 12.0);
         airSummerNapolnik.put(VentilationType.EURO, 9.0);
         airWinterNapolnik.put(VentilationType.TUNNEL, 0.0);
@@ -469,121 +438,6 @@ public class DataOfEquipment implements Serializable {
     public double getAirWinterNapolnik(Enum type) {
         return airWinterNapolnik.get(type);
     }
-//    public double getAirSummerTBKShaft() {
-//        return airSummerTBKShaft;
-//    }
-//
-//    public double getAirSummerTBKEuro() {
-//        return airSummerTBKEuro;
-//    }
-
-//    public double getAirWinterTBKTunnel() {
-//        return airWinterTBKTunnel;
-//    }
-//
-//    public double getAirWinterTBKShaft() {
-//        return airWinterTBKShaft;
-//    }
-//
-//    public double getAirWinterTBKEuro() {
-//        return airWinterTBKEuro;
-//    }
-//
-//    public double getAirSummerTBCTunnel() {
-//        return airSummerTBCTunnel;
-//    }
-//
-//    public double getAirSummerTBCShaft() {
-//        return airSummerTBCShaft;
-//    }
-//
-//    public double getAirSummerTBCEuro() {
-//        return airSummerTBCEuro;
-//    }
-//
-//    public double getAirWinterTBCTunnel() {
-//        return airWinterTBCTunnel;
-//    }
-//
-//    public double getAirWinterTBCShaft() {
-//        return airWinterTBCShaft;
-//    }
-//
-//    public double getAirWinterTBCEuro() {
-//        return airWinterTBCEuro;
-//    }
-//
-//    public double getAirSummerTBBTunnel() {
-//        return airSummerTBBTunnel;
-//    }
-//
-//    public double getAirSummerTBBShaft() {
-//        return airSummerTBBShaft;
-//    }
-//
-//    public double getAirSummerTBBEuro() {
-//        return airSummerTBBEuro;
-//    }
-//
-//    public double getAirWinterTBBTunnel() {
-//        return airWinterTBBTunnel;
-//    }
-//
-//    public double getAirWinterTBBShaft() {
-//        return airWinterTBBShaft;
-//    }
-//
-//    public double getAirWinterTBBEuro() {
-//        return airWinterTBBEuro;
-//    }
-//
-//    public double getAirSummerTBRTunnel() {
-//        return airSummerTBRTunnel;
-//    }
-//
-//    public double getAirSummerTBRShaft() {
-//        return airSummerTBRShaft;
-//    }
-//
-//    public double getAirSummerTBREuro() {
-//        return airSummerTBREuro;
-//    }
-//
-//    public double getAirWinterTBRTunnel() {
-//        return airWinterTBRTunnel;
-//    }
-//
-//    public double getAirWinterTBRShaft() {
-//        return airWinterTBRShaft;
-//    }
-//
-//    public double getAirWinterTBREuro() {
-//        return airWinterTBREuro;
-//    }
-//
-//    public double getAirSummerNapolnikTunnel() {
-//        return airSummerNapolnikTunnel;
-//    }
-
-//    public double getAirSummerNapolnikShaft() {
-//        return airSummerNapolnikShaft;
-//    }
-
-//    public double getAirSummerNapolnikEuro() {
-//        return airSummerNapolnikEuro;
-//    }
-//
-//    public double getAirWinterNapolnikTunnel() {
-//        return airWinterNapolnikTunnel;
-//    }
-
-//    public double getAirWinterNapolnikShaft() {
-//        return airWinterNapolnikShaft;
-//    }
-
-//    public double getAirWinterNapolnikEuro() {
-//        return airWinterNapolnikEuro;
-//    }
 
     public void updateYearsToView(Map<String, Boolean> yearsToView) {
         this.yearsToView = yearsToView;
@@ -716,127 +570,6 @@ public class DataOfEquipment implements Serializable {
         filesSize = value;
     }
 
-//
-//    public void updateAirSummerTBKTunnel(double airSummerTBKTunnel) {
-//        this.airSummerTBKTunnel = airSummerTBKTunnel;
-//    }
-//
-//    public void updateAirSummerTBKShaft(double airSummerTBKShaft) {
-//        this.airSummerTBKShaft = airSummerTBKShaft;
-//    }
-//
-//    public void updateAirSummerTBKEuro(double airSummerTBKEuro) {
-//        this.airSummerTBKEuro = airSummerTBKEuro;
-//    }
-
-//    public void updateAirWinterTBKTunnel(double airWinterTBKTunnel) {
-//        this.airWinterTBKTunnel = airWinterTBKTunnel;
-//    }
-//
-//    public void updateAirWinterTBKShaft(double airWinterTBKShaft) {
-//        this.airWinterTBKShaft = airWinterTBKShaft;
-//    }
-//
-//    public void updateAirWinterTBKEuro(double airWinterTBKEuro) {
-//        this.airWinterTBKEuro = airWinterTBKEuro;
-//    }
-//
-//    public void updateAirSummerTBCTunnel(double airSummerTBCTunnel) {
-//        this.airSummerTBCTunnel = airSummerTBCTunnel;
-//    }
-//
-//    public void updateAirSummerTBCShaft(double airSummerTBCShaft) {
-//        this.airSummerTBCShaft = airSummerTBCShaft;
-//    }
-//
-//    public void updateAirSummerTBCEuro(double airSummerTBCEuro) {
-//        this.airSummerTBCEuro = airSummerTBCEuro;
-//    }
-//
-//    public void updateAirWinterTBCTunnel(double airWinterTBCTunnel) {
-//        this.airWinterTBCTunnel = airWinterTBCTunnel;
-//    }
-//
-//    public void updateAirWinterTBCShaft(double airWinterTBCShaft) {
-//        this.airWinterTBCShaft = airWinterTBCShaft;
-//    }
-//
-//    public void updateAirWinterTBCEuro(double airWinterTBCEuro) {
-//        this.airWinterTBCEuro = airWinterTBCEuro;
-//    }
-//
-//    public void updateAirSummerTBBTunnel(double airSummerTBBTunnel) {
-//        this.airSummerTBBTunnel = airSummerTBBTunnel;
-//    }
-//
-//    public void updateAirSummerTBBShaft(double airSummerTBBShaft) {
-//        this.airSummerTBBShaft = airSummerTBBShaft;
-//    }
-//
-//    public void updateAirSummerTBBEuro(double airSummerTBBEuro) {
-//        this.airSummerTBBEuro = airSummerTBBEuro;
-//    }
-//
-//    public void updateAirWinterTBBTunnel(double airWinterTBBTunnel) {
-//        this.airWinterTBBTunnel = airWinterTBBTunnel;
-//    }
-//
-//    public void updateAirWinterTBBShaft(double airWinterTBBShaft) {
-//        this.airWinterTBBShaft = airWinterTBBShaft;
-//    }
-//
-//    public void updateAirWinterTBBEuro(double airWinterTBBEuro) {
-//        this.airWinterTBBEuro = airWinterTBBEuro;
-//    }
-//
-//    public void updateAirSummerTBRTunnel(double airSummerTBRTunnel) {
-//        this.airSummerTBRTunnel = airSummerTBRTunnel;
-//    }
-//
-//    public void updateAirSummerTBRShaft(double airSummerTBRShaft) {
-//        this.airSummerTBRShaft = airSummerTBRShaft;
-//    }
-//
-//    public void updateAirSummerTBREuro(double airSummerTBREuro) {
-//        this.airSummerTBREuro = airSummerTBREuro;
-//    }
-//
-//    public void updateAirWinterTBRTunnel(double airWinterTBRTunnel) {
-//        this.airWinterTBRTunnel = airWinterTBRTunnel;
-//    }
-//
-//    public void updateAirWinterTBRShaft(double airWinterTBRShaft) {
-//        this.airWinterTBRShaft = airWinterTBRShaft;
-//    }
-//
-//    public void updateAirWinterTBREuro(double airWinterTBREuro) {
-//        this.airWinterTBREuro = airWinterTBREuro;
-//    }
-
-//    public void updateAirSummerNapolnikTunnel(double airSummerNaporlikTunnel) {
-//        this.airSummerNapolnikTunnel = airSummerNaporlikTunnel;
-//    }
-
-//    public void updateAirSummerNapolnikShaft(double airSummerNaporlikShaft) {
-//        this.airSummerNapolnikShaft = airSummerNaporlikShaft;
-//    }
-
-//    public void updateAirSummerNapolnikEuro(double airSummerNaporlikEuro) {
-//        this.airSummerNapolnikEuro = airSummerNaporlikEuro;
-//    }
-//
-//    public void updateAirWinterNapolnikTunnel(double airWinterNaporlikTunnel) {
-//        this.airWinterNapolnikTunnel = airWinterNaporlikTunnel;
-//    }
-
-//    public void updateAirWinterNapolnikShaft(double airWinterNaporlikShaft) {
-//        this.airWinterNapolnikShaft = airWinterNaporlikShaft;
-//    }
-
-//    public void updateAirWinterNapolnikEuro(double airWinterNaporlikEuro) {
-//        this.airWinterNapolnikEuro = airWinterNaporlikEuro;
-//    }
-
     public void updateAirSummer(double value, String cageName, String ventilationType) {
         if(cageName == CageType.TBK.getName())
             airSummerTBK.replace(VentilationType.getType(ventilationType), value);
@@ -862,6 +595,5 @@ public class DataOfEquipment implements Serializable {
         else if(cageName == CageType.NAPOLNIK.getName())
             airWinterNapolnik.replace(VentilationType.getType(ventilationType), value);
     }
-
 
 }

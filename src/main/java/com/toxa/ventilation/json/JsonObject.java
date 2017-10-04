@@ -63,8 +63,6 @@ public class JsonObject {
     }
 
     public void setGroups(LinkedHashMap<String, Integer[]> groups) {
-//        if(this.groups)
-
         this.groups = groups;
     }
 }
