@@ -265,8 +265,8 @@ public class Count {
     }
 
     public int countAirInletPadCool(){
-        int resultFaceSide = (int) (baseInfo.getHumidityLength1() / 3) * baseInfo.getHumidityCount1();
-        int resultOneSide = (int)(baseInfo.getHumidityLength2() / 3) * baseInfo.getHumidityCount2();
+        int resultFaceSide = (int) ((baseInfo.getHumidityLength1() + 0.6) / 3) * baseInfo.getHumidityCount1();
+        int resultOneSide = (int)((baseInfo.getHumidityLength2() + 0.6) / 3) * baseInfo.getHumidityCount2();
         int result = resultFaceSide + resultOneSide;
 
         resultsPanel.setAirInletForPadCoolCount(result);
@@ -349,10 +349,12 @@ public class Count {
         double buildSquare = baseInfo.getBuildingWidth() * heightAverage;
 
         double cageSquare = 0;
-        if(! baseInfo.getCageName().equals("Напольник"))
+        if(! baseInfo.getCageName().equals("Напольник")){
             cageSquare = (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers1())) * baseInfo.getCageNumber1();
-        if(baseInfo.getCageNumber2() != 0)
-            cageSquare += (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers2())) * baseInfo.getCageNumber2();
+
+            if(baseInfo.getCageNumber2() != 0)
+                cageSquare += (baseInfo.getCageArea(baseInfo.getCageName() + baseInfo.getCageTiers2())) * baseInfo.getCageNumber2();
+        }
 
         double totalSquare = buildSquare - cageSquare;
         double result = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity() / totalSquare / 3600;
