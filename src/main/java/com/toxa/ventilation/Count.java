@@ -276,37 +276,83 @@ public class Count {
     }
 
     public int countHeaterAndFanCirculation(){
-        double heightAverage = baseInfo.getBuildingHeightMin();
-        if(baseInfo.getBuildingHeightMax() != 0)
-            heightAverage = (heightAverage + baseInfo.getBuildingHeightMax()) / 2;
 
-        double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() * heightAverage;
+        double [] airCapMin = {0.074, 0.125, 0.21, 0.285, 0.353, 0.417, 0.479/*, 0.537, 0.594*/};
+        double [] weight = {0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6/*, 0.7, 0.8*/};
+
+        double sideSquare = baseInfo.getBuildingLength() * baseInfo.getBuildingHeightMin() * 2;
+        double faceSquare = baseInfo.getBuildingWidth() * baseInfo.getBuildingHeightMin();
+        double roofSquare = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength();
+        double totalSideSquare = sideSquare + faceSquare;
 
         int temp = 18;
-        if(baseInfo.getCageName().equals("ТБЦ") || baseInfo.getCageName().equals("ТББ") || baseInfo.getCageName().equals("ТБЦ(бр)"))
+        if(baseInfo.getCageName().equals("ТБЦ") || baseInfo.getCageName().equals("ТББ") || baseInfo.getCageName().equals("ТБЦ(бр)")
+                || baseInfo.getCageName().equals("Напольник"))
             temp = 32;
-        int yTemp = temp - baseInfo.getOutsideWinterTemp();
+        int deltaTemp = temp - baseInfo.getOutsideWinterTemp();
 
-        needPower *= yTemp;
-        needPower *= 1.9;
-        needPower /= 860.61;
+        double qSide = totalSideSquare * deltaTemp / 2.08 / 1000;
+        double qRoof = roofSquare * deltaTemp / 3.13 / 1000;
 
-        int currPower = 0;
-        if(baseInfo.getCageName().equals("ТБР") || baseInfo.getCageName().equals("ТБК"))
-            currPower = baseInfo.getHeadsNumber() * 10 / 1000;
+        double airCapacity, m, q, qExist, needPowerTemp;
+        double needPower = 0;
 
-        int result = (int) Math.ceil((needPower - currPower) * 0.9 / baseInfo.getHeaterCapacity());
+        for(int i = 0; i < airCapMin.length; i++){
+            airCapacity = baseInfo.getHeadsNumber() * airCapMin[i];
+            m = airCapacity * 1.395;
+            q = m * deltaTemp * 1.005 / 3600;
 
+            qExist = baseInfo.getHeadsNumber() * weight[i] * 11.6 / 3600;
+
+            needPowerTemp = qSide + qRoof + q - qExist;
+
+            if(needPowerTemp > needPower)
+                needPower = needPowerTemp;
+        }
+
+        int result = (int) (needPower / baseInfo.getHeaterCapacity());
         if(result % 2 != 0)
             result ++;
-
 
         resultsPanel.setHeaterCount(result);
         resultsPanel.setFanCirculationCount(result);
         resultsPanel.setHeaterNeedPower(needPower);
 
-        return  result;
+        return result;
     }
+
+//    public int countHeaterAndFanCirculationOLD(){
+//        double heightAverage = baseInfo.getBuildingHeightMin();
+//        if(baseInfo.getBuildingHeightMax() != 0)
+//            heightAverage = (heightAverage + baseInfo.getBuildingHeightMax()) / 2;
+//
+//        double needPower = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength() * heightAverage;
+//
+//        int temp = 18;
+//        if(baseInfo.getCageName().equals("ТБЦ") || baseInfo.getCageName().equals("ТББ") || baseInfo.getCageName().equals("ТБЦ(бр)"))
+//            temp = 32;
+//        int yTemp = temp - baseInfo.getOutsideWinterTemp();
+//
+//        needPower *= yTemp;
+//        needPower *= 1.9;
+//        needPower /= 860.61;
+//
+//        int currPower = 0;
+//        if(baseInfo.getCageName().equals("ТБР") || baseInfo.getCageName().equals("ТБК"))
+//            currPower = baseInfo.getHeadsNumber() * 10 / 1000;
+//
+//        int result = (int) Math.ceil((needPower - currPower) * 0.9 / baseInfo.getHeaterCapacity());
+//
+//        if(result % 2 != 0)
+//            result ++;
+//
+//
+//        resultsPanel.setHeaterCount(result);
+//        resultsPanel.setFanCirculationCount(result);
+//        resultsPanel.setHeaterNeedPower(needPower);
+//
+//        return  result;
+//    }
 
     public double countAirSummerCurrent(){
         double airSummerCount = resultsPanel.getFan50Count() * baseInfo.getFan50Capacity();
