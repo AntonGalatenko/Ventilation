@@ -310,7 +310,7 @@ public class Count {
                 needPower = needPowerTemp;
         }
 
-        int result = (int) (needPower / baseInfo.getHeaterCapacity());
+        int result = (int) Math.ceil(needPower / baseInfo.getHeaterCapacity());
         if(result % 2 != 0)
             result ++;
 
