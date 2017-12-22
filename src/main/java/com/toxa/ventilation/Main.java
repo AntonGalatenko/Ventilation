@@ -11,7 +11,7 @@ import java.io.PrintStream;
 
 public class Main {
     private static MyMainPanel mainPanel;
-    private static final double versionNumber = 1.891;
+    private static final double versionNumber = 1.892;
 
     public static void main(String[] args) {
 

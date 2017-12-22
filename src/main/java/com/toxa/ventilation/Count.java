@@ -279,25 +279,28 @@ public class Count {
 
         double [] airCapMin = {0.074, 0.125, 0.21, 0.285, 0.353, 0.417, 0.479/*, 0.537, 0.594*/};
         double [] weight = {0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6/*, 0.7, 0.8*/};
+        int [] tempCurrent = {32, 32, 30, 30, 28, 28, 28/*, 0.7, 0.8*/};
 
         double sideSquare = baseInfo.getBuildingLength() * baseInfo.getBuildingHeightMin() * 2;
         double faceSquare = baseInfo.getBuildingWidth() * baseInfo.getBuildingHeightMin();
         double roofSquare = baseInfo.getBuildingWidth() * baseInfo.getBuildingLength();
         double totalSideSquare = sideSquare + faceSquare;
 
-        int temp = 18;
-        if(baseInfo.getCageName().equals("ТБЦ") || baseInfo.getCageName().equals("ТББ") || baseInfo.getCageName().equals("ТБЦ(бр)")
-                || baseInfo.getCageName().equals("Напольник"))
-            temp = 32;
-        int deltaTemp = temp - baseInfo.getOutsideWinterTemp();
+//        int temp = 18;
+//        if(baseInfo.getCageName().equals("ТБЦ") || baseInfo.getCageName().equals("ТББ") || baseInfo.getCageName().equals("ТБЦ(бр)")
+//                || baseInfo.getCageName().equals("Напольник"))
+        int deltaTemp;
 
-        double qSide = totalSideSquare * deltaTemp / 2.08 / 1000;
-        double qRoof = roofSquare * deltaTemp / 3.13 / 1000;
+        double qSide, qRoof;
 
         double airCapacity, m, q, qExist, needPowerTemp;
         double needPower = 0;
 
         for(int i = 0; i < airCapMin.length; i++){
+            deltaTemp = tempCurrent[i] - baseInfo.getOutsideWinterTemp();
+            qSide = totalSideSquare * deltaTemp / 2.08 / 1000;
+            qRoof = roofSquare * deltaTemp / 3.13 / 1000;
+
             airCapacity = baseInfo.getHeadsNumber() * airCapMin[i];
             m = airCapacity * 1.395;
             q = m * deltaTemp * 1.005 / 3600;
